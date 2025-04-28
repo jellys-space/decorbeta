@@ -37,9 +37,9 @@ window.addEventListener('mousemove', function(e) {
   
         // Circular random position
         const angle = Math.random() * 2 * Math.PI;
-        const radius = 90; // distance from center
-        const centerX = 90;
-        const centerY = 90;
+        const radius = 120; // distance from center
+        const centerX = 120;
+        const centerY = 120;
   
         sparkle.style.left = `${centerX + radius * Math.cos(angle) - size / 2}px`;
         sparkle.style.top = `${centerY + radius * Math.sin(angle) - size / 2}px`;
