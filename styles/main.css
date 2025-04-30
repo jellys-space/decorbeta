@@ -498,7 +498,7 @@ header h1 {
 }
 
 /* ========== MOBILE OVERRIDES: DECORATION MODAL ========== */
-@media screen and (max-width: 600px) {
+/* @media screen and (max-width: 600px) {
   .category-banner img {
     max-width: 90vw;
   }
@@ -545,4 +545,4 @@ header h1 {
     font-size: 1.5rem !important;
     padding: 0.85rem 3.4rem !important;
   }
-}
+} */
