@@ -380,22 +380,18 @@ header h1 {
   transform: scale(0.95);
 }
 
-#decorationModal .modal-content::before {
-  display: none;
-}
-
-#decorationModal .modal-content {
+/* Modal content container */
+.modal-content {
   background-color: #272727;
   border: 4px solid #1f1f1f;
   box-shadow: 0px 4px 10px rgba(0,0,0,0.36);
   padding: 2.5rem;
-  width: 500px; /* Force fixed width */
-  max-width: none; /* Remove scaling limit */
+  width: 100%;
+  max-width: 500px;
   border-radius: 16px;
   text-align: center;
   color: #fff;
 }
-
 
 /* BIGGER image container */
 .modal-images {
@@ -428,7 +424,7 @@ header h1 {
   transform: scale(1.08);
 }
 
-/* BIGGER text */
+/* Text elements */
 .modal-decoration-title {
   font-size: 1.6rem;
   font-weight: bold;
@@ -441,18 +437,15 @@ header h1 {
   margin-bottom: 0.5rem;
 }
 
-/* FIXED commission block */
 .modal-commission-info {
   font-size: 1rem;
   color: #70d170;
   margin-bottom: 1.5rem;
   line-height: 1.6;
   text-align: center;
-  min-height: 4.8rem; /* This gives roughly 3 lines worth of height */
+  min-height: 4.8rem;
 }
 
-
-/* 👇 Fix: if empty, hide visually but keep layout space */
 .modal-commission-info:empty {
   visibility: hidden;
 }
@@ -466,7 +459,7 @@ header h1 {
   text-decoration: underline;
 }
 
-/* BIGGER download button */
+/* Download button */
 .download-button {
   background-color: #5865f2;
   color: white;
@@ -487,6 +480,7 @@ header h1 {
   background-color: #3a48a3;
 }
 
+/* Guide text */
 .modal-guide-line {
   font-size: 1rem;
   margin-top: 1.5rem;
@@ -499,7 +493,7 @@ header h1 {
 }
 
 .modal-guide-line p {
-  margin: 0.75rem 0; /* Add vertical space between lines */
+  margin: 0.75rem 0;
 }
 
 .modal-guide-line a {
@@ -507,13 +501,14 @@ header h1 {
   text-decoration: underline;
 }
 
+/* ========== MOBILE OVERRIDES ========== */
 @media (max-width: 600px) {
   .modal-inner {
     transform: none !important;
   }
 
   .modal-content {
-    width: 95vw !important;
+    max-width: 95vw !important;
     padding: 2rem 1rem !important;
     border-radius: 0.5rem !important;
   }
