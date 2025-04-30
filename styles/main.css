@@ -503,41 +503,52 @@ header h1 {
   text-decoration: underline;
 }
 
-/* ========== MOBILE OVERRIDES ========== */
+/* ========== MOBILE OVERRIDES: DECORATION MODAL ========== */
 @media (max-width: 600px) {
-  .decoration-modal .modal-inner {
-    transform: none !important;
-    padding: 0 !important;
+  .modal-inner {
+    transform: scale(1.05) !important;
   }
 
-  .decoration-modal .modal-content {
-    width: 95vw !important;
-    max-width: none !important;
-    padding: 3rem 1rem !important;
-    font-size: 1.2rem !important;
+  #decorationModal .modal-content {
+    width: 100% !important;
+    max-width: 98vw !important;
+    padding: 2.2rem 1rem !important;
+    border-radius: 1.2rem !important;
   }
 
-  .decoration-modal .modal-images {
-    width: 280px !important;
-    height: 280px !important;
+  #decorationModal .modal-images {
+    width: 260px !important;
+    height: 260px !important;
   }
 
-  .decoration-modal .modal-decoration-title {
-    font-size: 2rem !important;
+  #decorationModal .modal-default-avatar {
+    width: 100% !important;
   }
 
-  .decoration-modal .modal-artist-name {
+  #decorationModal .modal-decoration-img {
+    transform: scale(1.15) !important;
+  }
+
+  #decorationModal .modal-decoration-title {
+    font-size: 2.1rem !important;
+  }
+
+  #decorationModal .modal-artist-name {
     font-size: 1.5rem !important;
   }
 
-  .decoration-modal .modal-guide-line {
+  #decorationModal .modal-commission-info {
     font-size: 1.2rem !important;
-    line-height: 2 !important;
+    line-height: 1.7 !important;
   }
 
-  .decoration-modal .download-button {
+  #decorationModal .modal-guide-line {
+    font-size: 1.2rem !important;
+    line-height: 2.1 !important;
+  }
+
+  #decorationModal .download-button {
     font-size: 1.5rem !important;
-    padding: 1rem 3.5rem !important;
+    padding: 0.85rem 3.4rem !important;
   }
 }
-
