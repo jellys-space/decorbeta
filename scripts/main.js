@@ -57,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
       modal.style.visibility = 'visible';
       modal.style.opacity = '1';
       modal.style.pointerEvents = 'auto';
-      modalInner.style.transform = 'scale(1)';
     });
   });
 
