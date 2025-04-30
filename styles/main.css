@@ -342,7 +342,7 @@ header h1 {
   margin-bottom: 1rem;
 }
 
-/* ========== DECORATION MODAL ========== */
+/* ========== DECORATION MODAL BASE ========== */
 .decoration-modal {
   opacity: 0;
   visibility: hidden;
@@ -379,14 +379,11 @@ header h1 {
   transform: scale(0.95);
 }
 
-#decorationModal .modal-content::before {
-  display: none;
-}
-
-#decorationModal .modal-content {
+/* ========== MOBILE MODAL — Keep original mobile design ========== */
+#decorationModalMobile .modal-content {
   background-color: #272727;
   border: 4px solid #1f1f1f;
-  box-shadow: 0px 4px 10px rgba(0,0,0,0.36);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.36);
   padding: 3rem;
   width: 700px;
   max-width: none;
@@ -395,110 +392,55 @@ header h1 {
   color: #fff;
 }
 
-/* Bigger image container */
-.modal-images {
-  position: relative;
-  width: 240px;
-  height: 240px;
-  margin: 0 auto 2rem;
-}
-
-.modal-default-avatar {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 95%;
-  height: auto;
-  transform: translate(-50%, -50%);
-  opacity: 1;
-  z-index: 1;
-}
-
-.modal-decoration-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 6px;
-  z-index: 2;
-  transform: scale(1.12);
-}
-
-/* Bigger text */
-.modal-decoration-title {
-  font-size: 1.8rem;
-  font-weight: bold;
-  margin: 0.75rem 0 0.5rem;
-}
-
-.modal-artist-name {
-  font-style: italic;
-  font-size: 1.4rem;
-  margin-bottom: 0.5rem;
-}
-
-.modal-commission-info {
-  font-size: 1.1rem;
-  color: #70d170;
-  margin-bottom: 1.5rem;
-  line-height: 1.6;
+/* ========== DESKTOP MODAL — Shrunk version ========== */
+#decorationModalDesktop .modal-content {
+  background-color: #272727;
+  border: 4px solid #1f1f1f;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.36);
+  padding: 2rem;
+  width: 500px;
+  max-width: none;
+  border-radius: 12px;
   text-align: center;
-  min-height: 4.8rem;
+  color: #fff;
 }
 
-.modal-commission-info:empty {
-  visibility: hidden;
+#decorationModalDesktop .modal-images {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 1.5rem;
 }
 
-.modal-commission-info p {
-  margin: 0.35rem 0;
+#decorationModalDesktop .modal-default-avatar {
+  width: 90%;
 }
 
-.modal-commission-info a {
-  color: #4f8cff;
-  text-decoration: underline;
+#decorationModalDesktop .modal-decoration-img {
+  transform: scale(1.05);
 }
 
-/* Bigger download button */
-.download-button {
-  background-color: #5865f2;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 0.8rem 3rem;
-  font-size: 1.35rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  margin-top: 2rem;
+#decorationModalDesktop .modal-decoration-title {
+  font-size: 1.4rem;
 }
 
-.download-button:hover {
-  background-color: #4654c0;
+#decorationModalDesktop .modal-artist-name {
+  font-size: 1.2rem;
 }
 
-.download-button:active {
-  background-color: #3a48a3;
+#decorationModalDesktop .modal-commission-info {
+  font-size: 1rem;
+  min-height: 3.2rem;
+  margin-bottom: 1rem;
 }
 
-/* Bigger guideline */
-.modal-guide-line {
+#decorationModalDesktop .modal-guide-line {
+  font-size: 1rem;
+  margin-top: 1rem;
+  max-width: 480px;
+}
+
+#decorationModalDesktop .download-button {
+  padding: 0.6rem 2rem;
   font-size: 1.1rem;
   margin-top: 1.5rem;
-  color: #ccc;
-  line-height: 1.8;
-  max-width: 620px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
-
-.modal-guide-line p {
-  margin: 0.75rem 0;
-}
-
-.modal-guide-line a {
-  color: #4f8cff;
-  text-decoration: underline;
 }
