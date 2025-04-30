@@ -509,34 +509,37 @@ header h1 {
 
 @media (max-width: 600px) {
   #decorationModal .modal-content {
-    width: 95vw;
-    padding: 3rem 1.5rem;
-    transform: scale(1.08);
+    width: 100vw;
+    max-width: 100%;
+    padding: 3rem 1rem;
+    border-radius: 0;
+    transform: none;
   }
 
   .modal-images {
-    width: 240px;
-    height: 240px;
+    width: 280px;
+    height: 280px;
   }
 
   .modal-decoration-title {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
 
   .modal-artist-name {
-    font-size: 1.35rem;
+    font-size: 1.5rem;
   }
 
   .modal-commission-info {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
 
   .modal-guide-line {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
+    line-height: 2;
   }
 
   .download-button {
-    font-size: 1.3rem;
-    padding: 0.75rem 3rem;
+    font-size: 1.4rem;
+    padding: 0.8rem 3.2rem;
   }
 }
