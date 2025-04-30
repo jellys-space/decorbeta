@@ -508,38 +508,41 @@ header h1 {
 }
 
 @media (max-width: 600px) {
+  .decoration-modal .modal-inner {
+    transform: none !important;
+  }
+
   #decorationModal .modal-content {
-    width: 100vw;
-    max-width: 100%;
-    padding: 3rem 1rem;
-    border-radius: 0;
-    transform: none;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    padding: 2.5rem 1rem !important;
+    border-radius: 0 !important;
   }
 
   .modal-images {
-    width: 280px;
-    height: 280px;
+    width: 260px !important;
+    height: 260px !important;
   }
 
   .modal-decoration-title {
-    font-size: 2rem;
+    font-size: 1.9rem !important;
   }
 
   .modal-artist-name {
-    font-size: 1.5rem;
+    font-size: 1.4rem !important;
   }
 
   .modal-commission-info {
-    font-size: 1.2rem;
+    font-size: 1.1rem !important;
   }
 
   .modal-guide-line {
-    font-size: 1.15rem;
-    line-height: 2;
+    font-size: 1.1rem !important;
+    line-height: 2 !important;
   }
 
   .download-button {
-    font-size: 1.4rem;
-    padding: 0.8rem 3.2rem;
+    font-size: 1.4rem !important;
+    padding: 0.8rem 3rem !important;
   }
 }
