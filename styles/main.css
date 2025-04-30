@@ -455,7 +455,7 @@ header h1 {
   object-fit: contain;
   border-radius: 6px;
   z-index: 2;
-  transform: scale(1.12);
+  transform: scale(1.07);
 }
 
 /* Bigger text */
@@ -575,7 +575,7 @@ header h1 {
   object-fit: contain;
   border-radius: 6px;
   z-index: 2;
-  transform: scale(1);
+  transform: scale(1.07);
 }
 
 #decorationModalDesktop .modal-decoration-title {
