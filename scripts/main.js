@@ -1,20 +1,118 @@
 document.addEventListener('DOMContentLoaded', () => {
-  /********************************
-   * 1) EXISTING DECORATION DOWNLOAD LOGIC
-   ********************************/
-  const decorationCells = document.querySelectorAll('.decoration-cell');
 
-  decorationCells.forEach(cell => {
-    cell.addEventListener('click', () => {
+  /********************************
+   * 1) DECORATION MODAL LOGIC
+   ********************************/
+  const decorationWraps = document.querySelectorAll('.decoration-wrap');
+
+  const modal = document.getElementById('decorationModal');
+  const modalInner = modal.querySelector('.modal-inner');
+  const modalDefaultAvatar = modal.querySelector('.modal-default-avatar');
+  const modalDecorationImg = modal.querySelector('.modal-decoration-img');
+  const modalTitle = modal.querySelector('.modal-decoration-title');
+  const modalArtist = modal.querySelector('.modal-artist-name');
+  const modalCommission = modal.querySelector('.modal-commission-info');
+  const downloadButton = modal.querySelector('.download-button');
+
+  let scrollPosition = 0;
+
+  decorationWraps.forEach(wrap => {
+    wrap.addEventListener('click', () => {
+      const cell = wrap.querySelector('.decoration-cell');
+      if (!cell) return;
+
       const imagePath = cell.getAttribute('data-image');
-      const link = document.createElement('a');
-      link.href = imagePath;
-      link.download = imagePath.split('/').pop();
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      const decorationAlt = cell.querySelector('.decoration-img').alt;
+
+      modalDefaultAvatar.src = 'images/default-avatar.png';
+      modalDecorationImg.src = imagePath;
+      modalDecorationImg.alt = decorationAlt;
+
+      modalTitle.textContent = decorationAlt;
+
+      const artistName = cell.getAttribute('data-artist') || '';
+      modalArtist.textContent = artistName ? `by ${artistName}` : '';
+
+      const commissionElement = cell.querySelector('.commission-message');
+
+      if (commissionElement && commissionElement.innerHTML.trim().length > 0) {
+        modalCommission.innerHTML = commissionElement.innerHTML;
+        modalCommission.style.display = 'block';
+      } else {
+        modalCommission.innerHTML = '';
+        modalCommission.style.display = 'none';
+      }
+
+      
+
+      // SHOW MODAL
+      scrollPosition = window.scrollY || window.pageYOffset;
+
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollPosition}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
+
+      modal.style.visibility = 'visible';
+      modal.style.opacity = '1';
+      modal.style.pointerEvents = 'auto';
+      modalInner.style.transform = 'scale(1)';
     });
   });
+
+  // Close modal on click outside modal-content
+  modal.addEventListener('click', (e) => {
+    const modalContent = modal.querySelector('.modal-content');
+    if (!modalContent.contains(e.target)) {
+      closeModal();
+    }
+  });
+
+  // Download button action
+  downloadButton.addEventListener('click', () => {
+    const imagePath = modalDecorationImg.src;
+    const link = document.createElement('a');
+    link.href = imagePath;
+    link.download = imagePath.split('/').pop();
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  });
+
+  // ESC key or F5 closes modal
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.style.visibility === 'visible') {
+      closeModal();
+    }
+    if (e.key === 'F5' && modal.style.visibility === 'visible') {
+      e.preventDefault(); // Stop browser refresh
+      closeModal(true); // Reload manually after closing
+    }
+  });
+
+  // HELPER: close modal cleanly
+  function closeModal(forceReload = false) {
+    modal.style.opacity = '0';
+    modalInner.style.transform = 'scale(0.95)';
+
+    setTimeout(() => {
+      modal.style.visibility = 'hidden';
+      modal.style.pointerEvents = 'none';
+
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
+
+      window.scrollTo(0, scrollPosition);
+
+      if (forceReload) {
+        location.reload();
+      }
+    }, 200); // matches fade duration
+  }
 
   /********************************
    * 1b) DECORATION IMAGE LAZY LOADING
@@ -41,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
       imageObserver.observe(img);
     });
   } else {
-    // Fallback for older browsers
     lazyImages.forEach(img => {
       if (img.dataset.src) {
         img.src = img.dataset.src;
@@ -93,15 +190,15 @@ document.addEventListener('DOMContentLoaded', () => {
    * 3) CONFETTI: CONTINUOUS SPAWN
    ********************************/
   const container = document.querySelector('.confetti-container');
-  if (!container) return;
+  if (container) {
+    for (let i = 0; i < 5; i++) {
+      spawnConfettiPiece(container);
+    }
 
-  for (let i = 0; i < 5; i++) {
-    spawnConfettiPiece(container);
+    setInterval(() => {
+      spawnConfettiPiece(container);
+    }, 1000);
   }
-
-  setInterval(() => {
-    spawnConfettiPiece(container);
-  }, 1000);
 
   /********************************
    * 3) SPARKLY MOUSE TRAIL
@@ -152,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let clickCount = 0;
     let lastClickTime = 0;
-    const maxGap = 2000; // 2 seconds
+    const maxGap = 2000;
 
     jellyHomeImg.addEventListener('click', () => {
       const now = Date.now();
@@ -194,5 +291,4 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   })();
-
 });
