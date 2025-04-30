@@ -74,11 +74,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const imagePath = modalDecorationImg.src;
     const link = document.createElement('a');
     link.href = imagePath;
-    link.download = imagePath.split('/').pop();
+    const fileName = decodeURIComponent(imagePath.split('/').pop());
+    link.download = fileName;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  });
+  });  
 
   // ESC key or F5 closes modal
   document.addEventListener('keydown', (e) => {
