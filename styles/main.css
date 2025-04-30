@@ -301,7 +301,8 @@ header h1 {
   display: flex;
 }
 
-.modal-content {
+/* ✅ Renamed to prevent conflict with decoration modal */
+.easter-modal-content {
   position: relative;
   background-color: #2b2b2b;
   padding: 1.5rem;
@@ -314,12 +315,12 @@ header h1 {
   --angle: 0deg;
 }
 
-.modal-content p {
+.easter-modal-content p {
   margin: 0.5em 0;
   line-height: 1;
 }
 
-.modal-content::before {
+.easter-modal-content::before {
   content: "";
   position: absolute;
   top: -4px;
@@ -341,6 +342,7 @@ header h1 {
   max-width: 100px;
   margin-bottom: 1rem;
 }
+
 
 /* ========== DECORATION MODAL ========== */
 .decoration-modal {
@@ -507,35 +509,36 @@ header h1 {
     transform: none !important;
   }
 
-  .modal-content {
+  .decoration-modal .modal-content {
+    width: 95vw !important;
     max-width: 95vw !important;
-    padding: 2rem 1rem !important;
-    border-radius: 0.5rem !important;
+    padding: 2rem 1.25rem !important;
+    border-radius: 16px !important;
   }
 
-  .modal-images {
+  .decoration-modal .modal-images {
     width: 260px !important;
     height: 260px !important;
   }
 
-  .modal-decoration-title {
+  .decoration-modal .modal-decoration-title {
     font-size: 1.9rem !important;
   }
 
-  .modal-artist-name {
+  .decoration-modal .modal-artist-name {
     font-size: 1.4rem !important;
   }
 
-  .modal-commission-info {
+  .decoration-modal .modal-commission-info {
     font-size: 1.1rem !important;
   }
 
-  .modal-guide-line {
+  .decoration-modal .modal-guide-line {
     font-size: 1.1rem !important;
     line-height: 2 !important;
   }
 
-  .download-button {
+  .decoration-modal .download-button {
     font-size: 1.4rem !important;
     padding: 0.8rem 3rem !important;
   }
