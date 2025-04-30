@@ -374,7 +374,47 @@ header h1 {
   transform: scale(0.95);
 }
 
-/* ========== MOBILE MODAL ========== */
+/* ========== MOBILE DECORATION MODAL ========== */
+#decorationModalMobile.decoration-modal {
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+#decorationModalMobile.decoration-modal.showing {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+#decorationModalMobile .modal-inner {
+  transform: scale(0.95);
+  transition: transform 0.2s ease;
+}
+
+#decorationModalMobile.decoration-modal.showing .modal-inner {
+  transform: scale(1);
+}
+
+#decorationModalMobile.decoration-modal.hiding .modal-inner {
+  transform: scale(0.95);
+}
+
+#decorationModalMobile .modal-content::before {
+  display: none;
+}
+
 #decorationModalMobile .modal-content {
   background-color: #272727;
   border: 4px solid #1f1f1f;
@@ -387,7 +427,9 @@ header h1 {
   color: #fff;
 }
 
+/* Bigger image container */
 #decorationModalMobile .modal-images {
+  position: relative;
   width: 240px;
   height: 240px;
   margin: 0 auto 2rem;
@@ -413,9 +455,10 @@ header h1 {
   object-fit: contain;
   border-radius: 6px;
   z-index: 2;
-  transform: scale(1);
+  transform: scale(1.12);
 }
 
+/* Bigger text */
 #decorationModalMobile .modal-decoration-title {
   font-size: 1.8rem;
   font-weight: bold;
@@ -437,17 +480,20 @@ header h1 {
   min-height: 4.8rem;
 }
 
-#decorationModalMobile .modal-guide-line {
-  font-size: 1.1rem;
-  margin-top: 1.5rem;
-  color: #ccc;
-  line-height: 1.8;
-  max-width: 620px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
+#decorationModalMobile .modal-commission-info:empty {
+  visibility: hidden;
 }
 
+#decorationModalMobile .modal-commission-info p {
+  margin: 0.35rem 0;
+}
+
+#decorationModalMobile .modal-commission-info a {
+  color: #4f8cff;
+  text-decoration: underline;
+}
+
+/* Bigger download button */
 #decorationModalMobile .download-button {
   background-color: #5865f2;
   color: white;
@@ -468,20 +514,42 @@ header h1 {
   background-color: #3a48a3;
 }
 
-/* ========== DESKTOP MODAL ========== */
+/* Bigger guideline */
+#decorationModalMobile .modal-guide-line {
+  font-size: 1.1rem;
+  margin-top: 1.5rem;
+  color: #ccc;
+  line-height: 1.8;
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+#decorationModalMobile .modal-guide-line p {
+  margin: 0.75rem 0;
+}
+
+#decorationModalMobile .modal-guide-line a {
+  color: #4f8cff;
+  text-decoration: underline;
+}
+
+/* ========== DESKTOP MODAL (SHRUNK VERSION OF MOBILE) ========== */
 #decorationModalDesktop .modal-content {
   background-color: #272727;
   border: 4px solid #1f1f1f;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.36);
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.36);
   padding: 2rem;
   width: 500px;
   max-width: none;
-  border-radius: 12px;
+  border-radius: 14px;
   text-align: center;
   color: #fff;
 }
 
 #decorationModalDesktop .modal-images {
+  position: relative;
   width: 180px;
   height: 180px;
   margin: 0 auto 1.5rem;
@@ -512,29 +580,31 @@ header h1 {
 
 #decorationModalDesktop .modal-decoration-title {
   font-size: 1.4rem;
+  font-weight: bold;
+  margin: 0.5rem 0 0.4rem;
 }
 
 #decorationModalDesktop .modal-artist-name {
-  font-size: 1.2rem;
   font-style: italic;
-  margin-bottom: 0.5rem;
+  font-size: 1.15rem;
+  margin-bottom: 0.4rem;
 }
 
 #decorationModalDesktop .modal-commission-info {
   font-size: 1rem;
   color: #70d170;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
   line-height: 1.5;
-  min-height: 3.2rem;
+  min-height: 3.5rem;
   text-align: center;
 }
 
 #decorationModalDesktop .modal-guide-line {
   font-size: 1rem;
-  margin-top: 1rem;
+  margin-top: 1.2rem;
   color: #ccc;
-  line-height: 1.8;
-  max-width: 480px;
+  line-height: 1.7;
+  max-width: 500px;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
@@ -545,8 +615,8 @@ header h1 {
   color: white;
   border: none;
   border-radius: 8px;
-  padding: 0.6rem 2rem;
-  font-size: 1.1rem;
+  padding: 0.6rem 2.2rem;
+  font-size: 1.15rem;
   cursor: pointer;
   transition: background-color 0.2s;
   margin-top: 1.5rem;
