@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
       modal.style.visibility = 'visible';
       modal.style.opacity = '1';
       modal.style.pointerEvents = 'auto';
+      modalInner.style.transform = 'scale(1)';
     });
   });
 
@@ -73,12 +74,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const imagePath = modalDecorationImg.src;
     const link = document.createElement('a');
     link.href = imagePath;
-    const fileName = decodeURIComponent(imagePath.split('/').pop());
-    link.download = fileName;
+    link.download = imagePath.split('/').pop();
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  });  
+  });
 
   // ESC key or F5 closes modal
   document.addEventListener('keydown', (e) => {
@@ -239,65 +239,56 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-/********************************
- * 5) EASTER EGG: 10 QUICK CLICKS ON #jellyHomeImg
- ********************************/
-(function () {
-  const jellyHomeImg = document.getElementById('jellyHomeImg');
-  const easterEggModal = document.getElementById('easterEggModal');
-  const modalContent = easterEggModal?.querySelector('.easter-modal-content');
-  if (!jellyHomeImg || !easterEggModal || !modalContent) return;
+  /********************************
+   * 5) EASTER EGG: 10 QUICK CLICKS ON #jellyHomeImg
+   ********************************/
+  (function() {
+    const jellyHomeImg = document.getElementById('jellyHomeImg');
+    const easterEggModal = document.getElementById('easterEggModal');
+    if (!jellyHomeImg || !easterEggModal) return;
 
-  let clickCount = 0;
-  let lastClickTime = 0;
-  const maxGap = 2000; // Max time between clicks (ms)
-  let rotateAnimationId = null;
+    let clickCount = 0;
+    let lastClickTime = 0;
+    const maxGap = 2000;
 
-  // Track clicks on the jelly image
-  jellyHomeImg.addEventListener('click', () => {
-    const now = Date.now();
-    if (now - lastClickTime > maxGap) {
-      clickCount = 0;
-    }
-    lastClickTime = now;
-    clickCount++;
+    jellyHomeImg.addEventListener('click', () => {
+      const now = Date.now();
+      if (now - lastClickTime > maxGap) {
+        clickCount = 0;
+      }
+      lastClickTime = now;
+      clickCount++;
 
-    if (clickCount >= 10) {
-      showEasterEgg();
-      clickCount = 0;
-    }
-  });
-
-  function showEasterEgg() {
-    easterEggModal.classList.add('show');
-
-    // Start animated gradient
-    let angle = 0;
-    function rotateGradient() {
-      angle = (angle + 0.5) % 360;
-      modalContent.style.setProperty('--angle', angle + 'deg');
-      rotateAnimationId = requestAnimationFrame(rotateGradient);
-    }
-    rotateGradient();
-
-    // Wait one frame to avoid immediate closure from same click
-    requestAnimationFrame(() => {
-      const outsideClickHandler = (e) => {
-        if (!modalContent.contains(e.target)) {
-          hideEasterEgg();
-          document.removeEventListener('click', outsideClickHandler);
-        }
-      };
-      document.addEventListener('click', outsideClickHandler);
+      if (clickCount >= 10) {
+        showEasterEgg();
+        clickCount = 0;
+      }
     });
-  }
 
-  function hideEasterEgg() {
-    easterEggModal.classList.remove('show');
-    if (rotateAnimationId) {
-      cancelAnimationFrame(rotateAnimationId);
-      rotateAnimationId = null;
+    let rotateAnimationId = null;
+
+    function showEasterEgg() {
+      easterEggModal.classList.add('show');
+      const modalContent = easterEggModal.querySelector('.modal-content');
+      let angle = 0;
+
+      function rotateGradient() {
+        angle = (angle + 0.5) % 360;
+        modalContent.style.setProperty('--angle', angle + 'deg');
+        rotateAnimationId = requestAnimationFrame(rotateGradient);
+      }
+
+      rotateGradient();
+
+      easterEggModal.addEventListener('click', hideEasterEgg, { once: true });
     }
-  }
-})();
+
+    function hideEasterEgg() {
+      easterEggModal.classList.remove('show');
+      if (rotateAnimationId) {
+        cancelAnimationFrame(rotateAnimationId);
+        rotateAnimationId = null;
+      }
+    }
+  })();
 });
