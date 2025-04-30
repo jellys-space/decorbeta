@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   /********************************
-   * 1) DECORATION MODAL LOGIC 
+   * 1) DECORATION MODAL LOGIC
    ********************************/
   const decorationWraps = document.querySelectorAll('.decoration-wrap');
 
@@ -245,12 +245,15 @@ document.addEventListener('DOMContentLoaded', () => {
 (function () {
   const jellyHomeImg = document.getElementById('jellyHomeImg');
   const easterEggModal = document.getElementById('easterEggModal');
-  if (!jellyHomeImg || !easterEggModal) return;
+  const modalContent = easterEggModal?.querySelector('.easter-modal-content');
+  if (!jellyHomeImg || !easterEggModal || !modalContent) return;
 
   let clickCount = 0;
   let lastClickTime = 0;
-  const maxGap = 2000;
+  const maxGap = 2000; // Max time between clicks (ms)
+  let rotateAnimationId = null;
 
+  // Track clicks on the jelly image
   jellyHomeImg.addEventListener('click', () => {
     const now = Date.now();
     if (now - lastClickTime > maxGap) {
@@ -265,30 +268,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  let rotateAnimationId = null;
-
   function showEasterEgg() {
     easterEggModal.classList.add('show');
-    const modalContent = easterEggModal.querySelector('.easter-modal-content');
-    let angle = 0;
 
+    // Start animated gradient
+    let angle = 0;
     function rotateGradient() {
       angle = (angle + 0.5) % 360;
       modalContent.style.setProperty('--angle', angle + 'deg');
       rotateAnimationId = requestAnimationFrame(rotateGradient);
     }
-
     rotateGradient();
 
-    // Click outside to close
-    function outsideClickHandler(e) {
-      if (!modalContent.contains(e.target)) {
-        hideEasterEgg();
-        document.removeEventListener('click', outsideClickHandler);
-      }
-    }
-
-    document.addEventListener('click', outsideClickHandler);
+    // Wait one frame to avoid immediate closure from same click
+    requestAnimationFrame(() => {
+      const outsideClickHandler = (e) => {
+        if (!modalContent.contains(e.target)) {
+          hideEasterEgg();
+          document.removeEventListener('click', outsideClickHandler);
+        }
+      };
+      document.addEventListener('click', outsideClickHandler);
+    });
   }
 
   function hideEasterEgg() {
