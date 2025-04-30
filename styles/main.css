@@ -505,15 +505,15 @@ header h1 {
 
 /* ========== MOBILE OVERRIDES ========== */
 @media (max-width: 600px) {
-  .modal-inner {
+  .decoration-modal .modal-inner {
     transform: none !important;
   }
 
   .decoration-modal .modal-content {
-    width: 95vw !important;
+    width: 100% !important;
     max-width: 95vw !important;
-    padding: 2rem 1.25rem !important;
-    border-radius: 16px !important;
+    padding: 2rem 1rem !important;
+    border-radius: 1rem !important;
   }
 
   .decoration-modal .modal-images {
@@ -522,7 +522,7 @@ header h1 {
   }
 
   .decoration-modal .modal-decoration-title {
-    font-size: 1.9rem !important;
+    font-size: 2rem !important;
   }
 
   .decoration-modal .modal-artist-name {
@@ -530,16 +530,16 @@ header h1 {
   }
 
   .decoration-modal .modal-commission-info {
-    font-size: 1.1rem !important;
+    font-size: 1.15rem !important;
   }
 
   .decoration-modal .modal-guide-line {
-    font-size: 1.1rem !important;
+    font-size: 1.15rem !important;
     line-height: 2 !important;
   }
 
   .decoration-modal .download-button {
-    font-size: 1.4rem !important;
-    padding: 0.8rem 3rem !important;
+    font-size: 1.5rem !important;
+    padding: 0.9rem 3.2rem !important;
   }
 }
