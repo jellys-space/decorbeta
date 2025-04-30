@@ -1,548 +1,639 @@
 /* ========== GLOBAL RESETS & BASE STYLES ========== */
-* {
-  box-sizing: border-box;
-}
-
-@font-face {
-  font-family: "Jellyo";
-  src: url("../fonts/Jellyo.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-body {
-  margin: 0;
-  font-family: sans-serif;
-  background-color: #1e1e1e;
-  color: #fff;
-  overflow-y: scroll;
-}
-
-header {
-  text-align: center;
-  padding: 1rem;
-  background-color: #2b2b2b;
-}
-
-header h1 {
-  font-family: "Jellyo", sans-serif;
-  font-size: 2.5rem;
-  margin: 0;
-  font-weight: normal;
-}
-
-.top-nav {
-  text-align: center;
-  position: sticky;
-  top: 0;
-  z-index: 999;
-  background: rgba(43, 43, 43, 0.8);
-  backdrop-filter: blur(5px);
-  padding: 0.5rem 0;
-}
-
-.top-nav a {
-  display: inline-block;
-  margin: 0 1rem;
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 1.5rem;
-  transition: color 0.2s;
-}
-
-.top-nav a:hover {
-  color: #aaa;
-  text-decoration: underline;
-}
-
-.nav-image {
-  text-align: center;
-  margin: 1rem 0;
-}
-
-.nav-image img {
-  display: block;
-  margin: 0 auto;
-  width: 200px;
-  height: auto;
-}
-
-.nav-image-text {
-  text-align: center;
-  margin-top: 0.5rem;
-  font-size: 1.2rem;
-  color: #fff;
-}
-
-.nav-image-text a,
-.nav-image-text a:visited {
-  color: rgb(63, 72, 239);
-  text-decoration: underline;
-}
-
-.confetti-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: -1;
-  overflow: hidden;
-}
-
-.confetti-piece {
-  position: absolute;
-  display: block;
-  opacity: 0.4;
-  pointer-events: none;
-  animation-name: confettiDriftCW; /* Default animation */
-  animation-timing-function: linear;
-  animation-iteration-count: 1;
-}
-
-/* Confetti clockwise animation */
-@keyframes confettiDriftCW {
-  0% {
-    transform: translateY(-10vh) rotate(0deg);
-  }
-  50% {
-    transform: translateY(50vh) translateX(5vw) rotate(90deg);
-  }
-  100% {
-    transform: translateY(120vh) translateX(-5vw) rotate(180deg);
-  }
-}
-
-/* Confetti counter-clockwise animation */
-@keyframes confettiDriftCCW {
-  0% {
-    transform: translateY(-10vh) rotate(0deg);
-  }
-  50% {
-    transform: translateY(50vh) translateX(5vw) rotate(-90deg);
-  }
-  100% {
-    transform: translateY(120vh) translateX(-5vw) rotate(-180deg);
-  }
-}
-
-.category {
-  margin: 2rem 0;
-}
-
-.category-banner img {
-  display: block;
-  max-width: 1000px;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  margin: 0 auto;
-}
-
-.decorations-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, 150px);
-  gap: 1rem;
-  padding: 1rem;
-  justify-content: center;
-}
-
-.decorations-grid--seven {
-  grid-template-columns: repeat(7, 150px);
-}
-
-@media (max-width: 1200px) {
-  .decorations-grid--seven {
-    grid-template-columns: repeat(auto-fit, 150px);
-  }
-}
-
-.decoration-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-}
-
-.decoration-cell {
-  width: 150px;
-  height: 150px;
-  position: relative;
-  background-color: #2b2b2b;
-  border-radius: 4px;
-  overflow: hidden;
-  text-align: center;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.decoration-cell:hover {
-  background-color: #363636;
-}
-
-.default-avatar {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 83%;
-  height: auto;
-  opacity: 0;
-  transition: opacity 0.3s;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.decoration-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border: 2px solid #444;
-  border-radius: 4px;
-  transition: transform 0.2s;
-  z-index: 2;
-}
-
-.decoration-wrap:hover .default-avatar {
-  opacity: 1;
-}
-
-.decoration-wrap:hover .download-info {
-  opacity: 1;
-}
-
-.download-info {
-  margin-top: 6px;
-  margin-bottom: 1rem;
-  font-size: 0.95rem;
-  opacity: 0;
-  transition: opacity 0.2s;
-  pointer-events: none;
-}
-
-/* ========== SPARKLY MOUSE TRAIL ========== */
-.star {
-  position: fixed;
-  pointer-events: none;
-}
-
-.star:before,
-.star:after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  content: '\2726';
-  font-size: 9px;
-}
-
-.star:before {
-  color: transparent;
-  text-shadow: 0 0 3px rgb(235, 18, 115);
-}
-
-.star:after {
-  background: rgb(244, 119, 194);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-}
-
-.artist-info {
-  text-align: center;
-  margin: 2rem 0;
-  font-size: 1.1rem;
-}
-
-.artist-info a {
-  color: rgb(50, 168, 82);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.artist-info a:hover {
-  text-decoration: underline;
-}
-
-.artist-info a:visited {
-  color: rgb(141, 10, 148);
-}
-
-.artist-info a.visited-artist-link {
-  color: rgb(141, 10, 148) !important;
-}
-
-/* ========== EASTER EGG MODAL ========== */
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-.modal.show {
-  display: flex;
-}
-
-/* ✅ Renamed to prevent conflict with decoration modal */
-.easter-modal-content {
-  position: relative;
-  background-color: #2b2b2b;
-  padding: 1.5rem;
-  border-radius: 8px;
-  text-align: center;
-  color: #fff;
-  max-width: 400px;
-  width: 80%;
-  box-shadow: 0 0 15px rgba(255, 105, 180, 0.8);
-  --angle: 0deg;
-}
-
-.easter-modal-content p {
-  margin: 0.5em 0;
-  line-height: 1;
-}
-
-.easter-modal-content::before {
-  content: "";
-  position: absolute;
-  top: -4px;
-  left: -4px;
-  right: -4px;
-  bottom: -4px;
-  border-radius: 10px;
-  z-index: -1;
-  background: conic-gradient(
-    from var(--angle),
-    #4305b7 0deg,
-    #d84ed7 120deg,
-    #2b6ee2 240deg,
-    #4305b7 360deg
-  );
-}
-
-.easter-egg-image {
-  max-width: 100px;
-  margin-bottom: 1rem;
-}
-
-
-/* ========== DECORATION MODAL ========== */
-.decoration-modal {
-  opacity: 0;
-  visibility: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 9999;
-  pointer-events: none;
-  transition: opacity 0.2s ease;
-}
-
-.decoration-modal.showing {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-/* Only modal-inner scales */
-.modal-inner {
-  transform: scale(0.95);
-  transition: transform 0.2s ease;
-}
-
-.decoration-modal.showing .modal-inner {
-  transform: scale(1);
-}
-
-.decoration-modal.hiding .modal-inner {
-  transform: scale(0.95);
-}
-
-/* Modal content container */
-.modal-content {
-  background-color: #272727;
-  border: 4px solid #1f1f1f;
-  box-shadow: 0px 4px 10px rgba(0,0,0,0.36);
-  padding: 2.5rem;
-  width: 100%;
-  max-width: 500px;
-  border-radius: 16px;
-  text-align: center;
-  color: #fff;
-}
-
-/* BIGGER image container */
-.modal-images {
-  position: relative;
-  width: 180px;
-  height: 180px;
-  margin: 0 auto 2rem;
-}
-
-.modal-default-avatar {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 90%;
-  height: auto;
-  transform: translate(-50%, -50%);
-  opacity: 1;
-  z-index: 1;
-}
-
-.modal-decoration-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 6px;
-  z-index: 2;
-  transform: scale(1.08);
-}
-
-/* Text elements */
-.modal-decoration-title {
-  font-size: 1.6rem;
-  font-weight: bold;
-  margin: 0.75rem 0 0.5rem;
-}
-
-.modal-artist-name {
-  font-style: italic;
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
-}
-
-.modal-commission-info {
-  font-size: 1rem;
-  color: #70d170;
-  margin-bottom: 1.5rem;
-  line-height: 1.6;
-  text-align: center;
-  min-height: 4.8rem;
-}
-
-.modal-commission-info:empty {
-  visibility: hidden;
-}
-
-.modal-commission-info p {
-  margin: 0.35rem 0;
-}
-
-.modal-commission-info a {
-  color: #4f8cff;
-  text-decoration: underline;
-}
-
-/* Download button */
-.download-button {
-  background-color: #5865f2;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 0.6rem 2.5rem;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  margin-top: 2rem;
-}
-
-.download-button:hover {
-  background-color: #4654c0;
-}
-
-.download-button:active {
-  background-color: #3a48a3;
-}
-
-/* Guide text */
-.modal-guide-line {
-  font-size: 1rem;
-  margin-top: 1.5rem;
-  color: #ccc;
-  line-height: 1.8;
-  max-width: 460px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
-
-.modal-guide-line p {
-  margin: 0.75rem 0;
-}
-
-.modal-guide-line a {
-  color: #4f8cff;
-  text-decoration: underline;
-}
-
-/* ========== MOBILE OVERRIDES: DECORATION MODAL ========== */
-@media screen and (max-width: 600px) {
-  .category-banner img {
-    max-width: 90vw;
-  }
-
-  #decorationModal .modal-content {
-    width: 100% !important;
-    max-width: 98vw !important;
-    padding: 2.2rem 1rem !important;
-    border-radius: 1.2rem !important;
-  }
-
-  #decorationModal .modal-images {
-    width: 260px !important;
-    height: 260px !important;
-  }
-
-  #decorationModal .modal-default-avatar {
-    width: 100% !important;
-  }
-
-  #decorationModal .modal-decoration-img {
-    transform: scale(1.15) !important;
-  }
-
-  #decorationModal .modal-decoration-title {
-    font-size: 2.1rem !important;
-  }
-
-  #decorationModal .modal-artist-name {
-    font-size: 1.5rem !important;
-  }
-
-  #decorationModal .modal-commission-info {
-    font-size: 1.2rem !important;
-    line-height: 1.7 !important;
-  }
-
-  #decorationModal .modal-guide-line {
-    font-size: 1.2rem !important;
-    line-height: 2.1 !important;
-  }
-
-  #decorationModal .download-button {
-    font-size: 1.5rem !important;
-    padding: 0.85rem 3.4rem !important;
-  }
-}
+ * {
+   box-sizing: border-box;
+ }
+ 
+ /* ========== CUSTOM FONT ========== */
+ @font-face {
+   font-family: "Jellyo";          /* Pick a name for your font */
+   font-family: "Jellyo";
+   src: url("../fonts/Jellyo.ttf") format("truetype");
+   font-weight: normal;
+   font-style: normal;
+ }
+ 
+ /* Now you can use "MyFancyFont" anywhere in your CSS */
+ 
+ 
+ body {
+   margin: 0;
+   font-family: sans-serif;
+   background-color: #1e1e1e;
+   color: #fff;
+   overflow-y: scroll;
+ }
+ 
+ header {
+   text-align: center;
+   padding: 1rem;
+   background-color: #2b2b2b;
+ }
+ 
+ header h1 {
+   font-family: "Jellyo", sans-serif;
+   font-size: 2.5rem;          /* Or whatever size you prefer */
+   margin: 0;                  /* Already present in your code? */
+   font-weight: normal;        /* Tweak if you want thinner or bolder text */
+   font-size: 2.5rem;
+   margin: 0;
+   font-weight: normal;
+ }
+ 
+ /* ========== NAV LINKS STYLING ========== */
+ /* 
+    .top-nav sits right below the <h1> in your HTML,
+    so this ensures the links are on one line, centered, etc.
+ */
+ .top-nav {
+   text-align: center;      /* center the links horizontally */
+   
+   /* === New stuff added below === */
+   text-align: center;
+   position: sticky;
+   top: 0;
+   z-index: 999;
+   background: rgba(43, 43, 43, 0.8); /* semi-transparent dark background */
+   backdrop-filter: blur(5px); /* optional: frosted glass look */
+   padding: 0.5rem 0; /* keeps the padding nice even with sticky behavior */
+   background: rgba(43, 43, 43, 0.8);
+   backdrop-filter: blur(5px);
+   padding: 0.5rem 0;
+ }
+ 
+ .top-nav a {
+   display: inline-block;
+   margin: 0 1rem;
+   color: #fff;
+   text-decoration: none;
+   font-weight: 500;
+   font-size: 1.5rem; /* Increase from, say, 1rem (16px) to 1.2rem (19.2px) */
+   font-size: 1.5rem;
+   transition: color 0.2s;
+ }
+ 
+ .top-nav a:hover {
+   color: #aaa;
+   text-decoration: underline;
+ }
+ 
+ .nav-image {
+   text-align: center;  /* ensures if the img is inline, it’s centered */
+   margin: 1rem 0;      /* optional spacing above/below the image */
+   text-align: center;
+   margin: 1rem 0;
+ }
+ 
+ .nav-image img {
+   display: block;      /* so margin: 0 auto works reliably */
+   margin: 0 auto;      /* center it horizontally */
+   width: 200px;        /* force a fixed smaller width, adjust to your liking */
+   height: auto;        /* maintain aspect ratio */
+   display: block;
+   margin: 0 auto;
+   width: 200px;
+   height: auto;
+ }
+ 
+ .nav-image-text {
+   text-align: center;  /* ensure the text is centered */
+   margin-top: 0.5rem;  /* some spacing above the text */
+   font-size: 1.2rem;   /* adjust as needed */
+   color: #fff;         /* optional, if you want to ensure it’s white */
+   text-align: center;
+   margin-top: 0.5rem;
+   font-size: 1.2rem;
+   color: #fff;
+ }
+ 
+ 
+ /* NEW OVERRIDE FOR LINKS INSIDE .nav-image-text */
+ .nav-image-text a,
+ .nav-image-text a:visited {
+   color: rgb(63, 72, 239); /* bright blue */
+   color: rgb(63, 72, 239);
+   text-decoration: underline;
+ }
+ 
+ 
+ .confetti-container {
+   position: fixed;
+   top: 0; left: 0;
+   width: 100vw; height: 100vh;
+   top: 0;
+   left: 0;
+   width: 100vw;
+   height: 100vh;
+   pointer-events: none;
+   z-index: -1;   /* behind the page content */
+   z-index: -1;
+   overflow: hidden;
+ }
+ 
+ .confetti-piece {
+   position: absolute;
+   display: block;
+   opacity: 0.4;
+   animation-name: confettiDrift;
+   pointer-events: none;
+   animation-name: confettiDriftCW; /* Default animation */
+   animation-timing-function: linear;
+   animation-iteration-count: 1;  /* single pass */
+   animation-iteration-count: 1;
+ }
+ 
+ /* Confetti clockwise animation */
+ @keyframes confettiDriftCW {
+   0% {
+     transform: translateY(-10vh) rotate(0deg);
+   }
+   50% {
+     transform: translateY(50vh) translateX(5vw) rotate(90deg);
+   }
+   100% {
+     transform: translateY(120vh) translateX(-5vw) rotate(180deg);
+   }
+ }
+ 
+ /* Confetti counter-clockwise animation */
+ @keyframes confettiDriftCCW {
+   0% {
+     transform: translateY(-10vh) rotate(0deg);
+   }
+   50% {
+     transform: translateY(50vh) translateX(5vw) rotate(-90deg);
+   }
+   100% {
+     transform: translateY(120vh) translateX(-5vw) rotate(-180deg);
+   }
+ }
+ 
+ 
+ 
+ /* ========== BANNER / CATEGORY ========== */
+ .category {
+   margin: 2rem 0;
+ }
+ 
+ /* 
+    We limit the banner size and center it.
+    Increase or decrease max-width as you like (e.g. 1200px).
+ */
+ .category-banner img {
+   display: block;
+   max-width: 1000px; /* remains the same on large screens */
+   max-width: 1000px;
+   width: 100%;
+   height: auto;
+   object-fit: cover;
+   margin: 0 auto;
+ }
+ 
+ /* On screens below 600px (for example), reduce the banner size */
+ @media (max-width: 600px) {
+   .category-banner img {
+     max-width: 90vw; /* scale it down a bit for mobile */
+     max-width: 90vw;
+   }
+ }
+ 
+ /* 
+    ========== DECORATIONS GRID ==========
+    Each .decoration-wrap is one decoration + its "download" text.
+ */
+ .decorations-grid {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, 150px);
+ 
+   /* 1) A small gap between cells */
+   gap: 1rem;
+ 
+   /* 2) Some padding to push the grid away from the banner */
+   padding: 1rem;
+ 
+   /* centers columns if there's extra space */
+   justify-content: center;
+ }
+ 
+ /* Force exactly 7 columns, only if container is wide enough */
+ .decorations-grid--seven {
+   grid-template-columns: repeat(7, 150px);
+ }
+ 
+ /* On smaller screens (e.g., below 1200px), revert to auto-fit so it doesn’t overflow */
+ @media (max-width: 1200px) {
+   .decorations-grid--seven {
+     grid-template-columns: repeat(auto-fit, 150px);
+   }
+ }
+ 
+ 
+ 
+ /* 
+    ========== DECORATION WRAP ==========
+    Stacks the .decoration-cell above the .download-info text
+    and is the "hover" boundary for each item.
+ */
+ .decoration-wrap {
+   display: flex;
+   flex-direction: column;
+   align-items: center;  /* center the text horizontally */
+   align-items: center;
+   position: relative;
+ }
+ 
+ /* 
+    ========== DECORATION CELL ==========
+    The clickable 250×250 box.
+ */
+ /* The decoration cell itself can stay at margin: 0 if you like,
+    or give it a tiny margin if you prefer that approach:
+      margin: 0.25rem;
+    But typically gap + padding is enough.
+ */
+ .decoration-cell {
+   width: 150px;
+   height: 150px;
+   position: relative;
+   /* margin: 0; // can remain 0 unless you want each cell to have margin. */
+   background-color: #2b2b2b;
+   border-radius: 4px;
+   overflow: hidden;
+   text-align: center;
+   cursor: pointer;
+   transition: background-color 0.2s;
+ }
+ 
+ .decoration-cell:hover {
+   background-color: #363636;
+ }
+ 
+ /* 
+    ========== DEFAULT AVATAR (Discord Logo) BEHIND ==========
+    Lower z-index => behind the ring
+ */
+ .default-avatar {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   width: 83%;
+   height: auto;
+   opacity: 0;               /* hidden until hover */
+   opacity: 0;
+   transition: opacity 0.3s;
+   pointer-events: none;
+   z-index: 1;
+ }
+ 
+ /* 
+    ========== DECORATION IMAGE (RING) ON TOP ==========
+    Higher z-index => appears in front of the avatar.
+ */
+ .decoration-img {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   object-fit: contain;
+   border: 2px solid #444;
+   border-radius: 4px;
+   transition: transform 0.2s;
+   z-index: 2;
+ }
+ 
+ .decoration-cell:hover .decoration-img {
+   transform: scale(1.02);
+ .decoration-wrap:hover .default-avatar {
+   opacity: 1;
+ }
+ 
+ .decoration-wrap:hover .download-info {
+   opacity: 1;
+ }
+ 
+ /* 
+    ========== DOWNLOAD INFO (TEXT) BELOW THE CELL ========== 
+    Hidden by default; we show it on hover of .decoration-wrap.
+ */
+ .download-info {
+   margin-top: 6px;
+   margin-bottom: 1rem;
+   font-size: 0.95rem;
+   opacity: 0;
+   transition: opacity 0.2s;
+   pointer-events: none; /* so clicks go to the cell above */
+ }
+ 
+ /* 
+    ========== HOVER TO SHOW AVATAR & TEXT ==========
+ */
+ .decoration-wrap:hover .default-avatar {
+   opacity: 1;
+ }
+ .decoration-wrap:hover .download-info {
+   opacity: 1;
+   pointer-events: none;
+ }
+ 
+ /* ========== SPARKLY MOUSE TRAIL ========== */
+ /* If you want the star code from winterwind.com snippet */
+ .star {
+   position: fixed;
+   pointer-events: none;
+ }
+ 
+ .star:before,
+ .star:after {
+   position: absolute;
+   top: 0;
+   left: 0;
+   content: '\2726'; /* a sparkle/star unicode character */
+   content: '\2726';
+   font-size: 9px;
+ }
+ 
+ .star:before {
+   color: transparent;
+   text-shadow: 0 0 3px rgb(235, 18, 115);
+ }
+ 
+ .star:after {
+   background: rgb(244, 119, 194);
+   /* The unprefixed property */
+   background-clip: text;
+   /* Vendor prefix for WebKit browsers (Chrome, Safari, etc.) */
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+   color: transparent; /* fallback if background-clip isn’t recognized */
+   color: transparent;
+ }
+ 
+ /* ========== ARTIST INFO STYLING ========== */
+ .artist-info {
+   text-align: center;
+   margin: 2rem 0;
+   font-size: 1.1rem;
+ }
+ 
+ /* Link inside .artist-info */
+ .artist-info a {
+   color: rgb(50, 168, 82);
+   text-decoration: none;
+   transition: color 0.3s ease;
+ }
+ 
+ .artist-info a:hover {
+   text-decoration: underline;
+ }
+ 
+ .artist-info a:visited {
+   color: rgb(141, 10, 148);
+ }
+ 
+ .artist-info a.visited-artist-link {
+   color: rgb(141, 10, 148) !important;
+ }
+ 
+ /********************************
+  * EASTER EGG MODAL
+  ********************************/
+  .modal {
+ /* ========== EASTER EGG MODAL ========== */
+ .modal {
+   display: none;
+   position: fixed;
+   top: 0; left: 0;
+   width: 100vw; height: 100vh;
+   top: 0;
+   left: 0;
+   width: 100vw;
+   height: 100vh;
+   background-color: rgba(0, 0, 0, 0.5);
+   align-items: center;
+   justify-content: center;
+   z-index: 9999;
+ }
+ 
+ .modal.show {
+   display: flex;
+ }
+ 
+ .modal-content {
+   position: relative;
+   background-color: #2b2b2b;
+   padding: 1.5rem;
+   border-radius: 8px;
+   text-align: center;
+   color: #fff;
+   max-width: 400px;
+   width: 80%;
+   box-shadow: 0 0 15px rgba(255, 105, 180, 0.8);
+ 
+   /* 
+     Define a CSS variable for the gradient angle. 
+     The JS code will keep incrementing this --angle.
+   */
+   --angle: 0deg;
+ }
+ 
+ .modal-content p {
+   margin: 0.5em 0;
+   line-height: 1;
+ }
+ 
+ /* The pseudo-element for the animated gradient outline */
+ .modal-content::before {
+   content: "";
+   position: absolute;
+   top: -4px;
+   left: -4px;
+   right: -4px;
+   bottom: -4px;
+   border-radius: 10px; 
+   border-radius: 10px;
+   z-index: -1;
+ 
+   /* 
+     Conic gradient references var(--angle). 
+     The JS updates --angle in real-time, causing rotation. 
+   */
+   background: conic-gradient(
+     from var(--angle),
+     #4305b7 0deg,
+     #d84ed7 120deg,
+     #2b6ee2 240deg,
+     #4305b7 360deg
+   );
+ }
+ 
+ /* If you have an image within the modal */
+ .easter-egg-image {
+   max-width: 100px;
+   margin-bottom: 1rem;
+ }
+ 
+ /* ========== DECORATION MODAL ========== */
+ .decoration-modal {
+   opacity: 0;
+   visibility: hidden;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, 0.6);
+   z-index: 9999;
+   pointer-events: none;
+   transition: opacity 0.2s ease;
+ }
+ 
+ .decoration-modal.showing {
+   opacity: 1;
+   visibility: visible;
+   pointer-events: auto;
+ }
+ 
+ /* Only modal-inner scales */
+ .modal-inner {
+   transform: scale(0.95);
+   transition: transform 0.2s ease;
+ }
+ 
+ .decoration-modal.showing .modal-inner {
+   transform: scale(1);
+ }
+ 
+ .decoration-modal.hiding .modal-inner {
+   transform: scale(0.95);
+ }
+ 
+ #decorationModal .modal-content::before {
+   display: none;
+ }
+ 
+ #decorationModal .modal-content {
+   background-color: #272727;
+   border: 4px solid #1f1f1f;
+   box-shadow: 0px 4px 10px rgba(0,0,0,0.36);
+   padding: 2.5rem;
+   width: 500px; /* Force fixed width */
+   max-width: none; /* Remove scaling limit */
+   border-radius: 16px;
+   text-align: center;
+   color: #fff;
+ }
+ 
+ 
+ /* BIGGER image container */
+ .modal-images {
+   position: relative;
+   width: 180px;
+   height: 180px;
+   margin: 0 auto 2rem;
+ }
+ 
+ .modal-default-avatar {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   width: 90%;
+   height: auto;
+   transform: translate(-50%, -50%);
+   opacity: 1;
+   z-index: 1;
+ }
+ 
+ .modal-decoration-img {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   object-fit: contain;
+   border-radius: 6px;
+   z-index: 2;
+   transform: scale(1.08);
+ }
+ 
+ /* BIGGER text */
+ .modal-decoration-title {
+   font-size: 1.6rem;
+   font-weight: bold;
+   margin: 0.75rem 0 0.5rem;
+ }
+ 
+ .modal-artist-name {
+   font-style: italic;
+   font-size: 1.25rem;
+   margin-bottom: 0.5rem;
+ }
+ 
+ /* FIXED commission block */
+ .modal-commission-info {
+   font-size: 1rem;
+   color: #70d170;
+   margin-bottom: 1.5rem;
+   line-height: 1.6;
+   text-align: center;
+   min-height: 4.8rem; /* This gives roughly 3 lines worth of height */
+ }
+ 
+ 
+ /* 👇 Fix: if empty, hide visually but keep layout space */
+ .modal-commission-info:empty {
+   visibility: hidden;
+ }
+ 
+ .modal-commission-info p {
+   margin: 0.35rem 0;
+ }
+ 
+ .modal-commission-info a {
+   color: #4f8cff;
+   text-decoration: underline;
+ }
+ 
+ /* BIGGER download button */
+ .download-button {
+   background-color: #5865f2;
+   color: white;
+   border: none;
+   border-radius: 8px;
+   padding: 0.6rem 2.5rem;
+   font-size: 1.2rem;
+   cursor: pointer;
+   transition: background-color 0.2s;
+   margin-top: 2rem;
+ }
+ 
+ .download-button:hover {
+   background-color: #4654c0;
+ }
+ 
+ .download-button:active {
+   background-color: #3a48a3;
+ }
+ 
+ .modal-guide-line {
+   font-size: 1rem;
+   margin-top: 1.5rem;
+   color: #ccc;
+   line-height: 1.8;
+   max-width: 460px;
+   margin-left: auto;
+   margin-right: auto;
+   text-align: center;
+ }
+ 
+ .modal-guide-line p {
+   margin: 0.75rem 0; /* Add vertical space between lines */
+ }
+ 
+ .modal-guide-line a {
+   color: #4f8cff;
+   text-decoration: underline;
+ }
