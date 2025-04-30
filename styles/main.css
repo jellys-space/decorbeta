@@ -141,12 +141,6 @@ header h1 {
   margin: 0 auto;
 }
 
-@media (max-width: 600px) {
-  .category-banner img {
-    max-width: 90vw;
-  }
-}
-
 .decorations-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, 150px);
@@ -504,9 +498,9 @@ header h1 {
 }
 
 /* ========== MOBILE OVERRIDES: DECORATION MODAL ========== */
-@media (max-width: 600px) {
-  .modal-inner {
-    transform: scale(1.05) !important;
+@media screen and (max-width: 600px) {
+  .category-banner img {
+    max-width: 90vw;
   }
 
   #decorationModal .modal-content {
