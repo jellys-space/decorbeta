@@ -115,7 +115,7 @@ header h1 {
   }
 }
 
-/* Confetti counter-clockwise animation */
+/* Confetti counter-clockwise animation  */
 @keyframes confettiDriftCCW {
   0% {
     transform: translateY(-10vh) rotate(0deg);
