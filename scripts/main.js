@@ -239,56 +239,64 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /********************************
-   * 5) EASTER EGG: 10 QUICK CLICKS ON #jellyHomeImg
-   ********************************/
-  (function() {
-    const jellyHomeImg = document.getElementById('jellyHomeImg');
-    const easterEggModal = document.getElementById('easterEggModal');
-    if (!jellyHomeImg || !easterEggModal) return;
+/********************************
+ * 5) EASTER EGG: 10 QUICK CLICKS ON #jellyHomeImg
+ ********************************/
+(function () {
+  const jellyHomeImg = document.getElementById('jellyHomeImg');
+  const easterEggModal = document.getElementById('easterEggModal');
+  if (!jellyHomeImg || !easterEggModal) return;
 
-    let clickCount = 0;
-    let lastClickTime = 0;
-    const maxGap = 2000;
+  let clickCount = 0;
+  let lastClickTime = 0;
+  const maxGap = 2000;
 
-    jellyHomeImg.addEventListener('click', () => {
-      const now = Date.now();
-      if (now - lastClickTime > maxGap) {
-        clickCount = 0;
-      }
-      lastClickTime = now;
-      clickCount++;
+  jellyHomeImg.addEventListener('click', () => {
+    const now = Date.now();
+    if (now - lastClickTime > maxGap) {
+      clickCount = 0;
+    }
+    lastClickTime = now;
+    clickCount++;
 
-      if (clickCount >= 10) {
-        showEasterEgg();
-        clickCount = 0;
-      }
-    });
+    if (clickCount >= 10) {
+      showEasterEgg();
+      clickCount = 0;
+    }
+  });
 
-    let rotateAnimationId = null;
+  let rotateAnimationId = null;
 
-    function showEasterEgg() {
-      easterEggModal.classList.add('show');
-      const modalContent = easterEggModal.querySelector('.modal-content');
-      let angle = 0;
+  function showEasterEgg() {
+    easterEggModal.classList.add('show');
+    const modalContent = easterEggModal.querySelector('.easter-modal-content');
+    let angle = 0;
 
-      function rotateGradient() {
-        angle = (angle + 0.5) % 360;
-        modalContent.style.setProperty('--angle', angle + 'deg');
-        rotateAnimationId = requestAnimationFrame(rotateGradient);
-      }
-
-      rotateGradient();
-
-      easterEggModal.addEventListener('click', hideEasterEgg, { once: true });
+    function rotateGradient() {
+      angle = (angle + 0.5) % 360;
+      modalContent.style.setProperty('--angle', angle + 'deg');
+      rotateAnimationId = requestAnimationFrame(rotateGradient);
     }
 
-    function hideEasterEgg() {
-      easterEggModal.classList.remove('show');
-      if (rotateAnimationId) {
-        cancelAnimationFrame(rotateAnimationId);
-        rotateAnimationId = null;
+    rotateGradient();
+
+    // Click outside to close
+    function outsideClickHandler(e) {
+      if (!modalContent.contains(e.target)) {
+        hideEasterEgg();
+        document.removeEventListener('click', outsideClickHandler);
       }
     }
-  })();
+
+    document.addEventListener('click', outsideClickHandler);
+  }
+
+  function hideEasterEgg() {
+    easterEggModal.classList.remove('show');
+    if (rotateAnimationId) {
+      cancelAnimationFrame(rotateAnimationId);
+      rotateAnimationId = null;
+    }
+  }
+})();
 });
