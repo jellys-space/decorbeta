@@ -507,18 +507,19 @@ header h1 {
 @media (max-width: 600px) {
   .decoration-modal .modal-inner {
     transform: none !important;
+    padding: 0 !important;
   }
 
   .decoration-modal .modal-content {
-    width: 100% !important;
-    max-width: 95vw !important;
-    padding: 2rem 1rem !important;
-    border-radius: 1rem !important;
+    width: 95vw !important;
+    max-width: none !important;
+    padding: 3rem 1rem !important;
+    font-size: 1.2rem !important;
   }
 
   .decoration-modal .modal-images {
-    width: 260px !important;
-    height: 260px !important;
+    width: 280px !important;
+    height: 280px !important;
   }
 
   .decoration-modal .modal-decoration-title {
@@ -526,20 +527,17 @@ header h1 {
   }
 
   .decoration-modal .modal-artist-name {
-    font-size: 1.4rem !important;
-  }
-
-  .decoration-modal .modal-commission-info {
-    font-size: 1.15rem !important;
+    font-size: 1.5rem !important;
   }
 
   .decoration-modal .modal-guide-line {
-    font-size: 1.15rem !important;
+    font-size: 1.2rem !important;
     line-height: 2 !important;
   }
 
   .decoration-modal .download-button {
     font-size: 1.5rem !important;
-    padding: 0.9rem 3.2rem !important;
+    padding: 1rem 3.5rem !important;
   }
 }
+
