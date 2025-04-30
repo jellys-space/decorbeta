@@ -508,15 +508,14 @@ header h1 {
 }
 
 @media (max-width: 600px) {
-  .decoration-modal .modal-inner {
+  .modal-inner {
     transform: none !important;
   }
 
-  #decorationModal .modal-content {
-    width: 100vw !important;
-    max-width: 100vw !important;
-    padding: 2.5rem 1rem !important;
-    border-radius: 0 !important;
+  .modal-content {
+    width: 95vw !important;
+    padding: 2rem 1rem !important;
+    border-radius: 0.5rem !important;
   }
 
   .modal-images {
