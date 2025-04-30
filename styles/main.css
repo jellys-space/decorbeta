@@ -575,7 +575,7 @@ header h1 {
   object-fit: contain;
   border-radius: 6px;
   z-index: 2;
-  transform: scale(1.07);
+  transform: scale(1.09);
 }
 
 #decorationModalDesktop .modal-decoration-title {
