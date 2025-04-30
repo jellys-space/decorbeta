@@ -1,11 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   /********************************
-   * 1) DECORATION MODAL LOGIC
+   * 1) DECORATION MODAL LOGIC (Dual Modal Support)
    ********************************/
   const decorationWraps = document.querySelectorAll('.decoration-wrap');
+  const isMobile = /iPhone|iPad|iPod|Android|webOS/i.test(navigator.userAgent);
 
-  const modal = document.getElementById('decorationModal');
+  const modal = document.getElementById(isMobile ? 'decorationModalMobile' : 'decorationModalDesktop');
   const modalInner = modal.querySelector('.modal-inner');
   const modalDefaultAvatar = modal.querySelector('.modal-default-avatar');
   const modalDecorationImg = modal.querySelector('.modal-decoration-img');
@@ -43,8 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
         modalCommission.style.display = 'none';
       }
 
-      
-
       // SHOW MODAL
       scrollPosition = window.scrollY || window.pageYOffset;
 
@@ -70,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Download button action
-downloadButton.addEventListener('click', () => {
+  downloadButton.addEventListener('click', () => {
     const imagePath = modalDecorationImg.src;
     const rawFileName = imagePath.split('/').pop();
     const fileName = rawFileName.replace(/%20/g, ' '); // Fix for GitHub Pages
@@ -82,8 +81,7 @@ downloadButton.addEventListener('click', () => {
     link.click();
     document.body.removeChild(link);
   });  
-
-
+  
   // ESC key or F5 closes modal
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.style.visibility === 'visible') {
