@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   /********************************
-   * 1) DECORATION MODAL LOGIC
+   * 1) DECORATION MODAL LOGIC 
    ********************************/
   const decorationWraps = document.querySelectorAll('.decoration-wrap');
 
