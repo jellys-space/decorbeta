@@ -386,4 +386,145 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   })();
+
+// Insert this entire block at the bottom of your existing main.js
+
+/********************************
+ * 6) PAGINATION (Fixed 10 Buttons Max with Smart Ellipsis)
+ ********************************/
+
+function setupPagination() {
+  const allCategories = Array.from(document.querySelectorAll('.category'));
+  const categoriesPerPage = 5;
+  const pages = [];
+
+  let currentPageGroup = [];
+
+  allCategories.forEach((cat) => {
+    if (cat.hasAttribute('data-force-pagebreak')) {
+      if (currentPageGroup.length) {
+        pages.push(currentPageGroup);
+        currentPageGroup = [];
+      }
+      pages.push([cat]);
+    } else {
+      currentPageGroup.push(cat);
+      if (currentPageGroup.length === categoriesPerPage) {
+        pages.push(currentPageGroup);
+        currentPageGroup = [];
+      }
+    }
+  });
+
+  if (currentPageGroup.length) {
+    pages.push(currentPageGroup);
+  }
+
+  let currentPage = 1;
+
+  const topContainer = document.createElement('div');
+  topContainer.id = 'paginationTop';
+  const bottomContainer = document.createElement('div');
+  bottomContainer.id = 'paginationBottom';
+
+  const categoriesWrapper = document.getElementById('categories-container');
+  categoriesWrapper.parentNode.insertBefore(topContainer, categoriesWrapper);
+  categoriesWrapper.parentNode.insertBefore(bottomContainer, categoriesWrapper.nextSibling);
+
+  function renderPage(page, fromBottom = false) {
+    currentPage = page;
+    const visibleCategories = new Set(pages[page - 1]);
+
+    allCategories.forEach(cat => {
+      cat.style.display = visibleCategories.has(cat) ? '' : 'none';
+    });
+
+    renderPagination(topContainer, false);
+    renderPagination(bottomContainer, true);
+
+    if (fromBottom) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  function renderPagination(container, isBottom) {
+    container.innerHTML = '';
+
+    const nav = document.createElement('div');
+    nav.className = 'pagination-nav';
+
+    const totalPages = pages.length;
+    const maxVisiblePages = 10;
+
+    // Back Button
+    const back = document.createElement('button');
+    back.innerHTML = '❮ Back';
+    back.className = 'pagination-btn';
+    if (currentPage === 1) {
+      back.disabled = true;
+    }
+    back.addEventListener('click', () => {
+      if (currentPage > 1) renderPage(currentPage - 1, isBottom);
+    });
+    nav.appendChild(back);
+
+    const addButton = (label, isActive = false) => {
+      const btn = document.createElement('button');
+      btn.textContent = label;
+      btn.className = 'pagination-circle';
+      if (label === currentPage) btn.classList.add('active');
+      btn.addEventListener('click', () => renderPage(label, isBottom));
+      nav.appendChild(btn);
+    };
+
+    const addEllipsis = () => {
+      const span = document.createElement('span');
+      span.textContent = '...';
+      span.style.color = '#6d6e73';
+      span.style.padding = '0 0.4rem';
+      nav.appendChild(span);
+    };
+
+    if (totalPages <= maxVisiblePages) {
+      for (let i = 1; i <= totalPages; i++) addButton(i);
+    } else {
+      const visibleRange = 7;
+
+      if (currentPage <= 5) {
+        for (let i = 1; i <= visibleRange; i++) addButton(i);
+        addEllipsis();
+        addButton(totalPages);
+      } else if (currentPage >= totalPages - 4) {
+        addButton(1);
+        addEllipsis();
+        for (let i = totalPages - visibleRange + 1; i <= totalPages; i++) addButton(i);
+      } else {
+        addButton(1);
+        addEllipsis();
+        for (let i = currentPage - 2; i <= currentPage + 2; i++) addButton(i);
+        addEllipsis();
+        addButton(totalPages);
+      }
+    }
+
+    // Next Button
+    const next = document.createElement('button');
+    next.innerHTML = 'Next ❯';
+    next.className = 'pagination-btn';
+    if (currentPage === totalPages) {
+      next.disabled = true;
+    }
+    next.addEventListener('click', () => {
+      if (currentPage < totalPages) renderPage(currentPage + 1, isBottom);
+    });
+    nav.appendChild(next);
+
+    container.appendChild(nav);
+  }
+
+  renderPage(1);
+}
+
+window.addEventListener('DOMContentLoaded', setupPagination);
+
 });
