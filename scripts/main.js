@@ -389,35 +389,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Insert this entire block at the bottom of your existing main.js
 
+// Insert this entire block at the bottom of your existing main.js
+
 /********************************
- * 6) PAGINATION (Fixed 10 Buttons Max with Smart Ellipsis)
+ * 6) PAGINATION (On-Demand DOM with Ellipsis + Force Pagebreak Support)
  ********************************/
 
 function setupPagination() {
-  const allCategories = Array.from(document.querySelectorAll('.category'));
+  const originalCategories = Array.from(document.querySelectorAll('.category'));
   const categoriesPerPage = 5;
-  const pages = [];
-
+  const pageData = [];
   let currentPageGroup = [];
 
-  allCategories.forEach((cat) => {
+  // Capture and remove categories from DOM
+  originalCategories.forEach(cat => {
+    const clone = cat.cloneNode(true);
     if (cat.hasAttribute('data-force-pagebreak')) {
       if (currentPageGroup.length) {
-        pages.push(currentPageGroup);
+        pageData.push([...currentPageGroup]);
         currentPageGroup = [];
       }
-      pages.push([cat]);
+      pageData.push([clone]);
     } else {
-      currentPageGroup.push(cat);
+      currentPageGroup.push(clone);
       if (currentPageGroup.length === categoriesPerPage) {
-        pages.push(currentPageGroup);
+        pageData.push([...currentPageGroup]);
         currentPageGroup = [];
       }
     }
+    cat.remove();
   });
 
   if (currentPageGroup.length) {
-    pages.push(currentPageGroup);
+    pageData.push([...currentPageGroup]);
   }
 
   let currentPage = 1;
@@ -433,12 +437,10 @@ function setupPagination() {
 
   function renderPage(page, fromBottom = false) {
     currentPage = page;
-    const visibleCategories = new Set(pages[page - 1]);
-
-    allCategories.forEach(cat => {
-      cat.style.display = visibleCategories.has(cat) ? '' : 'none';
+    categoriesWrapper.innerHTML = '';
+    pageData[page - 1].forEach(cat => {
+      categoriesWrapper.appendChild(cat.cloneNode(true));
     });
-
     renderPagination(topContainer, false);
     renderPagination(bottomContainer, true);
 
@@ -453,22 +455,19 @@ function setupPagination() {
     const nav = document.createElement('div');
     nav.className = 'pagination-nav';
 
-    const totalPages = pages.length;
+    const totalPages = pageData.length;
     const maxVisiblePages = 10;
 
-    // Back Button
     const back = document.createElement('button');
     back.innerHTML = '❮ Back';
     back.className = 'pagination-btn';
-    if (currentPage === 1) {
-      back.disabled = true;
-    }
+    if (currentPage === 1) back.disabled = true;
     back.addEventListener('click', () => {
       if (currentPage > 1) renderPage(currentPage - 1, isBottom);
     });
     nav.appendChild(back);
 
-    const addButton = (label, isActive = false) => {
+    const addButton = (label) => {
       const btn = document.createElement('button');
       btn.textContent = label;
       btn.className = 'pagination-circle';
@@ -507,13 +506,10 @@ function setupPagination() {
       }
     }
 
-    // Next Button
     const next = document.createElement('button');
     next.innerHTML = 'Next ❯';
     next.className = 'pagination-btn';
-    if (currentPage === totalPages) {
-      next.disabled = true;
-    }
+    if (currentPage === totalPages) next.disabled = true;
     next.addEventListener('click', () => {
       if (currentPage < totalPages) renderPage(currentPage + 1, isBottom);
     });
