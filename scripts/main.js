@@ -390,7 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Insert this entire block at the bottom of your existing main.js
 
 /********************************
- * 6) PAGINATION (On-Demand DOM with Ellipsis + Force Pagebreak Support)
+ * 6) PAGINATION (On-Demand DOM with Ellipsis + Force Pagebreak Support + Patched Lazy Load)
  ********************************/
 
 function setupPagination() {
@@ -399,7 +399,6 @@ function setupPagination() {
   const pageData = [];
   let currentPageGroup = [];
 
-  // Capture and remove categories from DOM
   originalCategories.forEach(cat => {
     const clone = cat.cloneNode(true);
     if (cat.hasAttribute('data-force-pagebreak')) {
@@ -449,7 +448,7 @@ function setupPagination() {
       lazyImages.forEach(img => {
         if (!img.dataset.src) {
           img.dataset.src = img.src;
-          img.src = '';
+          img.removeAttribute('src');
         }
         imageObserver.observe(img);
       });
