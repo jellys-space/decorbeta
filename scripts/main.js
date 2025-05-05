@@ -69,18 +69,111 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Download button action
-  downloadButton.addEventListener('click', () => {
-    const imagePath = modalDecorationImg.src;
-    const rawFileName = imagePath.split('/').pop();
-    const fileName = rawFileName.replace(/%20/g, ' '); // Fix for GitHub Pages
-  
-    const link = document.createElement('a');
-    link.href = imagePath;
-    link.download = fileName;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  });  
+  downloadButton.addEventListener("click", async () => {
+  const imagePath = modalDecorationImg.src;
+  const rawFileName = imagePath.split("/").pop();
+  const fileName = rawFileName.replace(/%20/g, " ").replace(/\.png$/, "") + "-unique.png";
+
+  // Fetch original PNG file
+  const req = await fetch(imagePath);
+  const buff = await req.arrayBuffer();
+  const view = new DataView(buff);
+
+  const sig = buff.slice(0, 8);
+
+  // Parse PNG chunks
+  const splitChunks = () => {
+    const chunks = [];
+    let offset = 8;
+
+    while (offset < buff.byteLength) {
+      const length = view.getUint32(offset);
+      const type = new TextDecoder().decode(new Uint8Array(buff, offset + 4, 4));
+      const data = new Uint8Array(buff, offset + 8, length);
+      const crc = view.getUint32(offset + 8 + length);
+
+      chunks.push({ length, type, data, crc });
+      offset += 12 + length;
+    }
+
+    return chunks;
+  };
+
+  const chunks = splitChunks();
+
+  // CRC helper
+  const crcTable = (() => {
+    let c;
+    let table = [];
+    for (let n = 0; n < 256; n++) {
+      c = n;
+      for (let k = 0; k < 8; k++) {
+        c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+      }
+      table[n] = c;
+    }
+    return table;
+  })();
+
+  const crc32 = (buff) => {
+    let crc = ~0;
+    for (let i = 0; i < buff.length; i++) {
+      crc = (crc >>> 8) ^ crcTable[(crc ^ buff[i]) & 0xff];
+    }
+    return ~crc >>> 0;
+  };
+
+  // Create a random tEXt chunk
+  const keyword = "HashScramble";
+  const random = Math.random().toString(30).slice(2);
+  const textData = new TextEncoder().encode(keyword + "\0" + random);
+
+  const createChunk = (type, data) => {
+    const input = new Uint8Array(type.length + data.length);
+    input.set(new TextEncoder().encode(type), 0);
+    input.set(data, type.length);
+    const crc = crc32(input);
+    return { type, data, crc };
+  };
+
+  const randomChunk = createChunk("tEXt", textData);
+
+  // Rebuild chunks with our injected one before IEND
+  const newChunks = [];
+  chunks.forEach((chunk) => {
+    if (chunk.type === "IEND") newChunks.push(randomChunk);
+    newChunks.push(chunk);
+  });
+
+  // Reassemble binary PNG
+  const parts = [sig];
+  newChunks.forEach((chunk) => {
+    const lengthBuf = new Uint8Array(4);
+    new DataView(lengthBuf.buffer).setUint32(0, chunk.data.length);
+    parts.push(lengthBuf);
+
+    const typeBuf = new TextEncoder().encode(chunk.type);
+    parts.push(typeBuf);
+    parts.push(chunk.data);
+
+    const crcBuf = new Uint8Array(4);
+    new DataView(crcBuf.buffer).setUint32(0, chunk.crc);
+    parts.push(crcBuf);
+  });
+
+  const blob = new Blob(parts, { type: "image/png" });
+  const url = URL.createObjectURL(blob);
+
+  // Trigger download
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = fileName;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+ 
   
   // ESC key or F5 closes modal
   document.addEventListener('keydown', (e) => {
