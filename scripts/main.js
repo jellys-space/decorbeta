@@ -390,7 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Insert this entire block at the bottom of your existing main.js
 
 /********************************
- * 6) PAGINATION (Final Lazy Load Patch for Mobile Reliability)
+ * 6) PAGINATION (Simple Native Lazy Load Only)
  ********************************/
 
 function setupPagination() {
@@ -431,42 +431,6 @@ function setupPagination() {
   const categoriesWrapper = document.getElementById('categories-container');
   categoriesWrapper.parentNode.insertBefore(topContainer, categoriesWrapper);
   categoriesWrapper.parentNode.insertBefore(bottomContainer, categoriesWrapper.nextSibling);
-
-  function reinitImageLazyLoading(container) {
-    const lazyImages = container.querySelectorAll('.decoration-cell img, .default-avatar');
-    if ('IntersectionObserver' in window) {
-      const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const img = entry.target;
-            img.src = img.dataset.src;
-            img.removeAttribute('data-src');
-            observer.unobserve(img);
-          }
-        });
-      });
-      lazyImages.forEach(img => {
-        if (!img.dataset.src) {
-          img.dataset.src = img.src;
-          img.removeAttribute('src');
-        }
-        imageObserver.observe(img);
-
-        // Extra fallback: force-load if already visible
-        const rect = img.getBoundingClientRect();
-        if (rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)) {
-          img.src = img.dataset.src;
-          img.removeAttribute('data-src');
-        }
-      });
-    } else {
-      lazyImages.forEach(img => {
-        if (img.dataset.src) {
-          img.src = img.dataset.src;
-        }
-      });
-    }
-  }
 
   function rebindModalEvents() {
     const newWraps = document.querySelectorAll('.decoration-wrap');
@@ -514,11 +478,17 @@ function setupPagination() {
     currentPage = page;
     categoriesWrapper.innerHTML = '';
     pageData[page - 1].forEach(cat => {
-      categoriesWrapper.appendChild(cat.cloneNode(true));
+      const cloned = cat.cloneNode(true);
+      const images = cloned.querySelectorAll('img');
+      images.forEach(img => {
+        if (!img.hasAttribute('loading')) {
+          img.setAttribute('loading', 'lazy');
+        }
+      });
+      categoriesWrapper.appendChild(cloned);
     });
     renderPagination(topContainer, false);
     renderPagination(bottomContainer, true);
-    reinitImageLazyLoading(categoriesWrapper);
     rebindModalEvents();
 
     if (fromBottom) {
