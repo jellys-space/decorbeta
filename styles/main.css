@@ -115,7 +115,7 @@ header h1 {
   }
 }
 
-/* Confetti counter-clockwise animation  */
+/* Confetti counter-clockwise animation */
 @keyframes confettiDriftCCW {
   0% {
     transform: translateY(-10vh) rotate(0deg);
@@ -628,4 +628,67 @@ header h1 {
 
 #decorationModalDesktop .download-button:active {
   background-color: #3a48a3;
+}
+
+/* PAGINATION STYLING */
+#paginationTop,
+#paginationBottom {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.pagination-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pagination-btn {
+  background-color: transparent;
+  color: #d2d2d4;
+  border: none;
+  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background-color: #3c3c44;
+}
+
+.pagination-btn:disabled {
+  color: #6d6e73;
+  cursor: not-allowed;
+}
+
+.pagination-circle {
+  background-color: transparent;
+  color: #d2d2d4;
+  border: none;
+  border-radius: 9999px;
+  width: 2.8rem;
+  height: 2.8rem;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination-circle:hover:not(.active) {
+  background-color: #3c3c44;
+}
+
+.pagination-circle.active {
+  background-color: #6266ec;
+  color: white;
+  font-weight: bold;
 }
