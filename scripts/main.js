@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
   downloadButton.addEventListener("click", async () => {
   const imagePath = modalDecorationImg.src;
   const rawFileName = imagePath.split("/").pop();
-  const fileName = rawFileName.replace(/%20/g, " ").replace(/\.png$/, "") + "-unique.png";
+  const fileName = rawFileName.replace(/%20/g, " ");
 
   // Fetch original PNG file
   const req = await fetch(imagePath);
