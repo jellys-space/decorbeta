@@ -390,27 +390,27 @@ document.addEventListener('DOMContentLoaded', () => {
 // Insert this entire block at the bottom of your existing main.js
 
 /********************************
- * 6) PAGINATION (Fixed via InnerHTML Rendering)
+ * 6) PAGINATION (On-Demand DOM with Ellipsis + Force Pagebreak Support + Patched Lazy Load)
  ********************************/
 
 function setupPagination() {
   const originalCategories = Array.from(document.querySelectorAll('.category'));
   const categoriesPerPage = 5;
-  const pageHtmlData = [];
+  const pageData = [];
   let currentPageGroup = [];
 
   originalCategories.forEach(cat => {
-    const html = cat.outerHTML;
+    const clone = cat.cloneNode(true);
     if (cat.hasAttribute('data-force-pagebreak')) {
       if (currentPageGroup.length) {
-        pageHtmlData.push([...currentPageGroup]);
+        pageData.push([...currentPageGroup]);
         currentPageGroup = [];
       }
-      pageHtmlData.push([html]);
+      pageData.push([clone]);
     } else {
-      currentPageGroup.push(html);
+      currentPageGroup.push(clone);
       if (currentPageGroup.length === categoriesPerPage) {
-        pageHtmlData.push([...currentPageGroup]);
+        pageData.push([...currentPageGroup]);
         currentPageGroup = [];
       }
     }
@@ -418,7 +418,7 @@ function setupPagination() {
   });
 
   if (currentPageGroup.length) {
-    pageHtmlData.push([...currentPageGroup]);
+    pageData.push([...currentPageGroup]);
   }
 
   let currentPage = 1;
@@ -431,6 +431,35 @@ function setupPagination() {
   const categoriesWrapper = document.getElementById('categories-container');
   categoriesWrapper.parentNode.insertBefore(topContainer, categoriesWrapper);
   categoriesWrapper.parentNode.insertBefore(bottomContainer, categoriesWrapper.nextSibling);
+
+  function reinitImageLazyLoading(container) {
+    const lazyImages = container.querySelectorAll('.decoration-cell img, .default-avatar');
+    if ('IntersectionObserver' in window) {
+      const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
+            observer.unobserve(img);
+          }
+        });
+      });
+      lazyImages.forEach(img => {
+        if (!img.dataset.src) {
+          img.dataset.src = img.src;
+          img.removeAttribute('src');
+        }
+        imageObserver.observe(img);
+      });
+    } else {
+      lazyImages.forEach(img => {
+        if (img.dataset.src) {
+          img.src = img.dataset.src;
+        }
+      });
+    }
+  }
 
   function rebindModalEvents() {
     const newWraps = document.querySelectorAll('.decoration-wrap');
@@ -476,9 +505,13 @@ function setupPagination() {
 
   function renderPage(page, fromBottom = false) {
     currentPage = page;
-    categoriesWrapper.innerHTML = pageHtmlData[page - 1].join('');
+    categoriesWrapper.innerHTML = '';
+    pageData[page - 1].forEach(cat => {
+      categoriesWrapper.appendChild(cat.cloneNode(true));
+    });
     renderPagination(topContainer, false);
     renderPagination(bottomContainer, true);
+    reinitImageLazyLoading(categoriesWrapper);
     rebindModalEvents();
 
     if (fromBottom) {
@@ -490,7 +523,7 @@ function setupPagination() {
     container.innerHTML = '';
     const nav = document.createElement('div');
     nav.className = 'pagination-nav';
-    const totalPages = pageHtmlData.length;
+    const totalPages = pageData.length;
     const maxVisiblePages = 10;
 
     const back = document.createElement('button');
