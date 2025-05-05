@@ -390,7 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Insert this entire block at the bottom of your existing main.js
 
 /********************************
- * 6) PAGINATION (On-Demand DOM with Ellipsis + Force Pagebreak Support + Patched Lazy Load)
+ * 6) PAGINATION (Final Lazy Load Patch for Mobile Reliability)
  ********************************/
 
 function setupPagination() {
@@ -451,6 +451,13 @@ function setupPagination() {
           img.removeAttribute('src');
         }
         imageObserver.observe(img);
+
+        // Extra fallback: force-load if already visible
+        const rect = img.getBoundingClientRect();
+        if (rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)) {
+          img.src = img.dataset.src;
+          img.removeAttribute('data-src');
+        }
       });
     } else {
       lazyImages.forEach(img => {
