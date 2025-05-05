@@ -390,27 +390,27 @@ document.addEventListener('DOMContentLoaded', () => {
 // Insert this entire block at the bottom of your existing main.js
 
 /********************************
- * 6) PAGINATION (Simple Native Lazy Load Only)
+ * 6) PAGINATION (Fixed via InnerHTML Rendering)
  ********************************/
 
 function setupPagination() {
   const originalCategories = Array.from(document.querySelectorAll('.category'));
   const categoriesPerPage = 5;
-  const pageData = [];
+  const pageHtmlData = [];
   let currentPageGroup = [];
 
   originalCategories.forEach(cat => {
-    const clone = cat.cloneNode(true);
+    const html = cat.outerHTML;
     if (cat.hasAttribute('data-force-pagebreak')) {
       if (currentPageGroup.length) {
-        pageData.push([...currentPageGroup]);
+        pageHtmlData.push([...currentPageGroup]);
         currentPageGroup = [];
       }
-      pageData.push([clone]);
+      pageHtmlData.push([html]);
     } else {
-      currentPageGroup.push(clone);
+      currentPageGroup.push(html);
       if (currentPageGroup.length === categoriesPerPage) {
-        pageData.push([...currentPageGroup]);
+        pageHtmlData.push([...currentPageGroup]);
         currentPageGroup = [];
       }
     }
@@ -418,7 +418,7 @@ function setupPagination() {
   });
 
   if (currentPageGroup.length) {
-    pageData.push([...currentPageGroup]);
+    pageHtmlData.push([...currentPageGroup]);
   }
 
   let currentPage = 1;
@@ -476,17 +476,7 @@ function setupPagination() {
 
   function renderPage(page, fromBottom = false) {
     currentPage = page;
-    categoriesWrapper.innerHTML = '';
-    pageData[page - 1].forEach(cat => {
-      const cloned = cat.cloneNode(true);
-      const images = cloned.querySelectorAll('img');
-      images.forEach(img => {
-        if (!img.hasAttribute('loading')) {
-          img.setAttribute('loading', 'lazy');
-        }
-      });
-      categoriesWrapper.appendChild(cloned);
-    });
+    categoriesWrapper.innerHTML = pageHtmlData[page - 1].join('');
     renderPagination(topContainer, false);
     renderPagination(bottomContainer, true);
     rebindModalEvents();
@@ -500,7 +490,7 @@ function setupPagination() {
     container.innerHTML = '';
     const nav = document.createElement('div');
     nav.className = 'pagination-nav';
-    const totalPages = pageData.length;
+    const totalPages = pageHtmlData.length;
     const maxVisiblePages = 10;
 
     const back = document.createElement('button');
