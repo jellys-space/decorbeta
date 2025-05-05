@@ -389,8 +389,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Insert this entire block at the bottom of your existing main.js
 
-// Insert this entire block at the bottom of your existing main.js
-
 /********************************
  * 6) PAGINATION (On-Demand DOM with Ellipsis + Force Pagebreak Support)
  ********************************/
@@ -435,6 +433,77 @@ function setupPagination() {
   categoriesWrapper.parentNode.insertBefore(topContainer, categoriesWrapper);
   categoriesWrapper.parentNode.insertBefore(bottomContainer, categoriesWrapper.nextSibling);
 
+  function reinitImageLazyLoading(container) {
+    const lazyImages = container.querySelectorAll('.decoration-cell img, .default-avatar');
+    if ('IntersectionObserver' in window) {
+      const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
+            observer.unobserve(img);
+          }
+        });
+      });
+      lazyImages.forEach(img => {
+        if (!img.dataset.src) {
+          img.dataset.src = img.src;
+          img.src = '';
+        }
+        imageObserver.observe(img);
+      });
+    } else {
+      lazyImages.forEach(img => {
+        if (img.dataset.src) {
+          img.src = img.dataset.src;
+        }
+      });
+    }
+  }
+
+  function rebindModalEvents() {
+    const newWraps = document.querySelectorAll('.decoration-wrap');
+    newWraps.forEach(wrap => {
+      wrap.addEventListener('click', () => {
+        const cell = wrap.querySelector('.decoration-cell');
+        if (!cell) return;
+
+        const imagePath = cell.getAttribute('data-image');
+        const decorationAlt = cell.querySelector('.decoration-img').alt;
+
+        modalDefaultAvatar.src = 'images/default-avatar.png';
+        modalDecorationImg.src = imagePath;
+        modalDecorationImg.alt = decorationAlt;
+        modalTitle.textContent = decorationAlt;
+
+        const artistName = cell.getAttribute('data-artist') || '';
+        modalArtist.textContent = artistName ? `by ${artistName}` : '';
+
+        const commissionElement = cell.querySelector('.commission-message');
+        if (commissionElement && commissionElement.innerHTML.trim().length > 0) {
+          modalCommission.innerHTML = commissionElement.innerHTML;
+          modalCommission.style.display = 'block';
+        } else {
+          modalCommission.innerHTML = '';
+          modalCommission.style.display = 'none';
+        }
+
+        scrollPosition = window.scrollY || window.pageYOffset;
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollPosition}px`;
+        document.body.style.left = '0';
+        document.body.style.right = '0';
+        document.body.style.width = '100%';
+
+        modal.style.visibility = 'visible';
+        modal.style.opacity = '1';
+        modal.style.pointerEvents = 'auto';
+        modalInner.style.transform = 'scale(1)';
+      });
+    });
+  }
+
   function renderPage(page, fromBottom = false) {
     currentPage = page;
     categoriesWrapper.innerHTML = '';
@@ -443,6 +512,8 @@ function setupPagination() {
     });
     renderPagination(topContainer, false);
     renderPagination(bottomContainer, true);
+    reinitImageLazyLoading(categoriesWrapper);
+    rebindModalEvents();
 
     if (fromBottom) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -451,10 +522,8 @@ function setupPagination() {
 
   function renderPagination(container, isBottom) {
     container.innerHTML = '';
-
     const nav = document.createElement('div');
     nav.className = 'pagination-nav';
-
     const totalPages = pageData.length;
     const maxVisiblePages = 10;
 
@@ -488,7 +557,6 @@ function setupPagination() {
       for (let i = 1; i <= totalPages; i++) addButton(i);
     } else {
       const visibleRange = 7;
-
       if (currentPage <= 5) {
         for (let i = 1; i <= visibleRange; i++) addButton(i);
         addEllipsis();
@@ -514,7 +582,6 @@ function setupPagination() {
       if (currentPage < totalPages) renderPage(currentPage + 1, isBottom);
     });
     nav.appendChild(next);
-
     container.appendChild(nav);
   }
 
