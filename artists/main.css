@@ -347,3 +347,141 @@ header h1 {
 .artist-name a:hover {
   color: #f313e4;
 }
+
+.artist-pager {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  margin: 2rem auto;
+  max-width: 1000px;
+  flex-wrap: wrap;
+}
+
+.artist-nav {
+  background-color: #1a1725;
+  color: #d2d2d4;
+  border: none;
+  border-radius: 12px;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.artist-nav:hover:not(:disabled) {
+  background-color: #242429;
+}
+
+.artist-nav:disabled {
+  color: #6d6e73;
+  cursor: not-allowed;
+}
+
+#artistDisplay {
+  max-width: 600px;
+  width: 100%;
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Slide/fade animation for artist transitions */
+
+.artist-pager {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  margin: 2rem auto;
+  max-width: 1000px;
+  position: relative;
+}
+
+.artist-nav {
+  background-color: #0e0e10;
+  color: #d2d2d4;
+  border: none;
+  border-radius: 12px;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  z-index: 2;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.artist-nav.left {
+  left: 7rem;
+}
+
+.artist-nav.right {
+  right: 7rem;
+}
+
+.artist-nav:hover:not(:disabled) {
+  background-color: #242429;
+}
+
+.artist-nav:disabled {
+  color: #6d6e73;
+  cursor: not-allowed;
+}
+
+#artistDisplay {
+  max-width: 700px;
+  width: 100%;
+  height: 420px; /* Adjust if needed for tallest artist */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.artist-entry {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+/* Slide Animations */
+.slide-out-left {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.slide-out-right {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.slide-in-left {
+  transform: translateX(-100%);
+  opacity: 0;
+  animation: slideInLeft 0.6s ease forwards;
+}
+
+.slide-in-right {
+  transform: translateX(100%);
+  opacity: 0;
+  animation: slideInRight 0.6s ease forwards;
+}
+
+@keyframes slideInLeft {
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
