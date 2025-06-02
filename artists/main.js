@@ -62,5 +62,13 @@ window.addEventListener('mousemove', function(e) {
         }, 2500);
       }, 400); // Create sparkles faster (every 0.4s now!)
     });
+
+const isMobile = /iPhone|iPad|iPod|Android|webOS/i.test(navigator.userAgent);
+
+if (isMobile) {
+  document.querySelectorAll('.artist-card').forEach(card => {
+    card.classList.add('mobile-banner');
   });
-  
+}
+
+});
