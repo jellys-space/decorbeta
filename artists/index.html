@@ -40,7 +40,7 @@
 
     <!-- NEW IMAGE RIGHT BELOW THE NAV -->
     <div class="nav-image">
-      <img src="jellyartists.png" alt="Jelly Heart" oncontextmenu="return false;" />
+      <img src="jellyartists.png" alt="Jelly Heart" oncontextmenu="return false;" draggable="false" />
       <div class="nav-image-text">
   <p>Here are some of the artists who make</p>
   <p>Jelly's Space what it is~</p>
@@ -52,19 +52,40 @@
     <!-- Artist Grid -->
 <div class="artist-grid">
   <div class="artist-card">
-    <img src="jelly-banner.png" alt="Artist Banner" />
+    <img src="banners/jelly-banner.png" alt="Jelly Banner" oncontextmenu="return false;" draggable="false" />
   </div>
   <div class="artist-card">
-    <img src="jelly-banner.png" alt="Artist Banner" />
+    <img src="banners/seele-banner.gif" alt="Seele Banner" oncontextmenu="return false;" draggable="false" />
   </div>
   <div class="artist-card">
-    <img src="jelly-banner.png" alt="Artist Banner" />
+    <img src="banners/cacawthon-banner.png" alt="Ca-Cawthon Banner" oncontextmenu="return false;" draggable="false" />
   </div>
   <div class="artist-card">
-    <img src="jelly-banner.png" alt="Artist Banner" />
+    <img src="banners/nuki-banner.png" alt="Nuki Banner" oncontextmenu="return false;" draggable="false" />
   </div>
   <div class="artist-card">
-    <img src="jelly-banner.png" alt="Artist Banner" />
+    <img src="banners/serenemist-banner.png" alt="Serenemist Banner" oncontextmenu="return false;" draggable="false" />
+  </div>
+  <div class="artist-card">
+    <img src="banners/cal-banner.png" alt="Cal Banner" oncontextmenu="return false;" draggable="false" />
+  </div>
+  <div class="artist-card">
+    <img src="banners/phineas-banner.png" alt="Phineas Banner" oncontextmenu="return false;" draggable="false" />
+  </div>
+  <div class="artist-card">
+    <img src="banners/shadow-banner.png" alt="Shadow Banner" oncontextmenu="return false;" draggable="false" />
+  </div>
+  <div class="artist-card">
+    <img src="banners/palco-banner.png" alt="Palco Banner" oncontextmenu="return false;" draggable="false" />
+  </div>
+  <div class="artist-card">
+    <img src="banners/foxy-banner.png" alt="Foxy Banner" oncontextmenu="return false;" draggable="false" />
+  </div>
+  <div class="artist-card">
+    <img src="banners/t8dy1-banner.png" alt="T8dy1 Banner" oncontextmenu="return false;" draggable="false" />
+  </div>
+  <div class="artist-card">
+    <img src="banners/sharr-banner.png" alt="Sharr Banner" oncontextmenu="return false;" draggable="false" />
   </div>
   <!-- Add as many as you'd like during testing -->
 </div>
@@ -72,5 +93,13 @@
 
 <!-- Sparkle script (local to the faq folder) -->
   <script src="main.js"></script>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.artist-card img').forEach(img => {
+      img.setAttribute('loading', 'lazy');
+    });
+  });
+</script>
 </body>
 </html>
