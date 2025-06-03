@@ -248,142 +248,180 @@ header h1 {
   object-fit: cover;
 }
 
-/* === MODAL BASE === */
-.modal {
+#jelly-modal-desktop {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(30, 30, 30, 0); /* start transparent */
-  backdrop-filter: blur(0px);
-  display: flex;
+  inset: 0;
+  display: flex; /* 👈 This is what was missing */
   justify-content: center;
   align-items: center;
   opacity: 0;
   pointer-events: none;
-  transition: backdrop-filter 0.18s ease, background 0.18s ease, opacity 0.18s ease;
-  z-index: 1000;
+  background: rgba(30, 30, 30, 0);
+  backdrop-filter: blur(0px);
+  transition:
+    opacity 250ms ease,
+    background 250ms ease,
+    backdrop-filter 250ms ease;
+  z-index: 9999;
 }
 
-.modal.active {
-  background: rgba(30, 30, 30, 0.6);
-  backdrop-filter: blur(5px);
+#jelly-modal-desktop.active {
   opacity: 1;
   pointer-events: auto;
+  background: rgba(30, 30, 30, 0.6);
+  backdrop-filter: blur(8px);
 }
 
-/* === GLASS EFFECT CONTENT === */
-.modal-content {
-  background: rgba(128, 232, 248, 0.159);
+
+.modal-content.desktop {
+  background: rgba(79, 233, 225, 0.214);
   border-radius: 20px;
   padding: 2rem;
-  max-width: 600px;
-  width: 80%;
+  width: 500px;
   text-align: center;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-  border: 2px solid rgba(255, 255, 255, 0.2);
   color: white;
-  backdrop-filter: blur(20px);
-  position: relative;
-  transform: scale(0.85);
-  opacity: 0;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(30px);
+  animation: fadeIn 0.25s ease-out forwards;
 }
 
-/* === AVATAR === */
-.modal-avatar {
-  width: 110px !important;
-  height: 110px !important;
+.modal-content.desktop .modal-avatar {
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
-  margin-top: -60px;
-  background: white;
+  margin-bottom: 1rem;
   object-fit: cover;
-  border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
-/* === NAME & DESC === */
-.modal-name {
-  margin-top: 1rem;
+.modal-content.desktop .modal-name {
   font-size: 2rem;
+  margin-top: 1rem;
 }
 
-.modal-description {
+.modal-content.desktop .modal-description {
+  font-size: 1.1rem;
+  line-height: 1.5;
   margin: 1rem 0 2rem 0;
-  font-size: 1.1rem;
-  line-height: 1.4;
 }
 
-/* === CLOSE BUTTON === */
-.modal-close {
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
-  background-color: rgba(255, 255, 255, 0.2);
-  border: none;
-  border-radius: 10px;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.modal-close:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-}
-
-@keyframes modalZoomIn {
-  from {
-    transform: scale(0.85);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes modalZoomOut {
-  from {
-    transform: scale(1);
-    opacity: 1;
-  }
-  to {
-    transform: scale(0.85);
-    opacity: 0;
-  }
-}
-
-/* Optional: hide mobile modals on desktop */
-@media (min-width: 481px) {
-  .mobile-only {
-    display: none !important;
-  }
-}
-
-/* Mobile modal content size and layout */
-.modal-content.mobile {
-  max-width: 95vw;
-  width: 95vw;
-  padding: 2rem 1rem;
-  border-radius: 12px;
-  font-size: 1.1rem;
-  margin: 0 1rem;
-}
-
-.modal-content.mobile .modal-description {
-  font-size: 1.1rem;
-  line-height: 1.6;
-}
-
-/* You can also adjust the avatar size if needed */
-.modal-content.mobile .modal-avatar {
-  width: 60px;
-  height: 60px;
-}
-
-#jelly-modal.active {
-  z-index: 1500;
+/* === MOBILE MODAL === */
+#jelly-modal-mobile {
+  position: fixed;
+  inset: 0;
+  display: flex; /* 👈 needed to center content */
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  background: rgba(30, 30, 30, 0);       /* start transparent */
+  backdrop-filter: blur(0px);            /* start no blur */
+  transition:
+    opacity 250ms ease,
+    background 250ms ease,
+    backdrop-filter 250ms ease;
+  z-index: 9999;
 }
 
 #jelly-modal-mobile.active {
-  z-index: 2000;
+  opacity: 1;
+  pointer-events: auto;
+  background: rgba(30, 30, 30, 0.6);     /* fade in background */
+  backdrop-filter: blur(8px);            /* fade in blur */
+}
+
+.modal-content.mobile {
+  background: rgba(79, 233, 225, 0.214);
+  border-radius: 24px;
+  padding: 2.5rem 1.8rem;
+  width: 95%;
+  max-width: 95%;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.35);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(30px);
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+/* BIGGER avatar */
+.modal-content.mobile .modal-avatar {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1.2rem;
+}
+
+/* BIGGER name */
+.modal-content.mobile .modal-name {
+  font-size: 2.4rem;
+  margin-top: 1.2rem;
+}
+
+/* BIGGER description */
+.modal-content.mobile .modal-description {
+  font-size: 1.8rem;
+  line-height: 1.8;
+  margin: 1.2rem 0 2rem 0;
+}
+
+.modal-content.mobile .modal-close {
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.6rem;
+  font-size: 1.4rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  max-width: 280px;
+  height: 60px; /* 👈 explicitly set height */
+}
+
+.modal-content.mobile .modal-close:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+
+/* === SHARED CLOSE BUTTON === */
+.modal-close {
+  margin-top: 1rem;
+  padding: 0.5rem 1.2rem;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* === SMOOTH FADE AND SCALE ANIMATION === */
+.modal-content.desktop {
+  opacity: 0;
+  transform: scale(0.96);
+  transition:
+    opacity 250ms ease,
+    transform 250ms ease;
+}
+
+.modal-content.desktop.modal-show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.modal-content.mobile {
+  opacity: 0;
+  transform: scale(0.96);
+  transition:
+    opacity 250ms ease,
+    transform 250ms ease;
+}
+
+.modal-content.mobile.modal-show {
+  opacity: 1;
+  transform: scale(1);
 }
