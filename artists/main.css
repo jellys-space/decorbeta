@@ -129,6 +129,7 @@ header h1 {
 .star {
   position: fixed;
   pointer-events: none;
+  z-index: 2000;
 }
 
 .star:before,
@@ -158,23 +159,26 @@ header h1 {
 /* ========== ARTIST GRID ========== */
 .artist-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2rem;
-  max-width: 1200px;
+  grid-template-columns: repeat(3, 1fr); /* fixed 3 columns */
+  gap: 2.5rem 3rem; /* vertical | horizontal spacing */
+  max-width: 1500px;
   margin: 2rem auto;
-  padding: 0 1rem;
+  padding: 0 2rem;
   justify-items: center;
 }
 
 .artist-card {
   width: 100%;
-  max-width: 500px;
+  max-width: 100%;
   border-radius: 12px;
   overflow: hidden;
-  background-color: #2b2b2b;
+  background-color: hidden;
+  transform: scale(1.05);  /* make banners bigger inside each column */
   transition: transform 0.2s ease;
   cursor: pointer;
 }
+
+
 
 /* ========== MOBILE-SPECIFIC BANNER STYLE ========== */
 .artist-card.mobile-banner {
@@ -218,17 +222,168 @@ header h1 {
   }
 }
 
+
+
 @media (hover: hover) and (pointer: fine) {
   .artist-card:hover {
-    transform: scale(1.02);
+    transform: scale(1.06);
     animation: glowShift 6s ease-in-out infinite;
     transition: transform 0.3s ease;
   }
 }
+
+.artist-card:active {
+  transform: scale(1.02);
+  box-shadow: 0 0 16px rgba(255, 200, 255, 0.5),
+              0 0 32px rgba(255, 200, 255, 0.3),
+              0 0 48px rgba(255, 200, 255, 0.2);
+  transition: transform 0.05s ease, box-shadow 0.05s ease;
+}
+
 
 .artist-card img {
   width: 100%;
   height: auto;
   display: block;
   object-fit: cover;
+}
+
+/* === MODAL BASE === */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(30, 30, 30, 0); /* start transparent */
+  backdrop-filter: blur(0px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: backdrop-filter 0.18s ease, background 0.18s ease, opacity 0.18s ease;
+  z-index: 1000;
+}
+
+.modal.active {
+  background: rgba(30, 30, 30, 0.6);
+  backdrop-filter: blur(5px);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* === GLASS EFFECT CONTENT === */
+.modal-content {
+  background: rgba(128, 232, 248, 0.159);
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 600px;
+  width: 80%;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  backdrop-filter: blur(20px);
+  position: relative;
+  transform: scale(0.85);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* === AVATAR === */
+.modal-avatar {
+  width: 110px !important;
+  height: 110px !important;
+  border-radius: 50%;
+  margin-top: -60px;
+  background: white;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+/* === NAME & DESC === */
+.modal-name {
+  margin-top: 1rem;
+  font-size: 2rem;
+}
+
+.modal-description {
+  margin: 1rem 0 2rem 0;
+  font-size: 1.1rem;
+  line-height: 1.4;
+}
+
+/* === CLOSE BUTTON === */
+.modal-close {
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.modal-close:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+@keyframes modalZoomIn {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes modalZoomOut {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+}
+
+/* Optional: hide mobile modals on desktop */
+@media (min-width: 481px) {
+  .mobile-only {
+    display: none !important;
+  }
+}
+
+/* Mobile modal content size and layout */
+.modal-content.mobile {
+  max-width: 95vw;
+  width: 95vw;
+  padding: 2rem 1rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  margin: 0 1rem;
+}
+
+.modal-content.mobile .modal-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* You can also adjust the avatar size if needed */
+.modal-content.mobile .modal-avatar {
+  width: 60px;
+  height: 60px;
+}
+
+#jelly-modal.active {
+  z-index: 1500;
+}
+
+#jelly-modal-mobile.active {
+  z-index: 2000;
 }
