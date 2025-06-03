@@ -71,4 +71,55 @@ if (isMobile) {
   });
 }
 
+// === Jelly modal logic (combined desktop & mobile) ===
+const jellyCard = document.getElementById("jelly-card");
+const jellyModal = document.getElementById("jelly-modal");
+const jellyModalMobile = document.getElementById("jelly-modal-mobile");
+
+const jellyContent = jellyModal.querySelector(".modal-content");
+const jellyContentMobile = jellyModalMobile.querySelector(".modal-content.mobile"); // ✅ fixed selector
+
+const jellyClose = jellyModal.querySelector(".modal-close");
+const jellyCloseMobile = jellyModalMobile.querySelector(".modal-close");
+
+jellyCard.addEventListener("click", () => {
+  if (isMobile) {
+    jellyModalMobile.classList.add("active");
+    jellyContentMobile.style.animation = "modalZoomIn 0.18s forwards";
+  } else {
+    jellyModal.classList.add("active");
+    jellyContent.style.animation = "modalZoomIn 0.18s forwards";
+  }
+});
+
+jellyClose.addEventListener("click", () => {
+  jellyContent.style.animation = "modalZoomOut 0.14s forwards";
+  setTimeout(() => {
+    jellyModal.classList.remove("active");
+  }, 140);
+});
+
+jellyCloseMobile.addEventListener("click", () => {
+  jellyContentMobile.style.animation = "modalZoomOut 0.14s forwards";
+  setTimeout(() => {
+    jellyModalMobile.classList.remove("active");
+  }, 140);
+});
+
+window.addEventListener("click", (e) => {
+  if (e.target === jellyModal) {
+    jellyContent.style.animation = "modalZoomOut 0.14s forwards";
+    setTimeout(() => {
+      jellyModal.classList.remove("active");
+    }, 140);
+  }
+  if (e.target === jellyModalMobile) {
+    jellyContentMobile.style.animation = "modalZoomOut 0.14s forwards";
+    setTimeout(() => {
+      jellyModalMobile.classList.remove("active");
+    }, 140);
+  }
+});
+
+
 });
