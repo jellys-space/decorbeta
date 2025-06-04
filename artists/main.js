@@ -592,5 +592,40 @@ dogerCard.addEventListener('click', () => {
   });
 });
 
+// === Prince Modal Logic ===
+const princeCard = document.getElementById('prince-card');
+const princeDesktop = document.getElementById('prince-modal-desktop');
+const princeMobile = document.getElementById('prince-modal-mobile');
+
+function openPrinceModal(modal) {
+  modal.classList.add('active');
+  const content = modal.querySelector('.prince-modal-content');
+  requestAnimationFrame(() => {
+    content.classList.add('modal-show');
+  });
+}
+
+function closePrinceModal(modal) {
+  const content = modal.querySelector('.prince-modal-content');
+  content.classList.remove('modal-show');
+  setTimeout(() => {
+    modal.classList.remove('active');
+  }, 250);
+}
+
+princeCard.addEventListener('click', () => {
+  const isMobile = /android|iphone|ipad|ipod|blackberry|windows phone|opera mini/i.test(navigator.userAgent);
+  const modal = isMobile ? princeMobile : princeDesktop;
+  openPrinceModal(modal);
+});
+
+[princeDesktop, princeMobile].forEach(modal => {
+  const closeBtn = modal.querySelector('.prince-modal-close');
+  closeBtn.addEventListener('click', () => closePrinceModal(modal));
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closePrinceModal(modal);
+  });
+});
+
 
 });
