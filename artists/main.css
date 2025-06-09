@@ -2693,3 +2693,713 @@ header h1 {
 .prince-modal-content.prince-mobile .prince-modal-close:hover {
   background-color: rgba(255, 255, 255, 0.3);
 }
+
+/* ========== Xavvi Modal - Desktop ========== */
+#xavvi-modal-desktop.xavvi-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  background: rgba(30, 30, 30, 0);
+  backdrop-filter: blur(0px);
+  transition: opacity 250ms ease, background 250ms ease, backdrop-filter 250ms ease;
+  z-index: 9999;
+}
+#xavvi-modal-desktop.xavvi-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+  background: rgba(30, 30, 30, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.xavvi-modal-content.xavvi-desktop {
+  background: rgba(120, 255, 136, 0.2);
+  border-radius: 20px;
+  padding: 2rem;
+  width: 500px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(30px);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 250ms ease, transform 250ms ease;
+}
+
+.xavvi-modal-content.xavvi-desktop.modal-show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.xavvi-modal-avatar {
+  width: 110px !important;
+  height: 110px !important;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  object-fit: cover;
+}
+
+.xavvi-modal-name {
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+.xavvi-modal-description {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin: 1rem 0 2rem 0;
+}
+
+.xavvi-modal-close {
+  margin-top: 1rem;
+  padding: 0.5rem 1.2rem;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.xavvi-modal-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ========== Xavvi Modal - Mobile ========== */
+#xavvi-modal-mobile.xavvi-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  background: rgba(30, 30, 30, 0);
+  backdrop-filter: blur(0px);
+  transition: opacity 250ms ease, background 250ms ease, backdrop-filter 250ms ease;
+  z-index: 9999;
+}
+#xavvi-modal-mobile.xavvi-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+  background: rgba(30, 30, 30, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.xavvi-modal-content.xavvi-mobile {
+  background: rgba(120, 255, 136, 0.2);
+  border-radius: 24px;
+  padding: 2.5rem 1.8rem;
+  width: 95%;
+  max-width: 95%;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.35);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(30px);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 250ms ease, transform 250ms ease;
+}
+
+.xavvi-modal-content.xavvi-mobile.modal-show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.xavvi-modal-content.xavvi-mobile .xavvi-modal-avatar {
+  width: 180px !important;
+  height: 180px !important;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1.2rem;
+}
+
+.xavvi-modal-content.xavvi-mobile .xavvi-modal-name {
+  font-size: 2.4rem;
+  margin-top: 1.2rem;
+}
+
+.xavvi-modal-content.xavvi-mobile .xavvi-modal-description {
+  font-size: 1.8rem;
+  line-height: 1.8;
+  margin: 1.2rem 0 2rem 0;
+}
+
+.xavvi-modal-content.xavvi-mobile .xavvi-modal-close {
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.6rem;
+  font-size: 1.4rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  max-width: 280px;
+  height: 60px;
+}
+
+.xavvi-modal-content.xavvi-mobile .xavvi-modal-close:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ========== Nexell Modal - Desktop ========== */
+#nexell-modal-desktop.nexell-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  background: rgba(30, 30, 30, 0);
+  backdrop-filter: blur(0px);
+  transition: opacity 250ms ease, background 250ms ease, backdrop-filter 250ms ease;
+  z-index: 9999;
+}
+#nexell-modal-desktop.nexell-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+  background: rgba(30, 30, 30, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.nexell-modal-content.nexell-desktop {
+  background: rgba(131, 27, 95, 0.2);
+  border-radius: 20px;
+  padding: 2rem;
+  width: 500px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(30px);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 250ms ease, transform 250ms ease;
+}
+
+.nexell-modal-content.nexell-desktop.modal-show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.nexell-modal-avatar {
+  width: 110px !important;
+  height: 110px !important;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  object-fit: cover;
+}
+
+.nexell-modal-name {
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+.nexell-modal-description {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin: 1rem 0 2rem 0;
+}
+
+.nexell-modal-close {
+  margin-top: 1rem;
+  padding: 0.5rem 1.2rem;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.nexell-modal-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ========== Nexell Modal - Mobile ========== */
+#nexell-modal-mobile.nexell-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  background: rgba(30, 30, 30, 0);
+  backdrop-filter: blur(0px);
+  transition: opacity 250ms ease, background 250ms ease, backdrop-filter 250ms ease;
+  z-index: 9999;
+}
+#nexell-modal-mobile.nexell-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+  background: rgba(30, 30, 30, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.nexell-modal-content.nexell-mobile {
+  background: rgba(131, 27, 95, 0.2);
+  border-radius: 24px;
+  padding: 2.5rem 1.8rem;
+  width: 95%;
+  max-width: 95%;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.35);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(30px);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 250ms ease, transform 250ms ease;
+}
+
+.nexell-modal-content.nexell-mobile.modal-show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.nexell-modal-content.nexell-mobile .nexell-modal-avatar {
+  width: 180px !important;
+  height: 180px !important;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1.2rem;
+}
+
+.nexell-modal-content.nexell-mobile .nexell-modal-name {
+  font-size: 2.4rem;
+  margin-top: 1.2rem;
+}
+
+.nexell-modal-content.nexell-mobile .nexell-modal-description {
+  font-size: 1.8rem;
+  line-height: 1.8;
+  margin: 1.2rem 0 2rem 0;
+}
+
+.nexell-modal-content.nexell-mobile .nexell-modal-close {
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.6rem;
+  font-size: 1.4rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  max-width: 280px;
+  height: 60px;
+}
+
+.nexell-modal-content.nexell-mobile .nexell-modal-close:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ========== Sharsame Modal - Desktop ========== */
+#sharsame-modal-desktop.sharsame-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  background: rgba(30, 30, 30, 0);
+  backdrop-filter: blur(0px);
+  transition: opacity 250ms ease, background 250ms ease, backdrop-filter 250ms ease;
+  z-index: 9999;
+}
+#sharsame-modal-desktop.sharsame-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+  background: rgba(30, 30, 30, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.sharsame-modal-content.sharsame-desktop {
+  background: rgba(126, 219, 253, 0.2);
+  border-radius: 20px;
+  padding: 2rem;
+  width: 500px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(30px);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 250ms ease, transform 250ms ease;
+}
+
+.sharsame-modal-content.sharsame-desktop.modal-show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.sharsame-modal-avatar {
+  width: 110px !important;
+  height: 110px !important;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  object-fit: cover;
+}
+
+.sharsame-modal-name {
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+.sharsame-modal-description {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin: 1rem 0 2rem 0;
+}
+
+.sharsame-modal-close {
+  margin-top: 1rem;
+  padding: 0.5rem 1.2rem;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.sharsame-modal-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ========== Sharsame Modal - Mobile ========== */
+#sharsame-modal-mobile.sharsame-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  background: rgba(30, 30, 30, 0);
+  backdrop-filter: blur(0px);
+  transition: opacity 250ms ease, background 250ms ease, backdrop-filter 250ms ease;
+  z-index: 9999;
+}
+#sharsame-modal-mobile.sharsame-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+  background: rgba(30, 30, 30, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.sharsame-modal-content.sharsame-mobile {
+  background: rgba(126, 219, 253, 0.2);
+  border-radius: 24px;
+  padding: 2.5rem 1.8rem;
+  width: 95%;
+  max-width: 95%;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.35);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(30px);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 250ms ease, transform 250ms ease;
+}
+
+.sharsame-modal-content.sharsame-mobile.modal-show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.sharsame-modal-content.sharsame-mobile .sharsame-modal-avatar {
+  width: 180px !important;
+  height: 180px !important;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1.2rem;
+}
+
+.sharsame-modal-content.sharsame-mobile .sharsame-modal-name {
+  font-size: 2.4rem;
+  margin-top: 1.2rem;
+}
+
+.sharsame-modal-content.sharsame-mobile .sharsame-modal-description {
+  font-size: 1.8rem;
+  line-height: 1.8;
+  margin: 1.2rem 0 2rem 0;
+}
+
+.sharsame-modal-content.sharsame-mobile .sharsame-modal-close {
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.6rem;
+  font-size: 1.4rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  max-width: 280px;
+  height: 60px;
+}
+
+.sharsame-modal-content.sharsame-mobile .sharsame-modal-close:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ========== Jenku Modal - Desktop ========== */
+#jenku-modal-desktop.jenku-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  background: rgba(30, 30, 30, 0);
+  backdrop-filter: blur(0px);
+  transition: opacity 250ms ease, background 250ms ease, backdrop-filter 250ms ease;
+  z-index: 9999;
+}
+#jenku-modal-desktop.jenku-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+  background: rgba(30, 30, 30, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.jenku-modal-content.jenku-desktop {
+  background: rgba(255, 110, 230, 0.2);
+  border-radius: 20px;
+  padding: 2rem;
+  width: 500px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(30px);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 250ms ease, transform 250ms ease;
+}
+
+.jenku-modal-content.jenku-desktop.modal-show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.jenku-modal-avatar {
+  width: 110px !important;
+  height: 110px !important;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  object-fit: cover;
+}
+
+.jenku-modal-name {
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+.jenku-modal-description {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin: 1rem 0 2rem 0;
+}
+
+.jenku-modal-close {
+  margin-top: 1rem;
+  padding: 0.5rem 1.2rem;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.jenku-modal-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ========== Jenku Modal - Mobile ========== */
+#jenku-modal-mobile.jenku-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  background: rgba(30, 30, 30, 0);
+  backdrop-filter: blur(0px);
+  transition: opacity 250ms ease, background 250ms ease, backdrop-filter 250ms ease;
+  z-index: 9999;
+}
+#jenku-modal-mobile.jenku-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+  background: rgba(30, 30, 30, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.jenku-modal-content.jenku-mobile {
+  background: rgba(255, 110, 230, 0.2);
+  border-radius: 24px;
+  padding: 2.5rem 1.8rem;
+  width: 95%;
+  max-width: 95%;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.35);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(30px);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 250ms ease, transform 250ms ease;
+}
+
+.jenku-modal-content.jenku-mobile.modal-show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.jenku-modal-content.jenku-mobile .jenku-modal-avatar {
+  width: 180px !important;
+  height: 180px !important;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1.2rem;
+}
+
+.jenku-modal-content.jenku-mobile .jenku-modal-name {
+  font-size: 2.4rem;
+  margin-top: 1.2rem;
+}
+
+.jenku-modal-content.jenku-mobile .jenku-modal-description {
+  font-size: 1.8rem;
+  line-height: 1.8;
+  margin: 1.2rem 0 2rem 0;
+}
+
+.jenku-modal-content.jenku-mobile .jenku-modal-close {
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.6rem;
+  font-size: 1.4rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  max-width: 280px;
+  height: 60px;
+}
+
+.jenku-modal-content.jenku-mobile .jenku-modal-close:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+
+/* ========== artist name links ========== */
+.modal-name {
+  font-size: 1.5rem; /* adjust if needed */
+  margin: 0.5em 0;
+  color: #33ff8a;
+  text-align: center;
+}
+
+/* Style the link inside the modal name */
+.modal-name a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: text-decoration 0.2s ease;
+}
+
+.modal-name a:hover {
+  text-decoration: underline;
+}
+
+.serenemist-modal-description a {
+  color: #66ccff;
+  text-decoration: none;
+}
+
+.serenemist-modal-description a:hover {
+  text-decoration: underline;
+}
+
+.alide-modal-description a {
+  color: #66ccff;
+  text-decoration: none;
+}
+
+.alide-modal-description a:hover {
+  text-decoration: underline;
+}
+
+.cal-modal-description a {
+  color: #66ccff;
+  text-decoration: none;
+}
+
+.cal-modal-description a:hover {
+  text-decoration: underline;
+}
+
+.phineas-modal-description a {
+  color: #66ccff;
+  text-decoration: none;
+}
+
+.phineas-modal-description a:hover {
+  text-decoration: underline;
+}
+
+.doger-modal-description a {
+  color: #66ccff;
+  text-decoration: none;
+}
+
+.doger-modal-description a:hover {
+  text-decoration: underline;
+}
+
+.xavvi-modal-description a {
+  color: #66ccff;
+  text-decoration: none;
+}
+
+.xavvi-modal-description a:hover {
+  text-decoration: underline;
+}
+
+.nexell-modal-description a {
+  color: #66ccff;
+  text-decoration: none;
+}
+
+.nexell-modal-description a:hover {
+  text-decoration: underline;
+}
+
+.sharsame-modal-description a {
+  color: #66ccff;
+  text-decoration: none;
+}
+
+.sharsame-modal-description a:hover {
+  text-decoration: underline;
+}
+
+.jenku-modal-description a {
+  color: #66ccff;
+  text-decoration: none;
+}
+
+.jenku-modal-description a:hover {
+  text-decoration: underline;
+}
