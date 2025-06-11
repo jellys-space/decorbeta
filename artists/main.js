@@ -15,6 +15,13 @@ if (isMobile) {
   });
 }
 
+(function disableBackdropFilterOnMobile() {
+  const isMobile = /android|iphone|ipad|ipod|blackberry|windows phone|opera mini/i.test(navigator.userAgent.toLowerCase());
+  if (isMobile) {
+    document.body.classList.add('no-blur');
+  }
+})();
+
 
 // Sparkly mouse trail logic
 window.addEventListener('mousemove', function(e) {
