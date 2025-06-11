@@ -62,8 +62,18 @@ document.addEventListener('DOMContentLoaded', () => {
   if (isMobile) {
     document.querySelectorAll('.artist-card').forEach(card => {
       card.classList.add('mobile-banner');
+
+      const video = card.querySelector('video.artist-banner');
+      if (video) {
+        const fallbackImg = video.querySelector('img');
+        if (fallbackImg) {
+          const img = fallbackImg.cloneNode(true);
+          card.replaceChild(img, video);
+        }
+      }
     });
   }
+  
 
   // Modal Logic
 const jellyCard = document.getElementById('jelly-card');
