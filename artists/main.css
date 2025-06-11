@@ -3573,3 +3573,28 @@ header h1 {
 .glassconsumer-modal-description a:hover {
   text-decoration: underline;
 }
+
+@media screen and (max-width: 768px) {
+  /* Kill GPU-intensive effects on Android-sized screens */
+  .modal,
+  .modal-content,
+  .seele-modal,
+  .seele-modal-content {
+    backdrop-filter: none !important;
+    background-color: rgba(30, 30, 30, 0.9) !important;
+    box-shadow: none !important;
+    transform: none !important;
+    transition: none !important;
+    border: none !important;
+  }
+
+  .modal-show {
+    opacity: 1 !important;
+  }
+
+  /* Optional: disable artist card animation on mobile tap */
+  .artist-card:active {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
