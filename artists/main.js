@@ -1,3 +1,21 @@
+// === Early mobile .webm swap ===
+const isMobile = /iPhone|iPad|iPod|Android|webOS/i.test(navigator.userAgent);
+if (isMobile) {
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll('.artist-card').forEach(card => {
+      const video = card.querySelector('video.artist-banner');
+      if (video) {
+        const fallbackImg = video.querySelector('img');
+        if (fallbackImg) {
+          const img = fallbackImg.cloneNode(true);
+          card.replaceChild(img, video);
+        }
+      }
+    });
+  });
+}
+
+
 // Sparkly mouse trail logic
 window.addEventListener('mousemove', function(e) {
   const arr = [1, 0.9, 0.8, 0.5, 0.2];
