@@ -2,15 +2,33 @@
 const isMobile = /iPhone|iPad|iPod|Android|webOS/i.test(navigator.userAgent);
 if (isMobile) {
   document.addEventListener("DOMContentLoaded", () => {
+    // Swap all banner videos for fallback images
     document.querySelectorAll('.artist-card').forEach(card => {
       const video = card.querySelector('video.artist-banner');
       if (video) {
         const fallbackImg = video.querySelector('img');
         if (fallbackImg) {
           const img = fallbackImg.cloneNode(true);
+          img.classList.add('artist-banner'); // preserve class
           card.replaceChild(img, video);
         }
       }
+    });
+
+    // Replace Seele avatar <video> with fallback <img> on mobile
+    ['seele-modal-desktop', 'seele-modal-mobile'].forEach(id => {
+      const modal = document.getElementById(id);
+      if (!modal) return;
+
+      const avatarVideo = modal.querySelector('.seele-modal-avatar');
+      if (!avatarVideo) return;
+
+      const fallbackImg = avatarVideo.querySelector('img');
+      if (!fallbackImg) return;
+
+      const img = fallbackImg.cloneNode(true);
+      img.classList.add('seele-modal-avatar');
+      avatarVideo.replaceWith(img);
     });
   });
 }
