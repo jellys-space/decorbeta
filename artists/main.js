@@ -767,5 +767,40 @@ jenkuCard.addEventListener('click', () => {
   });
 });
 
+// === Glassconsumer Modal Logic ===
+const glassconsumerCard = document.getElementById('glassconsumer-card');
+const glassconsumerDesktop = document.getElementById('glassconsumer-modal-desktop');
+const glassconsumerMobile = document.getElementById('glassconsumer-modal-mobile');
+
+function openGlassconsumerModal(modal) {
+  modal.classList.add('active');
+  const content = modal.querySelector('.glassconsumer-modal-content');
+  requestAnimationFrame(() => {
+    content.classList.add('modal-show');
+  });
+}
+
+function closeGlassconsumerModal(modal) {
+  const content = modal.querySelector('.glassconsumer-modal-content');
+  content.classList.remove('modal-show');
+  setTimeout(() => {
+    modal.classList.remove('active');
+  }, 250);
+}
+
+glassconsumerCard.addEventListener('click', () => {
+  const isMobile = /android|iphone|ipad|ipod|blackberry|windows phone|opera mini/i.test(navigator.userAgent);
+  const modal = isMobile ? glassconsumerMobile : glassconsumerDesktop;
+  openGlassconsumerModal(modal);
+});
+
+[glassconsumerDesktop, glassconsumerMobile].forEach(modal => {
+  const closeBtn = modal.querySelector('.glassconsumer-modal-close');
+  closeBtn.addEventListener('click', () => closeGlassconsumerModal(modal));
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeGlassconsumerModal(modal);
+  });
+});
+
 
 });
