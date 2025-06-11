@@ -3610,3 +3610,16 @@ body.no-blur [class*="-modal-content"] {
   transition: none !important;
   animation: none !important;
 }
+
+/* Fix missing mobile button visuals under .no-blur */
+body.no-blur button[class*="modal-close"] {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  border: none !important;
+  border-radius: 10px !important;
+  padding: 0.5rem 1.2rem !important;
+  color: white !important;
+  font-size: 1.1rem !important;
+  cursor: pointer !important;
+  display: inline-block !important;
+  width: auto !important;
+}
