@@ -3575,11 +3575,14 @@ header h1 {
 }
 
 @media screen and (max-width: 768px) {
-  /* Kill GPU-intensive effects on Android-sized screens */
-  .modal,
-  .modal-content,
-  .seele-modal,
-  .seele-modal-content {
+  /* All modal backgrounds */
+  [class*="modal"].active {
+    backdrop-filter: none !important;
+    background-color: rgba(30, 30, 30, 0.9) !important;
+  }
+
+  /* All modal content blocks */
+  [class*="modal-content"] {
     backdrop-filter: none !important;
     background-color: rgba(30, 30, 30, 0.9) !important;
     box-shadow: none !important;
@@ -3588,13 +3591,8 @@ header h1 {
     border: none !important;
   }
 
+  /* Optional: eliminate animations completely */
   .modal-show {
     opacity: 1 !important;
-  }
-
-  /* Optional: disable artist card animation on mobile tap */
-  .artist-card:active {
-    transform: none !important;
-    box-shadow: none !important;
   }
 }
