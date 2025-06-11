@@ -3302,6 +3302,158 @@ header h1 {
   background-color: rgba(255, 255, 255, 0.3);
 }
 
+/* ========== Glassconsumer Modal - Desktop ========== */
+#glassconsumer-modal-desktop.glassconsumer-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  background: rgba(30, 30, 30, 0);
+  backdrop-filter: blur(0px);
+  transition: opacity 250ms ease, background 250ms ease, backdrop-filter 250ms ease;
+  z-index: 9999;
+}
+#glassconsumer-modal-desktop.glassconsumer-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+  background: rgba(30, 30, 30, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.glassconsumer-modal-content.glassconsumer-desktop {
+  background: rgba(58, 169, 248, 0.2);
+  border-radius: 20px;
+  padding: 2rem;
+  width: 500px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(30px);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 250ms ease, transform 250ms ease;
+}
+
+.glassconsumer-modal-content.glassconsumer-desktop.modal-show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.glassconsumer-modal-avatar {
+  width: 110px !important;
+  height: 110px !important;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  object-fit: cover;
+}
+
+.glassconsumer-modal-name {
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+.glassconsumer-modal-description {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin: 1rem 0 2rem 0;
+}
+
+.glassconsumer-modal-close {
+  margin-top: 1rem;
+  padding: 0.5rem 1.2rem;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.glassconsumer-modal-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ========== Glassconsumer Modal - Mobile ========== */
+#glassconsumer-modal-mobile.glassconsumer-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  background: rgba(30, 30, 30, 0);
+  backdrop-filter: blur(0px);
+  transition: opacity 250ms ease, background 250ms ease, backdrop-filter 250ms ease;
+  z-index: 9999;
+}
+#glassconsumer-modal-mobile.glassconsumer-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+  background: rgba(30, 30, 30, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.glassconsumer-modal-content.glassconsumer-mobile {
+  background: rgba(58, 169, 248, 0.2);
+  border-radius: 24px;
+  padding: 2.5rem 1.8rem;
+  width: 95%;
+  max-width: 95%;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.35);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(30px);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 250ms ease, transform 250ms ease;
+}
+
+.glassconsumer-modal-content.glassconsumer-mobile.modal-show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.glassconsumer-modal-content.glassconsumer-mobile .glassconsumer-modal-avatar {
+  width: 180px !important;
+  height: 180px !important;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1.2rem;
+}
+
+.glassconsumer-modal-content.glassconsumer-mobile .glassconsumer-modal-name {
+  font-size: 2.4rem;
+  margin-top: 1.2rem;
+}
+
+.glassconsumer-modal-content.glassconsumer-mobile .glassconsumer-modal-description {
+  font-size: 1.8rem;
+  line-height: 1.8;
+  margin: 1.2rem 0 2rem 0;
+}
+
+.glassconsumer-modal-content.glassconsumer-mobile .glassconsumer-modal-close {
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.6rem;
+  font-size: 1.4rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  max-width: 280px;
+  height: 60px;
+}
+
+.glassconsumer-modal-content.glassconsumer-mobile .glassconsumer-modal-close:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
 
 /* ========== artist name links ========== */
 .modal-name {
@@ -3401,5 +3553,14 @@ header h1 {
 }
 
 .jenku-modal-description a:hover {
+  text-decoration: underline;
+}
+
+.glassconsumer-modal-description a {
+  color: #66ccff;
+  text-decoration: none;
+}
+
+.glassconsumer-modal-description a:hover {
   text-decoration: underline;
 }
