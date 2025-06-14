@@ -124,38 +124,6 @@ header h1 {
   text-decoration: underline;
 }
 
-/* ========== SPARKLY MOUSE TRAIL ========== */
-/* If you want the star code from winterwind.com snippet */
-.star {
-  position: fixed;
-  pointer-events: none;
-  z-index: 2000;
-}
-
-.star:before,
-.star:after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  content: '\2726'; /* a sparkle/star unicode character */
-  font-size: 9px;
-}
-
-.star:before {
-  color: transparent;
-  text-shadow: 0 0 3px rgb(235, 18, 115);
-}
-
-.star:after {
-  background: rgb(244, 119, 194);
-  /* The unprefixed property */
-  background-clip: text;
-  /* Vendor prefix for WebKit browsers (Chrome, Safari, etc.) */
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent; /* fallback if background-clip isn’t recognized */
-}
-
 /* ========== ARTIST GRID ========== */
 .artist-grid {
   display: grid;
