@@ -3542,6 +3542,15 @@ header h1 {
   text-decoration: underline;
 }
 
+.foxy-modal-description a {
+  color: #66ccff;
+  text-decoration: none;
+}
+
+.foxy-modal-description a:hover {
+  text-decoration: underline;
+}
+
 @media screen and (max-width: 768px) {
   /* All modal backgrounds */
   [class*="modal"].active {
