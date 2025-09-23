@@ -2316,7 +2316,7 @@ const categories = [
     {
         "force_break": true,
         "name": "Flags",
-        "banner": "placeholder-banner.png",
+        "banner": "atlas-banner.png",
         "artist_info": null,
         "artists": [
             findUser('1106968627036557322')
