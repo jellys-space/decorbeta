@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Jelly's Space</title>
+        <link rel="stylesheet" href="styles.css" />
+
+        <!-- Use in: /index.html -->
+        <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+        <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+        <meta name="apple-mobile-web-app-title" content="Jelly Space" />
+        <link rel="manifest" href="site.webmanifest" />
+
+        <!-- Open Graph meta tags -->
+        <meta name="theme-color" content="#e897e8">
+        <meta property="og:title" content="Jelly's Space">
+        <meta property="og:description" content="Custom Avatar Decorations for the Decor Plugin for Vencord.">
+        <meta property="og:image" content="https://i.imgur.com/CkK34gP.png">
+        <meta property="og:url" content="https://jellys-space.vip">
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="Welcome To">
+    </head>
+
+    <body>
+
+        <!-- Header still just has the big title -->
+        <header>
+            <svg id="options-cog" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.738 9.99995H22V14H19.7391C19.498 14.931 19.1001 15.798 18.565 16.564L20.0001 18L18 20.0001L16.5651 18.564C15.7971 19.099 14.932 19.498 14 19.738V22H9.99995V19.738C9.06899 19.498 8.20295 19.099 7.43602 18.564L5.99998 20.0001L3.99993 18L5.43597 16.564C4.90101 15.799 4.50201 14.932 4.26201 14H2V9.99995H4.26201C4.50201 9.06803 4.89993 8.20199 5.43597 7.43602L3.99993 5.99998L5.99998 3.99993L7.43602 5.43597C8.20199 4.89993 9.06803 4.50201 9.99995 4.26201V2H14V4.26093C14.932 4.50201 15.7971 4.89993 16.5651 5.43501L18 3.99897L20.0001 5.99902L18.564 7.43602C19.099 8.20199 19.498 9.06899 19.738 9.99995ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79079 14.2091 8.00002 12 8.00002C9.79079 8.00002 8.00002 9.79079 8.00002 12C8.00002 14.2091 9.79079 16 12 16Z" fill="currentColor"></path>
+            </svg>
+            <h1>Jelly's Space - Custom Decors For Vencord</h1>
+        </header>
+
+        <!-- NEW: Separate nav section below header -->
+        <div class="main-nav">
+            <nav class="top-nav">
+            </nav>
+            <input class="search-bar" placeholder="Search Decor, Category or Artist"></input>
+        </div>
+
+        <main id="content"></main>
+
+        <div class="confetti-container"></div>
+
+        <!-- ====== SCRIPTS ====== -->
+        <script src="scripts/main.js"></script>
+    </body>
+</html>
