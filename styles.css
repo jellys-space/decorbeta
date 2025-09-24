@@ -230,13 +230,7 @@ body:has(.category-clicked-container) .search-bar {
 .decoration-container .avatar {
     position: absolute;
     height: 100%;
-    scale: 0.83;
-}
-
-.modal .decoration-container .deco {
-  height: 97%;
-  top: 2%;
-  left: 2%;
+    scale: 0.86;
 }
 
 
