@@ -1632,7 +1632,7 @@ const categories = [
             },
             {
                 "name": "Neon Bunny Green",
-                "asset": "Neon bunny green !"
+                "asset": "Neon bunny green !.png"
             },
             {
                 "name": "Neon Bunny Purple",
