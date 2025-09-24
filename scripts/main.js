@@ -851,7 +851,7 @@ const categories = [
             {
                 "name": "BECOMED [[NEO]]",
                 "artist": findUser('323205750262595595'),
-                "asset": "BECOMED [[NEO]].png",
+                "asset": "BECOMED [[NEO]].PNG",
                 "summary": "NOW'S YOUR CHANCE TO BE A [BIG SHOT]",
             },
             {
@@ -863,7 +863,7 @@ const categories = [
             {
                 "name": "CHAOS CHAOS",
                 "artist": findUser('323205750262595595'),
-                "asset": "CHAOS CHAOS.png",
+                "asset": "CHAOS CHAOS.PNG",
                 "summary": "I CAN DO ANYTHING!",
             },
             {
@@ -893,7 +893,7 @@ const categories = [
             {
                 "name": "FINDHER",
                 "artist": findUser('323205750262595595'),
-                "asset": "FINDHER.png",
+                "asset": "FINDHER.PNG",
                 "summary": "A lost girl.",
             },
             {
@@ -905,7 +905,7 @@ const categories = [
             {
                 "name": "Game Gear",
                 "artist": findUser('323205750262595595'),
-                "asset": "game gear.png",
+                "asset": "game gear.PNG",
                 "summary": "Berdly, I Only Play Mobile Games",
             },
             {
@@ -923,7 +923,7 @@ const categories = [
             {
                 "name": "Im Old",
                 "artist": findUser('323205750262595595'),
-                "asset": "Im Old.png",
+                "asset": "Im Old.PNG",
                 "summary": "I'm old!",
             },
             {
@@ -1007,13 +1007,13 @@ const categories = [
             {
                 "name": "THE CAGE",
                 "artist": findUser('323205750262595595'),
-                "asset": "THE CAGE.png",
+                "asset": "THE CAGE.PNG",
                 "summary": "Pretty annoying, dawg... wait a minute",
             },
             {
                 "name": "THEYLL SEE THE TAIL OF HELL TAKE CRAWL",
                 "artist": findUser('323205750262595595'),
-                "asset": "THEYLL SEE THE TAIL OF HELL TAKE CRAWL.png",
+                "asset": "THEYLL SEE THE TAIL OF HELL TAKE CRAWL.PNG",
                 "summary": "A friend on the inside.",
             },
             {
