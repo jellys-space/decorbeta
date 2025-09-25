@@ -9538,12 +9538,12 @@ const pages = [
 
             <div class="text-block center guide-step">
                 <p>Step 4: Find any decor from our site! Just mouse over & click.</p>
-                <img src="${urls.CDN}/assets/4.png", loading="lazy">
+                <img src="${urls.CDN}/assets/new4.png", loading="lazy">
             </div>
 
             <div class="text-block center guide-step">
                 <p>Step 5: If you like it, hit the download button.</p>
-                <img src="${urls.CDN}/assets/5.png", loading="lazy">
+                <img src="${urls.CDN}/assets/new5.png", loading="lazy">
             </div>
 
             <div class="text-block center guide-step">
