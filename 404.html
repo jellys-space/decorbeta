@@ -21,38 +21,6 @@
         <meta property="og:url" content="https://jellys-space.vip">
         <meta property="og:type" content="website">
         <meta property="og:site_name" content="Welcome To">
-
-        <!-- ONLY ADDITION: SPA redirect shim (runs immediately, no visual change) -->
-        <script>
-          (function () {
-            try {
-              var u = new URL(location.href);
-              // Prevent loops if we're already at /index.html?p=...
-              if (u.pathname.endsWith('/index.html') && u.searchParams.has('p')) return;
-
-              // Routes your SPA handles (home, pages, and /decors + category)
-              var spaRoutes = [
-                /^\/$/,                  // home
-                /^\/decors(?:\/.*)?$/,   // /decors and /decors/<slug>
-                /^\/guide$/,
-                /^\/rehash$/,
-                /^\/artists$/,
-                /^\/faq$/,
-                /^\/donate$/
-              ];
-
-              var path = location.pathname;
-              var isSpa = spaRoutes.some(function (re) { return re.test(path); });
-
-              if (isSpa) {
-                var full = path + location.search + location.hash;
-                // Send to index with original path preserved in ?p=
-                location.replace('/index.html?p=' + encodeURIComponent(full));
-              }
-              // If not an SPA route, do nothing: this page renders exactly as before.
-            } catch (e) {}
-          })();
-        </script>
     </head>
 
     <body>
