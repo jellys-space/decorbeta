@@ -3,84 +3,72 @@
   try {
     var url = new URL(window.location.href);
     var p = url.searchParams.get('p');
-    if (p) {
-      history.replaceState(null, '', decodeURIComponent(p));
-    }
+    if (p) history.replaceState(null, '', decodeURIComponent(p));
   } catch {}
 })();
 
-/* ---------- Helpers for deep-linking categories: /decors/<slug> ---------- */
-function slugifyCategory(name) {
-  return String(name || '')
+/* ---------- Helpers for /decors/<slug> ---------- */
+function toSlug(s) {
+  return String(s || '')
     .toLowerCase()
-    .replace(/[\s\-]+/g, '_') // normalize spaces/hyphens -> underscore
-    .replace(/[^a-z0-9_]/g, ''); // strip other punctuation
+    .replace(/[\s\-]+/g, '_')
+    .replace(/[^a-z0-9_]/g, '');
 }
-
-// Find a category object by slug
 function findCategoryBySlug(slug) {
-  try {
-    const want = slugifyCategory(slug);
-    return (window.categories || []).find(c => slugifyCategory(c.name) === want);
-  } catch {
-    return null;
-  }
+  const want = toSlug(slug);
+  return (window.categories || []).find(c => toSlug(c.name) === want) || null;
 }
 
-/* ---------- Router: initial load ---------- */
+/* ---------- Initial load ---------- */
 window.addEventListener("DOMContentLoaded", () => {
-  const pathParts = window.location.pathname.split('/').filter(Boolean);
+  const parts = location.pathname.split('/').filter(Boolean);
 
-  if (pathParts.length === 0) {
+  if (parts.length === 0) {
     setPage('home');
     return;
   }
 
-  const mainPage = pathParts[0];
-  const match = pages.find(page => page.url === mainPage);
-
+  const main = parts[0];
+  const match = pages.find(p => p.url === main);
   if (!match) {
     primaryContainer.innerHTML = notFoundHTMLContent;
     return;
   }
 
-  setPage(mainPage);
+  // Render the main page
+  setPage(main);
 
-  // If deep link like /decors/<slug>, auto-render the category subpage
-  if (mainPage === 'decors' && pathParts[1]) {
-    const slug = decodeURIComponent(pathParts[1]);
-    const cat = findCategoryBySlug(slug);
+  // Deep link: /decors/<slug> => render the category subpage
+  if (main === 'decors' && parts[1]) {
+    const cat = findCategoryBySlug(decodeURIComponent(parts[1]));
     if (cat) openCategoryPage({ data: cat });
   }
 });
 
-/* ---------- Router: back/forward ---------- */
+/* ---------- Back/forward ---------- */
 window.addEventListener('popstate', () => {
-  const pathParts = window.location.pathname.split('/').filter(Boolean);
+  const parts = location.pathname.split('/').filter(Boolean);
 
-  if (pathParts.length === 0) {
+  if (parts.length === 0) {
     setPage('home');
     return;
   }
 
-  const mainPage = pathParts[0];
-  const match = pages.find(page => page.url === mainPage);
-
+  const main = parts[0];
+  const match = pages.find(p => p.url === main);
   if (!match) {
     primaryContainer.innerHTML = notFoundHTMLContent;
     return;
   }
 
-  setPage(mainPage);
+  setPage(main);
 
-  if (mainPage === 'decors' && pathParts[1]) {
-    const slug = decodeURIComponent(pathParts[1]);
-    const cat = findCategoryBySlug(slug);
+  if (main === 'decors' && parts[1]) {
+    const cat = findCategoryBySlug(decodeURIComponent(parts[1]));
     if (cat) openCategoryPage({ data: cat });
   }
 });
 
-/* ---------- (leave everything else in your file below this line exactly as-is) ---------- */
 
 
 
@@ -9914,33 +9902,33 @@ let toggle_73485748 = false;
 
 // Selects the page button on the nav bar and sets the page content
 function setPage(url) {
-    pageSearchBar.value = '';
-    primaryContainer.className = '';
-    const page = pages.find(p => p.url === url);
-    const tabs = navBar.querySelectorAll('p');
-    tabs.forEach((el) => {
-        el.classList.remove("selected");
-    });
+  pageSearchBar.value = '';
+  primaryContainer.className = '';
+  const page = pages.find(p => p.url === url);
+  const tabs = navBar.querySelectorAll('p');
+  tabs.forEach((el) => el.classList.remove("selected"));
 
-    const match = pages.find(page => page.url === url);
-    if (!match) {
-        const newPath = url === 'home' ? '/' : '/' + url;
-        if (window.location.pathname !== newPath) {
-            history.replaceState(null, '', newPath);
-        }
-        return primaryContainer.innerHTML = notFoundHTMLContent;
+  const match = pages.find(page => page.url === url);
+  if (!match) {
+    const newPathNF = url === 'home' ? '/' : '/' + url;
+    if (window.location.pathname !== newPathNF) {
+      history.replaceState(null, '', newPathNF);
+    }
+    return primaryContainer.innerHTML = notFoundHTMLContent;
+  }
+
+  try {
+    navBar.querySelector('#' + page.url + '-tab').classList.add("selected");
+
+    const desired = page.url === 'home' ? '/' : '/' + page.url;
+    const isCategoryDeep = page.url === 'decors' && window.location.pathname.startsWith('/decors/');
+    // IMPORTANT: do NOT clobber /decors/<slug>
+    if (!isCategoryDeep && window.location.pathname !== desired) {
+      history.replaceState(null, '', desired);
     }
 
-    try {
-        navBar.querySelector('#' + page.url + '-tab').classList.add("selected");
-
-        const newPath = page.url === 'home' ? '/' : '/' + page.url;
-        if (window.location.pathname !== newPath) {
-            history.replaceState(null, '', newPath);
-        }
-
-        primaryContainer.classList.add(page.url);
-        primaryContainer.innerHTML = page.content;
+    primaryContainer.classList.add(page.url);
+    primaryContainer.innerHTML = page.content;
 
         if (page.url === "home") {
             const homenavGrid = primaryContainer.querySelector('.homenav-grid');
