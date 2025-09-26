@@ -10,46 +10,21 @@
 })();
 
 /* ---------- Helpers for deep-linking categories: /decors/<slug> ---------- */
-// Map "Kawaii Gamer Girl" -> "kawaii_gamer_girl"
 function slugifyCategory(name) {
   return String(name || '')
     .toLowerCase()
-    .replaceAll(' ', '_');
+    .replace(/[\s\-]+/g, '_') // normalize spaces/hyphens -> underscore
+    .replace(/[^a-z0-9_]/g, ''); // strip other punctuation
 }
 
 // Find a category object by slug
 function findCategoryBySlug(slug) {
   try {
-    // "categories" is defined in your data; keep it global
-    return (window.categories || []).find(c => slugifyCategory(c.name) === slug);
+    const want = slugifyCategory(slug);
+    return (window.categories || []).find(c => slugifyCategory(c.name) === want);
   } catch {
     return null;
   }
-}
-
-// Open the category modal WITHOUT pushing history (used on first load/back/forward)
-function openCategoryPageNoPush({ data = null } = {}) {
-  if (!data) return;
-
-  const modal = document.createElement("div");
-  modal.classList.add("category-clicked-container");
-  modal.innerHTML = `
-    <div class="pagination"><button class="nav-btn">&lt; Back</button></div>
-    <div class="categories-container"></div>
-  `;
-
-  const modalContent = modal.querySelector('.categories-container');
-  // Your existing renderer:
-  renderCategory(data, modalContent);
-
-  document.querySelector('#content').appendChild(modal);
-  document.body.scrollTo(0, 0);
-
-  modal.querySelector('.nav-btn').addEventListener("click", () => {
-    modal.remove();
-    try { history.pushState(null, '', '/decors'); } catch {}
-    try { categoryFullViewCache = null; } catch {}
-  });
 }
 
 /* ---------- Router: initial load ---------- */
@@ -65,19 +40,17 @@ window.addEventListener("DOMContentLoaded", () => {
   const match = pages.find(page => page.url === mainPage);
 
   if (!match) {
-    // Your existing 404 content
     primaryContainer.innerHTML = notFoundHTMLContent;
     return;
   }
 
-  // Render the main page (decors/guide/rehash/etc.)
   setPage(mainPage);
 
-  // If deep link like /decors/<slug>, auto-open the category modal (no history push)
+  // If deep link like /decors/<slug>, auto-render the category subpage
   if (mainPage === 'decors' && pathParts[1]) {
-    const slug = pathParts[1];
+    const slug = decodeURIComponent(pathParts[1]);
     const cat = findCategoryBySlug(slug);
-    if (cat) openCategoryPageNoPush({ data: cat });
+    if (cat) openCategoryPage({ data: cat });
   }
 });
 
@@ -98,20 +71,12 @@ window.addEventListener('popstate', () => {
     return;
   }
 
-  // Re-render the selected page
   setPage(mainPage);
 
-  if (mainPage === 'decors') {
-    // Close any open modal(s) first so we don't duplicate
-    try {
-      while (openModalsCache > 0) closeModal();
-    } catch {}
-
-    const slug = pathParts[1];
-    if (slug) {
-      const cat = findCategoryBySlug(slug);
-      if (cat) openCategoryPageNoPush({ data: cat });
-    }
+  if (mainPage === 'decors' && pathParts[1]) {
+    const slug = decodeURIComponent(pathParts[1]);
+    const cat = findCategoryBySlug(slug);
+    if (cat) openCategoryPage({ data: cat });
   }
 });
 
