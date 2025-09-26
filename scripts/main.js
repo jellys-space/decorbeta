@@ -445,7 +445,7 @@ const artists = [
     },
     {
         id: "808325271949934652",
-        name: "T8dy1",
+        name: "T8dyi",
         assets: {
             avatar: {
                 asset: "t8dy1",
