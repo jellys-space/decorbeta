@@ -117,7 +117,7 @@ const modal_types = {
 }
 
 const urls = {
-    CDN: "https://cdn.jellys-space.vip/" // The cdn link that assets will use (makes it esier to change if you wanted to use cdn.jellys-space.vip)
+    CDN: "https://cdn.jellys-space.vip" // The cdn link that assets will use (makes it esier to change if you wanted to use cdn.jellys-space.vip)
 };
 
 const notFoundHTMLContent = `
