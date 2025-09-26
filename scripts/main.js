@@ -1,90 +1,48 @@
-/* ---------- GitHub Pages SPA: restore original path if we arrived via 404.html ---------- */
-(function restoreSpaPathFromQuery() {
-  try {
-    var url = new URL(window.location.href);
-    var p = url.searchParams.get('p');
-    if (p) history.replaceState(null, '', decodeURIComponent(p));
-  } catch {}
-})();
-
-/* ---------- Helpers for /decors/<slug> ---------- */
-function toSlug(s) {
-  return String(s || '')
-    .toLowerCase()
-    .replace(/[\s\-]+/g, '_')
-    .replace(/[^a-z0-9_]/g, '');
-}
-function findCategoryBySlug(slug) {
-  const want = toSlug(slug);
-  return (window.categories || []).find(c => toSlug(c.name) === want) || null;
-}
-
-/* ---------- Initial load ---------- */
-window.addEventListener("DOMContentLoaded", () => {
-  const parts = location.pathname.split('/').filter(Boolean);
-
-  if (parts.length === 0) {
-    setPage('home');
-    return;
-  }
-
-  const main = parts[0];
-  const match = pages.find(p => p.url === main);
-  if (!match) {
-    primaryContainer.innerHTML = notFoundHTMLContent;
-    return;
-  }
-
-  // Render the main page
-  setPage(main);
-
-  // Deep link: /decors/<slug> => render the category subpage
-  if (main === 'decors' && parts[1]) {
-    const cat = findCategoryBySlug(decodeURIComponent(parts[1]));
-    if (cat) openCategoryPage({ data: cat });
-  }
-});
-
-/* ---------- Back/forward ---------- */
-window.addEventListener('popstate', () => {
-  const parts = location.pathname.split('/').filter(Boolean);
-
-  if (parts.length === 0) {
-    setPage('home');
-    return;
-  }
-
-  const main = parts[0];
-  const match = pages.find(p => p.url === main);
-  if (!match) {
-    primaryContainer.innerHTML = notFoundHTMLContent;
-    return;
-  }
-
-  setPage(main);
-
-  if (main === 'decors' && parts[1]) {
-    const cat = findCategoryBySlug(decodeURIComponent(parts[1]));
-    if (cat) openCategoryPage({ data: cat });
-  }
-});
-
-
-
-
 const navBar = document.querySelector('.top-nav');
 const primaryContainer = document.querySelector('#content');
 const pageSearchBar = document.querySelector('.search-bar');
 
+
 // Cache
+
 let openModalsCache = 0;
 let categoryFullViewCache;
 
+
+// param code
+const params = new URLSearchParams(window.location.search);
+function setParams(params) {
+    const url = new URL(window.location);
+    url.search = '';
+    Object.entries(params).forEach(([key, value]) => {
+        url.searchParams.set(key, value);
+    });
+    history.replaceState(null, '', url);
+};
+function addParams(params) {
+    const url = new URL(window.location);
+    Object.entries(params).forEach(([key, value]) => {
+        url.searchParams.set(key, value);
+    });
+    history.replaceState(null, '', url);
+};
+function removeParams(params) {
+    const url = new URL(window.location);
+    if (!Array.isArray(params)) {
+        params = [params];
+    }
+    params.forEach(key => url.searchParams.delete(key));
+    history.replaceState(null, '', url);
+};
+
+
 // Settings Code
+
 const settings = {
     "disable_bg_effect": 0,
     "disable_mouse_effect": 0
 };
+
 
 if (!localStorage.getItem('optionsStore')) {
     localStorage.setItem('optionsStore', JSON.stringify({}))
@@ -107,7 +65,7 @@ function initializeSettings() {
             }
         }
     }
-
+    
     localStorage.setItem('optionsStore', JSON.stringify(optionsStore));
 }
 
@@ -117,9 +75,9 @@ initializeSettings();
 function changeSetting(key, value) {
     if (key in optionsStore) {
         optionsStore[key] = value;
-
+        
         localStorage.setItem('optionsStore', JSON.stringify(optionsStore));
-
+        
         console.log(`Setting '${key}' changed to ${value}`);
     } else {
         console.error(`Setting '${key}' does not exist`);
@@ -134,11 +92,14 @@ function toggleSetting(key) {
     }
 }
 
+
+
 let isMobile = navigator.userAgentData && navigator.userAgentData.mobile;
 if (isMobile || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     document.body.classList.add('mobile');
     isMobile = true;
 }
+
 
 const commission_types = {
     MONEY: "Money",
@@ -168,7 +129,9 @@ const notFoundHTMLContent = `
     </div>
 `;
 
+
 // Fake API / Database responses
+
 // The image urls that will be randomly picked for the home page "Decors" homenav button
 const marketing = [
     `${urls.CDN}/decors/camille%20healing.png`,
@@ -8863,7 +8826,7 @@ const categories = [
             },
             {
                 "name": "Arospec",
-                "asset": "arospec.png", "summary": "Part of the Pride Preset pack.",
+                "asset": "arospec.png","summary": "Part of the Pride Preset pack.",
             },
             {
                 "name": "Asexual",
@@ -9596,70 +9559,70 @@ const pages = [
             <div class="text-block center guide-step">
                 <p>Step 1: After Vencord is installed, go to the Plugins menu in your Discord Settings ⚙️</p>
                 <p>and enable the Decor Plugin.</p>
-                <img src="${urls.CDN}/assets/1.png", loading="lazy">
+                <img src="https://beta.jellys-space.vip/guide/1.png", loading="lazy">
             </div>
 
             <div class="text-block center guide-step">
                 <p>Step 2: Now go back to Discord Settings ⚙️ and go to the Profiles page.</p>
                 <p>Click on "Change Decoration" under Decor.</p>
-                <img src="${urls.CDN}/assets/2.png", loading="lazy">
+                <img src="https://beta.jellys-space.vip/guide/2.png", loading="lazy">
             </div>
 
             <div class="text-block center guide-step">
                 <p>Step 3: Authorize Decor when prompted.</p>
-                <img src="${urls.CDN}/assets/3.gif" loading="lazy">
+                <img src="https://beta.jellys-space.vip/guide/3.gif" loading="lazy">
             </div>
 
             <div class="text-block center guide-step">
                 <p>Step 4: Find any decor from our site! Just mouse over & click.</p>
-                <img src="${urls.CDN}/assets/new4.png", loading="lazy">
+                <img src="https://beta.jellys-space.vip/guide/4.png", loading="lazy">
             </div>
 
             <div class="text-block center guide-step">
                 <p>Step 5: If you like it, hit the download button.</p>
-                <img src="${urls.CDN}/assets/new5.png", loading="lazy">
+                <img src="https://beta.jellys-space.vip/guide/5.png", loading="lazy">
             </div>
 
             <div class="text-block center guide-step">
                 <p>Step 6: Go back to your Profile Settings ⚙️ and click "Change Decoration".</p>
                 <p>You'll wanna click the Create button!</p>
-                <img src="${urls.CDN}/assets/6.png", loading="lazy">
+                <img src="https://beta.jellys-space.vip/guide/6.png", loading="lazy">
             </div>
 
             <div class="text-block center guide-step">
                 <p>Step 7: Click the "Browse" button and choose the decor you downloaded.</p>
-                <img src="${urls.CDN}/assets/7.png", loading="lazy">
+                <img src="https://beta.jellys-space.vip/guide/7.png", loading="lazy">
             </div>
 
             <div class="text-block center guide-step">
                 <p>Step 8: Give your decor a name and click "Submit for Review".</p>
-                <img src="${urls.CDN}/assets/8.png", loading="lazy">
+                <img src="https://beta.jellys-space.vip/guide/8.png", loading="lazy">
             </div>
 
             <div class="text-block center guide-step">
                 <p>Step 9: Once submitted, it will appear under "Pending Review".</p>
-                <img src="${urls.CDN}/assets/9.png", loading="lazy">
+                <img src="https://beta.jellys-space.vip/guide/9.png", loading="lazy">
             </div>
 
             <div class="text-block center guide-step">
                 <p>Step 10: Join the <a href="https://discord.gg/dXp2SdxDcP">Decor Server</a> and do the following:</p>
-                <img src="${urls.CDN}/assets/10.png", loading="lazy">
+                <img src="https://beta.jellys-space.vip/guide/10.png", loading="lazy">
             </div>
 
             <div class="text-block center guide-step">
                 <p>Step 11: Enable Direct Messages so our Decorator bot</p>
                 <p>can tell you when your decor is approved!</p>
-                <img src="${urls.CDN}/assets/11.png", loading="lazy">
+                <img src="https://beta.jellys-space.vip/guide/11.png", loading="lazy">
             </div>
 
             <div class="text-block center guide-step">
                 <p>Step 12: This is what the DM will look like.</p>
-                <img src="${urls.CDN}/assets/12.png", loading="lazy">
+                <img src="https://beta.jellys-space.vip/guide/12.png", loading="lazy">
             </div>
 
             <div class="text-block center guide-step">
                 <p>Step 13: Your decoration will now be active and visible in your list!</p>
-                <img src="${urls.CDN}/assets/13.png", loading="lazy">
+                <img src="https://beta.jellys-space.vip/guide/13.png", loading="lazy">
             </div>
         `
     },
@@ -9775,7 +9738,7 @@ window.addEventListener("blur", () => {
 * 1) CONFETTI: HELPER FUNCTION
 ********************************/
 function spawnConfettiPiece(container) {
-    if (!isPageFocused) return;
+    if (!isPageFocused) return; 
     if (optionsStore.disable_bg_effect) return;
     const confetti = document.createElement('img');
 
@@ -9830,11 +9793,11 @@ if (container) {
 /********************************
 * 3) SPARKLY MOUSE TRAIL
 ********************************/
-window.addEventListener('mousemove', function (e) {
+window.addEventListener('mousemove', function(e) {
     if (optionsStore.disable_mouse_effect) return;
     const arr = [1, 0.9, 0.8, 0.5, 0.2];
 
-    arr.forEach(function (i) {
+    arr.forEach(function(i) {
         const x = (1 - i) * 75;
         const star = document.createElement('div');
         star.className = 'star';
@@ -9844,45 +9807,22 @@ window.addEventListener('mousemove', function (e) {
 
         document.body.appendChild(star);
 
-        window.setTimeout(function () {
+        window.setTimeout(function() {
             document.body.removeChild(star);
-        }, Math.round(Math.random() * i * 600));
+        },  Math.round(Math.random() * i * 600));
     });
 }, false);
 
+// Checks to see if "?page=" is in the url. if it isn't: it takes you to the home page. if it is but not a valid page: it takes you to the 404 page
 window.addEventListener("DOMContentLoaded", () => {
-    const currentPath = window.location.pathname;
-    const pathParts = currentPath.split('/').filter(part => part !== '');
-
-    if (pathParts.length === 0) {
+    const currentPath = params.get("page");
+    const match = pages.find(page => page.url === currentPath);
+    if (params.get("page")) {
+        setPage(params.get("page"));
+    } else if (!match) {
         setPage('home');
     } else {
-        const mainPage = pathParts[0];
-        const match = pages.find(page => page.url === mainPage);
-
-        if (match) {
-            setPage(mainPage);
-        } else {
-            primaryContainer.innerHTML = notFoundHTMLContent;
-        }
-    }
-});
-
-window.addEventListener('popstate', () => {
-    const currentPath = window.location.pathname;
-    const pathParts = currentPath.split('/').filter(part => part !== '');
-
-    if (pathParts.length === 0) {
-        setPage('home');
-    } else {
-        const mainPage = pathParts[0];
-        const match = pages.find(page => page.url === mainPage);
-
-        if (match) {
-            setPage(mainPage);
-        } else {
-            primaryContainer.innerHTML = notFoundHTMLContent;
-        }
+        primaryContainer.innerHTML = notFoundHTMLContent;
     }
 });
 
@@ -9902,51 +9842,44 @@ let toggle_73485748 = false;
 
 // Selects the page button on the nav bar and sets the page content
 function setPage(url) {
-  pageSearchBar.value = '';
-  primaryContainer.className = '';
-  const page = pages.find(p => p.url === url);
-  const tabs = navBar.querySelectorAll('p');
-  tabs.forEach((el) => el.classList.remove("selected"));
+    pageSearchBar.value = '';
+    primaryContainer.className = '';
+    const page = pages.find(p => p.url === url);
+    const tabs = navBar.querySelectorAll('p');
+    tabs.forEach((el) => {
+        el.classList.remove("selected");
+    });
 
-  const match = pages.find(page => page.url === url);
-  if (!match) {
-    const newPathNF = url === 'home' ? '/' : '/' + url;
-    if (window.location.pathname !== newPathNF) {
-      history.replaceState(null, '', newPathNF);
-    }
-    return primaryContainer.innerHTML = notFoundHTMLContent;
-  }
-
-  try {
-    navBar.querySelector('#' + page.url + '-tab').classList.add("selected");
-
-    const desired = page.url === 'home' ? '/' : '/' + page.url;
-    const isCategoryDeep = page.url === 'decors' && window.location.pathname.startsWith('/decors/');
-    // IMPORTANT: do NOT clobber /decors/<slug>
-    if (!isCategoryDeep && window.location.pathname !== desired) {
-      history.replaceState(null, '', desired);
+    const match = pages.find(page => page.url === url);
+    if (!match) {
+        setParams({page: url})
+        return primaryContainer.innerHTML = notFoundHTMLContent;
     }
 
-    primaryContainer.classList.add(page.url);
-    primaryContainer.innerHTML = page.content;
+    try {
+        navBar.querySelector('#'+page.url+'-tab').classList.add("selected");
+        addParams({page: page.url})
+        primaryContainer.classList.add(page.url);
+        primaryContainer.innerHTML = page.content;
 
+        // Code that's run after the set page loads
         if (page.url === "home") {
             const homenavGrid = primaryContainer.querySelector('.homenav-grid');
             homenavGrid.innerHTML = `
-                <div class="var1" onclick="navigateTo('decors')">
+                <div class="var1" onclick="setPage('decors')">
                     <div class="decoration-container">
                         <img class="avatar" src="${urls.CDN}/assets/default-avatar.png", oncontextmenu="return false;" loading="lazy">
                         <img class="deco" src="${marketing[Math.floor(Math.random() * marketing.length)]}" oncontextmenu="return false;" loading="lazy">
                     </div>
                     <h1>Decors</h1>
                 </div>
-                <div class="var2" onclick="navigateTo('guide')">
+                <div class="var2" onclick="setPage('guide')">
                     <div>
                         <img src="${urls.CDN}/assets/jellythonk.webp" oncontextmenu="return false;" loading="lazy">
                     </div>
                     <h1>How-To</h1>
                 </div>
-                <div class="var3" onclick="navigateTo('rehash')">
+                <div class="var3" onclick="setPage('rehash')">
                     <div>
                         <img src="${urls.CDN}/assets/rehashicon.png", oncontextmenu="return false;" loading="lazy">
                     </div>
@@ -9955,19 +9888,13 @@ function setPage(url) {
             `;
         } else if (page.url === "decors") {
             renderDecorsData(categories, primaryContainer.querySelector('.categories-container'));
-
-            const currentPath = window.location.pathname;
-            const pathParts = currentPath.split('/').filter(part => part !== '');
-            const categoryParam = pathParts[1];
-
-            if (categoryParam && !categoryFullViewCache) {
-                const categoryData = categories.find(c => c.name.toLowerCase().replaceAll(' ','_') === categoryParam);
-                if (categoryData && toggle_73485748 === false) {
+            if (params.get("category") && !categoryFullViewCache) {
+                if (toggle_73485748 === false) {
                     toggle_73485748 = true;
-                    categoryFullViewCache = categoryParam;
+                    categoryFullViewCache = params.get("category");
                     openCategoryPage({
-                        data: categoryData
-                    });
+                        data: categories.find(c => c.name === categoryFullViewCache)
+                    })
                 }
             }
         } else if (page.url === "artists") {
@@ -9999,167 +9926,152 @@ function setPage(url) {
             let wasConverted = false;
 
             document.getElementById("upload").addEventListener("change", async (e) => {
-                const file = e.target.files[0];
-                if (!file) return;
-
-                const filenameDisplay = document.getElementById("filename");
-                const ext = file.name.split('.').pop().toLowerCase();
-
-                if (!["png", "jpg", "jpeg"].includes(ext)) {
-                    alert("❌ File format not accepted. PNG, APNG and JPG/JPEG only.");
-                    return;
-                }
-
-                const arrayBufferToHash = async (buffer) => {
-                    const hashBuffer = await crypto.subtle.digest("SHA-256", buffer);
-                    const hashArray = Array.from(new Uint8Array(hashBuffer));
-                    return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
-                };
-
-                const bytes = await file.arrayBuffer();
-                let icon = "✅";
-                wasConverted = false;
-
-                if (ext === "jpg" || ext === "jpeg") {
-                    alert("⚠️ This is a JPEG image and will be changed into PNG format upon rehash.");
-                    // Convert JPEG to PNG
-                    icon = "⚠️";
-                    wasConverted = true;
-                    const img = new Image();
-                    img.src = URL.createObjectURL(file);
-                    await new Promise((res) => img.onload = res);
-
-                    const canvas = document.createElement("canvas");
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    canvas.getContext("2d").drawImage(img, 0, 0);
-                    const blob = await new Promise(r => canvas.toBlob(r, "image/png"));
-                    uploadedImageBlob = await blob.arrayBuffer();
-                } else {
-                    uploadedImageBlob = bytes;
-                }
-
-                originalFilename = (file.name || "image").replace(/\.(png|jpg|jpeg)$/i, "");
-                const fileSizeKb = Math.round(file.size / 1024);
-                const hash = await arrayBufferToHash(bytes);
-
-                filenameDisplay.innerText = `${icon} Loaded: ${file.name}${wasConverted ? " (converted to PNG)" : ""}
+              const file = e.target.files[0];
+              if (!file) return;
+            
+              const filenameDisplay = document.getElementById("filename");
+              const ext = file.name.split('.').pop().toLowerCase();
+            
+              if (!["png", "jpg", "jpeg"].includes(ext)) {
+                alert("❌ File format not accepted. PNG, APNG and JPG/JPEG only.");
+                return;
+              }
+          
+              const arrayBufferToHash = async (buffer) => {
+                const hashBuffer = await crypto.subtle.digest("SHA-256", buffer);
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+              };
+          
+              const bytes = await file.arrayBuffer();
+              let icon = "✅";
+              wasConverted = false;
+          
+              if (ext === "jpg" || ext === "jpeg") {
+              alert("⚠️ This is a JPEG image and will be changed into PNG format upon rehash.");
+                // Convert JPEG to PNG
+                icon = "⚠️";
+                wasConverted = true;
+                const img = new Image();
+                img.src = URL.createObjectURL(file);
+                await new Promise((res) => img.onload = res);
+            
+                const canvas = document.createElement("canvas");
+                canvas.width = img.width;
+                canvas.height = img.height;
+                canvas.getContext("2d").drawImage(img, 0, 0);
+                const blob = await new Promise(r => canvas.toBlob(r, "image/png"));
+                uploadedImageBlob = await blob.arrayBuffer();
+              } else {
+                uploadedImageBlob = bytes;
+              }
+          
+              originalFilename = (file.name || "image").replace(/\.(png|jpg|jpeg)$/i, "");
+              const fileSizeKb = Math.round(file.size / 1024);
+              const hash = await arrayBufferToHash(bytes);
+          
+              filenameDisplay.innerText = `${icon} Loaded: ${file.name}${wasConverted ? " (converted to PNG)" : ""}
             ${fileSizeKb}kb
             Original Hash: ${hash}`;
-                filenameDisplay.style.display = "block";
-                document.getElementById("button").disabled = false;
+              filenameDisplay.style.display = "block";
+              document.getElementById("button").disabled = false;
             });
 
             document.getElementById("button").addEventListener("click", async () => {
-                const view = new DataView(uploadedImageBlob);
-                const sig = uploadedImageBlob.slice(0, 8);
-
-                const splitChunks = () => {
-                    const chunks = [];
-                    let offset = 8;
-                    while (offset < uploadedImageBlob.byteLength) {
-                        const length = view.getUint32(offset);
-                        const type = new TextDecoder().decode(new Uint8Array(uploadedImageBlob, offset + 4, 4));
-                        const data = new Uint8Array(uploadedImageBlob, offset + 8, length);
-                        const crc = view.getUint32(offset + 8 + length);
-                        chunks.push({ length, type, data, crc });
-                        offset += 12 + length;
-                    }
-                    return chunks;
-                };
-
-                const crcTable = (() => {
-                    let table = [], c;
-                    for (let n = 0; n < 256; n++) {
-                        c = n;
-                        for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
-                        table[n] = c;
-                    }
-                    return table;
-                })();
-
-                const crc32 = (buff) => {
-                    let crc = ~0;
-                    for (let i = 0; i < buff.length; i++)
-                        crc = (crc >>> 8) ^ crcTable[(crc ^ buff[i]) & 0xff];
-                    return ~crc >>> 0;
-                };
-
-                const keyword = "HashScramble";
-                const random = Math.random().toString(30).slice(2);
-                const textData = new TextEncoder().encode(keyword + "\0" + random);
-
-                const createChunk = (type, data) => {
-                    const input = new Uint8Array(type.length + data.length);
-                    input.set(new TextEncoder().encode(type), 0);
-                    input.set(data, type.length);
-                    const crc = crc32(input);
-                    return { type, data, crc };
-                };
-
-                const randomChunk = createChunk("tEXt", textData);
-                const chunks = splitChunks();
-
-                const newChunks = [];
-                for (const chunk of chunks) {
-                    if (chunk.type === "IEND") newChunks.push(randomChunk);
-                    newChunks.push(chunk);
+              const view = new DataView(uploadedImageBlob);
+              const sig = uploadedImageBlob.slice(0, 8);
+            
+              const splitChunks = () => {
+                const chunks = [];
+                let offset = 8;
+                while (offset < uploadedImageBlob.byteLength) {
+                  const length = view.getUint32(offset);
+                  const type = new TextDecoder().decode(new Uint8Array(uploadedImageBlob, offset + 4, 4));
+                  const data = new Uint8Array(uploadedImageBlob, offset + 8, length);
+                  const crc = view.getUint32(offset + 8 + length);
+                  chunks.push({ length, type, data, crc });
+                  offset += 12 + length;
                 }
-
-                const parts = [sig];
-                for (const chunk of newChunks) {
-                    const lengthBuf = new Uint8Array(4);
-                    new DataView(lengthBuf.buffer).setUint32(0, chunk.data.length);
-                    parts.push(lengthBuf);
-                    parts.push(new TextEncoder().encode(chunk.type));
-                    parts.push(chunk.data);
-                    const crcBuf = new Uint8Array(4);
-                    new DataView(crcBuf.buffer).setUint32(0, chunk.crc);
-                    parts.push(crcBuf);
+                return chunks;
+              };
+          
+              const crcTable = (() => {
+                let table = [], c;
+                for (let n = 0; n < 256; n++) {
+                  c = n;
+                  for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+                  table[n] = c;
                 }
-
-                const finalBlob = new Blob(parts, { type: "image/png" });
-                const url = URL.createObjectURL(finalBlob);
-
-                const hashBuffer = await crypto.subtle.digest("SHA-256", await finalBlob.arrayBuffer());
-                const hashHex = Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, "0")).join("");
-
-                document.getElementById("img").src = url;
-                document.getElementById("img").style.display = "block";
-                document.getElementById("hash").innerText = "New Hash: " + hashHex;
-
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = originalFilename + "_newhash.png";
-                a.click();
+                return table;
+              })();
+          
+              const crc32 = (buff) => {
+                let crc = ~0;
+                for (let i = 0; i < buff.length; i++)
+                  crc = (crc >>> 8) ^ crcTable[(crc ^ buff[i]) & 0xff];
+                return ~crc >>> 0;
+              };
+          
+              const keyword = "HashScramble";
+              const random = Math.random().toString(30).slice(2);
+              const textData = new TextEncoder().encode(keyword + "\0" + random);
+          
+              const createChunk = (type, data) => {
+                const input = new Uint8Array(type.length + data.length);
+                input.set(new TextEncoder().encode(type), 0);
+                input.set(data, type.length);
+                const crc = crc32(input);
+                return { type, data, crc };
+              };
+          
+              const randomChunk = createChunk("tEXt", textData);
+              const chunks = splitChunks();
+          
+              const newChunks = [];
+              for (const chunk of chunks) {
+                if (chunk.type === "IEND") newChunks.push(randomChunk);
+                newChunks.push(chunk);
+              }
+          
+              const parts = [sig];
+              for (const chunk of newChunks) {
+                const lengthBuf = new Uint8Array(4);
+                new DataView(lengthBuf.buffer).setUint32(0, chunk.data.length);
+                parts.push(lengthBuf);
+                parts.push(new TextEncoder().encode(chunk.type));
+                parts.push(chunk.data);
+                const crcBuf = new Uint8Array(4);
+                new DataView(crcBuf.buffer).setUint32(0, chunk.crc);
+                parts.push(crcBuf);
+              }
+          
+              const finalBlob = new Blob(parts, { type: "image/png" });
+              const url = URL.createObjectURL(finalBlob);
+          
+              const hashBuffer = await crypto.subtle.digest("SHA-256", await finalBlob.arrayBuffer());
+              const hashHex = Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, "0")).join("");
+          
+              document.getElementById("img").src = url;
+              document.getElementById("img").style.display = "block";
+              document.getElementById("hash").innerText = "New Hash: " + hashHex;
+          
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = originalFilename + "_newhash.png";
+              a.click();
             });
         }
 
         if (page.url != "decors") {
-            const currentPath = window.location.pathname;
-            const pathParts = currentPath.split('/').filter(part => part !== '');
-            if (pathParts.length > 1) {
-                const newPath = page.url === 'home' ? '/' : '/' + page.url;
-                history.replaceState(null, '', newPath);
+            if (params.get("category")) {
+                removeParams("category");
+                categoryFullViewCache = null;
             }
-            categoryFullViewCache = null;
         }
-    } catch (err) {
-        console.error("Error loading page: " + err)
+    } catch(err) {
+        console.error("Error loading page: "+err)
     }
-}
-
-function navigateTo(url) {
-    const newPath = url === 'home' ? '/' : '/' + url;
-    history.pushState(null, '', newPath);
-    setPage(url);
-}
-
-function navigateToCategory(category) {
-    const newPath = '/decors/' + category;
-    history.pushState(null, '', newPath);
-    setPage('decors');
-}
+};
 
 function paginate(items, page = 1, perPage = 5) {
     const pages = [];
@@ -10244,9 +10156,9 @@ function filterCategories(data, search) {
         const filteredProducts = cat.decorations?.filter(p =>
             p.name.toLowerCase().includes(term)
         ) || [];
-        const artistMatch = (cat.artists?.length === 1)
-            ? cat.artists[0].name.toLowerCase().includes(term)
-            : false;
+        const artistMatch = (cat.artists?.length === 1) 
+        ? cat.artists[0].name.toLowerCase().includes(term) 
+        : false;
 
         if (catMatch || artistMatch || filteredProducts.length > 0) {
             return {
@@ -10261,12 +10173,12 @@ function filterCategories(data, search) {
 
 async function renderDecorsData(data, output) {
     const paginationContainers = [];
-
+    
     const mainPaginationById = document.getElementById('pagination');
     if (mainPaginationById) {
         paginationContainers.push(mainPaginationById);
     }
-
+    
     const paginationByClass = document.querySelectorAll('.pagination');
     paginationByClass.forEach(container => {
         if (!paginationContainers.includes(container)) {
@@ -10288,7 +10200,7 @@ async function renderDecorsData(data, output) {
         currentPage = page;
         output.innerHTML = '';
         const { pageData, totalPages } = paginate(filteredData, page, itemsPerPage);
-        output.scrollTo(0, 0);
+        output.scrollTo(0,0);
 
         if (data.length <= itemsPerPage) {
             paginationContainers.forEach(container => {
@@ -10303,7 +10215,7 @@ async function renderDecorsData(data, output) {
         pageData.forEach((categoryData) => {
             renderCategory(categoryData, output)
         });
-
+        
         // Create pagination controls for all containers
         paginationContainers.forEach(container => {
             createPaginationControls(container, totalPages, page, renderPage);
@@ -10425,7 +10337,7 @@ function openModal({
             document.querySelector('.open-modal-' + amount).classList.remove('show');
             document.querySelector('.open-back-modal-' + amount).classList.remove('show');
         }
-    } catch { }
+    } catch {}
 
     const modal = document.createElement("div");
     modal.classList.add('modal-container');
@@ -10561,7 +10473,7 @@ function openModal({
         }
 
         modalContent.querySelector('.download-button').addEventListener("click", () => {
-            downloadPngWithRandomChunk(urls.CDN + '/decors/' + deco.asset)
+            downloadPngWithRandomChunk(urls.CDN+'/decors/'+deco.asset)
         });
     } else {
         modalContent.innerHTML = `
@@ -10570,13 +10482,13 @@ function openModal({
     }
 
     Object.assign(modalContent.style, {
-        height: height ? height + 'px' : 'auto',
-        width: width ? width + 'px' : 'auto',
-        maxHeight: maxHeight ? maxHeight + 'px' : 'unset',
-        maxWidth: maxWidth ? maxWidth + 'px' : 'unset',
+        height: height ? height+'px' : 'auto',
+        width: width ? width+'px' : 'auto',
+        maxHeight: maxHeight ? maxHeight+'px' : 'unset',
+        maxWidth: maxWidth ? maxWidth+'px' : 'unset',
         alignItems: itemsCenter ? 'center' : 'unset',
         textAlign: textCenter ? 'center' : 'unset',
-        border: borderColor ? '2px solid' + borderColor : 'unset',
+        border: borderColor ? '2px solid'+borderColor : 'unset',
         backgroundColor: accentColor ? hexWithOpacity(accentColor, bgOpacity) : 'unset'
     });
 
@@ -10608,7 +10520,7 @@ function closeModal() {
                 document.querySelector('.open-modal-' + amount).classList.add('show');
                 document.querySelector('.open-back-modal-' + amount).classList.add('show');
             }
-        } catch { }
+        } catch {}
 
         if (modal) modal.classList.remove('show');
         if (modal_back) modal_back.classList.remove('show');
@@ -10630,11 +10542,12 @@ document.addEventListener("keydown", function (event) {
 function openCategoryPage({
     data = null
 } = {}) {
-    const newPath = '/decors/' + data.name.toLowerCase().replaceAll(' ','_');
-    history.pushState(null, '', newPath);
+
+    addParams({category: data.name})
     
     const modal = document.createElement("div");
     modal.classList.add("category-clicked-container")
+
     modal.innerHTML = `
         <div class="pagination">
             <button class="nav-btn">&lt; Back</button>
@@ -10642,22 +10555,26 @@ function openCategoryPage({
         <div class="categories-container"></div>
     `;
     const modalContent = modal.querySelector('.categories-container');
+
     renderCategory(data, modalContent)
+
     document.querySelector('#content').appendChild(modal);
-    document.body.scrollTo(0, 0);
-    
+    document.body.scrollTo(0,0);
+
     modal.querySelector('.nav-btn').addEventListener("click", () => {
         modal.remove();
-        history.pushState(null, '', '/decors');
-        categoryFullViewCache = null;
+        removeParams("category");
     });
-}
+};
+
+
+
 
 // Other crap
 
 function hexWithOpacity(hex, alpha) {
     if (/^#?[0-9a-fA-F]{3}$/.test(hex)) {
-        hex = hex.replace(/^#?([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])$/,
+        hex = hex.replace(/^#?([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])$/, 
             (_, r, g, b) => `#${r}${r}${g}${g}${b}${b}`);
     }
 
@@ -10677,12 +10594,13 @@ function hexWithOpacity(hex, alpha) {
     return `#${hex}${alphaHex}`;
 };
 
+
+
 function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
 };
-
 function processSummary(text) {
     const lines = text
         .replace(/\r?\n/g, '\\n')
@@ -10700,6 +10618,8 @@ function processSummary(text) {
 
     return processedLines.join('<br>');
 };
+
+
 
 async function downloadPngWithRandomChunk(imageUrl) {
     const fileName = decodeURIComponent(imageUrl.split("/").pop());
@@ -10780,6 +10700,12 @@ async function downloadPngWithRandomChunk(imageUrl) {
     URL.revokeObjectURL(url);
 };
 
+
+
+
+
+
+
 // Global variables for clickablePopup management
 let currentclickablePopup = null;
 let clickablePopupBackdrop = null;
@@ -10790,7 +10716,7 @@ function createBackdrop() {
         clickablePopupBackdrop = document.createElement('div');
         clickablePopupBackdrop.className = 'clickablePopup-backdrop';
         document.body.appendChild(clickablePopupBackdrop);
-
+        
         clickablePopupBackdrop.addEventListener('click', closeclickablePopup);
     }
     return clickablePopupBackdrop;
@@ -10798,35 +10724,35 @@ function createBackdrop() {
 
 // Main function to create a button with clickablePopup popup
 function createclickablePopupButton(buttonElement, clickablePopupButtons) {
-    buttonElement.addEventListener('click', function (e) {
+    buttonElement.addEventListener('click', function(e) {
         e.stopPropagation();
-
+        
         // Close existing clickablePopup if open
         if (currentclickablePopup) {
             closeclickablePopup();
             return;
         }
-
+        
         // Create clickablePopup popup
         const clickablePopup = document.createElement('div');
         clickablePopup.className = 'clickablePopup-popup';
-
+        
         // Add buttons to clickablePopup
         clickablePopupButtons.forEach(buttonConfig => {
             const button = document.createElement('button');
             button.className = 'clickablePopup-button';
-
+            
             // Add icon if provided
             if (buttonConfig.icon) {
                 button.innerHTML = buttonConfig.icon + '<span>' + buttonConfig.name + '</span>';
             } else {
                 button.innerHTML = '<span>' + buttonConfig.name + '</span>';
             }
-
+            
             // Add click handler
-            button.addEventListener('click', function (e) {
+            button.addEventListener('click', function(e) {
                 e.stopPropagation();
-
+                
                 // Execute the function
                 if (typeof buttonConfig.function === 'string') {
                     // If it's a string, evaluate it
@@ -10835,26 +10761,26 @@ function createclickablePopupButton(buttonElement, clickablePopupButtons) {
                     // If it's already a function, call it
                     buttonConfig.function();
                 }
-
+                
                 closeclickablePopup();
             });
-
+            
             clickablePopup.appendChild(button);
         });
-
+        
         // Position clickablePopup
         document.body.appendChild(clickablePopup);
         positionclickablePopup(buttonElement, clickablePopup);
-
+        
         // Show clickablePopup with animation
         setTimeout(() => {
             clickablePopup.classList.add('show');
         }, 10);
-
+        
         // Set up backdrop
         const backdrop = createBackdrop();
         backdrop.classList.add('active');
-
+        
         currentclickablePopup = clickablePopup;
     });
 }
@@ -10865,22 +10791,22 @@ function positionclickablePopup(buttonElement, clickablePopup) {
     const clickablePopupRect = clickablePopup.getBoundingClientRect();
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
-
+    
     let left = buttonRect.right + 10; // Default: right side
     let top = buttonRect.top;
-
+    
     // Check if there's enough space on the right
     if (left + clickablePopupRect.width > viewportWidth - 20) {
         // Not enough space on right, position on left
         left = buttonRect.left - clickablePopupRect.width - 10;
-
+        
         // If still not enough space on left, center it
         if (left < 20) {
             left = buttonRect.left + (buttonRect.width / 2) - (clickablePopupRect.width / 2);
             top = buttonRect.bottom + 10; // Position below button
         }
     }
-
+    
     // Ensure clickablePopup doesn't go off top or bottom of screen
     if (top + clickablePopupRect.height > viewportHeight - 20) {
         top = viewportHeight - clickablePopupRect.height - 20;
@@ -10888,7 +10814,7 @@ function positionclickablePopup(buttonElement, clickablePopup) {
     if (top < 20) {
         top = 20;
     }
-
+    
     clickablePopup.style.left = Math.max(20, left) + 'px';
     clickablePopup.style.top = top + 'px';
 }
@@ -10904,14 +10830,14 @@ function closeclickablePopup() {
             currentclickablePopup = null;
         }, 150);
     }
-
+    
     if (clickablePopupBackdrop) {
         clickablePopupBackdrop.classList.remove('active');
     }
 }
 
 // Initialize demo buttons
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     // Basic button example
     createclickablePopupButton(document.getElementById('options-cog'), [
         {
