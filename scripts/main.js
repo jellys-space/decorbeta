@@ -1,3 +1,15 @@
+// GitHub Pages SPA restore: put original path back if we arrived via 404.html
+(function restoreSpaPathFromQuery() {
+  try {
+    var url = new URL(window.location.href);
+    var p = url.searchParams.get('p');
+    if (p) {
+      history.replaceState(null, '', decodeURIComponent(p));
+    }
+  } catch {}
+})();
+
+
 const navBar = document.querySelector('.top-nav');
 const primaryContainer = document.querySelector('#content');
 const pageSearchBar = document.querySelector('.search-bar');
