@@ -6109,7 +6109,7 @@ const categories = [
     },
     {
         "name": "JOJO",
-        "banner": "jojo-banner.png",
+        "banner": "newjojo-banner.png",
         "artist_info": null,
         "artists": [
             findUser('1037013172114182234')
@@ -6149,7 +6149,17 @@ const categories = [
                 "name": "Six Pistols",
                 "asset": "SixPistols.png",
                 "summary": "Part of the JoJo's Bizarre Adventure Preset pack.",
-            }
+            },
+            {
+                "name": "Gyro Zeppeli",
+                "asset": "Gyro Zeppeli.png",
+                "summary": "Part of the JoJo's Bizarre Adventure Preset pack.",
+            },
+            {
+                "name": "Johnny Joestar",
+                "asset": "Johnny Joestar.png",
+                "summary": "Part of the JoJo's Bizarre Adventure Preset pack.",
+            },
         ]
     },
     {
