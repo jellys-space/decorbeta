@@ -2,6 +2,68 @@ const navBar = document.querySelector('.top-nav');
 const primaryContainer = document.querySelector('#content');
 const pageSearchBar = document.querySelector('.search-bar');
 
+// ===== Spooky "boo!" easter egg =====
+(function setupSpookyEgg() {
+  if (!pageSearchBar) return;
+
+  // Grab overlay (or create it if missing)
+  let overlay = document.getElementById('spookyOverlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'spookyOverlay';
+    overlay.setAttribute('aria-hidden', 'true');
+    overlay.innerHTML = `<img src="styles/spooky.png" alt="boo!">`;
+    document.body.appendChild(overlay);
+  }
+
+  // Preload the image
+  const preload = new Image();
+  preload.src = 'styles/spooky.png';
+
+  let isShowing = false;
+
+  function showSpooky() {
+    if (isShowing) return;
+    isShowing = true;
+
+    // NEW: quick page shake while the image is popping in
+    document.body.classList.add('page-shake');
+    setTimeout(() => {
+        document.body.classList.remove('page-shake');
+    }, 420);
+
+    overlay.classList.remove('fade-out');
+    overlay.classList.add('show');
+
+    // keep your existing auto-hide timing
+    setTimeout(() => {
+        overlay.classList.add('fade-out');
+        overlay.addEventListener('animationend', () => {
+            overlay.classList.remove('show', 'fade-out');
+            isShowing = false;
+        }, { once: true });
+    }, 1500); // or your current value
+}
+
+
+  // Trigger on exact "boo!" (case-insensitive), ignoring extra spaces
+  pageSearchBar.addEventListener('input', () => {
+    const val = (pageSearchBar.value || '').trim().toLowerCase();
+    if (val === 'boo!') showSpooky();
+  });
+
+  // Optional: allow click to dismiss immediately
+  overlay.addEventListener('click', () => {
+    if (!overlay.classList.contains('show')) return;
+    overlay.classList.add('fade-out');
+    overlay.addEventListener('animationend', () => {
+      overlay.classList.remove('show', 'fade-out');
+      isShowing = false;
+    }, { once: true });
+  });
+})();
+
+
 
 // Cache
 
@@ -9756,7 +9818,16 @@ function spawnConfettiPiece(container) {
         'styles/1jelly.png',
         'styles/2jelly.png',
         'styles/3jelly.png',
-        'styles/4jelly.png'
+        'styles/4jelly.png',
+        'styles/ghost.png',
+        'styles/pumpkin.png',
+        'styles/zombie.png',
+        'styles/ghost.png',
+        'styles/pumpkin.png',
+        'styles/zombie.png',
+        'styles/ghost.png',
+        'styles/pumpkin.png',
+        'styles/zombie.png',
     ];
 
     const randomImage = confettiImages[Math.floor(Math.random() * confettiImages.length)];
