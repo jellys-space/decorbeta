@@ -842,3 +842,134 @@ a:hover {
 .hidden {
     display: none;
 }
+
+/* === Spooky overlay (easter egg) === */
+#spookyOverlay {
+  position: fixed;
+  inset: 0;
+  display: none;                   /* toggled via JS */
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.86);
+  z-index: 100000;                 /* above everything else */
+}
+
+#spookyOverlay.show {
+  display: flex;
+  animation: spookyOverlayIn 160ms ease-out forwards; /* backdrop fade-in */
+}
+
+#spookyOverlay.fade-out {
+  animation: spookyOverlayOut 280ms ease-in forwards; /* backdrop fade-out */
+}
+
+/* Image: start small, zoom to full with a tiny overshoot, hold, then shrink+fade out */
+#spookyOverlay img {
+  max-width: min(92vw, 1200px);
+  max-height: 92vh;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+  transform: scale(0.65);               /* << start much smaller */
+  transform-origin: 50% 50%;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+/* play entrance+hold when overlay is shown */
+#spookyOverlay.show img {
+  animation: spookyImageEnterHold 1500ms cubic-bezier(.2,.85,.2,1) forwards;
+}
+
+/* play exit on fade-out */
+#spookyOverlay.fade-out img {
+  animation: spookyImageOut 280ms ease-in forwards;
+}
+
+/* === Keyframes === */
+@keyframes spookyOverlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes spookyOverlayOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* 0–18%: fast zoom from 0.65 → slight overshoot
+   18–26%: settle back to near 1.0
+   26–82%: HOLD (≈1s on-screen)
+   82–100%: stay put until JS starts fade-out */
+@keyframes spookyImageEnterHold {
+  0%   { opacity: 0;   transform: scale(0.65); }
+  18%  { opacity: 1;   transform: scale(1.06); }  /* overshoot */
+  26%  { opacity: 1;   transform: scale(0.995); } /* settle */
+  82%  { opacity: 1;   transform: scale(1); }
+  100% { opacity: 1;   transform: scale(1); }
+}
+
+/* Exit: shrink a bit while fading */
+@keyframes spookyImageOut {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(0.85); }  /* zoom-out (shrink) */
+}
+
+/* === Quick page shake for the boo! easter egg === */
+@keyframes pageShake {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  12%  { transform: translate(-4px, -2px) rotate(-0.4deg); }
+  24%  { transform: translate(3px, 2px) rotate(0.3deg); }
+  36%  { transform: translate(-3px, 1px) rotate(-0.3deg); }
+  48%  { transform: translate(3px, -1px) rotate(0.3deg); }
+  60%  { transform: translate(-2px, 2px) rotate(-0.2deg); }
+  72%  { transform: translate(2px, -2px) rotate(0.2deg); }
+  84%  { transform: translate(-2px, 1px) rotate(-0.1deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* Only shake the main page sections, not the overlay */
+body.page-shake header,
+body.page-shake .main-nav,
+body.page-shake #content {
+  animation: pageShake 420ms cubic-bezier(.36,.07,.19,.97) both;
+  will-change: transform;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  body.page-shake header,
+  body.page-shake .main-nav,
+  body.page-shake #content {
+    animation: none;
+  }
+}
+
+/* === Shake the overlay image too === */
+#spookyOverlay .spookyWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+}
+
+/* Shake the image wrapper during the entrance */
+#spookyOverlay.show .spookyWrap {
+  animation: pageShakeImg 420ms cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes pageShakeImg {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  12%  { transform: translate(-10px, -6px) rotate(-0.6deg); }
+  24%  { transform: translate(8px, 5px) rotate(0.5deg); }
+  36%  { transform: translate(-7px, 3px) rotate(-0.5deg); }
+  48%  { transform: translate(7px, -3px) rotate(0.5deg); }
+  60%  { transform: translate(-5px, 4px) rotate(-0.4deg); }
+  72%  { transform: translate(5px, -4px) rotate(0.3deg); }
+  84%  { transform: translate(-4px, 2px) rotate(-0.2deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  #spookyOverlay.show .spookyWrap { animation: none; }
+}
