@@ -884,6 +884,84 @@ const categories = [
         ]
     },
     {
+        "name": "Halloween",
+        "banner": "halloween-banner.png",
+        "artist_info": null,
+        "artists": [
+            findUser('1143994313034960967'),
+            findUser('811114235966521364'),
+            findUser('808325271949934652'),
+        ],
+        "decorations": [
+            {
+                "name": "Pink Pumpkin",
+                "artist": findUser('1143994313034960967'),
+                "asset": "pink pumpkin by nuki.png",
+                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
+            },
+            {
+                "name": "Pumpkin",
+                "artist": findUser('811114235966521364'),
+                "asset": "pumpkin by cal.png",
+                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
+            },
+            {
+                "name": "Witch Cat",
+                "artist": findUser('811114235966521364'),
+                "asset": "witch_cat by cal.png",
+                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
+            },
+            {
+                "name": "Teefs",
+                "artist": findUser('811114235966521364'),
+                "asset": "teefs by cal.png",
+                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
+            },
+            {
+                "name": "Spider Web",
+                "artist": findUser('808325271949934652'),
+                "asset": "spider web by t8.png",
+                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
+            },
+            {
+                "name": "Witch Cat",
+                "artist": findUser('808325271949934652'),
+                "asset": "witch cat by t8.png",
+                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
+            },
+            {
+                "name": "Halloween Pumpkins (No Face)",
+                "artist": findUser('808325271949934652'),
+                "asset": "halloween pumpkins no face by t8.png",
+                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
+            },
+            {
+                "name": "Halloween Pumpkins (With Face)",
+                "artist": findUser('808325271949934652'),
+                "asset": "halloween pumpkins face by t8.png",
+                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
+            },
+            {
+                "name": "Halloween Pumpkins (Animated)",
+                "artist": findUser('808325271949934652'),
+                "asset": "Halloween Pumpkins Decor (Animated) by t8.png",
+                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
+            },
+            {
+                "name": "Flying Ghost",
+                "artist": findUser('808325271949934652'),
+                "asset": "Flying Ghost Decor by t8.png",
+                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
+            },
+            {
+                "name": "Ghost Circle",
+                "artist": findUser('808325271949934652'),
+                "asset": "Ghost Circle Decor by t8.png",
+                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
+            },
+        ]
+    },
+    {
         "name": "Deltarune",
         "banner": "deltarune-banner.png",
         "artist_info": null,
@@ -1166,11 +1244,12 @@ const categories = [
     },
     {
         "name": "Hollow Knight",
-        "banner": "placeholder-banner.png",
+        "banner": "hollowknight-banner.png",
         "artist_info": null,
         "artists": [
             findUser('1167490687789449290'),
             findUser('995651435519815772'),
+            findUser('1364263466000584764'),
         ],
         "decorations": [
             {
@@ -1207,6 +1286,24 @@ const categories = [
                 "name": "Moss Mother",
                 "artist": findUser('995651435519815772'),
                 "asset": "moss mother.png",
+                "summary": "Part of the Hollow Knight Preset pack."
+            },
+            {
+                "name": "Pure Vessel [ Given Nail and named Knight ]",
+                "artist": findUser('1364263466000584764'),
+                "asset": "Pure Vessel [ Given Nail and named Knight ].png",
+                "summary": "Part of the Hollow Knight Preset pack."
+            },
+            {
+                "name": "The Knight [ The Vessel ]",
+                "artist": findUser('1364263466000584764'),
+                "asset": "The Knight [ The Vessel ].png",
+                "summary": "Part of the Hollow Knight Preset pack."
+            },
+            {
+                "name": "Hornet [ Silk-Weaving Needle ]",
+                "artist": findUser('1364263466000584764'),
+                "asset": "Hornet [ Silk-Weaving Needle ].png",
                 "summary": "Part of the Hollow Knight Preset pack."
             },
         ]
@@ -1288,6 +1385,56 @@ const categories = [
                 "name": "Smiles",
                 "asset": "smiles.png",
                 "summary": "Part of the A Frog's Life Preset pack."
+            },
+        ]
+    },
+    {
+        "name": "Ducks & Ducks",
+        "banner": "ducks-banner.png",
+        "artist_info": null,
+        "artists": [
+            findUser('808325271949934652')
+        ],
+        "decorations": [
+            {
+                "name": "Quack!",
+                "asset": "Quack!.png",
+                "summary": "Part of the Ducks & Ducks Preset pack."
+            },
+            {
+                "name": "Blinking Duck",
+                "asset": "Blinking Duck.png",
+                "summary": "Part of the Ducks & Ducks Preset pack."
+            },
+            {
+                "name": "Duck Eating Profile",
+                "asset": "Duck Eating Profile.png",
+                "summary": "Part of the Ducks & Ducks Preset pack."
+            },
+            {
+                "name": "Swimming Duck v1",
+                "asset": "Swimming Duck v1.png",
+                "summary": "Part of the Ducks & Ducks Preset pack."
+            },
+            {
+                "name": "Swimming Duck v2",
+                "asset": "Swimming Duck v2.png",
+                "summary": "Part of the Ducks & Ducks Preset pack."
+            },
+            {
+                "name": "Lake (No Duck)",
+                "asset": "Lake (No Duck).png",
+                "summary": "Part of the Ducks & Ducks Preset pack."
+            },
+            {
+                "name": "Lake With Duck (White)",
+                "asset": "Lake With Duck (White).png",
+                "summary": "Part of the Ducks & Ducks Preset pack."
+            },
+            {
+                "name": "Lake With Duck (Yellow)",
+                "asset": "Lake With Duck (Yellow).png",
+                "summary": "Part of the Ducks & Ducks Preset pack."
             },
         ]
     },
@@ -1417,6 +1564,51 @@ const categories = [
                 "name": "Red Bull Blue Edition",
                 "asset": "Red bull blue edition.png",
                 "summary": "Part of the Red Bull Fan Club Preset pack."
+            },
+        ]
+    },
+    {
+        "name": "Eminem M&Ms",
+        "banner": "eminem-banner.png",
+        "artist_info": null,
+        "artists": [
+            findUser('1244775245966086245')
+        ],
+        "decorations": [
+            {
+                "name": "Blue Eminem M&M",
+                "asset": "blue eminem m&m !.png",
+                "summary": "Part of the Eminem M&Ms Preset pack."
+            },
+            {
+                "name": "Brown Eminem M&M",
+                "asset": "brown eminem m&m !.png",
+                "summary": "Part of the Eminem M&Ms Preset pack."
+            },
+            {
+                "name": "Green Eminem M&M",
+                "asset": "green eminem m&m !.png",
+                "summary": "Part of the Eminem M&Ms Preset pack."
+            },
+            {
+                "name": "Orange Eminem M&M",
+                "asset": "orange eminem m&m !.png",
+                "summary": "Part of the Eminem M&Ms Preset pack."
+            },
+            {
+                "name": "Purple Eminem M&M",
+                "asset": "purple eminem m&m !.png",
+                "summary": "Part of the Eminem M&Ms Preset pack."
+            },
+            {
+                "name": "Red Eminem M&M",
+                "asset": "red eminem m&m !.png",
+                "summary": "Part of the Eminem M&Ms Preset pack."
+            },
+            {
+                "name": "Yellow Eminem M&M",
+                "asset": "yellow eminem m&m !.png",
+                "summary": "Part of the Eminem M&Ms Preset pack."
             },
         ]
     },
@@ -2522,7 +2714,7 @@ const categories = [
     },
     {
         "name": "Poop Monsters",
-        "banner": "placeholder-banner.png",
+        "banner": "poop-banner.png",
         "artist_info": null,
         "artists": [
             findUser('1298495520423149609')
@@ -2637,7 +2829,7 @@ const categories = [
     },
     {
         "name": "Epik Adventures",
-        "banner": "placeholder-banner.png",
+        "banner": "epik-banner.png",
         "artist_info": null,
         "artists": [
             findUser('1358056472809832688'),
@@ -9483,6 +9675,30 @@ const categories = [
                 "name": "Gods Mirror",
                 "artist": findUser("334062444718587905"),
                 "asset": "Gods Mirror.png",
+                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in."
+            },
+            {
+                "name": "Pink Flowers",
+                "artist": findUser("1143994313034960967"),
+                "asset": "pink flowers by nuki.png",
+                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in."
+            },
+            {
+                "name": "Light Pink Flowers",
+                "artist": findUser("1143994313034960967"),
+                "asset": "light pink flowers by nuki.png",
+                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in."
+            },
+            {
+                "name": "Dog Ears",
+                "artist": findUser("1143994313034960967"),
+                "asset": "dog ears by nuki.png",
+                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in."
+            },
+            {
+                "name": "Dog Ears With Bow",
+                "artist": findUser("1143994313034960967"),
+                "asset": "dog ears with bow by nuki.png",
                 "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in."
             },
         ]
