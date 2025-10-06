@@ -448,12 +448,7 @@ const artists = [
         colors: {
             primary: "#c8e1ff"
         },
-        commissions: [
-            {
-                "type": "KOFI",
-                "link": "https://ko-fi.com/c/6d9b88bc51"
-            }
-        ]
+        commissions: []
     },
     {
         id: "1031549301001814059",
@@ -771,6 +766,17 @@ const artists = [
         listed: false
     },
     {
+        id: "845613407818088498",
+        name: "BunBwon",
+        listed: false,
+        commissions: [
+            {
+                "type": "NEGOTIABLE",
+                "link": null
+            }
+        ]
+    },
+    {
         id: "1199872963575550022",
         name: "Fishy",
         listed: false
@@ -911,7 +917,7 @@ const categories = [
     {
         "name": "Halloween",
         "banner": "halloween-banner.png",
-        "artist_info": null,
+        "artist_info": `CallieVD & T8dyi are accepting commissions. You can find their commission info from the decors below.`,
         "artists": [
             findUser('1143994313034960967'),
             findUser('811114235966521364'),
@@ -989,7 +995,7 @@ const categories = [
     {
         "name": "Deltarune",
         "banner": "deltarune-banner.png",
-        "artist_info": null,
+        "artist_info": `Ca-Cawthon is accepting commissions. You can find their commission info from the decors below.`,
         "artists": [
             findUser('323205750262595595'),
             findUser('995651435519815772')
@@ -1270,7 +1276,7 @@ const categories = [
     {
         "name": "Hollow Knight",
         "banner": "hollowknight-banner.png",
-        "artist_info": null,
+        "artist_info": `Ca-Cawthon is accepting commissions. You can find their commission info from the decors below.`,
         "artists": [
             findUser('1167490687789449290'),
             findUser('995651435519815772'),
@@ -1416,7 +1422,7 @@ const categories = [
     {
         "name": "Ducks & Ducks",
         "banner": "ducks-banner.png",
-        "artist_info": null,
+        "artist_info": `T8dyi is accepting commissions. You can find their commission info from the decors below.`,
         "artists": [
             findUser('808325271949934652')
         ],
@@ -1715,7 +1721,7 @@ const categories = [
     {
         "name": "Just Shapes & Beats",
         "banner": "jsab-banner.png",
-        "artist_info": null,
+        "artist_info": `Ca-Cawthon is accepting commissions. You can find their commission info from the decors below.`,
         "artists": [
             findUser('995651435519815772')
         ],
@@ -1775,7 +1781,7 @@ const categories = [
     {
         "name": "Clown Doodles",
         "banner": "clown-banner.png",
-        "artist_info": null,
+        "artist_info": `CallieVD is accepting commissions. You can find their commission info from the decors below.`,
         "artists": [
             findUser('811114235966521364')
         ],
@@ -2160,7 +2166,7 @@ const categories = [
     {
         "name": "World Ralley Championship",
         "banner": "wrc-banner.png",
-        "artist_info": null,
+        "artist_info": `T8dyi is accepting commissions. You can find their commission info from the decors below.`,
         "artists": [
             findUser('808325271949934652')
         ],
@@ -2470,7 +2476,7 @@ const categories = [
     {
         "name": "Terraria",
         "banner": "terraria-banner.png",
-        "artist_info": null,
+        "artist_info": `CallieVD is accepting commissions. You can find their commission info from the decors below.`,
         "artists": [
             findUser('811114235966521364')
         ],
@@ -4174,7 +4180,7 @@ const categories = [
     {
         "name": "Flavor Foley",
         "banner": "newflavorfoley-banner.png",
-        "artist_info": null,
+        "artist_info": `Ca-Cawthon is accepting commissions. You can find their commission info from the decors below.`,
         "artists": [
             findUser('995651435519815772')
         ],
@@ -4259,7 +4265,7 @@ const categories = [
     {
         "name": "Star Wars",
         "banner": "starwars-banner.png",
-        "artist_info": null,
+        "artist_info": `T8dyi is accepting commissions. You can find their commission info from the decors below.`,
         "artists": [
             findUser('808325271949934652')
         ],
@@ -4354,7 +4360,7 @@ const categories = [
     {
         "name": "Bugs",
         "banner": "1bugs-banner.png",
-        "artist_info": null,
+        "artist_info": `CallieVD is accepting commissions. You can find their commission info from the decors below.`,
         "artists": [
             findUser('811114235966521364')
         ],
@@ -4585,7 +4591,7 @@ const categories = [
         "force_break": true,
         "name": "Color Mass",
         "banner": "colormass-banner.png",
-        "artist_info": null,
+        "artist_info": `BunBwon is accepting commissions. You can find their commission info from the decors below.`,
         "artists": [
             findUser('845613407818088498')
         ],
@@ -5516,7 +5522,7 @@ const categories = [
     {
         "name": "Formula 1",
         "banner": "1formula1-banner.png",
-        "artist_info": null,
+        "artist_info": `CallieVD is accepting commissions. You can find their commission info from the decors below.`,
         "artists": [
             findUser('811114235966521364')
         ],
@@ -5921,7 +5927,7 @@ const categories = [
     {
         "name": "EASTER",
         "banner": "easter-banner.png",
-        "artist_info": null,
+        "artist_info": `Zin, CallieVD & Sharr are accepting commissions. You can find their commission info from the decors below.`,
         "artists": [
             findUser('1143994313034960967'),
             findUser('452679089929846784'),
@@ -6049,7 +6055,7 @@ const categories = [
     {
         "name": "BLOONS",
         "banner": "bloons-banner.png",
-        "artist_info": null,
+        "artist_info": `Sharr is accepting commissions. You can find their commission info from the decors below.`,
         "artists": [
             findUser('1088105926030000178')
         ],
@@ -6344,7 +6350,7 @@ const categories = [
     {
         "name": "limbus",
         "banner": "limbus-banner.png",
-        "artist_info": null,
+        "artist_info": `Alide is accepting commissions. You can find their commission info from the decors below.`,
         "artists": [
             findUser('1096831760089763860')
         ],
@@ -7226,7 +7232,7 @@ const categories = [
     {
         "name": "GENSHIN",
         "banner": "genshin-banner.png",
-        "artist_info": null,
+        "artist_info": `Zin is accepting commissions. You can find their commission info from the decors below.`,
         "artists": [
             findUser('452679089929846784')
         ],
@@ -7631,7 +7637,7 @@ const categories = [
     {
         "name": "Stardew",
         "banner": "1stardew-banner.png",
-        "artist_info": null,
+        "artist_info": `CallieVD is accepting commissions. You can find their commission info from the decors below.`,
         "artists": [
             findUser('811114235966521364')
         ],
@@ -7726,7 +7732,7 @@ const categories = [
     {
         "name": "Squish",
         "banner": "1squishmallow-banner.png",
-        "artist_info": null,
+        "artist_info": `CallieVD is accepting commissions. You can find their commission info from the decors below.`,
         "artists": [
             findUser('811114235966521364')
         ],
@@ -9512,7 +9518,7 @@ const categories = [
     {
         "name": "UNCATEGORIZED",
         "banner": "uncategorized-banner.png",
-        "artist_info": null,
+        "artist_info": `Some of the artists in this category are accepting commissions. You can find their commission info from the decors below.`,
         "artists": [
             findUser("1147940825330876538"),
             findUser("272359106839314446"),
@@ -9799,7 +9805,7 @@ const pages = [
             </div>
             <div class="homenav-grid"></div>
             <div class="text-block center">
-                <p>Thank you callievd, jack, marsh & amia!</p>
+                <p>Thank you callievd, jack, marsh, amia, DTACat & Zin!</p>
             </div>
             <div class="text-block center">
                 <img src="${urls.CDN}/assets/discordlogo.png", alt="Discord Logo" style="height: 50px; margin-bottom: 0px;" oncontextmenu="return false;" loading="lazy">
@@ -9969,12 +9975,12 @@ const pages = [
             <div class="text-block">
                 <p><u><b>How do I upload my decors to your site?</b></u></p>
                 <p>To submit your decors, you will need to contact me on Discord. You can join the <a href="https://discord.gg/dXp2SdxDcP">Decor Server</a> and then ping me in the #decoration-discussion channel.</p>
-                <p>Please follow these guidelines as well as <a href="https://i.imgur.com/WHo9g5S.png",>Decor's Guidelines</a>:</p>
+                <p>Please follow these guidelines as well as <a href="https://i.ibb.co/6cRgtS7G/WHo9g5S.png",>Decor's Guidelines</a>:</p>
                 <p><b>1.</b> Must be <b>YOUR OWN</b> work. Stolen/unoriginal decorations will be denied.</p>
                 <p><b>2.</b> Must have a particular theme/category, rather than several unrelated decors.</p>
                 <p><b>3.</b> Must submit a minimum of 6 decors per submission. I'd rather not create a new category and banner just for 1 or 2 decorations. (Negotiations can be made)</p>
                 <p><b>4.</b> AI Generated decorations are NOT accepted at this point in time.</p>
-                <p><b>5.</b> Must use the <a href="https://i.imgur.com/PdfzGUl.png",>template</a> to ensure correct sizing. Please try to avoid the red and blue areas.</p>
+                <p><b>5.</b> Must use the <a href="https://i.ibb.co/mCB0mBYL/newtemplate.png",>template</a> to ensure correct sizing. Please try to avoid the red and blue areas.</p>
                 <hr class="inv">
                 <p><u><b>Failed to fetch?</b></u></p>
                 <p>If you get the 'Failed to fetch' error upon authorizing Decor, this is likely due to restrictions on your internet network.</p>
@@ -9991,6 +9997,7 @@ const pages = [
                 <p><b>blairdactyl:</b> You are amazing and your donation is very much appreciated. I am hugging you through the screen 🤗</p>
                 <p><b>marshift:</b> Thank you SO MUCH for your kind and generous donation 🥺</p>
                 <p><b>KRY$TAL:</b> AWW I APPRECIATE YOU!! Thank you for your donation xoxo</p>
+                <p><b>amia:</b> You are one of the most kindest people I've ever met, and I will cherish your generous act <3</p>
                 <hr class="inv">
                 <p><u><b>Legal:</b></u></p>
                 <p>The Discord Logo and all Discord related assets belong to Hammer &amp; Chisel/Discord Inc.</p>
@@ -9999,6 +10006,11 @@ const pages = [
                 <hr class="inv">
                 <p><u><b>Commission Rules:</b></u></p>
                 <p>Any artist who is listed as 'accepting commissions' have their own set of rules that apply to them. By contacting said artist for a commission, you accept that they may charge a fee for your request, or outright deny your request at their own discretion.</p>
+                <hr class="inv">
+                <p><u><b>Extra Credits:</b></u></p>
+                <p><b>DTACat:</b> Rewrite of the site to include prettier designs & faster image loading.</p>
+                <p><b>Zin:</b> The Navigation (jellyfish) images for each page, and for not giving up on me with this project. Jelly's Space wouldn't be what it is now without you.</p>
+                <hr class="inv">
             </div>
         `
     },
@@ -10022,7 +10034,7 @@ const pages = [
                 <hr class="inv">
                 <p>Not only that, but my country's government refuses to acknowledge me or support me. No benefits or housing support or income support. My physical disability prevents me from being able to stand or walk for very long, so most jobs aren't applicable. And working from home jobs are scarce.</p>
                 <hr class="inv">
-                <p>As of June 2025, my situation has slightly improved, but it remains challenging. I would greatly appreciate any support you can offer. I’ve dedicated countless hours, days, weeks, and months to providing a free service. Gaining web development skills through this experience has been a significant milestone for me.</p>
+                <p>Since June 21, I have been suffering from a medical condition that has limited my mobility; with numerous hospital visits, tons of medications, an x-ray and MRI scan, as well as paying for a private podiatrist for physical examination. I am still recovering from this situation, but it IS showing signs of improvement at long last. During the time between June and October, I have spent countless hours making improvements to this website to offer stability & performance upgrades among cleaner design and overall better experience in general.</p>
                 <hr class="inv">
                 <p>As I provide a free service via my Jelly's Space Decor website as well as providing a place for artists to build a public portfolio, I would be extremely appreciative of any and all donations❤️ But rest assured that donating is entirely OPTIONAL.</p>
                 <hr class="inv">
@@ -10031,6 +10043,7 @@ const pages = [
                 <p><u><b>Donation Links</b></u></p>
                 <p><b>Buy Me A Coffee:</b> <a href="https://buymeacoffee.com/jellythecutie">Click Here</a></p>
                 <p><b>Donate via GitHub:</b> <a href="https://github.com/sponsors/jellys-space">Click Here</a></p>
+                <hr class="inv">
             </div>
         `
     }
