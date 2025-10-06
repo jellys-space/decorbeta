@@ -220,11 +220,18 @@ const marketing = [
     `${urls.CDN}/decors/shuriken.png`,
     `${urls.CDN}/decors/daggers.png`,
     `${urls.CDN}/decors/dark%20fountain.png`,
-    `${urls.CDN}/decors/daggers.png`,
-    `${urls.CDN}/decors/daggers.png`,
-    `${urls.CDN}/decors/daggers.png`,
-    `${urls.CDN}/decors/daggers.png`,
-    `${urls.CDN}/decors/daggers.png`,
+    `${urls.CDN}/decors/pink%20pumpkin%20by%20nuki.png`,
+    `${urls.CDN}/decors/teefs%20by%20cal.png`,
+    `${urls.CDN}/decors/mlem.png`,
+    `${urls.CDN}/decors/miles%20morales%20decor.png`,
+    `${urls.CDN}/decors/rick%20astley.png`,
+    `${urls.CDN}/decors/queen%20bee.png`,
+    `${urls.CDN}/decors/plantera.png`,
+    `${urls.CDN}/decors/vortex.png`,
+    `${urls.CDN}/decors/sunflowersandsakurasanimated.png`,
+    `${urls.CDN}/decors/Realm%20Prison.png`,
+    `${urls.CDN}/decors/Dimensional%20Portal.png`,
+    `${urls.CDN}/decors/Gods%20Mirror.png`,
 ];
 
 
@@ -9923,12 +9930,12 @@ const pages = [
 
             <div class="text-block center guide-step">
                 <p>Step 12: This is what the DM will look like.</p>
-                <img src="https://beta.jellys-space.vip/guide/12.png", loading="lazy">
+                <img src="${urls.CDN}/assets/12.png", loading="lazy">
             </div>
 
             <div class="text-block center guide-step">
                 <p>Step 13: Your decoration will now be active and visible in your list!</p>
-                <img src="https://beta.jellys-space.vip/guide/13.png", loading="lazy">
+                <img src="${urls.CDN}/assets/13.png", loading="lazy">
             </div>
         `
     },
@@ -10190,7 +10197,7 @@ function setPage(url) {
                 </div>
                 <div class="var2" onclick="setPage('guide')">
                     <div>
-                        <img src="${urls.CDN}/assets/jellythonk.webp" oncontextmenu="return false;" loading="lazy">
+                        <img src="${urls.CDN}/assets/jellythonk.png" oncontextmenu="return false;" loading="lazy">
                     </div>
                     <h1>How-To</h1>
                 </div>
