@@ -288,6 +288,7 @@ body:has(.category-clicked-container) .search-bar {
     margin-left: auto;
     margin-right: auto;
     font-size: 20px;
+    text-align: center;
 }
 
 /* Hide the intro image + copy when the search yielded no results */
@@ -972,4 +973,30 @@ body.page-shake #content {
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   #spookyOverlay.show .spookyWrap { animation: none; }
+}
+
+/* Decoration modal download button override */
+.modal-desktop .download-button,
+.modal-mobile .download-button {
+  background-color: #5865f2 !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 8px;
+  box-shadow: none !important;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: background-color 0.15s ease;
+}
+
+.modal-desktop .download-button:hover,
+.modal-mobile .download-button:hover {
+  background-color: #4654c0 !important;
+  box-shadow: none !important;
+}
+
+.modal-desktop .download-button:active,
+.modal-mobile .download-button:active {
+  background-color: #3a48a3 !important;
+  box-shadow: none !important;
 }
