@@ -718,6 +718,44 @@ const artists = [
         },
         commissions: []
     },
+    {
+        id: "1062953673610772480",
+        name: "Clockwork",
+        assets: {
+            avatar: {
+                asset: "clockwork",
+                animated: false
+            },
+            banner: {
+                asset: "clockwork",
+                animated: false
+            }
+        },
+        sumarry: `i do game stuff`,
+        colors: {
+            primary: "#dee824ff"
+        },
+        commissions: []
+    },
+    {
+        id: "1364263466000584764",
+        name: "Hyst",
+        assets: {
+            avatar: {
+                asset: "hyst",
+                animated: false
+            },
+            banner: {
+                asset: "hyst",
+                animated: false
+            }
+        },
+        sumarry: `[ Let this accursed bullet pierce through them. . ] // 17 and Male, A fan of multiple things.\nlinks: https://www.youtube.com/@Nixenter`,
+        colors: {
+            primary: "#3c3c3cff"
+        },
+        commissions: []
+    },
 
     // Artists that don't show up on the artists page
     {
@@ -796,21 +834,6 @@ const artists = [
         listed: false
     },
     {
-        id: "1062953673610772480",
-        name: 'Clockwork',
-        listed: false,
-        commissions: [
-            {
-                "type": "MONEY",
-                "link": null
-            },
-            {
-                "type": "STEAM_GIFTS",
-                "link": null
-            }
-        ]
-    },
-    {
         id: "1244775245966086245",
         name: 'Duality',
         listed: false
@@ -818,11 +841,6 @@ const artists = [
     {
         id: "710255469519831050",
         name: "ostensiblyrain",
-        listed: false
-    },
-    {
-        id: "1364263466000584764",
-        name: "Hyst",
         listed: false
     },
     {
