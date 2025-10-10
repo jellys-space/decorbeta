@@ -737,7 +737,16 @@ const artists = [
         colors: {
             primary: "#dee824ff"
         },
-        commissions: []
+        commissions: [
+            {
+                "type": "MONEY",
+                "link": null
+            },
+            {
+                "type": "STEAM_GIFTS",
+                "link": null
+            }
+        ]
     },
     {
         id: "1364263466000584764",
@@ -779,11 +788,6 @@ const artists = [
     {
         id: "1199872963575550022",
         name: "Fishy",
-        listed: false
-    },
-    {
-        id: "929363923822596167",
-        name: "GFNAF",
         listed: false
     },
     {
@@ -886,6 +890,26 @@ const artists = [
         name: "Subspace",
         listed: false
     },
+    {
+        id: "1324198892648009760",
+        name: "Kalebinho",
+        listed: false
+    },
+    {
+        id: "186133651271057410",
+        name: "Kuma",
+        listed: false
+    },
+    {
+        id: "736626422717612083",
+        name: "CANDYSTAR",
+        listed: false
+    },
+    {
+        id: "1098726243920261200",
+        name: "Queen",
+        listed: false
+    },
 ];
 
 const categories = [
@@ -949,9 +973,33 @@ const categories = [
                 "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
             },
             {
-                "name": "Spider Web",
+                "name": "Black Cat",
+                "artist": findUser('811114235966521364'),
+                "asset": "black cat by cal.png",
+                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
+            },
+            {
+                "name": "Demon Hoodie",
+                "artist": findUser('811114235966521364'),
+                "asset": "demon hoodie by cal.png",
+                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
+            },
+            {
+                "name": "Fox Hoodie",
+                "artist": findUser('811114235966521364'),
+                "asset": "fox hoodie by cal.png",
+                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
+            },
+            {
+                "name": "Frakenstein's Monster",
+                "artist": findUser('811114235966521364'),
+                "asset": "frankenstein's monster by cal.png",
+                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
+            },
+            {
+                "name": "Monster Hoodie",
                 "artist": findUser('808325271949934652'),
-                "asset": "spider web by t8.png",
+                "asset": "monster hoodie by cal.png",
                 "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
             },
             {
@@ -1296,7 +1344,7 @@ const categories = [
                 "summary": "Part of the Hollow Knight Preset pack."
             },
             {
-                "name": "Frog Guy",
+                "name": "Groal the Great",
                 "artist": findUser('995651435519815772'),
                 "asset": "frog guy.png",
                 "summary": "Part of the Hollow Knight Preset pack."
@@ -1317,6 +1365,18 @@ const categories = [
                 "name": "Moss Mother",
                 "artist": findUser('995651435519815772'),
                 "asset": "moss mother.png",
+                "summary": "Part of the Hollow Knight Preset pack."
+            },
+            {
+                "name": "Trobbio",
+                "artist": findUser('995651435519815772'),
+                "asset": "trobbio.png",
+                "summary": "Part of the Hollow Knight Preset pack."
+            },
+            {
+                "name": "Shakra",
+                "artist": findUser('995651435519815772'),
+                "asset": "Shakra.png",
                 "summary": "Part of the Hollow Knight Preset pack."
             },
             {
@@ -1896,7 +1956,7 @@ const categories = [
     {
         "name": "Achievement Unlocked",
         "banner": "achievement-banner.png",
-        "artist_info": null,
+        "artist_info": `Clockwork is accepting commissions. You can find their commission info from the decors below.`,
         "artists": [
             findUser('1062953673610772480')
         ],
@@ -1904,127 +1964,192 @@ const categories = [
             {
                 "name": "Bubble Bundle",
                 "asset": "bubble bundle.png",
-                "summary": "Part of the Achievement Unlocked Preset pack."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nFor letting everyone know you still take bubble baths.\nWithout a rubber duck for some reason."
             },
             {
-                "name": "Cassette Beasts",
+                "name": "Cassette Beasts UI",
                 "asset": "cassette beasts.png",
-                "summary": "Part of the Achievement Unlocked Preset pack."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nWhat do people who say 'No I don't like pokemon games' play instead:\n\n(hint: its Cassette Beasts)"
             },
             {
-                "name": "Elden Ring",
+                "name": "Deltarune Battle UI",
+                "asset": "Deltarune Battle UI.png",
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nWho said you weren't a BIG SHOT ?\nBIG SHOT\nBIG SHOT\nBIG SHOT"
+            },
+            {
+                "name": "Discord Saturn Border",
+                "asset": "space thingy idk.png",
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nYou either like the sega console...\nor you are REALLY into astronomy."
+            },
+            {
+                "name": "Elden Ring UI",
                 "asset": "elden ring.png",
-                "summary": "Part of the Achievement Unlocked Preset pack."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nIf you like the game enough to set your decor to it, you must be pretty damn good at it."
             },
             {
                 "name": "GBA-Revile",
                 "asset": "GBA-revile.png",
-                "summary": "Part of the Achievement Unlocked Preset pack."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nNot a reference literally anyone will understand.\n(If you ignore the GBA aspect of it since everyone knows what the GBA is.)"
             },
             {
                 "name": "Green Grid",
                 "asset": "green grid.png",
-                "summary": "Part of the Achievement Unlocked Preset pack."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nYo I love the Xbox Original Titles:\n'Enter the Matrix (2003)' &\n 'The Matrix: Path of Neo (2005)' too!"
             },
             {
                 "name": "Halo CE UI",
                 "asset": "Halo CE ui.png",
-                "summary": "Part of the Achievement Unlocked Preset pack."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\n'Sir, permission to leave the station.'\n'For what purpose Master Chief?'\n'To give the Covenant back their bomb.'\n\nwait that's the wrong game."
             },
             {
-                "name": "MCPE UI",
-                "asset": "MC pocket ui.png",
-                "summary": "Part of the Achievement Unlocked Preset pack."
+                "name": "Inscryption Prospector",
+                "asset": "Inscryption Prospector.png",
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nIVE STRUCK GOLD!!\n- said no one who let me be happy ever."
+            },
+            {
+                "name": "Joker P5",
+                "asset": "Joker P5.png",
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nLookin' Cool Joker!\n\nget ready to sleep at 6 pm."
+            },
+            {
+                "name": "Master Sword Resting Grounds",
+                "asset": "Master Sword Resting Grounds.png",
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\n'The sacred blade...'\nunless you lack three random gems:\n• A big spider in a big tree\n• A big lizard in a big volcano\n• A big jellyfish virus in an even bigger fish"
             },
             {
                 "name": "MCJE UI",
                 "asset": "MC ui.png",
-                "summary": "Part of the Achievement Unlocked Preset pack."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nNothing beats the classic Java experience."
             },
             {
-                "name": "Minecraft",
-                "asset": "MC.png",
-                "summary": "Part of the Achievement Unlocked Preset pack."
+                "name": "MCPE UI",
+                "asset": "MC pocket ui.png",
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nUnless you prefer the nether reactor core."
+            },
+            {
+                "name": "Mimic Hiding",
+                "asset": "Mimic Hiding.png",
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nI feel like this is a great opportunity to Sister-Location yourself."
             },
             {
                 "name": "NES Game",
                 "asset": "NES game.png",
-                "summary": "Part of the Achievement Unlocked Preset pack."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nMake sure to abbreviate it or you might get sued. NES, make sure to abbreviate NES. Please."
+            },
+            {
+                "name": "New-World",
+                "asset": "MC.png",
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nNothing beats a fresh start, Especially not hardcore mode."
             },
             {
                 "name": "Omori Battle Party UI",
                 "asset": "omori battle party ui.png",
-                "summary": "Part of the Achievement Unlocked Preset pack."
-            },
-            {
-                "name": "P3R Battle Party UI",
-                "asset": "p3r battle party UI.png",
-                "summary": "Part of the Achievement Unlocked Preset pack."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nI swear i'll play it eventually please don't bully me."
             },
             {
                 "name": "P3R Battle UI",
                 "asset": "p3r battle ui.png",
-                "summary": "Part of the Achievement Unlocked Preset pack."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nMakes Mass Destruction look easy."
             },
             {
-                "name": "P3R Social Link",
+                "name": "P3R FEMC Battle UI",
+                "asset": "P3R FEMC Battle UI.png",
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nStart Wiping All Out with ease."
+            },
+            {
+                "name": "P3R Party UI",
+                "asset": "p3r battle party UI.png",
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nTo check Makoto's SP mid fight."
+            },
+            {
+                "name": "P3R FEMC Party UI",
+                "asset": "P3R FEMC Party UI.png",
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nTo check Kotone's HP mid fight."
+            },
+            {
+                "name": "P3R Social Link UI",
                 "asset": "p3r social link.png",
-                "summary": "Part of the Achievement Unlocked Preset pack."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nIf it wasn't obvious, this is more of a template."
+            },
+            {
+                "name": "P3R FEMC Social Link UI",
+                "asset": "P3R FEMC Social Link UI.png",
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nIf it wasn't obvious, this is more of a template."
+            },
+            {
+                "name": "P3R Police Station Shop",
+                "asset": "P3R Police Station Shop.png",
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nHelloooo Kurosawa\n\nI love bribing law enforcement."
             },
             {
                 "name": "P4R Battle UI (Cayman Roader Concept)",
                 "asset": "p4r battle ui (cayman roader concept).png",
-                "summary": "Part of the Achievement Unlocked Preset pack."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nDirectly inspired by Cayman Roader's P4R Concept UI video on Youtube!"
             },
             {
                 "name": "P4R Battle UI (Own Concept)",
                 "asset": "p4r battle UI (own concept).png",
-                "summary": "Part of the Achievement Unlocked Preset pack."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nMy own original concept for P4R's battle UI made at the release of Reload!"
             },
             {
                 "name": "P5R Social Link",
                 "asset": "p5r social link.png",
-                "summary": "Part of the Achievement Unlocked Preset pack."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nIf it wasn't obvious, this is more of a template."
             },
             {
                 "name": "Purple Starforge",
                 "asset": "purple starforge.png",
-                "summary": "Part of the Achievement Unlocked Preset pack."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nInspired by one of discords unreleased decorations!"
+            },
+            {
+                "name": "Rainbow Mainframe",
+                "asset": "Rainbow_Mainframe.png",
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nI made this as a kind of cheap fix for someone elses decor, (it was way too big) but I'd argue it's so different it counts as a new original work, I am sure copyright law would agree with me there."
             },
             {
                 "name": "Rick Astley (Get Rick Roll'd lol)",
                 "asset": "rick astley.png",
-                "summary": "Part of the Achievement Unlocked Preset pack."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nWere no strangers to identity theft,\nYou know the rules, and so do I!\nCriminal Commitments what I'm thinkin of,\nI couldn't take the form of any other guy!\n\nI am so sorry you read this."
             },
             {
-                "name": "Rounded Outline",
+                "name": "Sprite Outline",
                 "asset": "rounded outline.png",
-                "summary": "Part of the Achievement Unlocked Preset pack."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nNow we just need some McDonalds french fries to go with it!"
             },
             {
-                "name": "Space Thingy",
-                "asset": "space thingy idk.png",
-                "summary": "Part of the Achievement Unlocked Preset pack."
+                "name": "Sunken Submarine",
+                "asset": "uglyglass.png",
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nyou really have Fallen Down huh?\nidk why I put an undertale reference with this Ugly Glass."
             },
             {
                 "name": "The Thing Guy",
                 "asset": "the thing guy.png",
-                "summary": "Part of the Achievement Unlocked Preset pack."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nI made this very quickly very low effort because it sounded like someone would want it."
             },
             {
-                "name": "Ugly Glass",
-                "asset": "uglyglass.png",
-                "summary": "Part of the Achievement Unlocked Preset pack."
+                "name": "Wheately",
+                "asset": "Wheately.png",
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nAre you still there?\nprobably not after he tried to crush you,\ntotally fair to run btw."
             },
             {
                 "name": "Windows Selection",
                 "asset": "win-selection.png",
-                "summary": "Part of the Achievement Unlocked Preset pack."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\npossibly the first decor I ever made,\nI say possibly because I am not sure and I'm not willing to fact check that."
             },
             {
                 "name": "Your Only Move Is Hustle",
                 "asset": "your only move is hustle.png",
-                "summary": "Part of the Achievement Unlocked Preset pack."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nIf YOMIH was a mobile game... It'd probably look much better than this let's be real."
+            },
+            {
+                "name": "P4AU Match UI",
+                "asset": "P4AU Match UI.png",
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nJoin the shadow ops, Reach out for the truth, Beat the Shadows."
+            },
+            {
+                "name": "P4AU Match UI (Readable)",
+                "asset": "P4AU Match UI (Readable).png",
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nJoin the shadow ops, Reach out for the truth, Beat the Shadows."
             },
         ]
     },
@@ -2240,6 +2365,76 @@ const categories = [
                 "name": "TOYOTA GR",
                 "asset": "TOYOTAGR.png",
                 "summary": "Part of the World Rally Championship Preset pack."
+            },
+        ]
+    },
+    {
+        "name": "Music",
+        "banner": "placeholder-banner.png",
+        "artist_info": null,
+        "artists": [
+            findUser('186133651271057410')
+        ],
+        "decorations": [
+            {
+                "name": "Cadmium Colors",
+                "asset": "CadmiumColors.png",
+                "summary": "Part of the Music Preset pack."
+            },
+            {
+                "name": "Moe Evo Evo",
+                "asset": "moeevoevo.png",
+                "summary": "Part of the Music Preset pack."
+            },
+            {
+                "name": "Teto Spoken For",
+                "asset": "TetoSpokenFor.png",
+                "summary": "Part of the Music Preset pack."
+            },
+            {
+                "name": "Constant Companions",
+                "asset": "ConstantCompanions.png",
+                "summary": "Part of the Music Preset pack."
+            },
+        ]
+    },
+    {
+        "name": "Developers",
+        "banner": "developers-banner.png",
+        "artist_info": null,
+        "artists": [
+            findUser('1324198892648009760')
+        ],
+        "decorations": [
+            {
+                "name": "Html",
+                "asset": "Html.png",
+                "summary": "Part of the Developers Preset pack."
+            },
+            {
+                "name": "CSS",
+                "asset": "Css.png",
+                "summary": "Part of the Developers Preset pack."
+            },
+            {
+                "name": "JavaScript",
+                "asset": "JavaScript.png",
+                "summary": "Part of the Developers Preset pack."
+            },
+            {
+                "name": "Python",
+                "asset": "Python.png",
+                "summary": "Part of the Developers Preset pack."
+            },
+            {
+                "name": "Ruby",
+                "asset": "Ruby.png",
+                "summary": "Part of the Developers Preset pack."
+            },
+            {
+                "name": "TypeScript",
+                "asset": "TypeScript.png",
+                "summary": "Part of the Developers Preset pack."
             },
         ]
     },
@@ -2855,6 +3050,311 @@ const categories = [
                 "name": "Poland Poop Monster",
                 "asset": "Poland Poop Monster.png",
                 "summary": "Part of the Poop Monsters Preset pack."
+            },
+        ]
+    },
+    {
+        "name": "Pokemon Partners",
+        "banner": "pokemonpartners-banner.png",
+        "artist_info": `This artist is accepting commissions. Contact them via Discord, their username is: cyber.piee`,
+        "artists": [
+            findUser('736626422717612083')
+        ],
+        "decorations": [
+            {
+                "name": "Bulbasaur",
+                "asset": "0001-Bulbasaur.png",
+                "summary": "Part of the Pokémon Partners Preset pack."
+            },
+            {
+                "name": "Ivysaur",
+                "asset": "0002-Ivysaur.png",
+                "summary": "Part of the Pokémon Partners Preset pack."
+            },
+            {
+                "name": "Venusaur",
+                "asset": "0003-Venusaur.png",
+                "summary": "Part of the Pokémon Partners Preset pack."
+            },
+            {
+                "name": "Charmander",
+                "asset": "0004-Charmander.png",
+                "summary": "Part of the Pokémon Partners Preset pack."
+            },
+            {
+                "name": "Charmeleon",
+                "asset": "0005-Charmeleon.png",
+                "summary": "Part of the Pokémon Partners Preset pack."
+            },
+            {
+                "name": "Charizard",
+                "asset": "0006-Charizard.png",
+                "summary": "Part of the Pokémon Partners Preset pack."
+            },
+            {
+                "name": "Squirtle",
+                "asset": "0007-Squirtle.png",
+                "summary": "Part of the Pokémon Partners Preset pack."
+            },
+            {
+                "name": "Wartortle",
+                "asset": "0008-Wartortle.png",
+                "summary": "Part of the Pokémon Partners Preset pack."
+            },
+            {
+                "name": "Blastoise",
+                "asset": "0009-Blastoise.png",
+                "summary": "Part of the Pokémon Partners Preset pack."
+            },
+            {
+                "name": "Pikachu (Female)",
+                "asset": "0025-Pikachu (Female).png",
+                "summary": "Part of the Pokémon Partners Preset pack."
+            },
+            {
+                "name": "Pikachu (Male)",
+                "asset": "0025-Pikachu (Male).png",
+                "summary": "Part of the Pokémon Partners Preset pack."
+            },
+            {
+                "name": "Scorbunny",
+                "asset": "0813-Scorbunny.png",
+                "summary": "Part of the Pokémon Partners Preset pack."
+            },
+            {
+                "name": "Raboot",
+                "asset": "0814-Raboot.png",
+                "summary": "Part of the Pokémon Partners Preset pack."
+            },
+            {
+                "name": "Cinderace",
+                "asset": "0815-Cinderace.png",
+                "summary": "Part of the Pokémon Partners Preset pack."
+            },
+        ]
+    },
+    {
+        "name": "GENSHIN",
+        "banner": "genshin-banner.png",
+        "artist_info": `Zin is accepting commissions. You can find their commission info from the decors below.`,
+        "artists": [
+            findUser('452679089929846784')
+        ],
+        "decorations": [
+            {
+                "name": "Xiangling Skill",
+                "asset": "xiangling_skill.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Greater Lord Rukkhadevata",
+                "asset": "Greater_Lord_Rukkhadevata.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Nahida",
+                "asset": "Nahida.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Nahida Skill",
+                "asset": "nahida_skill.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Layla Skill",
+                "asset": "layla_skill.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Kirara Skill",
+                "asset": "kirara-skill.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Charlotte Skill",
+                "asset": "charlotte_skill.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Chevreuse Skill",
+                "asset": "chevreuse_skill.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Citlali",
+                "asset": "citlali.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Varesa",
+                "asset": "Varesa.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Skirk",
+                "asset": "Skirk.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Dahlia",
+                "asset": "Dahlia.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Ineffa",
+                "asset": "Ineffa.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+        ]
+    },
+    {
+        "name": "Splatter of Color",
+        "banner": "splat-banner.png",
+        "artist_info": [],
+        "artists": [
+            findUser('1098726243920261200')
+        ],
+        "decorations": [
+            {
+                "name": "Red Splat",
+                "asset": "01-redsplat.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "Red Splat 2",
+                "asset": "02-redsplat2.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "Pink Splat",
+                "asset": "03-pinksplat.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "Pink Splat 2",
+                "asset": "04-pinksplat2.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "Orange Splat",
+                "asset": "05-orangesplat.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "Orange Splat 2",
+                "asset": "06-orangesplat2.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "Peach Splat",
+                "asset": "07-peachsplat.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "Peach Splat 2",
+                "asset": "08-peachsplat2.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "Yellow Splat",
+                "asset": "09-yellowsplat.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "Yellow Splat 2",
+                "asset": "10-yellowsplat2.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "Light Green Splat",
+                "asset": "11-lightgreensplat.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "Light Green Splat 2",
+                "asset": "12-lightgreensplat2.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "Dark Green Splat",
+                "asset": "13-darkgreensplat.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "Dark Green Splat 2",
+                "asset": "14-darkgreensplat2.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "Cyan Splat",
+                "asset": "15-cyansplat.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "Cyan Splat 2",
+                "asset": "16-cyansplat2.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "Dark Blue Splat",
+                "asset": "17-darkbluesplat.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "Dark Blue Splat 2",
+                "asset": "18-darkbluesplat2.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "Pink Splat",
+                "asset": "19-pinksplat.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "Pink Splat 2",
+                "asset": "20-pinksplat2.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "Purple Splat",
+                "asset": "21-purplesplat.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "Purple Splat 2",
+                "asset": "22-purplesplat2.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "White Splat",
+                "asset": "23-whitesplat.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "White Splat 2",
+                "asset": "24-whitesplat2.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "Black Splat",
+                "asset": "25-blacksplat.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "Black Splat 2",
+                "asset": "26-blacksplat2.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "Rainbow Splat",
+                "asset": "27-rainbowsplat.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
+            },
+            {
+                "name": "Rainbow Splat 2",
+                "asset": "28-rainbowsplat2.PNG",
+                "summary": "Part of the Splatter of Color Preset pack."
             },
         ]
     },
@@ -5885,46 +6385,6 @@ const categories = [
         ]
     },
     {
-        "name": "RDR2",
-        "banner": "rdr2-banner.png",
-        "artist_info": null,
-        "artists": [
-            findUser('929363923822596167')
-        ],
-        "decorations": [
-            {
-                "name": "Arthur",
-                "asset": "Arthur.png",
-                "summary": "Part of the Red Dead Redemption II Preset pack."
-            },
-            {
-                "name": "Dutch",
-                "asset": "Dutch.png",
-                "summary": "Part of the Red Dead Redemption II Preset pack."
-            },
-            {
-                "name": "Hosea",
-                "asset": "Hosea.png",
-                "summary": "Part of the Red Dead Redemption II Preset pack."
-            },
-            {
-                "name": "John",
-                "asset": "John.png",
-                "summary": "Part of the Red Dead Redemption II Preset pack."
-            },
-            {
-                "name": "Sadie",
-                "asset": "Sadie.png",
-                "summary": "Part of the Red Dead Redemption II Preset pack."
-            },
-            {
-                "name": "RDR II",
-                "asset": "RDR_II.png",
-                "summary": "Part of the Red Dead Redemption II Preset pack."
-            }
-        ]
-    },
-    {
         "name": "EASTER",
         "banner": "easter-banner.png",
         "artist_info": `Zin, CallieVD & Sharr are accepting commissions. You can find their commission info from the decors below.`,
@@ -7227,76 +7687,6 @@ const categories = [
                 "asset": "white cat ears.png",
                 "summary": "Part of the Crazy Cat Person Preset pack.",
             }
-        ]
-    },
-    {
-        "name": "GENSHIN",
-        "banner": "genshin-banner.png",
-        "artist_info": `Zin is accepting commissions. You can find their commission info from the decors below.`,
-        "artists": [
-            findUser('452679089929846784')
-        ],
-        "decorations": [
-            {
-                "name": "Xiangling Skill",
-                "asset": "xiangling_skill.png",
-                "summary": "Part of the Genshin Impact Preset pack.",
-            },
-            {
-                "name": "Greater Lord Rukkhadevata",
-                "asset": "Greater_Lord_Rukkhadevata.png",
-                "summary": "Part of the Genshin Impact Preset pack.",
-            },
-            {
-                "name": "Nahida",
-                "asset": "Nahida.png",
-                "summary": "Part of the Genshin Impact Preset pack.",
-            },
-            {
-                "name": "Nahida Skill",
-                "asset": "nahida_skill.png",
-                "summary": "Part of the Genshin Impact Preset pack.",
-            },
-            {
-                "name": "Layla Skill",
-                "asset": "layla_skill.png",
-                "summary": "Part of the Genshin Impact Preset pack.",
-            },
-            {
-                "name": "Kirara Skill",
-                "asset": "kirara-skill.png",
-                "summary": "Part of the Genshin Impact Preset pack.",
-            },
-            {
-                "name": "Charlotte Skill",
-                "asset": "charlotte_skill.png",
-                "summary": "Part of the Genshin Impact Preset pack.",
-            },
-            {
-                "name": "Chevreuse Skill",
-                "asset": "chevreuse_skill.png",
-                "summary": "Part of the Genshin Impact Preset pack.",
-            },
-            {
-                "name": "Citlali",
-                "asset": "citlali.png",
-                "summary": "Part of the Genshin Impact Preset pack.",
-            },
-            {
-                "name": "Varesa",
-                "asset": "Varesa.png",
-                "summary": "Part of the Genshin Impact Preset pack.",
-            },
-            {
-                "name": "Skirk",
-                "asset": "Skirk.png",
-                "summary": "Part of the Genshin Impact Preset pack.",
-            },
-            {
-                "name": "Dahlia",
-                "asset": "Dahlia.png",
-                "summary": "Part of the Genshin Impact Preset pack.",
-            },
         ]
     },
     {
@@ -10750,7 +11140,7 @@ function openModal({
             modal.classList.add('modal-desktop');
 
             let desc = "";
-            if (deco.summary) desc = deco.summary;
+            if (deco.summary) desc = processSummary(deco.summary);
 
             modalContent.innerHTML = `
                 <div class="modal-left">
