@@ -2369,8 +2369,8 @@ const categories = [
         ]
     },
     {
-        "name": "Music",
-        "banner": "placeholder-banner.png",
+        "name": "Constant Companions",
+        "banner": "constantcompanions-banner.png",
         "artist_info": null,
         "artists": [
             findUser('186133651271057410')
@@ -2379,22 +2379,22 @@ const categories = [
             {
                 "name": "Cadmium Colors",
                 "asset": "CadmiumColors.png",
-                "summary": "Part of the Music Preset pack."
+                "summary": "Part of the Constant Companions Preset pack."
             },
             {
                 "name": "Moe Evo Evo",
                 "asset": "moeevoevo.png",
-                "summary": "Part of the Music Preset pack."
+                "summary": "Part of the Constant Companions Preset pack."
             },
             {
                 "name": "Teto Spoken For",
                 "asset": "TetoSpokenFor.png",
-                "summary": "Part of the Music Preset pack."
+                "summary": "Part of the Constant Companions Preset pack."
             },
             {
                 "name": "Constant Companions",
                 "asset": "ConstantCompanions.png",
-                "summary": "Part of the Music Preset pack."
+                "summary": "Part of the Constant Companions Preset pack."
             },
         ]
     },
