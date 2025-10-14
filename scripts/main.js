@@ -929,7 +929,11 @@ const categories = [
             {
                 "name": "Camille Healing",
                 "asset": "camille healing.png",
-                "summary": "Part of the Fate Trigger Preset pack."
+                "summary": "Part of the Fate Trigger Preset pack.",
+                "tags": [
+                    "sigma sigmaa",
+                    "heart"
+                ]
             },
             {
                 "name": "Huxleys Myst",
@@ -10878,12 +10882,16 @@ function filterCategories(data, search) {
     const term = search.toLowerCase();
     return data.map(cat => {
         const catMatch = cat.name.toLowerCase().includes(term);
-        const filteredProducts = cat.decorations?.filter(p =>
-            p.name.toLowerCase().includes(term)
-        ) || [];
-        const artistMatch = (cat.artists?.length === 1) 
-        ? cat.artists[0].name.toLowerCase().includes(term) 
+        const artistMatch = (cat.artists?.length === 1)
+        ? cat.artists[0].name.toLowerCase().includes(term)
         : false;
+
+        // Filter decorations by name OR tags
+        const filteredProducts = cat.decorations?.filter(p => {
+            const nameMatch = p.name.toLowerCase().includes(term);
+            const tagMatch = Array.isArray(p.tags) && p.tags.some(tag => tag.toLowerCase().includes(term));
+            return nameMatch || tagMatch;
+        }) || [];
 
         if (catMatch || artistMatch || filteredProducts.length > 0) {
             return {
