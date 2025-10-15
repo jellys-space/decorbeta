@@ -695,7 +695,7 @@ const artists = [
                 animated: false
             }
         },
-        sumarry: `hiiiii im jenku\ni do uh, a lot of different stuff; art, web&bot development, vtube rigging, 3d modelling etcetera etcetera and am planning on studying physics, computer science and design engineering!\nOh also I collect nintendo consoles.\ni also have a couple of presets here and in the actual plugin!\nmy interests are all over the place: mainly nintendo, ultrakill and portal\ncurrently playing through deltarune!!\nmy site is https://jenku.xyz/, more info about me there !!\nhttps://decor.jenku.xyz/ (decor faq) and https://theme.jenku.xyz/ (mobile discord theme maker)`,
+        sumarry: `hiiiii im jenku\ni do uh, a lot of different stuff; art, web&bot development, vtube rigging, 3d modelling etcetera etcetera and am studying maths, physics, computer science and design engineering!\nOh also I collect nintendo consoles.\ni also have a couple of presets here and in the actual plugin!\nmy interests are all over the place: mainly nintendo, ultrakill and portal\nmy site is https://jenku.xyz/, more info about me there !!\nhttps://decor.jenku.xyz/ (decor faq) and https://theme.jenku.xyz/ (mobile discord theme maker)`,
         colors: {
             primary: "#ff6ee6"
         },
@@ -1079,6 +1079,16 @@ const categories = [
 					"green",
 					"spooky"	
 				]
+            },
+			{
+                "name": "Spider Web",
+                "artist": findUser('808325271949934652'),
+                "asset": "spider web by t8.png",
+                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!",
+                "tags": [
+					"spooky",
+					"white"
+                ]
             },
             {
                 "name": "Witch Cat",
