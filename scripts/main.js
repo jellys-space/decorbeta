@@ -924,21 +924,33 @@ const categories = [
             {
                 "name": "Xiva",
                 "asset": "Xiva.png",
-                "summary": "Part of the Fate Trigger Preset pack."
+                "summary": "Part of the Fate Trigger Preset pack.",
+                "tags": [
+                    "animated",
+                    "blue",
+                    "fire"
+                ]
             },
             {
                 "name": "Camille Healing",
                 "asset": "camille healing.png",
                 "summary": "Part of the Fate Trigger Preset pack.",
                 "tags": [
-                    "sigma sigmaa",
-                    "heart"
+                    "animated",
+                    "heart",
+                    "green"
                 ]
             },
             {
                 "name": "Huxleys Myst",
                 "asset": "Huxleys Myst.png",
-                "summary": "Part of the Fate Trigger Preset pack."
+                "summary": "Part of the Fate Trigger Preset pack.",
+                "tags": [
+                    "animated",
+                    "heart",
+                    "purple",
+                    "pink"
+                ]
             }
         ]
     },
@@ -956,19 +968,29 @@ const categories = [
                 "name": "Pink Pumpkin",
                 "artist": findUser('1143994313034960967'),
                 "asset": "pink pumpkin by nuki.png",
-                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
+                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!",
+                "tags": [
+                    "pink",
+                ]
             },
             {
                 "name": "Pumpkin",
                 "artist": findUser('811114235966521364'),
                 "asset": "pumpkin by cal.png",
-                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
+                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!",
+                "tags": [
+                    "orange",
+                ]
             },
             {
                 "name": "Witch Cat",
                 "artist": findUser('811114235966521364'),
                 "asset": "witch_cat by cal.png",
-                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
+                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!",
+                "tags": [
+                    "orange",
+                    "cat",
+                ]
             },
             {
                 "name": "Teefs",
@@ -980,7 +1002,10 @@ const categories = [
                 "name": "Black Cat",
                 "artist": findUser('811114235966521364'),
                 "asset": "black cat by cal.png",
-                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
+                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!",
+                "tags": [
+                    "cat",
+                ]
             },
             {
                 "name": "Demon Hoodie",
@@ -1002,7 +1027,7 @@ const categories = [
             },
             {
                 "name": "Monster Hoodie",
-                "artist": findUser('808325271949934652'),
+                "artist": findUser('811114235966521364'),
                 "asset": "monster hoodie by cal.png",
                 "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
             },
@@ -1010,37 +1035,56 @@ const categories = [
                 "name": "Witch Cat",
                 "artist": findUser('808325271949934652'),
                 "asset": "witch cat by t8.png",
-                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
+                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!",
+                "tags": [
+                    "cat",
+                ]
             },
             {
                 "name": "Halloween Pumpkins (No Face)",
                 "artist": findUser('808325271949934652'),
                 "asset": "halloween pumpkins no face by t8.png",
-                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
+                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!",
+                "tags": [
+                    "orange",
+                ]
             },
             {
                 "name": "Halloween Pumpkins (With Face)",
                 "artist": findUser('808325271949934652'),
                 "asset": "halloween pumpkins face by t8.png",
-                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
+                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!",
+                "tags": [
+                    "orange",
+                ]
             },
             {
                 "name": "Halloween Pumpkins (Animated)",
                 "artist": findUser('808325271949934652'),
                 "asset": "Halloween Pumpkins Decor (Animated) by t8.png",
-                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
+                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!",
+                "tags": [
+                    "animated",
+                    "orange",
+                ]
             },
             {
                 "name": "Flying Ghost",
                 "artist": findUser('808325271949934652'),
                 "asset": "Flying Ghost Decor by t8.png",
-                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
+                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Ghost Circle",
                 "artist": findUser('808325271949934652'),
                 "asset": "Ghost Circle Decor by t8.png",
-                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!"
+                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!",
+                "tags": [
+                    "animated",
+                ]
             },
         ]
     },
@@ -1100,6 +1144,9 @@ const categories = [
                 "artist": findUser('323205750262595595'),
                 "asset": "dark fountain.png",
                 "summary": "NO! DON'T MAKE ANOTHER FOUNTAIN!",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "DEALMAKER[]PUPPETSCARF",
@@ -1166,6 +1213,9 @@ const categories = [
                 "artist": findUser('323205750262595595'),
                 "asset": "photon readings negative.png",
                 "summary": "chair",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Piano that might have a few keys missing",
@@ -1304,24 +1354,36 @@ const categories = [
                 "artist": findUser('995651435519815772'),
                 "asset": "Lightners Live Kris (cawthon).png",
                 "summary": "Raise up your bat and face the fright!",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Lightners Live Susie",
                 "artist": findUser('995651435519815772'),
                 "asset": "Lightners Live Susie (cawthon).png",
                 "summary": "🥁🥁🥁🥁🥁🥁🥁🥁🥁🥁🥁🥁",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Lighters Live Ralsei",
                 "artist": findUser('995651435519815772'),
                 "asset": "Lighters Live Ralsei (cawthon).png",
                 "summary": "Let's bring your friends and fly a kite!",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Laser Pointere",
                 "artist": findUser('995651435519815772'),
                 "asset": "Laser Pointere (cawthon).png",
                 "summary": "Okay, Okay pauseth for a second...",
+                "tags": [
+                    "animated",
+                ]
             },
         ]
     },
@@ -1424,12 +1486,18 @@ const categories = [
             {
                 "name": "Tamagotchi",
                 "asset": "tamagotchi.png",
-                "summary": "Part of the Kawaii Gamer Girl Preset pack."
+                "summary": "Part of the Kawaii Gamer Girl Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Lives",
                 "asset": "lives.png",
-                "summary": "Part of the Kawaii Gamer Girl Preset pack."
+                "summary": "Part of the Kawaii Gamer Girl Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Headphones",
@@ -1494,12 +1562,18 @@ const categories = [
             {
                 "name": "Quack!",
                 "asset": "Quack!.png",
-                "summary": "Part of the Ducks & Ducks Preset pack."
+                "summary": "Part of the Ducks & Ducks Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Blinking Duck",
                 "asset": "Blinking Duck.png",
-                "summary": "Part of the Ducks & Ducks Preset pack."
+                "summary": "Part of the Ducks & Ducks Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Duck Eating Profile",
@@ -1509,12 +1583,18 @@ const categories = [
             {
                 "name": "Swimming Duck v1",
                 "asset": "Swimming Duck v1.png",
-                "summary": "Part of the Ducks & Ducks Preset pack."
+                "summary": "Part of the Ducks & Ducks Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Swimming Duck v2",
                 "asset": "Swimming Duck v2.png",
-                "summary": "Part of the Ducks & Ducks Preset pack."
+                "summary": "Part of the Ducks & Ducks Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Lake (No Duck)",
@@ -1753,7 +1833,10 @@ const categories = [
             {
                 "name": "Avatar Is You",
                 "asset": "avatarisyou.png",
-                "summary": "Part of the Baba Is You Preset pack."
+                "summary": "Part of the Baba Is You Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Avitur Be U",
@@ -1763,22 +1846,34 @@ const categories = [
             {
                 "name": "Power",
                 "asset": "babapower.png",
-                "summary": "Part of the Baba Is You Preset pack."
+                "summary": "Part of the Baba Is You Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Sad",
                 "asset": "sad.png",
-                "summary": "Part of the Baba Is You Preset pack."
+                "summary": "Part of the Baba Is You Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Sleep",
                 "asset": "sleep.png",
-                "summary": "Part of the Baba Is You Preset pack."
+                "summary": "Part of the Baba Is You Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Win",
                 "asset": "win.png",
-                "summary": "Part of the Baba Is You Preset pack."
+                "summary": "Part of the Baba Is You Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
         ]
     },
@@ -1808,7 +1903,10 @@ const categories = [
             {
                 "name": "Boat",
                 "asset": "Boat.png",
-                "summary": "Part of the Just Shapes & Beats Preset pack."
+                "summary": "Part of the Just Shapes & Beats Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Close To Me Claws",
@@ -1823,12 +1921,18 @@ const categories = [
             {
                 "name": "Helicopter Love",
                 "asset": "Helicopter Love.png",
-                "summary": "Part of the Just Shapes & Beats Preset pack."
+                "summary": "Part of the Just Shapes & Beats Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "JSAB Bird",
                 "asset": "JSAB Bird.png",
-                "summary": "Part of the Just Shapes & Beats Preset pack."
+                "summary": "Part of the Just Shapes & Beats Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "The Boss",
@@ -1918,37 +2022,58 @@ const categories = [
             {
                 "name": "Doise",
                 "asset": "doise.png",
-                "summary": "Part of the Pizza Tower V2 Preset pack."
+                "summary": "Part of the Pizza Tower V2 Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Noise",
                 "asset": "noise.png",
-                "summary": "Part of the Pizza Tower V2 Preset pack."
+                "summary": "Part of the Pizza Tower V2 Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Forest15",
                 "asset": "forest15.png",
-                "summary": "Part of the Pizza Tower V2 Preset pack."
+                "summary": "Part of the Pizza Tower V2 Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Peppino",
                 "asset": "peppino.png",
-                "summary": "Part of the Pizza Tower V2 Preset pack."
+                "summary": "Part of the Pizza Tower V2 Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Pizza Face",
                 "asset": "pizzaface.png",
-                "summary": "Part of the Pizza Tower V2 Preset pack."
+                "summary": "Part of the Pizza Tower V2 Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Pizza Head",
                 "asset": "pizzahead.png",
-                "summary": "Part of the Pizza Tower V2 Preset pack."
+                "summary": "Part of the Pizza Tower V2 Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Secret Eye",
                 "asset": "secreteye.png",
-                "summary": "Part of the Pizza Tower V2 Preset pack."
+                "summary": "Part of the Pizza Tower V2 Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Vigilante",
@@ -2383,22 +2508,34 @@ const categories = [
             {
                 "name": "Cadmium Colors",
                 "asset": "CadmiumColors.png",
-                "summary": "Part of the Constant Companions Preset pack."
+                "summary": "Part of the Constant Companions Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Moe Evo Evo",
                 "asset": "moeevoevo.png",
-                "summary": "Part of the Constant Companions Preset pack."
+                "summary": "Part of the Constant Companions Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Teto Spoken For",
                 "asset": "TetoSpokenFor.png",
-                "summary": "Part of the Constant Companions Preset pack."
+                "summary": "Part of the Constant Companions Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Constant Companions",
                 "asset": "ConstantCompanions.png",
-                "summary": "Part of the Constant Companions Preset pack."
+                "summary": "Part of the Constant Companions Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
         ]
     },
@@ -2718,7 +2855,10 @@ const categories = [
             {
                 "name": "Queen Bee",
                 "asset": "queen bee.png",
-                "summary": "Part of the Terraria Preset pack."
+                "summary": "Part of the Terraria Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Skeletron",
@@ -2758,7 +2898,10 @@ const categories = [
             {
                 "name": "Plantera",
                 "asset": "plantera.png",
-                "summary": "Part of the Terraria Preset pack."
+                "summary": "Part of the Terraria Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Golem",
@@ -2818,12 +2961,18 @@ const categories = [
             {
                 "name": "Candlebearer",
                 "asset": "candlebearer reese.png",
-                "summary": "Part of the Pressure Preset pack."
+                "summary": "Part of the Pressure Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Dark Company",
                 "asset": "dark company reese.png",
-                "summary": "Part of the Pressure Preset pack."
+                "summary": "Part of the Pressure Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Dresscode Violation Glasses",
@@ -2873,7 +3022,10 @@ const categories = [
             {
                 "name": "Mirage",
                 "asset": "mirage reese.png",
-                "summary": "Part of the Pressure Preset pack."
+                "summary": "Part of the Pressure Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Pandemonium",
@@ -2883,12 +3035,18 @@ const categories = [
             {
                 "name": "Paranoias Box",
                 "asset": "paranoias box reese.png",
-                "summary": "Part of the Pressure Preset pack."
+                "summary": "Part of the Pressure Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Pipsqueak Peek",
                 "asset": "pipsqueak peek reese.png",
-                "summary": "Part of the Pressure Preset pack."
+                "summary": "Part of the Pressure Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Rebarb",
@@ -2898,7 +3056,10 @@ const categories = [
             {
                 "name": "Splat!",
                 "asset": "splat! reese.png",
-                "summary": "Part of the Pressure Preset pack."
+                "summary": "Part of the Pressure Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "The Bottomfeeder",
@@ -2908,7 +3069,10 @@ const categories = [
             {
                 "name": "The Painter",
                 "asset": "the painter reese.png",
-                "summary": "Part of the Pressure Preset pack."
+                "summary": "Part of the Pressure Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "The Saboteur",
@@ -2923,22 +3087,34 @@ const categories = [
             {
                 "name": "Void Buddy Gold",
                 "asset": "void buddy gold reese.png",
-                "summary": "Part of the Pressure Preset pack."
+                "summary": "Part of the Pressure Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Void Buddy Green",
                 "asset": "void buddy green reese.png",
-                "summary": "Part of the Pressure Preset pack."
+                "summary": "Part of the Pressure Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Void Buddy Purple",
                 "asset": "void buddy purple reese.png",
-                "summary": "Part of the Pressure Preset pack."
+                "summary": "Part of the Pressure Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Void Buddy Red",
                 "asset": "void buddy red reese.png",
-                "summary": "Part of the Pressure Preset pack."
+                "summary": "Part of the Pressure Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
         ]
     },
@@ -3223,142 +3399,226 @@ const categories = [
             {
                 "name": "Red Splat",
                 "asset": "01-redsplat.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Red Splat 2",
                 "asset": "02-redsplat2.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Pink Splat",
                 "asset": "03-pinksplat.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Pink Splat 2",
                 "asset": "04-pinksplat2.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Orange Splat",
                 "asset": "05-orangesplat.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Orange Splat 2",
                 "asset": "06-orangesplat2.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Peach Splat",
                 "asset": "07-peachsplat.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Peach Splat 2",
                 "asset": "08-peachsplat2.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Yellow Splat",
                 "asset": "09-yellowsplat.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Yellow Splat 2",
                 "asset": "10-yellowsplat2.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Light Green Splat",
                 "asset": "11-lightgreensplat.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Light Green Splat 2",
                 "asset": "12-lightgreensplat2.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Dark Green Splat",
                 "asset": "13-darkgreensplat.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Dark Green Splat 2",
                 "asset": "14-darkgreensplat2.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Cyan Splat",
                 "asset": "15-cyansplat.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Cyan Splat 2",
                 "asset": "16-cyansplat2.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Dark Blue Splat",
                 "asset": "17-darkbluesplat.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Dark Blue Splat 2",
                 "asset": "18-darkbluesplat2.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Pink Splat",
                 "asset": "19-pinksplat.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Pink Splat 2",
                 "asset": "20-pinksplat2.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Purple Splat",
                 "asset": "21-purplesplat.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Purple Splat 2",
                 "asset": "22-purplesplat2.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "White Splat",
                 "asset": "23-whitesplat.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "White Splat 2",
                 "asset": "24-whitesplat2.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Black Splat",
                 "asset": "25-blacksplat.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Black Splat 2",
                 "asset": "26-blacksplat2.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Rainbow Splat",
                 "asset": "27-rainbowsplat.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Rainbow Splat 2",
                 "asset": "28-rainbowsplat2.PNG",
-                "summary": "Part of the Splatter of Color Preset pack."
+                "summary": "Part of the Splatter of Color Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
         ]
     },
@@ -4597,7 +4857,10 @@ const categories = [
             {
                 "name": "Animated Apocalypse Bird",
                 "asset": "Animated Apocalypse Bird.png",
-                "summary": "Part of the Library of Ruina Preset pack."
+                "summary": "Part of the Library of Ruina Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Apocalypse Bird",
@@ -4617,12 +4880,18 @@ const categories = [
             {
                 "name": "The Happy Teddy Bear Decor",
                 "asset": "The Happy Teddy Bear Decor.png",
-                "summary": "Part of the Library of Ruina Preset pack."
+                "summary": "Part of the Library of Ruina Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "The Price of Silence Decor",
                 "asset": "The Price of Silence Decor.png",
-                "summary": "Part of the Library of Ruina Preset pack."
+                "summary": "Part of the Library of Ruina Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "The Funeral of the Dead Butterflies",
@@ -4723,21 +4992,33 @@ const categories = [
                 "name": "Water the roses",
                 "asset": "watertheroses.png",
                 "summary": "But I feel so stupid cause you feel the same!",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Weathergirl",
                 "asset": "weathergirl.png",
                 "summary": "Wouldn't you like to know, Weathergirl?",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Wei Ward Romance",
                 "asset": "WeiWardRomance.png",
                 "summary": "Beneath the lanterns, we'll meet!",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Static's Miku",
                 "asset": "Static's Miku.png",
                 "summary": "This is how it should be!",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Gardener Gumi",
@@ -4753,11 +5034,17 @@ const categories = [
                 "name": "Plushie Vanity",
                 "asset": "Plushie Vanity.png",
                 "summary": "go buy it if it's still here",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Vanity Knife-Swap",
                 "asset": "Vanity Knife-Swap.png",
                 "summary": "The slaughter's on!",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Spoken For",
@@ -4792,7 +5079,10 @@ const categories = [
             {
                 "name": "Kylo Ren Animated",
                 "asset": "kr_anim.png",
-                "summary": "Part of the Star Wars Preset pack."
+                "summary": "Part of the Star Wars Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Darth Vader",
@@ -4847,17 +5137,26 @@ const categories = [
             {
                 "name": "Luke Skywalker",
                 "asset": "LS.png",
-                "summary": "Part of the Star Wars Preset pack."
+                "summary": "Part of the Star Wars Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Luke Skywalker (no retraction)",
                 "asset": "LSnr.png",
-                "summary": "Part of the Star Wars Preset pack."
+                "summary": "Part of the Star Wars Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Ahsoka Tano Lightsabers",
                 "asset": "ATsaber.png",
-                "summary": "Part of the Star Wars Preset pack."
+                "summary": "Part of the Star Wars Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             }
         ]
     },
@@ -4897,7 +5196,10 @@ const categories = [
             {
                 "name": "Roly Poly",
                 "asset": "roly poly.png",
-                "summary": "Part of the Garden Critters Preset pack."
+                "summary": "Part of the Garden Critters Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             }
         ]
     },
@@ -4972,7 +5274,10 @@ const categories = [
             {
                 "name": "Junkos Hair Pins",
                 "asset": "Junkos hair pins.png",
-                "summary": "Part of the Danganronpa Monochrome Family Preset pack."
+                "summary": "Part of the Danganronpa Monochrome Family Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             }
         ]
     },
@@ -4987,27 +5292,42 @@ const categories = [
             {
                 "name": "Appel",
                 "asset": "Appel.png",
-                "summary": "Part of the Doodleys Preset pack."
+                "summary": "Part of the Doodleys Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Burnin'",
                 "asset": "Burnin'.png",
-                "summary": "Part of the Doodleys Preset pack."
+                "summary": "Part of the Doodleys Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Fedora",
                 "asset": "Fedora.png",
-                "summary": "Part of the Doodleys Preset pack."
+                "summary": "Part of the Doodleys Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Sleepy",
                 "asset": "Sleepy.png",
-                "summary": "Part of the Doodleys Preset pack."
+                "summary": "Part of the Doodleys Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Yummers",
                 "asset": "Yummers.png",
-                "summary": "Part of the Doodleys Preset pack."
+                "summary": "Part of the Doodleys Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             }
         ]
     },
@@ -6707,7 +7027,10 @@ const categories = [
             {
                 "name": "Cookie",
                 "asset": "cookie.png",
-                "summary": "Part of the Baker's Dozen Preset pack."
+                "summary": "Part of the Baker's Dozen Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Croissant",
@@ -6737,7 +7060,10 @@ const categories = [
             {
                 "name": "Pie Slice",
                 "asset": "pieslice.png",
-                "summary": "Part of the Baker's Dozen Preset pack."
+                "summary": "Part of the Baker's Dozen Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Strawberries",
@@ -6762,17 +7088,26 @@ const categories = [
             {
                 "name": "Protoss",
                 "asset": "protoss.png",
-                "summary": "Part of the StarCraft Preset pack."
+                "summary": "Part of the StarCraft Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Protoss Green",
                 "asset": "Protoss_green.png",
-                "summary": "Part of the StarCraft Preset pack."
+                "summary": "Part of the StarCraft Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Protoss Purple",
                 "asset": "Protoss_purp.png",
-                "summary": "Part of the StarCraft Preset pack."
+                "summary": "Part of the StarCraft Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Terran",
@@ -7970,61 +8305,97 @@ const categories = [
                 "name": "Flamelike",
                 "asset": "flamelike.png",
                 "summary": "Part of the Neon Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Prideful",
                 "asset": "prideful.png",
                 "summary": "Part of the Neon Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Split Globe",
                 "asset": "split-globe.png",
                 "summary": "Part of the Neon Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Glitch",
                 "asset": "glitch.png",
                 "summary": "Part of the Neon Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "RGB Circle",
                 "asset": "rgbcircle.png",
                 "summary": "Part of the Neon Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Purple Glow",
                 "asset": "purple-glow.png",
                 "summary": "Part of the Neon Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Geometric",
                 "asset": "geometric.png",
                 "summary": "Part of the Neon Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Particle Circle",
                 "asset": "particle-circle.png",
                 "summary": "Part of the Neon Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Retro Car",
                 "asset": "retrocar.png",
                 "summary": "Part of the Neon Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Runic",
                 "asset": "runic.png",
                 "summary": "Part of the Neon Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Wireframe",
                 "asset": "wireframe.png",
                 "summary": "Part of the Neon Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Galaxy",
                 "asset": "Galaxy.png",
                 "summary": "Part of the Neon Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             }
         ]
     },
@@ -8662,108 +9033,162 @@ const categories = [
                 "artist": findUser('272359106839314446'),
                 "asset": "happyjelly.png",
                 "summary": "Part of the Coral Reef Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Axolotl Blue",
                 "artist": findUser('713791218160500796'),
                 "asset": "axoblue.png",
                 "summary": "Part of the Coral Reef Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Axolotl Pink",
                 "artist": findUser('713791218160500796'),
                 "asset": "axopink.png",
                 "summary": "Part of the Coral Reef Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Axolotl Purple",
                 "artist": findUser('713791218160500796'),
                 "asset": "axopurple.png",
                 "summary": "Part of the Coral Reef Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Axolotl White",
                 "artist": findUser('713791218160500796'),
                 "asset": "axowhite.png",
                 "summary": "Part of the Coral Reef Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Axolotl Yellow",
                 "artist": findUser('713791218160500796'),
                 "asset": "axoyellow.png",
                 "summary": "Part of the Coral Reef Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Float Blue",
                 "artist": findUser('713791218160500796'),
                 "asset": "floatblue.png",
                 "summary": "Part of the Coral Reef Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Float Green",
                 "artist": findUser('713791218160500796'),
                 "asset": "floatgreen.png",
                 "summary": "Part of the Coral Reef Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Float Pink",
                 "artist": findUser('713791218160500796'),
                 "asset": "floatpink.png",
                 "summary": "Part of the Coral Reef Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Float Purple",
                 "artist": findUser('713791218160500796'),
                 "asset": "floatpurple.png",
                 "summary": "Part of the Coral Reef Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Float Yellow",
                 "artist": findUser('713791218160500796'),
                 "asset": "floatyellow.png",
                 "summary": "Part of the Coral Reef Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Blue Knife",
                 "artist": findUser('713791218160500796'),
                 "asset": "blueknife.png",
                 "summary": "Part of the Coral Reef Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Green Knife",
                 "artist": findUser('713791218160500796'),
                 "asset": "greenknife.png",
                 "summary": "Part of the Coral Reef Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Mint Knife",
                 "artist": findUser('713791218160500796'),
                 "asset": "mintknife.png",
                 "summary": "Part of the Coral Reef Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Pink Knife",
                 "artist": findUser('713791218160500796'),
                 "asset": "pinkknife.png",
                 "summary": "Part of the Coral Reef Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Purple Knife",
                 "artist": findUser('713791218160500796'),
                 "asset": "purpleknife.png",
                 "summary": "Part of the Coral Reef Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Red Knife",
                 "artist": findUser('713791218160500796'),
                 "asset": "redknife.png",
                 "summary": "Part of the Coral Reef Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Yellow Knife",
                 "artist": findUser('713791218160500796'),
                 "asset": "yellowknife.png",
                 "summary": "Part of the Coral Reef Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "White Jelly",
@@ -8892,6 +9317,9 @@ const categories = [
                 "name": "Evil Dead",
                 "asset": "evildead.png",
                 "summary": "Part of The Garage Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Neon Chainsaw",
@@ -8902,6 +9330,9 @@ const categories = [
                 "name": "Lava Lamp",
                 "asset": "lavadecor.png",
                 "summary": "Part of The Garage Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             }
         ]
     },
@@ -8997,6 +9428,9 @@ const categories = [
                 "name": "Munching",
                 "asset": "munching.png",
                 "summary": "Part of the Pancake Day Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Syrup",
@@ -9022,21 +9456,33 @@ const categories = [
                 "name": "Plumbing",
                 "asset": "plumbing.png",
                 "summary": "Part of the Oxygen Not Included Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Power",
                 "asset": "power.png",
                 "summary": "Part of the Oxygen Not Included Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Radbolts",
                 "asset": "radbolts.png",
                 "summary": "Part of the Oxygen Not Included Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Slickster",
                 "asset": "slickster.png",
                 "summary": "Part of the Oxygen Not Included Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             }
         ]
     },
@@ -9227,51 +9673,81 @@ const categories = [
                 "name": "Kisses",
                 "asset": "kisses.png",
                 "summary": "Part of the Valentine Doodlez Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Envelope",
                 "asset": "envelope.png",
                 "summary": "Part of the Valentine Doodlez Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Love Thoughts",
                 "asset": "lovethoughts.png",
                 "summary": "Part of the Valentine Doodlez Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Blue Flower",
                 "asset": "blueflower.png",
                 "summary": "Part of the Valentine Doodlez Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Pink Flower",
                 "asset": "pinkflower.png",
                 "summary": "Part of the Valentine Doodlez Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Blue Candy",
                 "asset": "blue candy.png",
                 "summary": "Part of the Valentine Doodlez Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Pink Candy",
                 "asset": "pink candy.png",
                 "summary": "Part of the Valentine Doodlez Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Blue Hat",
                 "asset": "bluehat.png",
                 "summary": "Part of the Valentine Doodlez Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Pink Hat",
                 "asset": "pinkhat.png",
                 "summary": "Part of the Valentine Doodlez Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Valentines Day",
                 "asset": "valentinesday.png",
                 "summary": "Part of the Valentine Doodlez Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             }
         ]
     },
@@ -9671,6 +10147,9 @@ const categories = [
                 "name": "Chibi Totoro Animated",
                 "asset": "chibi-totoroanimated.png",
                 "summary": "Part of the My Neighbour Totoro Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Chu Totoro",
@@ -9681,6 +10160,9 @@ const categories = [
                 "name": "Chu Totoro Animated",
                 "asset": "chu-totoroanimated.png",
                 "summary": "Part of the My Neighbour Totoro Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Chibi Totoro Green",
@@ -9706,21 +10188,33 @@ const categories = [
                 "name": "Ladybug",
                 "asset": "ladybug.png",
                 "summary": "Part of the By The Lake Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Ducky",
                 "asset": "ducky.png",
                 "summary": "Part of the By The Lake Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Leaves",
                 "asset": "leaves.png",
                 "summary": "Part of the By The Lake Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Picnic",
                 "asset": "picnic.png",
                 "summary": "Part of the By The Lake Preset pack.",
+                "tags": [
+                    "animated",
+                ]
             }
         ]
     },
@@ -9932,7 +10426,10 @@ const categories = [
                 "name": "Kawaii Cat",
                 "artist": findUser("272359106839314446"),
                 "asset": "kawaiicat.png",
-                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in."
+                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Spheal",
@@ -9944,13 +10441,19 @@ const categories = [
                 "name": "Daggers",
                 "artist": findUser("272359106839314446"),
                 "asset": "daggers.png",
-                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in."
+                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Shuriken",
                 "artist": findUser("272359106839314446"),
                 "asset": "shuriken.png",
-                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in."
+                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Purple Devil",
@@ -9992,7 +10495,10 @@ const categories = [
                 "name": "Green Radar",
                 "artist": findUser("599654027764039690"),
                 "asset": "green-radar.png",
-                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in."
+                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Jellies",
@@ -10004,13 +10510,19 @@ const categories = [
                 "name": "Nyan Cat",
                 "artist": findUser("1143994313034960967"),
                 "asset": "nyancat.png",
-                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in."
+                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Energy Ring",
                 "artist": findUser("1031549301001814059"),
                 "asset": "energyring.png",
-                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in."
+                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Biblically Accurate Angel",
@@ -10034,19 +10546,28 @@ const categories = [
                 "name": "Interstellar Smoke",
                 "artist": findUser("334062444718587905"),
                 "asset": "0 sec delay.png",
-                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in."
+                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Gods Portal",
                 "artist": findUser("334062444718587905"),
                 "asset": "jellys.png",
-                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in."
+                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Dark Fountain Smoke",
                 "artist": findUser("555409394297339936"),
                 "asset": "darkfountainsmoke.png",
-                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in."
+                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Ancient Writings",
@@ -10070,37 +10591,55 @@ const categories = [
                 "name": "Sunflowers & Sakuras",
                 "artist": findUser("710255469519831050"),
                 "asset": "sunflowersandsakurasanimated.png",
-                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in."
+                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Lavender & Lillies",
                 "artist": findUser("710255469519831050"),
                 "asset": "lavenderandlilliesanimated.png",
-                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in."
+                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Dandelion Daydreams",
                 "artist": findUser("710255469519831050"),
                 "asset": "dandeliondaydreamsanimated.png",
-                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in."
+                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Realm Prison",
                 "artist": findUser("334062444718587905"),
                 "asset": "Realm Prison.png",
-                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in."
+                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Dimensional Portal",
                 "artist": findUser("334062444718587905"),
                 "asset": "Dimensional Portal.png",
-                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in."
+                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Gods Mirror",
                 "artist": findUser("334062444718587905"),
                 "asset": "Gods Mirror.png",
-                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in."
+                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in.",
+                "tags": [
+                    "animated",
+                ]
             },
             {
                 "name": "Pink Flowers",
