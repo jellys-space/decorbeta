@@ -392,7 +392,7 @@ const artists = [
                 animated: false
             }
         },
-        sumarry: `Hai!!! My name is alide and i go by she/her, im a big fan of the colour pink 🩷\nhttps://alidewashere.straw.page/`,
+        sumarry: `Hai!!! My name is alide and i go by she/her, im a big fan of the colour pink 🩷\nhttps://alide.straw.page/`,
         colors: {
             primary: "#ffdcb4"
         },
