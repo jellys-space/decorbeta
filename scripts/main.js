@@ -11120,7 +11120,7 @@ function openModal({
                 <img class="pdp-bg" src="${urls.CDN}/banners/${deco.banner}">
                 <div class="decoration-title-container">
                     <h2>${deco.name}</h2>
-                    <p>By <a onclick="openModal()">${deco.artist.name}</a></p>
+                    <p id="item-credits">By ${deco.artist.name}</p>
                 </div>
                 <div class="decoration-container">
                     <img class="avatar" src="${urls.CDN}/assets/default-avatar.png", oncontextmenu="return false;" loading="lazy">
@@ -11131,6 +11131,17 @@ function openModal({
                     <p>Make sure you have read the <a id="guide-page-link">Guide Page</a>. So you know how to apply this Decoration!</p>
                 </div>
             `;
+            if (deco.artist.listed !== false) {
+                modalContent.querySelector('#item-credits').innerHTML = `
+                    By <a id="artist-name">${deco.artist.name}</a>
+                `;
+                modalContent.querySelector('#artist-name').addEventListener("click", () => {
+                    openModal({
+                        type: modal_types.USER,
+                        data: deco.artist
+                    });
+                });
+            }
             modalContent.querySelector('#guide-page-link').addEventListener("click", () => {
                 closeModal();
                 setPage('guide');
