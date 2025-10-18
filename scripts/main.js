@@ -2950,192 +2950,422 @@ const categories = [
             {
                 "name": "Bubble Bundle",
                 "asset": "bubble bundle.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nFor letting everyone know you still take bubble baths.\nWithout a rubber duck for some reason."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nFor letting everyone know you still take bubble baths.\nWithout a rubber duck for some reason.",
+				"tags": [
+					"blue",
+					"white"
+				]
             },
             {
                 "name": "Cassette Beasts UI",
                 "asset": "cassette beasts.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nWhat do people who say 'No I don't like pokemon games' play instead:\n\n(hint: its Cassette Beasts)"
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nWhat do people who say 'No I don't like pokemon games' play instead:\n\n(hint: its Cassette Beasts)",
+				"tags": [
+					"white",
+					"game"
+				]
             },
             {
                 "name": "Deltarune Battle UI",
                 "asset": "Deltarune Battle UI.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nWho said you weren't a BIG SHOT ?\nBIG SHOT\nBIG SHOT\nBIG SHOT"
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nWho said you weren't a BIG SHOT ?\nBIG SHOT\nBIG SHOT\nBIG SHOT",
+				"tags": [
+					"black",
+					"game",
+					"animated"
+				]
             },
             {
                 "name": "Discord Saturn Border",
                 "asset": "space thingy idk.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nYou either like the sega console...\nor you are REALLY into astronomy."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nYou either like the sega console...\nor you are REALLY into astronomy.",
+				"tags": [
+					"orange",
+					"planet",
+					"space"
+				]
             },
             {
                 "name": "Elden Ring UI",
                 "asset": "elden ring.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nIf you like the game enough to set your decor to it, you must be pretty damn good at it."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nIf you like the game enough to set your decor to it, you must be pretty damn good at it.",
+				"tags": [
+					"black",
+					"game"
+				]
             },
             {
                 "name": "GBA-Revile",
                 "asset": "GBA-revile.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nNot a reference literally anyone will understand.\n(If you ignore the GBA aspect of it since everyone knows what the GBA is.)"
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nNot a reference literally anyone will understand.\n(If you ignore the GBA aspect of it since everyone knows what the GBA is.)",
+				"tags": [
+					"green",
+					"purple",
+					"game boy",
+					"game boy advanced",
+					"game",
+					"hat"
+				]
             },
             {
                 "name": "Green Grid",
                 "asset": "green grid.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nYo I love the Xbox Original Titles:\n'Enter the Matrix (2003)' &\n 'The Matrix: Path of Neo (2005)' too!"
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nYo I love the Xbox Original Titles:\n'Enter the Matrix (2003)' &\n 'The Matrix: Path of Neo (2005)' too!",
+				"tags": [
+					"matrix",
+					"game"
+					
+				]
             },
             {
                 "name": "Halo CE UI",
                 "asset": "Halo CE ui.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\n'Sir, permission to leave the station.'\n'For what purpose Master Chief?'\n'To give the Covenant back their bomb.'\n\nwait that's the wrong game."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\n'Sir, permission to leave the station.'\n'For what purpose Master Chief?'\n'To give the Covenant back their bomb.'\n\nwait that's the wrong game.",
+				"tags": [
+					"game",
+					"blue",
+					"grey",
+					"gray"
+				]
             },
             {
                 "name": "Inscryption Prospector",
                 "asset": "Inscryption Prospector.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nIVE STRUCK GOLD!!\n- said no one who let me be happy ever."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nIVE STRUCK GOLD!!\n- said no one who let me be happy ever.",
+				"tags": [
+					"brown",
+					"game"
+				]
             },
             {
                 "name": "Joker P5",
                 "asset": "Joker P5.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nLookin' Cool Joker!\n\nget ready to sleep at 6 pm."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nLookin' Cool Joker!\n\nget ready to sleep at 6 pm.",
+				"tags": [
+					"red",
+					"white",
+					"persona",
+					"game",
+					"knife",
+					"dagger"
+				]
             },
             {
                 "name": "Master Sword Resting Grounds",
                 "asset": "Master Sword Resting Grounds.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\n'The sacred blade...'\nunless you lack three random gems:\n• A big spider in a big tree\n• A big lizard in a big volcano\n• A big jellyfish virus in an even bigger fish"
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\n'The sacred blade...'\nunless you lack three random gems:\n• A big spider in a big tree\n• A big lizard in a big volcano\n• A big jellyfish virus in an even bigger fish",
+				"tags": [
+					"grey",
+					"gray",
+					"sword",
+					"game",
+					"zelda",
+					"tloz",
+					"the legend of zelda",
+					"loz",
+					"nintendo"
+				]
             },
             {
                 "name": "MCJE UI",
                 "asset": "MC ui.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nNothing beats the classic Java experience."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nNothing beats the classic Java experience.",
+				"tags": [
+					"minecraft",
+					"grey",
+					"gray",
+					"heart",
+					"java edition",
+					"game"
+				]
             },
             {
                 "name": "MCPE UI",
                 "asset": "MC pocket ui.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nUnless you prefer the nether reactor core."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nUnless you prefer the nether reactor core.",
+				"tags": [
+					"minecraft",
+					"grey",
+					"gray",
+					"heart",
+					"pocket edition",
+					"game"
+				]
             },
             {
                 "name": "Mimic Hiding",
                 "asset": "Mimic Hiding.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nI feel like this is a great opportunity to Sister-Location yourself."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nI feel like this is a great opportunity to Sister-Location yourself.",
+				"tags": [
+					"red",
+					"robot",
+					"fnaf",
+					"five nights at freddy's",
+					"game"
+				]
             },
             {
                 "name": "NES Game",
                 "asset": "NES game.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nMake sure to abbreviate it or you might get sued. NES, make sure to abbreviate NES. Please."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nMake sure to abbreviate it or you might get sued. NES, make sure to abbreviate NES. Please.",
+				"tags": [
+					"black",
+					"ui",
+					"nintendo",
+					"console"
+				]
             },
             {
                 "name": "New-World",
                 "asset": "MC.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nNothing beats a fresh start, Especially not hardcore mode."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nNothing beats a fresh start, Especially not hardcore mode.",
+				"tags": [
+					"pixel",
+					"minecraft",
+					"game"
+				]
             },
             {
                 "name": "Omori Battle Party UI",
                 "asset": "omori battle party ui.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nI swear i'll play it eventually please don't bully me."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nI swear i'll play it eventually please don't bully me.",
+				"tags": [
+					"white",
+					"black",
+					"pixel",
+					"game"
+				]
             },
             {
                 "name": "P3R Battle UI",
                 "asset": "p3r battle ui.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nMakes Mass Destruction look easy."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nMakes Mass Destruction look easy.",
+				"tags": [
+					"blue",
+					"persona",
+					"game",
+					"persona 3 reload"
+				]
             },
             {
                 "name": "P3R FEMC Battle UI",
                 "asset": "P3R FEMC Battle UI.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nStart Wiping All Out with ease."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nStart Wiping All Out with ease.",
+				"tags": [
+					"red",
+					"pink",
+					"persona",
+					"persona 3 reload",
+					"game"
+				]
             },
             {
                 "name": "P3R Party UI",
                 "asset": "p3r battle party UI.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nTo check Makoto's SP mid fight."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nTo check Makoto's SP mid fight.",
+				"tags": [
+					"blue",
+					"red",
+					"persona",
+					"persona 3 reload",
+					"game"
+				]
             },
             {
                 "name": "P3R FEMC Party UI",
                 "asset": "P3R FEMC Party UI.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nTo check Kotone's HP mid fight."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nTo check Kotone's HP mid fight.",
+				"tags": [
+					"pink",
+					"red",
+					"persona",
+					"persona 3 reload",
+					"game"
+				]
             },
             {
                 "name": "P3R Social Link UI",
                 "asset": "p3r social link.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nIf it wasn't obvious, this is more of a template."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nIf it wasn't obvious, this is more of a template.",
+				"tags": [
+					"blue",
+					"persona",
+					"persona 3 reload",
+					"game"
+				]
             },
             {
                 "name": "P3R FEMC Social Link UI",
                 "asset": "P3R FEMC Social Link UI.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nIf it wasn't obvious, this is more of a template."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nIf it wasn't obvious, this is more of a template.",
+				"tags": [
+					"pink",
+					"purple",
+					"persona",
+					"persona 3 reload",
+					"game"
+				]
             },
             {
                 "name": "P3R Police Station Shop",
                 "asset": "P3R Police Station Shop.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nHelloooo Kurosawa\n\nI love bribing law enforcement."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nHelloooo Kurosawa\n\nI love bribing law enforcement.",
+				"tags": [
+					"black",
+					"ui",
+					"persona",
+					"persona 3 reload",
+					"game"
+				]
             },
             {
                 "name": "P4R Battle UI (Cayman Roader Concept)",
                 "asset": "p4r battle ui (cayman roader concept).png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nDirectly inspired by Cayman Roader's P4R Concept UI video on Youtube!"
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nDirectly inspired by Cayman Roader's P4R Concept UI video on Youtube!",
+				"tags": [
+					"yellow",
+					"persona",
+					"persona 4 revival",
+					"game"
+				]
             },
             {
                 "name": "P4R Battle UI (Own Concept)",
                 "asset": "p4r battle UI (own concept).png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nMy own original concept for P4R's battle UI made at the release of Reload!"
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nMy own original concept for P4R's battle UI made at the release of Reload!",
+				"tags": [
+					"yellow",
+					"persona",
+					"persona 4 revival",
+					"game"
+				]
             },
             {
                 "name": "P5R Social Link",
                 "asset": "p5r social link.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nIf it wasn't obvious, this is more of a template."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nIf it wasn't obvious, this is more of a template.",
+				"tags": [
+					"black",
+					"white",
+					"persona",
+					"persona 5 royal",
+					"game"
+				]
             },
             {
                 "name": "Purple Starforge",
                 "asset": "purple starforge.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nInspired by one of discords unreleased decorations!"
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nInspired by one of discords unreleased decorations!",
+				"tags": [
+					"purple",
+					"blue",
+					"star",
+					"pink"
+				]
             },
             {
                 "name": "Rainbow Mainframe",
                 "asset": "Rainbow_Mainframe.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nI made this as a kind of cheap fix for someone elses decor, (it was way too big) but I'd argue it's so different it counts as a new original work, I am sure copyright law would agree with me there."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nI made this as a kind of cheap fix for someone elses decor, (it was way too big) but I'd argue it's so different it counts as a new original work, I am sure copyright law would agree with me there.",
+				"tags": [
+					"pink",
+					"blue",
+					"purple",
+					"circuit"
+				]
             },
             {
                 "name": "Rick Astley (Get Rick Roll'd lol)",
                 "asset": "rick astley.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nWere no strangers to identity theft,\nYou know the rules, and so do I!\nCriminal Commitments what I'm thinkin of,\nI couldn't take the form of any other guy!\n\nI am so sorry you read this."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nWere no strangers to identity theft,\nYou know the rules, and so do I!\nCriminal Commitments what I'm thinkin of,\nI couldn't take the form of any other guy!\n\nI am so sorry you read this.",
+				"tags": [
+					"white",
+					"black",
+					"music"
+				]
             },
             {
                 "name": "Sprite Outline",
                 "asset": "rounded outline.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nNow we just need some McDonalds french fries to go with it!"
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nNow we just need some McDonalds french fries to go with it!",
+				"tags": [
+					"blue",
+					"green"
+				]
             },
             {
                 "name": "Sunken Submarine",
                 "asset": "uglyglass.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nyou really have Fallen Down huh?\nidk why I put an undertale reference with this Ugly Glass."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nyou really have Fallen Down huh?\nidk why I put an undertale reference with this Ugly Glass.",
+				"tags": [
+					"white",
+					"grey",
+					"gray",
+					"glass"
+				]
             },
             {
                 "name": "The Thing Guy",
                 "asset": "the thing guy.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nI made this very quickly very low effort because it sounded like someone would want it."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nI made this very quickly very low effort because it sounded like someone would want it.",
+				"tags": [
+					"white",
+					"horns",
+					"hat"
+				]
             },
             {
                 "name": "Wheately",
                 "asset": "Wheately.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nAre you still there?\nprobably not after he tried to crush you,\ntotally fair to run btw."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nAre you still there?\nprobably not after he tried to crush you,\ntotally fair to run btw.",
+				"tags": [
+					"portal",
+					"game",
+					"white"
+				]
             },
             {
                 "name": "Windows Selection",
                 "asset": "win-selection.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\npossibly the first decor I ever made,\nI say possibly because I am not sure and I'm not willing to fact check that."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\npossibly the first decor I ever made,\nI say possibly because I am not sure and I'm not willing to fact check that.",
+				"tags": [
+					"black",
+					"ui"
+				]
             },
             {
                 "name": "Your Only Move Is Hustle",
                 "asset": "your only move is hustle.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nIf YOMIH was a mobile game... It'd probably look much better than this let's be real."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nIf YOMIH was a mobile game... It'd probably look much better than this let's be real.",
+				"tags": [
+					"black",
+					"ui",
+					"game"
+				]
             },
             {
                 "name": "P4AU Match UI",
                 "asset": "P4AU Match UI.png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nJoin the shadow ops, Reach out for the truth, Beat the Shadows."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nJoin the shadow ops, Reach out for the truth, Beat the Shadows.",
+				"tags": [
+					"persona",
+					"persona 4 arena ultimax",
+					"game",
+					"blue",
+					"green"
+				]
             },
             {
                 "name": "P4AU Match UI (Readable)",
                 "asset": "P4AU Match UI (Readable).png",
-                "summary": "Part of the Achievement Unlocked Preset pack.\n\nJoin the shadow ops, Reach out for the truth, Beat the Shadows."
+                "summary": "Part of the Achievement Unlocked Preset pack.\n\nJoin the shadow ops, Reach out for the truth, Beat the Shadows.",
+				"tags": [
+					"persona",
+					"persona 4 arena ultimax",
+					"game",
+					"blue",
+					"green"
+				]
             },
         ]
     },
@@ -3150,127 +3380,242 @@ const categories = [
             {
                 "name": "Neon Bear Blue",
                 "asset": "Neon bear blue !.png",
-                "summary": "Part of the Neon Animals Preset pack."
+                "summary": "Part of the Neon Animals Preset pack.",
+				"tags": [
+					"glow",
+					"animal"
+				]
             },
             {
                 "name": "Neon Bear Glow",
                 "asset": "Neon bear glow !.png",
-                "summary": "Part of the Neon Animals Preset pack."
+                "summary": "Part of the Neon Animals Preset pack.",
+				"tags": [
+					"green",
+					"animal"
+				]
             },
             {
                 "name": "Neon Bear Green",
                 "asset": "Neon bear green !.png",
-                "summary": "Part of the Neon Animals Preset pack."
+                "summary": "Part of the Neon Animals Preset pack.",
+				"tags": [
+					"glow",
+					"animal"
+				]
             },
             {
                 "name": "Neon Bear Purple",
                 "asset": "Neon bear purple !.png",
-                "summary": "Part of the Neon Animals Preset pack."
+                "summary": "Part of the Neon Animals Preset pack.",
+				"tags": [
+					"glow",
+					"animal"
+				]
             },
             {
                 "name": "Neon Bear Red",
                 "asset": "Neon bear red !.png",
-                "summary": "Part of the Neon Animals Preset pack."
+                "summary": "Part of the Neon Animals Preset pack.",
+				"tags": [
+					"glow",
+					"animal"
+				]
             },
             {
                 "name": "Neon Bunny Blue",
                 "asset": "Neon bunny blue !.png",
-                "summary": "Part of the Neon Animals Preset pack."
+                "summary": "Part of the Neon Animals Preset pack.",
+				"tags": [
+					"glow",
+					"animal"
+				]
             },
             {
                 "name": "Neon Bunny Glow",
                 "asset": "Neon bunny glow !.png",
-                "summary": "Part of the Neon Animals Preset pack."
+                "summary": "Part of the Neon Animals Preset pack.",
+				"tags": [
+					"green",
+					"animal"
+				]
             },
             {
                 "name": "Neon Bunny Green",
                 "asset": "Neon bunny green !.png",
-                "summary": "Part of the Neon Animals Preset pack."
+                "summary": "Part of the Neon Animals Preset pack.",
+				"tags": [
+					"glow",
+					"animal"
+				]
             },
             {
                 "name": "Neon Bunny Purple",
                 "asset": "Neon bunny purple !.png",
-                "summary": "Part of the Neon Animals Preset pack."
+                "summary": "Part of the Neon Animals Preset pack.",
+				"tags": [
+					"glow",
+					"animal"
+				]
             },
             {
                 "name": "Neon Bunny Red",
                 "asset": "Neon bunny red !.png",
-                "summary": "Part of the Neon Animals Preset pack."
+                "summary": "Part of the Neon Animals Preset pack.",
+				"tags": [
+					"glow",
+					"animal"
+				]
             },
             {
                 "name": "Neon Demon Blue",
                 "asset": "Neon demon blue !.png",
-                "summary": "Part of the Neon Animals Preset pack."
+                "summary": "Part of the Neon Animals Preset pack.",
+				"tags": [
+					"glow",
+					"devil",
+					"horns"
+				]
             },
             {
                 "name": "Neon Demon Glow",
                 "asset": "Neon demon glow  !.png",
-                "summary": "Part of the Neon Animals Preset pack."
+                "summary": "Part of the Neon Animals Preset pack.",
+				"tags": [
+					"green",
+					"devil",
+					"horns"
+				]
             },
             {
                 "name": "Neon Demon Green",
                 "asset": "Neon demon green !.png",
-                "summary": "Part of the Neon Animals Preset pack."
+                "summary": "Part of the Neon Animals Preset pack.",
+				"tags": [
+					"glow",
+					"devil",
+					"horns"
+				]
             },
             {
                 "name": "Neon Demon Purple",
                 "asset": "Neon demon purple !.png",
-                "summary": "Part of the Neon Animals Preset pack."
+                "summary": "Part of the Neon Animals Preset pack.",
+				"tags": [
+					"glow",
+					"devil",
+					"horns"
+				]
             },
             {
                 "name": "Neon Demon Red",
                 "asset": "Neon demon red !.png",
-                "summary": "Part of the Neon Animals Preset pack."
+                "summary": "Part of the Neon Animals Preset pack.",
+				"tags": [
+					"glow",
+					"devil",
+					"horns"
+				]
             },
             {
                 "name": "Neon Kitty Blue",
                 "asset": "Neon kitty blue !.png",
-                "summary": "Part of the Neon Animals Preset pack."
+                "summary": "Part of the Neon Animals Preset pack.",
+				"tags": [
+					"glow",
+					"animal",
+					"cat"
+				]
             },
             {
                 "name": "Neon Kitty Glow",
                 "asset": "Neon kitty glow !.png",
-                "summary": "Part of the Neon Animals Preset pack."
+                "summary": "Part of the Neon Animals Preset pack.",
+				"tags": [
+					"green",
+					"animal",
+					"cat"
+				]
             },
             {
                 "name": "Neon Kitty Green",
                 "asset": "Neon kitty green !.png",
-                "summary": "Part of the Neon Animals Preset pack."
+                "summary": "Part of the Neon Animals Preset pack.",
+				"tags": [
+					"glow",
+					"animal",
+					"cat"
+				]
             },
             {
                 "name": "Neon Kitty Purple",
                 "asset": "Neon purple kitty !.png",
-                "summary": "Part of the Neon Animals Preset pack."
+                "summary": "Part of the Neon Animals Preset pack.",
+				"tags": [
+					"glow",
+					"animal",
+					"cat"
+				]
             },
             {
                 "name": "Neon Kitty Red",
                 "asset": "Neon kitty red !.png",
-                "summary": "Part of the Neon Animals Preset pack."
+                "summary": "Part of the Neon Animals Preset pack.",
+				"tags": [
+					"glow",
+					"animal",
+					"cat"
+				]
             },
             {
                 "name": "Neon Puppy Blue",
                 "asset": "Neon puppy blue !.png",
-                "summary": "Part of the Neon Animals Preset pack."
+                "summary": "Part of the Neon Animals Preset pack.",
+				"tags": [
+					"glow",
+					"animal",
+					"dog"
+				]
             },
             {
                 "name": "Neon Puppy Glow",
                 "asset": "Neon puppy glow !.png",
-                "summary": "Part of the Neon Animals Preset pack."
+                "summary": "Part of the Neon Animals Preset pack.",
+				"tags": [
+					"green",
+					"animal",
+					"dog"
+				]
             },
             {
                 "name": "UNeon Puppy Green",
                 "asset": "Neon puppy green !.png",
-                "summary": "Part of the Neon Animals Preset pack."
+                "summary": "Part of the Neon Animals Preset pack.",
+				"tags": [
+					"glow",
+					"animal",
+					"dog"
+				]
             },
             {
                 "name": "Neon Puppy Purple",
                 "asset": "Neon puppy purple !.png",
-                "summary": "Part of the Neon Animals Preset pack."
+                "summary": "Part of the Neon Animals Preset pack.",
+				"tags": [
+					"glow",
+					"animal",
+					"dog"
+				]
             },
             {
                 "name": "Neon Puppy Red",
                 "asset": "Neon puppy red !.png",
-                "summary": "Part of the Neon Animals Preset pack."
+                "summary": "Part of the Neon Animals Preset pack.",
+				"tags": [
+					"glow",
+					"animal",
+					"dog"
+				]
             },
         ]
     },
