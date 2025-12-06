@@ -750,18 +750,18 @@ const artists = [
     },
     {
         id: "1364263466000584764",
-        name: "Hyst",
+        name: "Kim",
         assets: {
             avatar: {
-                asset: "hyst",
+                asset: "kim",
                 animated: false
             },
             banner: {
-                asset: "hyst",
+                asset: "kim",
                 animated: false
             }
         },
-        sumarry: `[ Let this accursed bullet pierce through them. . ] // 17 and Male, A fan of multiple things.\nlinks: https://www.youtube.com/@Nixenter`,
+        sumarry: `LCB Card: NO. C351361244 LV. 058, Male and 17. Big fan of Yi Sang and Heathcliff.\nlinks: https://www.youtube.com/@StarAndCityJJS`,
         colors: {
             primary: "#3c3c3cff"
         },
@@ -924,6 +924,11 @@ const artists = [
         name: "Queen",
         listed: false
     },
+    {
+        id: "994067777579143190",
+        name: "Saturn",
+        listed: false
+    },
 ];
 
 const categories = [
@@ -966,6 +971,954 @@ const categories = [
                     "pink"
                 ]
             }
+        ]
+    },
+    {
+        "name": "Christmas Xmas",
+        "banner": "xmas-banner.png",
+        "artist_info": `CallieVD, Sharr & T8dyi are accepting commissions. You can find their commission info from the decors below.`,
+        "artists": [
+            findUser('811114235966521364'),
+            findUser('1364263466000584764'),
+            findUser('994067777579143190'),
+            findUser('1088105926030000178'),
+            findUser('808325271949934652'),
+            findUser('1106968627036557322'),
+        ],
+        "decorations": [
+            {
+                "name": "Christmas Lights",
+                "artist": findUser('811114235966521364'),
+                "asset": "christmas lights by cal.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "animated",
+					"cal",
+					"red",
+					"yellow",
+					"green",
+					"blue",
+					"winter",
+					"holidays"
+                ]
+            },
+            {
+                "name": "Christmas Tree",
+                "artist": findUser('811114235966521364'),
+                "asset": "christmas tree by cal.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "green",
+                    "yellow",
+					"blue",
+					"purple",
+                    "cal",
+					"holidays",
+					"winter"
+                ]
+            },
+            {
+                "name": "Gift",
+                "artist": findUser('811114235966521364'),
+                "asset": "gift by cal.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "red",
+					"yellow",
+					"present",
+					"box",
+					"square",
+                    "cal",
+					"winter",
+					"holidays"
+                ]
+            },
+            {
+                "name": "Santa Hat",
+                "artist": findUser('811114235966521364'),
+                "asset": "santa hat by cal.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+					"white",
+					"red",
+					"christmas",
+					"holidays",
+					"winter",
+                    "cal"
+				]
+            },
+            {
+                "name": "Snowman",
+                "artist": findUser('811114235966521364'),
+                "asset": "snowman by cal.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "white",
+					"hat",
+					"black",
+					"green",
+					"scarf",
+                    "cal",
+					"winter",
+					"holidays"
+                ]
+            },
+            {
+                "name": "Wreath",
+                "artist": findUser('811114235966521364'),
+                "asset": "wreath by cal.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+					"green",
+					"red",
+					"bow",
+					"ribbon",
+					"yellow",
+					"bell",
+					"bells",
+					"holidays",
+					"winter",
+                    "cal"
+				]
+            },
+            {
+                "name": "Eternal Singing Angel",
+                "artist": findUser('1088105926030000178'),
+                "asset": "eternal singing angel by sharr.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+					"white",
+					"blue",
+					"snow",
+					"holidays",
+					"winter",
+                    "sharr"
+				]
+            },
+            {
+                "name": "Snow Hat",
+                "artist": findUser('1088105926030000178'),
+                "asset": "snow hat by sharr.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "white",
+					"santa",
+					"red",
+					"animated",
+					"holidays",
+					"winter",
+                    "sharr"
+                ]
+            },
+            {
+                "name": "Flying Santa",
+                "artist": findUser('808325271949934652'),
+                "asset": "flying santa by t8dyi.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+					"black",
+					"red",
+					"white",
+					"yellow",
+					"holidays",
+					"house",
+					"sleigh",
+					"winter",
+                    "t8dyi"
+				]
+            },
+            {
+                "name": "Gingerbread",
+                "artist": findUser('808325271949934652'),
+                "asset": "Gingerbread by t8dyi.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+					"brown",
+					"cookie",
+					"biscuit",
+					"holidays",
+					"winter",
+                    "t8dyi"
+				]
+            },
+			{
+                "name": "Snowman",
+                "artist": findUser('808325271949934652'),
+                "asset": "snowman by t8dyi.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+					"black",
+					"white",
+					"carrot",
+					"hat",
+					"holidays",
+					"winter",
+                    "t8dyi"
+                ]
+            },
+            {
+                "name": "Snowy Forest with a Doe",
+                "artist": findUser('808325271949934652'),
+                "asset": "Snowy Forest with a Doe by t8dyi.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "white",
+					"green",
+					"trees",
+					"confetti",
+					"deer",
+					"holidays",
+					"winter",
+                    "t8dyi"
+                ]
+            },
+            {
+                "name": "Snowy Forest",
+                "artist": findUser('808325271949934652'),
+                "asset": "Snowy Forest by t8dyi.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "white",
+					"green",
+					"trees",
+					"confetti",
+					"holidays",
+					"winter",
+                    "t8dyi"
+                ]
+            },
+            {
+                "name": "Holly Wreath",
+                "artist": findUser('994067777579143190'),
+                "asset": "holly wrath by saturn.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "green",
+					"plant",
+					"plants",
+					"mistletoe",
+					"red",
+					"holidays",
+					"winter",
+                    "saturn"
+                ]
+            },
+            {
+                "name": "Hot Cocoa",
+                "artist": findUser('994067777579143190'),
+                "asset": "hot cocoa by saturn.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "white",
+                    "chocolate",
+                    "brown",
+					"holidays",
+					"winter",
+                    "saturn"
+                ]
+            },
+            {
+                "name": "Being the Gift",
+                "artist": findUser('994067777579143190'),
+                "asset": "being the gift by saturn.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "green",
+					"pink",
+					"red",
+					"square",
+					"holidays",
+                    "saturn"
+                ]
+            },
+            {
+                "name": "Miracle In District 20",
+                "artist": findUser('1364263466000584764'),
+                "asset": "Miracle In District 20 by hyst.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "red",
+					"holidays",
+					"winter",
+					"square",
+                    "kim"
+                ]
+            },
+            {
+                "name": "Holiday (Outis)",
+                "artist": findUser('1364263466000584764'),
+                "asset": "Holiday (Outis) by hyst.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "green",
+					"red",
+					"square",
+					"gift",
+					"present",
+					"santa",
+					"ribbon",
+					"bow",
+					"lights",
+					"winter",
+                    "kim"
+                ]
+            },
+            {
+                "name": "Holiday (Heath)",
+                "artist": findUser('1364263466000584764'),
+                "asset": "Holday (Heath) by hyst.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "green",
+					"red",
+					"gift",
+					"present",
+					"santa",
+					"ribbon",
+					"bow",
+					"lights",
+					"winter",
+                    "kim"
+                ]
+            },
+            {
+                "name": "Christmas Nightmare (Ishmael)",
+                "artist": findUser('1364263466000584764'),
+                "asset": "Christmas Nightmare (Ishmael) by hyst.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "yellow",
+					"lights",
+					"project moon",
+					"game",
+					"limbus company",
+					"snow",
+					"gingerbread",
+					"cookies",
+					"holidays",
+					"winter",
+                    "kim"
+                ]
+            },
+            {
+                "name": "Christmas Nightmare (Gregor)",
+                "artist": findUser('1364263466000584764'),
+                "asset": "Christmas Nightmare (Gregor) by hyst.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "yellow",
+					"lights",
+					"project moon",
+					"game",
+					"limbus company",
+					"snow",
+					"wreath",
+					"stocking",
+					"holidays",
+					"winter",
+                    "kim"
+                ]
+            },
+            {
+                "name": "Black Ornament",
+                "artist": findUser('1106968627036557322'),
+                "asset": "Black Ornament by Nype.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "black",
+					"glow",
+					"bauble",
+                    "nype"
+                ]
+            },
+            {
+                "name": "Blue Ornament",
+                "artist": findUser('1106968627036557322'),
+                "asset": "Blue Ornamentby Nype.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "blue",
+					"glow",
+					"bauble",
+                    "nype"
+                ]
+            },
+            {
+                "name": "Cyan Ornament",
+                "artist": findUser('1106968627036557322'),
+                "asset": "Cyan Ornamentby Nype.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "cyan",
+					"glow",
+					"bauble",
+                    "nype"
+                ]
+            },
+            {
+                "name": "Green Ornament",
+                "artist": findUser('1106968627036557322'),
+                "asset": "Green Ornamentby Nype.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "green",
+					"glow",
+					"bauble",
+                    "nype"
+                ]
+            },
+            {
+                "name": "Orange Ornament",
+                "artist": findUser('1106968627036557322'),
+                "asset": "Orange Ornamentby Nype.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "orange",
+					"glow",
+					"bauble",
+                    "nype"
+                ]
+            },
+            {
+                "name": "Pink Ornament",
+                "artist": findUser('1106968627036557322'),
+                "asset": "Pink Ornamentby Nype.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "pink",
+					"glow",
+					"bauble",
+                    "nype"
+                ]
+            },
+            {
+                "name": "Purple Ornament",
+                "artist": findUser('1106968627036557322'),
+                "asset": "Purple Ornamentby Nype.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "purple",
+					"glow",
+					"bauble",
+                    "nype"
+                ]
+            },
+            {
+                "name": "Red Ornament",
+                "artist": findUser('1106968627036557322'),
+                "asset": "Red Ornamentby Nype.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "red",
+					"glow",
+					"bauble",
+                    "nype"
+                ]
+            },
+            {
+                "name": "White Ornament",
+                "artist": findUser('1106968627036557322'),
+                "asset": "White Ornamentby Nype.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "white",
+					"glow",
+					"bauble",
+                    "nype"
+                ]
+            },
+            {
+                "name": "Yellow Ornament",
+                "artist": findUser('1106968627036557322'),
+                "asset": "Yellow Ornamentby Nype.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "yellow",
+					"glow",
+					"bauble",
+                    "nype"
+                ]
+            },
+        ]
+    },
+    {
+        "name": "Pokemon Legends ZA",
+        "banner": "pokemonza-banner.png",
+        "artist_info": null,
+        "artists": [
+            findUser('811114235966521364')
+        ],
+        "decorations": [
+            {
+                "name": "Zygarde Cell",
+                "asset": "Zygarde Cell.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"green",
+					"video game",
+					"white"
+				]
+            },
+            {
+                "name": "Zygarde Core",
+                "asset": "Zygarde Core.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"green",
+					"video game",
+					"white"
+				]
+            },
+            {
+                "name": "Zygarde 10%",
+                "asset": "Zygarde%2010%25.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"green",
+					"video game",
+					"dog",
+					"animal"
+				]
+            },
+            {
+                "name": "Zygarde 50%",
+                "asset": "Zygarde%2050%25.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"green",
+					"black",
+					"grey",
+					"gray",
+					"video game"
+				]
+            },
+            {
+                "name": "Zygarde 100% Complete",
+                "asset": "Zygarde%20100%25%20Complete.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"green",
+					"black",
+					"grey",
+					"gray",
+					"video game"
+				]
+            },
+            {
+                "name": "Mega Zygarde",
+                "asset": "Mega Zygarde.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"green",
+					"black",
+					"grey",
+					"gray",
+					"video game"
+				]
+            },
+            {
+                "name": "Ange",
+                "asset": "Ange.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"blue",
+					"video game",
+					"plant"
+				]
+            },
+            {
+                "name": "Eternal Flower Floette",
+                "asset": "Eternal Flower Floette.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"red",
+					"blue",
+					"video game",
+					"plant"
+				]
+            },
+            {
+                "name": "AZ",
+                "asset": "AZ.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"white",
+					"hair",
+					"video game"
+				]
+            },
+            {
+                "name": "Harmony",
+                "asset": "Harmony.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"white",
+					"brown",
+					"red",
+					"hat",
+					"hair",
+					"video game"
+				]
+            },
+            {
+                "name": "Paxton",
+                "asset": "Paxton.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"black",
+					"blue",
+					"grey",
+					"gray",
+					"hat",
+					"hair",
+					"video game"
+				]
+            },
+            {
+                "name": "Taunie",
+                "asset": "Taunie.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"pink",
+					"hair",
+					"video game"
+				]
+            },
+            {
+                "name": "Urbain",
+                "asset": "Urbain.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"pink",
+					"hair",
+					"video game"
+				]
+            },
+            {
+                "name": "Lida",
+                "asset": "Lida.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"blue",
+					"hair",
+					"black",
+					"video game"
+				]
+            },
+            {
+                "name": "Naveen",
+                "asset": "Naveen.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"brown",
+					"hair",
+					"white",
+					"video game"
+				]
+            },
+            {
+                "name": "Emma",
+                "asset": "Emma.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"grey",
+					"gray",
+					"beige",
+					"yellow",
+					"detective",
+					"hair",
+					"video game"
+				]
+            },
+            {
+                "name": "L",
+                "asset": "L.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"white",
+					"lysandre",
+					"hair",
+					"video game"
+				]
+            },
+            {
+                "name": "Mable",
+                "asset": "Mable.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"blue",
+					"hair",
+					"researcher",
+					"goggles",
+					"video game"
+				]
+            },
+            {
+                "name": "Nurse Joy",
+                "asset": "Nurse Joy.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"red",
+					"white",
+					"hair",
+					"video game"
+				]
+            },
+            {
+                "name": "Rotom Phone",
+                "asset": "Rotom Phone.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"red",
+					"orange",
+					"video game"
+				]
+            },
+            {
+                "name": "Jett",
+                "asset": "Jett.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"grey",
+					"gray",
+					"gold",
+					"hair",
+					"video game"
+				]
+            },
+            {
+                "name": "Vinnie",
+                "asset": "Vinnie.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"brown",
+					"sun glasses",
+					"buneary",
+					"pancham",
+					"beard",
+					"video game"
+				]
+            },
+            {
+                "name": "Tarragon",
+                "asset": "Tarragon.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"grey",
+					"gray",
+					"brown",
+					"helmet",
+					"hair",
+					"video game"
+				]
+            },
+            {
+                "name": "Canari",
+                "asset": "Canari.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"grey",
+					"gray",
+					"yellow",
+					"blue",
+					"hair",
+					"video game"
+				]
+            },
+            {
+                "name": "Gwynn",
+                "asset": "Gwynn.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"black",
+					"purple",
+					"white",
+					"hair",
+					"video game"
+				]
+            },
+            {
+                "name": "Ivor",
+                "asset": "Ivor.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"yellow",
+					"hair",
+					"video game"
+				]
+            },
+            {
+                "name": "Philippe",
+                "asset": "Philippe.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"black",
+					"spikes",
+					"hair",
+					"video game"
+				]
+            },
+            {
+                "name": "Corbeau",
+                "asset": "Corbeau.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"purple",
+					"pink",
+					"glasses",
+					"hair",
+					"video game"
+				]
+            },
+            {
+                "name": "Lebanne",
+                "asset": "Lebanne.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"white",
+					"maid",
+					"bow",
+					"ribbon",
+					"video game"
+				]
+            },
+            {
+                "name": "Jacinthe",
+                "asset": "Jacinthe.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"purple",
+					"white",
+					"ribbon",
+					"bow",
+					"video game"
+				]
+            },
+            {
+                "name": "Griselle",
+                "asset": "Griselle.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"white",
+					"red",
+					"glasses",
+					"hair",
+					"video game"
+				]
+            },
+            {
+                "name": "Grisham",
+                "asset": "Grisham.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"white",
+					"red",
+					"glasses",
+					"hair",
+					"video game"
+				]
+            },
+            {
+                "name": "Mega Starmie",
+                "asset": "Mega Starmie.png",
+                "summary": "Part of the Pokémon Legends: Z-A Preset pack.",
+				"tags": [
+					"purple",
+					"red",
+					"yellow",
+					"video game"
+				]
+            },
+        ]
+    },
+    {
+        "name": "GENSHIN",
+        "banner": "genshin-banner.png",
+        "artist_info": `Zin is accepting commissions. You can find their commission info from the decors below.`,
+        "artists": [
+            findUser('452679089929846784')
+        ],
+        "decorations": [
+            {
+                "name": "Xiangling Skill",
+                "asset": "xiangling_skill.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Sayu Profile",
+                "asset": "sayu_profile.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Greater Lord Rukkhadevata",
+                "asset": "Greater_Lord_Rukkhadevata.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Nahida",
+                "asset": "Nahida.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Nahida Skill",
+                "asset": "nahida_skill.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Layla Skill",
+                "asset": "layla_skill.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Kirara Skill",
+                "asset": "kirara-skill.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Charlotte Skill",
+                "asset": "charlotte_skill.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Chevreuse Skill",
+                "asset": "chevreuse_skill.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Mualani Profile",
+                "asset": "mualani_profile.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Citlali",
+                "asset": "citlali.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Varesa",
+                "asset": "Varesa.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Skirk",
+                "asset": "Skirk.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Dahlia",
+                "asset": "Dahlia.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Ineffa",
+                "asset": "Ineffa.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Lauma Profile",
+                "asset": "lauma_profile.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
         ]
     },
     {
@@ -1863,7 +2816,7 @@ const categories = [
 					"game",
 					"armour",
 					"armor",
-                    "hyst"
+                    "kim"
 				]
             },
             {
@@ -1876,7 +2829,7 @@ const categories = [
 					"grey",
 					"gray",
 					"game",
-                    "hyst"
+                    "kim"
 				]
             },
             {
@@ -1889,7 +2842,7 @@ const categories = [
 					"grey",
 					"gray",
 					"game",
-                    "hyst"
+                    "kim"
 				]
             },
         ]
@@ -3818,7 +4771,7 @@ const categories = [
     },
     {
         "name": "Project Moon",
-        "banner": "moon-banner.png",
+        "banner": "moon2-banner.png",
         "artist_info": null,
         "artists": [
             findUser('1364263466000584764')
@@ -4512,81 +5465,6 @@ const categories = [
                 "name": "Cinderace",
                 "asset": "0815-Cinderace.png",
                 "summary": "Part of the Pokémon Partners Preset pack."
-            },
-        ]
-    },
-    {
-        "name": "GENSHIN",
-        "banner": "genshin-banner.png",
-        "artist_info": `Zin is accepting commissions. You can find their commission info from the decors below.`,
-        "artists": [
-            findUser('452679089929846784')
-        ],
-        "decorations": [
-            {
-                "name": "Xiangling Skill",
-                "asset": "xiangling_skill.png",
-                "summary": "Part of the Genshin Impact Preset pack.",
-            },
-            {
-                "name": "Greater Lord Rukkhadevata",
-                "asset": "Greater_Lord_Rukkhadevata.png",
-                "summary": "Part of the Genshin Impact Preset pack.",
-            },
-            {
-                "name": "Nahida",
-                "asset": "Nahida.png",
-                "summary": "Part of the Genshin Impact Preset pack.",
-            },
-            {
-                "name": "Nahida Skill",
-                "asset": "nahida_skill.png",
-                "summary": "Part of the Genshin Impact Preset pack.",
-            },
-            {
-                "name": "Layla Skill",
-                "asset": "layla_skill.png",
-                "summary": "Part of the Genshin Impact Preset pack.",
-            },
-            {
-                "name": "Kirara Skill",
-                "asset": "kirara-skill.png",
-                "summary": "Part of the Genshin Impact Preset pack.",
-            },
-            {
-                "name": "Charlotte Skill",
-                "asset": "charlotte_skill.png",
-                "summary": "Part of the Genshin Impact Preset pack.",
-            },
-            {
-                "name": "Chevreuse Skill",
-                "asset": "chevreuse_skill.png",
-                "summary": "Part of the Genshin Impact Preset pack.",
-            },
-            {
-                "name": "Citlali",
-                "asset": "citlali.png",
-                "summary": "Part of the Genshin Impact Preset pack.",
-            },
-            {
-                "name": "Varesa",
-                "asset": "Varesa.png",
-                "summary": "Part of the Genshin Impact Preset pack.",
-            },
-            {
-                "name": "Skirk",
-                "asset": "Skirk.png",
-                "summary": "Part of the Genshin Impact Preset pack.",
-            },
-            {
-                "name": "Dahlia",
-                "asset": "Dahlia.png",
-                "summary": "Part of the Genshin Impact Preset pack.",
-            },
-            {
-                "name": "Ineffa",
-                "asset": "Ineffa.png",
-                "summary": "Part of the Genshin Impact Preset pack.",
             },
         ]
     },
@@ -8271,6 +9149,21 @@ const categories = [
                 "asset": "Sentry Champion.png",
                 "summary": "Part of the Bloons Tower Defense 6 Preset pack."
             },
+            {
+                "name": "Glue Storm",
+                "asset": "Glue Storm.png",
+                "summary": "Part of the Bloons Tower Defense 6 Preset pack."
+            },
+            {
+                "name": "Grand Saboteur",
+                "asset": "Grand Saboteur.png",
+                "summary": "Part of the Bloons Tower Defense 6 Preset pack."
+            },
+            {
+                "name": "Sauda",
+                "asset": "Sauda.png",
+                "summary": "Part of the Bloons Tower Defense 6 Preset pack."
+            },
         ]
     },
     {
@@ -11587,16 +12480,25 @@ const categories = [
                 "name": "Mew Card",
                 "asset": "mewcard.png",
                 "summary": "Part of the Collector's Dream Preset pack.",
+                "tags": [
+                    "pokemon",
+                ]
             },
             {
                 "name": "Charizard Card",
                 "asset": "charizardcard.png",
                 "summary": "Part of the Collector's Dream Preset pack.",
+                "tags": [
+                    "pokemon",
+                ]
             },
             {
                 "name": "Pokéball",
                 "asset": "pokeball.png",
                 "summary": "Part of the Collector's Dream Preset pack.",
+                "tags": [
+                    "pokemon",
+                ]
             },
             {
                 "name": "GameBoy",
@@ -11764,6 +12666,7 @@ const categories = [
                 "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in.",
                 "tags": [
                     "kurama",
+                    "pokemon"
                 ]
             },
             {
@@ -12406,15 +13309,10 @@ function spawnConfettiPiece(container) {
         'styles/2jelly.png',
         'styles/3jelly.png',
         'styles/4jelly.png',
-        'styles/ghost.png',
-        'styles/pumpkin.png',
-        'styles/zombie.png',
-        'styles/ghost.png',
-        'styles/pumpkin.png',
-        'styles/zombie.png',
-        'styles/ghost.png',
-        'styles/pumpkin.png',
-        'styles/zombie.png',
+        'styles/snowflake.png',
+        'styles/snowman.png',
+        'styles/snowman2.png',
+        'styles/tree.png',
     ];
 
     const randomImage = confettiImages[Math.floor(Math.random() * confettiImages.length)];
