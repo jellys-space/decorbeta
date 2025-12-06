@@ -766,11 +766,11 @@ a:hover {
 
 .star:before {
     color: transparent;
-    text-shadow: 0 0 3px rgb(235, 18, 115);
+    text-shadow: 0 0 3px rgb(42, 255, 244);
 }
 
 .star:after {
-    background: rgb(244, 119, 194);
+    background: rgb(255, 255, 255);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -999,4 +999,35 @@ body.page-shake #content {
 .modal-mobile .download-button:active {
   background-color: #3a48a3 !important;
   box-shadow: none !important;
+}
+
+/* Default cursor everywhere */
+html,
+body {
+    cursor: url("styles/Christmas Normal Select.cur"), auto;
+}
+
+/* Link / interactive cursor */
+a,
+a:hover,
+a:focus,
+a:active,
+button,
+button:hover,
+button:focus,
+[role="button"],
+[onclick],
+.top-nav p,
+#options-cog,
+.homenav-grid > div,
+.categories-container .category .banner,
+.categories-container .category .decorations .deco-card,
+.artists-list > div,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="file"],
+.custom-file-label,
+.custom-file-label:hover {
+    cursor: url("styles/link.cur"), pointer !important;
 }
