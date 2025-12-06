@@ -248,11 +248,11 @@ header h1 {
 
 .star:before {
   color: transparent;
-  text-shadow: 0 0 3px rgb(235, 18, 115);
+  text-shadow: 0 0 3px rgb(42, 255, 244);
 }
 
 .star:after {
-  background: rgb(244, 119, 194);
+  background: rgb(255, 255, 255);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
