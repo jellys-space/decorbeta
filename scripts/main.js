@@ -882,7 +882,13 @@ const artists = [
     {
         id: "1317653030652608558",
         name: "reese",
-        listed: false
+        listed: false,
+        commissions: [
+            {
+                "type": "NEGOTIABLE",
+                "link": null
+            }
+        ]
     },
     {
         id: "1358056472809832688",
@@ -933,50 +939,9 @@ const artists = [
 
 const categories = [
     {
-        "name": "Fate Trigger",
-        "banner": "fatetrigger-banner.png",
-        "artist_info": `Join the Fate Trigger Discord at <strong><a href="https://discord.gg/fatetrigger" target="_blank" rel="noopener" class="commission-link">this link</a></strong>.`,
-        "artists": [
-            findUser('334062444718587905')
-        ],
-        "decorations": [
-            {
-                "name": "Xiva",
-                "asset": "Xiva.png",
-                "summary": "Part of the Fate Trigger Preset pack.",
-                "tags": [
-                    "animated",
-                    "blue",
-                    "fire"
-                ]
-            },
-            {
-                "name": "Camille Healing",
-                "asset": "camille healing.png",
-                "summary": "Part of the Fate Trigger Preset pack.",
-                "tags": [
-                    "animated",
-                    "heart",
-                    "green"
-                ]
-            },
-            {
-                "name": "Huxleys Myst",
-                "asset": "Huxleys Myst.png",
-                "summary": "Part of the Fate Trigger Preset pack.",
-                "tags": [
-                    "animated",
-                    "heart",
-                    "purple",
-                    "pink"
-                ]
-            }
-        ]
-    },
-    {
         "name": "Christmas Xmas",
         "banner": "xmas-banner.png",
-        "artist_info": `CallieVD, Sharr & T8dyi are accepting commissions. You can find their commission info from the decors below.`,
+        "artist_info": `Some artists are accepting commissions. You can find their commission info from the decors below.`,
         "artists": [
             findUser('811114235966521364'),
             findUser('1364263466000584764'),
@@ -984,6 +949,9 @@ const categories = [
             findUser('1088105926030000178'),
             findUser('808325271949934652'),
             findUser('1106968627036557322'),
+            findUser('1062953673610772480'),
+            findUser('1033224131795243008'),
+            findUser('995598255612239884'),
         ],
         "decorations": [
             {
@@ -1105,6 +1073,20 @@ const categories = [
 					"santa",
 					"red",
 					"animated",
+					"holidays",
+					"winter",
+                    "sharr"
+                ]
+            },
+            {
+                "name": "Peeking through the icy window",
+                "artist": findUser('1088105926030000178'),
+                "asset": "Peeking through the icy window by sharr.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "white",
+					"santa",
+					"red",
 					"holidays",
 					"winter",
                     "sharr"
@@ -1320,6 +1302,114 @@ const categories = [
                 ]
             },
             {
+                "name": "Reindeer",
+                "artist": findUser('1033224131795243008'),
+                "asset": "reindeer by doger.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "black",
+					"glow",
+					"bauble",
+                    "doger"
+                ]
+            },
+            {
+                "name": "Snowflakes",
+                "artist": findUser('1062953673610772480'),
+                "asset": "snowflakes by clockwork.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "black",
+					"glow",
+					"bauble",
+                    "clockwork"
+                ]
+            },
+            {
+                "name": "Snowflakes Alt",
+                "artist": findUser('1062953673610772480'),
+                "asset": "snowflakes alt by clockwork.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "black",
+					"glow",
+					"bauble",
+                    "clockwork"
+                ]
+            },
+            {
+                "name": "Minecraft Snowflake",
+                "artist": findUser('1062953673610772480'),
+                "asset": "snowflake mc by clockwork.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "black",
+					"glow",
+					"bauble",
+                    "clockwork"
+                ]
+            },
+            {
+                "name": "Misty",
+                "artist": findUser('1062953673610772480'),
+                "asset": "misty_by prince.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "black",
+					"glow",
+					"bauble",
+                    "prince"
+                ]
+            },
+            {
+                "name": "Sakuraflakes",
+                "artist": findUser('1062953673610772480'),
+                "asset": "Sakuraflakes_by prince.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "black",
+					"glow",
+					"bauble",
+                    "prince"
+                ]
+            },
+            {
+                "name": "Snowflakes",
+                "artist": findUser('1062953673610772480'),
+                "asset": "snowflakes_by prince.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "black",
+					"glow",
+					"bauble",
+                    "prince"
+                ]
+            },
+            {
+                "name": "Snowman",
+                "artist": findUser('1062953673610772480'),
+                "asset": "snowman_by prince.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "black",
+					"glow",
+					"bauble",
+                    "prince"
+                ]
+            },
+            {
+                "name": "Winter Pearls",
+                "artist": findUser('1062953673610772480'),
+                "asset": "winter pearls_by prince.png",
+                "summary": "Part of the Frozen Fantasy Preset pack. Add some festive flair to your profile this Christmas!",
+                "tags": [
+                    "black",
+					"glow",
+					"bauble",
+                    "prince"
+                ]
+            },
+            {
                 "name": "Black Ornament",
                 "artist": findUser('1106968627036557322'),
                 "asset": "Black Ornament by Nype.png",
@@ -1438,6 +1528,357 @@ const categories = [
 					"bauble",
                     "nype"
                 ]
+            },
+        ]
+    },
+    {
+        "name": "Checkpoint",
+        "banner": "checkpoint-banner.png",
+        "artist_info": `This category was made by a mixture of cool people. Some are accepting commissions. You can find their commission info from the decors below.`,
+        "artists": [
+            findUser('1147940825330876538'),
+            findUser('808325271949934652'),
+            findUser('1062953673610772480'),
+            findUser('995598255612239884')
+        ],
+        "decorations": [
+            {
+                "name": "Bonsai - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "bonsai.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+					"white",
+					"gray",
+					"grey",
+					"game",
+                    "subspace"
+				]
+            },
+            {
+                "name": "Donut - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "donut.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+					"white",
+					"gray",
+					"grey",
+					"game",
+                    "subspace"
+				]
+            },
+            {
+                "name": "Capybara - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "capybara.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+					"white",
+					"gray",
+					"grey",
+					"game",
+                    "subspace"
+				]
+            },
+            {
+                "name": "Disco - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "disco.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+					"white",
+					"gray",
+					"grey",
+					"game",
+                    "subspace"
+				]
+            },
+            {
+                "name": "Disco (Alt) - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "disco2.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+					"white",
+					"gray",
+					"grey",
+					"game",
+                    "subspace"
+				]
+            },
+            {
+                "name": "Origami - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "crane.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+					"white",
+					"gray",
+					"grey",
+					"game",
+                    "subspace"
+				]
+            },
+            {
+                "name": "Snail - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "snail.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+					"white",
+					"gray",
+					"grey",
+					"game",
+                    "subspace"
+				]
+            },
+            {
+                "name": "Ducky - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "duck.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+					"white",
+					"gray",
+					"grey",
+					"game",
+                    "subspace"
+				]
+            },
+            {
+                "name": "Banana - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "banan.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+					"white",
+					"gray",
+					"grey",
+					"game",
+                    "subspace"
+				]
+            },
+            {
+                "name": "Cassette - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "cassette.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+					"white",
+					"gray",
+					"grey",
+					"game",
+                    "subspace"
+				]
+            },
+            {
+                "name": "Frog - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "frog.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+					"white",
+					"gray",
+					"grey",
+					"game",
+                    "subspace"
+				]
+            },
+            {
+                "name": "Seal - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "seal.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+					"white",
+					"gray",
+					"grey",
+					"game",
+                    "subspace"
+				]
+            },
+            {
+                "name": "Shark - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "shark.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+					"white",
+					"gray",
+					"grey",
+					"game",
+                    "subspace"
+				]
+            },
+            {
+                "name": "Saxophone - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "saxophone.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+					"white",
+					"gray",
+					"grey",
+					"game",
+                    "subspace"
+				]
+            },
+            {
+                "name": "Cat - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "catcheckpoint.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+					"white",
+					"gray",
+					"grey",
+					"game",
+                    "subspace"
+				]
+            },
+            {
+                "name": "Flame - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "flame.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+					"white",
+					"gray",
+					"grey",
+					"game",
+                    "subspace"
+				]
+            },
+            {
+                "name": "Boat - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "boatcheckpoint.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+					"white",
+					"gray",
+					"grey",
+					"game",
+                    "subspace"
+				]
+            },
+            {
+                "name": "Bumblebee - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "bumblebee.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+					"white",
+					"gray",
+					"grey",
+					"game",
+                    "subspace"
+				]
+            },
+            {
+                "name": "Bee Movie - Checkpoint 2025",
+                "artist": findUser('1062953673610772480'),
+                "asset": "bee by clockwork.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+					"white",
+					"gray",
+					"grey",
+					"game",
+                    "subspace"
+				]
+            },
+            {
+                "name": "Dog - Checkpoint 2025",
+                "artist": findUser('995598255612239884'),
+                "asset": "dog by prince.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+					"white",
+					"gray",
+					"grey",
+					"game",
+                    "subspace"
+				]
+            },
+            {
+                "name": "Decor - Checkpoint 2025",
+                "artist": findUser('1147940825330876538'),
+                "asset": "decor.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+					"white",
+					"gray",
+					"grey",
+					"game",
+                    "subspace"
+				]
+            },
+            {
+                "name": "Vencord - Checkpoint 2025",
+                "artist": findUser('1147940825330876538'),
+                "asset": "vencord.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+					"white",
+					"gray",
+					"grey",
+					"game",
+                    "subspace"
+				]
+            },
+            {
+                "name": "Jelly - Checkpoint 2025",
+                "artist": findUser('1147940825330876538'),
+                "asset": "jelly.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+					"white",
+					"gray",
+					"grey",
+					"game",
+                    "subspace"
+				]
+            },
+            {
+                "name": "Wumpus - Checkpoint 2025",
+                "artist": findUser('1147940825330876538'),
+                "asset": "wumpus.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+					"white",
+					"gray",
+					"grey",
+					"game",
+                    "subspace"
+				]
+            },
+            {
+                "name": "Clyde - Checkpoint 2025",
+                "artist": findUser('1147940825330876538'),
+                "asset": "clyde.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+					"white",
+					"gray",
+					"grey",
+					"game",
+                    "subspace"
+				]
+            },
+            {
+                "name": "Orbs - Checkpoint 2025",
+                "artist": findUser('1147940825330876538'),
+                "asset": "orbs.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+					"white",
+					"gray",
+					"grey",
+					"game",
+                    "subspace"
+				]
             },
         ]
     },
@@ -1832,8 +2273,48 @@ const categories = [
         ]
     },
     {
+        "name": "Honkai Star Rail",
+        "banner": "starrail-banner.png",
+        "artist_info": `Zin is accepting commissions. You can find their commission info from the decors below.`,
+        "artists": [
+            findUser('452679089929846784')
+        ],
+        "decorations": [
+            {
+                "name": "Evernight Profile",
+                "asset": "evernight_profile.png",
+                "summary": "Part of the Honkai Star Rail Preset pack.",
+            },
+            {
+                "name": "Herta Profile",
+                "asset": "herta_profile.png",
+                "summary": "Part of the Honkai Star Rail Preset pack.",
+            },
+            {
+                "name": "Therta Profile",
+                "asset": "therta_profile (The Herta).png",
+                "summary": "Part of the Honkai Star Rail Preset pack.",
+            },
+            {
+                "name": "Trianne Profile",
+                "asset": "trianne_profile.png",
+                "summary": "Part of the Honkai Star Rail Preset pack.",
+            },
+            {
+                "name": "Tribbie Profile",
+                "asset": "tribbie_profile.png",
+                "summary": "Part of the Honkai Star Rail Preset pack.",
+            },
+            {
+                "name": "Trinnon Profile",
+                "asset": "trinnon_profile.png",
+                "summary": "Part of the Honkai Star Rail Preset pack.",
+            },
+        ]
+    },
+    {
         "name": "GENSHIN",
-        "banner": "genshin-banner.png",
+        "banner": "newgenshin-banner.png",
         "artist_info": `Zin is accepting commissions. You can find their commission info from the decors below.`,
         "artists": [
             findUser('452679089929846784')
@@ -1919,6 +2400,47 @@ const categories = [
                 "asset": "lauma_profile.png",
                 "summary": "Part of the Genshin Impact Preset pack.",
             },
+        ]
+    },
+    {
+        "name": "Fate Trigger",
+        "banner": "fatetrigger-banner.png",
+        "artist_info": `Join the Fate Trigger Discord at <strong><a href="https://discord.gg/fatetrigger" target="_blank" rel="noopener" class="commission-link">this link</a></strong>.`,
+        "artists": [
+            findUser('334062444718587905')
+        ],
+        "decorations": [
+            {
+                "name": "Xiva",
+                "asset": "Xiva.png",
+                "summary": "Part of the Fate Trigger Preset pack.",
+                "tags": [
+                    "animated",
+                    "blue",
+                    "fire"
+                ]
+            },
+            {
+                "name": "Camille Healing",
+                "asset": "camille healing.png",
+                "summary": "Part of the Fate Trigger Preset pack.",
+                "tags": [
+                    "animated",
+                    "heart",
+                    "green"
+                ]
+            },
+            {
+                "name": "Huxleys Myst",
+                "asset": "Huxleys Myst.png",
+                "summary": "Part of the Fate Trigger Preset pack.",
+                "tags": [
+                    "animated",
+                    "heart",
+                    "purple",
+                    "pink"
+                ]
+            }
         ]
     },
     {
@@ -5108,7 +5630,7 @@ const categories = [
     {
         "name": "Pressure",
         "banner": "pressure-banner.png",
-        "artist_info": null,
+        "artist_info": `Reese is accepting commissions. You can find his commission info from the decors below.`,
         "artists": [
             findUser('1317653030652608558')
         ],
@@ -12966,6 +13488,15 @@ const categories = [
                 "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in.",
                 "tags": [
                     "nuki",
+                ]
+            },
+            {
+                "name": "Touch Grass",
+                "artist": findUser("1147940825330876538"),
+                "asset": "touch grass.png",
+                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in.",
+                "tags": [
+                    "jelly",
                 ]
             },
         ]
