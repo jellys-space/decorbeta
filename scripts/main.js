@@ -1625,6 +1625,15 @@ const categories = [
 				]
             },
             {
+                "name": "Cat - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "catcheckpoint.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+                    "animated"
+				]
+            },
+            {
                 "name": "Cassette - Checkpoint 2025",
                 "artist": findUser('808325271949934652'),
                 "asset": "cassette.png",
@@ -1664,15 +1673,6 @@ const categories = [
                 "name": "Saxophone - Checkpoint 2025",
                 "artist": findUser('808325271949934652'),
                 "asset": "saxophone.png",
-                "summary": "Part of the Checkpoint Preset pack.",
-                "tags": [
-                    "animated"
-				]
-            },
-            {
-                "name": "Cat - Checkpoint 2025",
-                "artist": findUser('808325271949934652'),
-                "asset": "catcheckpoint.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
                     "animated"
@@ -1736,6 +1736,15 @@ const categories = [
                 "name": "Flower - Checkpoint 2025",
                 "artist": findUser('808325271949934652'),
                 "asset": "flower_checkpoint.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+                    "animated"
+				]
+            },
+            {
+                "name": "Axolotl - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "axolotl_checkpoint.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
                     "animated"
