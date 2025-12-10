@@ -1548,11 +1548,7 @@ const categories = [
                 "asset": "bonsai.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
-					"white",
-					"gray",
-					"grey",
-					"game",
-                    "subspace"
+                    "animated"
 				]
             },
             {
@@ -1561,11 +1557,7 @@ const categories = [
                 "asset": "donut.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
-					"white",
-					"gray",
-					"grey",
-					"game",
-                    "subspace"
+                    "animated"
 				]
             },
             {
@@ -1574,11 +1566,7 @@ const categories = [
                 "asset": "capybara.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
-					"white",
-					"gray",
-					"grey",
-					"game",
-                    "subspace"
+                    "animated"
 				]
             },
             {
@@ -1587,11 +1575,7 @@ const categories = [
                 "asset": "disco.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
-					"white",
-					"gray",
-					"grey",
-					"game",
-                    "subspace"
+                    "animated"
 				]
             },
             {
@@ -1600,11 +1584,7 @@ const categories = [
                 "asset": "disco2.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
-					"white",
-					"gray",
-					"grey",
-					"game",
-                    "subspace"
+                    "animated"
 				]
             },
             {
@@ -1613,11 +1593,7 @@ const categories = [
                 "asset": "crane.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
-					"white",
-					"gray",
-					"grey",
-					"game",
-                    "subspace"
+                    "animated"
 				]
             },
             {
@@ -1626,11 +1602,7 @@ const categories = [
                 "asset": "snail.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
-					"white",
-					"gray",
-					"grey",
-					"game",
-                    "subspace"
+                    "animated"
 				]
             },
             {
@@ -1639,11 +1611,7 @@ const categories = [
                 "asset": "duck.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
-					"white",
-					"gray",
-					"grey",
-					"game",
-                    "subspace"
+                    "animated"
 				]
             },
             {
@@ -1652,11 +1620,7 @@ const categories = [
                 "asset": "banan.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
-					"white",
-					"gray",
-					"grey",
-					"game",
-                    "subspace"
+                    "animated"
 				]
             },
             {
@@ -1665,11 +1629,7 @@ const categories = [
                 "asset": "cassette.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
-					"white",
-					"gray",
-					"grey",
-					"game",
-                    "subspace"
+                    "animated"
 				]
             },
             {
@@ -1678,11 +1638,7 @@ const categories = [
                 "asset": "frog.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
-					"white",
-					"gray",
-					"grey",
-					"game",
-                    "subspace"
+                    "animated"
 				]
             },
             {
@@ -1691,11 +1647,7 @@ const categories = [
                 "asset": "seal.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
-					"white",
-					"gray",
-					"grey",
-					"game",
-                    "subspace"
+                    "animated"
 				]
             },
             {
@@ -1704,11 +1656,7 @@ const categories = [
                 "asset": "shark.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
-					"white",
-					"gray",
-					"grey",
-					"game",
-                    "subspace"
+                    "animated"
 				]
             },
             {
@@ -1717,11 +1665,7 @@ const categories = [
                 "asset": "saxophone.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
-					"white",
-					"gray",
-					"grey",
-					"game",
-                    "subspace"
+                    "animated"
 				]
             },
             {
@@ -1730,11 +1674,7 @@ const categories = [
                 "asset": "catcheckpoint.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
-					"white",
-					"gray",
-					"grey",
-					"game",
-                    "subspace"
+                    "animated"
 				]
             },
             {
@@ -1743,11 +1683,7 @@ const categories = [
                 "asset": "flame.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
-					"white",
-					"gray",
-					"grey",
-					"game",
-                    "subspace"
+                    "animated"
 				]
             },
             {
@@ -1756,11 +1692,34 @@ const categories = [
                 "asset": "boatcheckpoint.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
-					"white",
-					"gray",
-					"grey",
-					"game",
-                    "subspace"
+                    "animated"
+				]
+            },
+            {
+                "name": "Fox - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "fox_checkpoint.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+                    "animated"
+				]
+            },
+            {
+                "name": "Campfire - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "fireplace.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+                    "animated"
+				]
+            },
+            {
+                "name": "Toadstool - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "shroom.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+                    "animated"
 				]
             },
             {
@@ -1769,11 +1728,7 @@ const categories = [
                 "asset": "bumblebee.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
-					"white",
-					"gray",
-					"grey",
-					"game",
-                    "subspace"
+                    "animated"
 				]
             },
             {
@@ -1782,11 +1737,7 @@ const categories = [
                 "asset": "bee by clockwork.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
-					"white",
-					"gray",
-					"grey",
-					"game",
-                    "subspace"
+                    "animated"
 				]
             },
             {
@@ -1795,11 +1746,7 @@ const categories = [
                 "asset": "dog by prince.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
-					"white",
-					"gray",
-					"grey",
-					"game",
-                    "subspace"
+                    "animated"
 				]
             },
             {
@@ -1808,11 +1755,7 @@ const categories = [
                 "asset": "decor.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
-					"white",
-					"gray",
-					"grey",
-					"game",
-                    "subspace"
+                    "animated"
 				]
             },
             {
@@ -1821,11 +1764,7 @@ const categories = [
                 "asset": "vencord.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
-					"white",
-					"gray",
-					"grey",
-					"game",
-                    "subspace"
+                    "animated"
 				]
             },
             {
@@ -1834,11 +1773,7 @@ const categories = [
                 "asset": "jelly.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
-					"white",
-					"gray",
-					"grey",
-					"game",
-                    "subspace"
+                    "animated"
 				]
             },
             {
@@ -1847,11 +1782,7 @@ const categories = [
                 "asset": "wumpus.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
-					"white",
-					"gray",
-					"grey",
-					"game",
-                    "subspace"
+                    "animated"
 				]
             },
             {
@@ -1860,11 +1791,7 @@ const categories = [
                 "asset": "clyde.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
-					"white",
-					"gray",
-					"grey",
-					"game",
-                    "subspace"
+                    "animated"
 				]
             },
             {
@@ -1873,11 +1800,7 @@ const categories = [
                 "asset": "orbs.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
-					"white",
-					"gray",
-					"grey",
-					"game",
-                    "subspace"
+                    "animated"
 				]
             },
         ]
@@ -2281,34 +2204,52 @@ const categories = [
         ],
         "decorations": [
             {
-                "name": "Evernight Profile",
-                "asset": "evernight_profile.png",
-                "summary": "Part of the Honkai Star Rail Preset pack.",
-            },
-            {
                 "name": "Herta Profile",
                 "asset": "herta_profile.png",
                 "summary": "Part of the Honkai Star Rail Preset pack.",
+                "tags": [
+					"flower",
+				]
             },
             {
                 "name": "Therta Profile",
                 "asset": "therta_profile (The Herta).png",
                 "summary": "Part of the Honkai Star Rail Preset pack.",
-            },
-            {
-                "name": "Trianne Profile",
-                "asset": "trianne_profile.png",
-                "summary": "Part of the Honkai Star Rail Preset pack.",
+                "tags": [
+					"flower",
+				]
             },
             {
                 "name": "Tribbie Profile",
                 "asset": "tribbie_profile.png",
                 "summary": "Part of the Honkai Star Rail Preset pack.",
+                "tags": [
+					"flower",
+				]
+            },
+            {
+                "name": "Trianne Profile",
+                "asset": "trianne_profile.png",
+                "summary": "Part of the Honkai Star Rail Preset pack.",
+                "tags": [
+					"flower",
+				]
             },
             {
                 "name": "Trinnon Profile",
                 "asset": "trinnon_profile.png",
                 "summary": "Part of the Honkai Star Rail Preset pack.",
+                "tags": [
+					"flower",
+				]
+            },
+            {
+                "name": "Evernight Profile",
+                "asset": "evernight_profile.png",
+                "summary": "Part of the Honkai Star Rail Preset pack.",
+                "tags": [
+					"flower",
+				]
             },
         ]
     },
@@ -2398,6 +2339,11 @@ const categories = [
             {
                 "name": "Lauma Profile",
                 "asset": "lauma_profile.png",
+                "summary": "Part of the Genshin Impact Preset pack.",
+            },
+            {
+                "name": "Jahoda Profile",
+                "asset": "jahoda_profile.png",
                 "summary": "Part of the Genshin Impact Preset pack.",
             },
         ]
