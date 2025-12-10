@@ -1539,7 +1539,8 @@ const categories = [
             findUser('1147940825330876538'),
             findUser('808325271949934652'),
             findUser('1062953673610772480'),
-            findUser('995598255612239884')
+            findUser('995598255612239884'),
+            findUser('1106968627036557322')
         ],
         "decorations": [
             {
@@ -1732,6 +1733,42 @@ const categories = [
 				]
             },
             {
+                "name": "Flower - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "flower_checkpoint.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+                    "animated"
+				]
+            },
+            {
+                "name": "Banana (Beta) - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "beta_banana.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+                    "animated"
+				]
+            },
+            {
+                "name": "Moon - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "moon_checkpoint.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+                    "animated"
+				]
+            },
+            {
+                "name": "Cursed Jellyfish - Checkpoint 2025",
+                "artist": findUser('808325271949934652'),
+                "asset": "cursedjelly_checkpoint.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+                    "animated"
+				]
+            },
+            {
                 "name": "Bee Movie - Checkpoint 2025",
                 "artist": findUser('1062953673610772480'),
                 "asset": "bee by clockwork.png",
@@ -1744,6 +1781,15 @@ const categories = [
                 "name": "Dog - Checkpoint 2025",
                 "artist": findUser('995598255612239884'),
                 "asset": "dog by prince.png",
+                "summary": "Part of the Checkpoint Preset pack.",
+                "tags": [
+                    "animated"
+				]
+            },
+            {
+                "name": "Moon - Checkpoint 2025",
+                "artist": findUser('1106968627036557322'),
+                "asset": "moon_checkpoint2.png",
                 "summary": "Part of the Checkpoint Preset pack.",
                 "tags": [
                     "animated"
