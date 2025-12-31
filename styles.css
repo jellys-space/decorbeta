@@ -766,7 +766,7 @@ a:hover {
 
 .star:before {
     color: transparent;
-    text-shadow: 0 0 3px rgb(42, 255, 244);
+    text-shadow: 0 0 3px rgb(56, 42, 255);
 }
 
 .star:after {
@@ -1004,7 +1004,7 @@ body.page-shake #content {
 /* Default cursor everywhere */
 html,
 body {
-    cursor: url("styles/Christmas Normal Select.cur"), auto;
+    cursor: url("styles/jelly.cur"), auto;
 }
 
 /* Link / interactive cursor */
@@ -1029,5 +1029,5 @@ input[type="reset"],
 input[type="file"],
 .custom-file-label,
 .custom-file-label:hover {
-    cursor: url("styles/link.cur"), pointer !important;
+    cursor: url("styles/jellylink.cur"), pointer !important;
 }
