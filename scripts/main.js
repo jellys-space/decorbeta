@@ -941,7 +941,7 @@ const categories = [
     {
         "name": "Pokemon Legends ZA",
         "banner": "pokemonza-banner.png",
-        "artist_info": null,
+        "artist_info": `CallieVD is accepting commissions. You can find their commission info from the decors below.`,
         "artists": [
             findUser('811114235966521364')
         ],
@@ -1423,6 +1423,56 @@ const categories = [
                     "electric",
                     "video game"
                 ]
+            },
+        ]
+    },
+    {
+        "name": "Bee Swarm Simulator",
+        "banner": "bee-banner.png",
+        "artist_info": `Alide is accepting commissions. You can find their commission info from the decors below.`,
+        "artists": [
+            findUser('1096831760089763860')
+        ],
+        "decorations": [
+            {
+                "name": "Demon Bee",
+                "asset": "Demon bee.png",
+                "summary": "Part of the Bee Swarm Simulator Preset pack.",
+            },
+            {
+                "name": "Tadpole Bee",
+                "asset": "Tadpole bee.png",
+                "summary": "Part of the Bee Swarm Simulator Preset pack.",
+            },
+            {
+                "name": "Buoyant Bee",
+                "asset": "Buoyant bee.png",
+                "summary": "Part of the Bee Swarm Simulator Preset pack.",
+            },
+            {
+                "name": "Precise Bee",
+                "asset": "Precise bee.png",
+                "summary": "Part of the Bee Swarm Simulator Preset pack.",
+            },
+            {
+                "name": "Spicy Bee",
+                "asset": "Spicy bee.png",
+                "summary": "Part of the Bee Swarm Simulator Preset pack.",
+            },
+            {
+                "name": "Fuzzy Bee",
+                "asset": "Fuzzy bee.png",
+                "summary": "Part of the Bee Swarm Simulator Preset pack.",
+            },
+            {
+                "name": "Tabby Bee",
+                "asset": "Tabby bee.png",
+                "summary": "Part of the Bee Swarm Simulator Preset pack.",
+            },
+            {
+                "name": "Gummy Bee",
+                "asset": "Gummy bee.png",
+                "summary": "Part of the Bee Swarm Simulator Preset pack.",
             },
         ]
     },
