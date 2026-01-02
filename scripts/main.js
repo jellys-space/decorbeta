@@ -576,7 +576,7 @@ const artists = [
                 animated: false
             }
         },
-        sumarry: `Hihi Im Zin or Z for short, the creator of the Genshin Impact decors and most of the Jelly images you see on the website.\nI plan on 2 batches in the near future so look out for those !!\nI do commission work for decors I feel comfortable doing, like genshin characters i havent put onto the website like Columbina or Varesa.\nZenless Zone Zero, Honkai Star Rail, Wuthering Waves, and Neverness To Everness are in my future todo lists, but im willing to do commission for those games as well, depending on difficulty ^^`,
+        sumarry: `Hihi Im Zin, Creator of the Genshin Impact and Honkai Star Rail decors plus most of the Jelly sprites on the website.\nEach wave i try to do a latest character for each respective game plus around 3 more for a total of usually 4 per set per wave.\nAs Honkai Star Rail's set is relatively new, it might be a bit before i do a new set like Zenless Zone Zero, Wuthering Waves, or any other future games sets i do.\nFor "commission" as Jelly puts it, it is a request basis (ask and i may do it without fee) so you can ask for a character i have yet to put on the site!`,
         colors: {
             primary: "#72ff77"
         },
