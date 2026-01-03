@@ -2412,6 +2412,8 @@ const categories = [
                 "summary": "Part of the Honkai Star Rail Preset pack.",
                 "tags": [
 					"flower",
+                    "purple",
+                    "hat"
 				]
             },
             {
@@ -2420,6 +2422,8 @@ const categories = [
                 "summary": "Part of the Honkai Star Rail Preset pack.",
                 "tags": [
 					"flower",
+                    "purple",
+                    "hat"
 				]
             },
             {
@@ -2428,6 +2432,8 @@ const categories = [
                 "summary": "Part of the Honkai Star Rail Preset pack.",
                 "tags": [
 					"flower",
+                    "white",
+                    "hat"
 				]
             },
             {
@@ -2436,6 +2442,7 @@ const categories = [
                 "summary": "Part of the Honkai Star Rail Preset pack.",
                 "tags": [
 					"flower",
+                    "white",
 				]
             },
             {
@@ -2444,6 +2451,7 @@ const categories = [
                 "summary": "Part of the Honkai Star Rail Preset pack.",
                 "tags": [
 					"flower",
+                    "white",
 				]
             },
             {
@@ -2468,86 +2476,143 @@ const categories = [
                 "name": "Xiangling Skill",
                 "asset": "xiangling_skill.png",
                 "summary": "Part of the Genshin Impact Preset pack.",
+                "tags": [
+					"orange",
+				]
             },
             {
                 "name": "Sayu Profile",
                 "asset": "sayu_profile.png",
                 "summary": "Part of the Genshin Impact Preset pack.",
+                "tags": [
+					"brown",
+                    "ears",
+                    "leaf",
+				]
             },
             {
                 "name": "Greater Lord Rukkhadevata",
                 "asset": "Greater_Lord_Rukkhadevata.png",
                 "summary": "Part of the Genshin Impact Preset pack.",
+                "tags": [
+					"green",
+				]
             },
             {
                 "name": "Nahida",
                 "asset": "Nahida.png",
                 "summary": "Part of the Genshin Impact Preset pack.",
+                "tags": [
+					"green",
+				]
             },
             {
                 "name": "Nahida Skill",
                 "asset": "nahida_skill.png",
                 "summary": "Part of the Genshin Impact Preset pack.",
+                "tags": [
+					"green",
+				]
             },
             {
                 "name": "Layla Skill",
                 "asset": "layla_skill.png",
                 "summary": "Part of the Genshin Impact Preset pack.",
+                "tags": [
+					"blue",
+				]
             },
             {
                 "name": "Kirara Skill",
                 "asset": "kirara-skill.png",
                 "summary": "Part of the Genshin Impact Preset pack.",
+                "tags": [
+					"green",
+				]
             },
             {
                 "name": "Charlotte Skill",
                 "asset": "charlotte_skill.png",
                 "summary": "Part of the Genshin Impact Preset pack.",
+                "tags": [
+					"blue",
+				]
             },
             {
                 "name": "Chevreuse Skill",
                 "asset": "chevreuse_skill.png",
                 "summary": "Part of the Genshin Impact Preset pack.",
+                "tags": [
+					"purple",
+				]
             },
             {
                 "name": "Mualani Profile",
                 "asset": "mualani_profile.png",
                 "summary": "Part of the Genshin Impact Preset pack.",
+                "tags": [
+					"blue",
+                    "hat",
+				]
             },
             {
                 "name": "Citlali",
                 "asset": "citlali.png",
                 "summary": "Part of the Genshin Impact Preset pack.",
+                "tags": [
+					"purple",
+				]
             },
             {
                 "name": "Varesa",
                 "asset": "Varesa.png",
                 "summary": "Part of the Genshin Impact Preset pack.",
+                "tags": [
+					"horn",
+				]
             },
             {
                 "name": "Skirk",
                 "asset": "Skirk.png",
                 "summary": "Part of the Genshin Impact Preset pack.",
+                "tags": [
+					"blue",
+                    "purple",
+				]
             },
             {
                 "name": "Dahlia",
                 "asset": "Dahlia.png",
                 "summary": "Part of the Genshin Impact Preset pack.",
+                "tags": [
+					"hat",
+				]
             },
             {
                 "name": "Ineffa",
                 "asset": "Ineffa.png",
                 "summary": "Part of the Genshin Impact Preset pack.",
+                "tags": [
+					"brown",
+                    "gold",
+                    "hat",
+				]
             },
             {
                 "name": "Lauma Profile",
                 "asset": "lauma_profile.png",
                 "summary": "Part of the Genshin Impact Preset pack.",
+                "tags": [
+					"horn",
+				]
             },
             {
                 "name": "Jahoda Profile",
                 "asset": "jahoda_profile.png",
                 "summary": "Part of the Genshin Impact Preset pack.",
+                "tags": [
+					"hat",
+				]
             },
         ]
     },
