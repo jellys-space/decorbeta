@@ -190,6 +190,10 @@
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const rand = (a, b) => a + Math.random() * (b - a);
   const chance = (p) => Math.random() < p;
+  
+  function isIOS() {
+    return /iPad|iPhone|iPod/.test(navigator.userAgent);
+  }
 
   function isLikelyMobile() {
     // simple fallback; you can replace with your own detection later
@@ -249,7 +253,11 @@
   const musicMenu = makeAudio(ASSETS.musicMenu, true, 0.45);
   const musicGame = makeAudio(ASSETS.musicGame, true, 0.5);
 
-  const sfxShoot = makeAudio(ASSETS.sfxShoot, false, 0.12);
+  const sfxShoot = makeAudio(
+    ASSETS.sfxShoot,
+    false,
+    isIOS() ? 0.06 : 0.12
+  );
   const sfxEnemyHit = makeAudio(ASSETS.sfxEnemyHit, false, 0.55);
   const sfxPlayerHit = makeAudio(ASSETS.sfxPlayerHit, false, 0.6);
   const sfxPower = makeAudio(ASSETS.sfxPower, false, 0.55);
