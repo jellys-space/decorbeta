@@ -732,7 +732,9 @@
     const base = DIFF.enemySpeedMin + (DIFF.enemySpeedMax - DIFF.enemySpeedMin) * state.heat;
     const speed = base * rand(0.85, 1.15);
 
-    const r = rand(20, 30); // slightly chunkier so art reads better
+    const ENEMY_SCALE = 1.5; // global enemy size multiplier (tweak 1.15–1.35)
+
+    const r = rand(20, 30) * ENEMY_SCALE;
 
     const y = rand(SAFE_TOP_UI_BAR + r + 6, h - SAFE_BOTTOM_PAD - r - 6);
     const x = w + r + 10;
@@ -1508,5 +1510,3 @@ canvas.addEventListener("pointercancel", () => {
 
   init();
 })();
-
-
