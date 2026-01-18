@@ -36,6 +36,23 @@
     if (!shootBuf) shootBuf = await loadAudioBuffer(ASSETS.sfxShoot);
   }
 
+  function findLoopPoints(buffer, threshold = 1e-4, padSeconds = 0.02) {
+    const ch = buffer.getChannelData(0);
+    const sr = buffer.sampleRate;
+
+    let start = 0;
+    while (start < ch.length && Math.abs(ch[start]) < threshold) start++;
+
+    let end = ch.length - 1;
+    while (end > start && Math.abs(ch[end]) < threshold) end--;
+
+    const pad = Math.floor(padSeconds * sr);
+    start = Math.max(0, start - pad);
+    end = Math.min(ch.length - 1, end + pad);
+
+    return { loopStart: start / sr, loopEnd: end / sr };
+  }
+  
   function playShootWebAudio(vol = 0.2) {
     if (audioState.sfxMuted || !shootBuf) return;
 
@@ -98,6 +115,10 @@
     const src = audioCtx.createBufferSource();
     src.buffer = buffer;
     src.loop = true;
+    // ✅ Loop the entire buffer (fixes “gap” caused by trimming)
+    src.loopStart = 0;
+    src.loopEnd = buffer.duration;
+
 
     musicGain.gain.value = volume;
     src.connect(musicGain);
@@ -136,7 +157,7 @@
 
     // Audio (mp3 as you mentioned)
     musicMenu: `${CDN_BASE}/music/menu.mp3`,
-    musicGame: `${CDN_BASE}/music/ingame.mp3`,
+    musicGame: `${CDN_BASE}/music/ingame.wav`,
     sfxShoot: `${CDN_BASE}/sound/shoot.mp3`,
     sfxEnemyHit: `${CDN_BASE}/sound/enemy_hit.mp3`,
     sfxPlayerHit: `${CDN_BASE}/sound/player_hit.mp3`,
@@ -339,28 +360,30 @@
   function playSfx(aud) {
     if (!aud || audioState.sfxMuted) return;
 
-    // iOS: use WebAudio for shoot (volume is reliable)
-    if (isIOS() && aud === sfxShoot) {
+    // Use WebAudio for shoot everywhere (consistent)
+    if (aud === sfxShoot) {
       const now = performance.now();
-      if (now - lastShootSfxAt < IOS_SHOOT_SFX_COOLDOWN_MS) return;
+      const cd = isIOS() ? IOS_SHOOT_SFX_COOLDOWN_MS : 60; // desktop can handle faster
+      if (now - lastShootSfxAt < cd) return;
       lastShootSfxAt = now;
 
-      // if buffer isn't loaded yet, try to load it and skip playing this shot
       if (!shootBuf) {
-        loadShootBuffer().catch(() => {});
+        loadShootBuffer()
+          .then(() => playShootWebAudio(0.18))
+          .catch(() => {});
         return;
       }
 
-      playShootWebAudio(0.10);
+      playShootWebAudio(0.18);
       return;
     }
-
-    // normal path (all other SFX, and fallback)
-    try {
-      aud.currentTime = 0;
-      aud.play();
-    } catch {}
-  }
+  
+  // ✅ THIS PART WAS MISSING (other sounds)
+  try {
+    aud.currentTime = 0;
+    aud.play();
+  } catch {}
+} // ✅ THIS BRACE WAS MISSING (closes playSfx)
 
   function setMusicMuted(muted) {
     audioState.musicMuted = muted;
@@ -819,7 +842,6 @@
     state.shooting = true;
   }
 
-  playMusic("game");
 });
 
 canvas.addEventListener("pointermove", (e) => {
@@ -864,7 +886,6 @@ canvas.addEventListener("pointercancel", () => {
       try { await loadShootBuffer(); } catch {}
     }
 
-    playMusic("game");
     resetGame();
     setMode("play");
   });
@@ -880,7 +901,6 @@ canvas.addEventListener("pointercancel", () => {
       try { await loadShootBuffer(); } catch {}
     }
 
-    playMusic("game");
     resetGame();
     setMode("play");
   });
