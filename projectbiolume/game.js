@@ -443,11 +443,11 @@
 
     // iOS: route non-shoot SFX through WebAudio so overlapping works reliably
     if (isIOS()) {
-      if (aud === sfxEnemyHit) { playSfxBuffer(ASSETS.sfxEnemyHit, 0.55); return; }
-      if (aud === sfxPlayerHit) { playSfxBuffer(ASSETS.sfxPlayerHit, 0.60); return; }
-      if (aud === sfxPower)     { playSfxBuffer(ASSETS.sfxPower, 0.55); return; }
-      if (aud === sfxGameOver)  { playSfxBuffer(ASSETS.sfxGameOver, 0.70); return; }
-    }
+      if (aud === sfxEnemyHit) { playSfxBuffer(ASSETS.sfxEnemyHit, 1.25); return; }
+      if (aud === sfxPlayerHit){ playSfxBuffer(ASSETS.sfxPlayerHit, 1.35); return; }
+      if (aud === sfxPower)    { playSfxBuffer(ASSETS.sfxPower,    1.25); return; }
+      if (aud === sfxGameOver) { playSfxBuffer(ASSETS.sfxGameOver, 1.60); return; }
+  }
 
     // Shoot: WebAudio everywhere (consistent)
     if (aud === sfxShoot) {
