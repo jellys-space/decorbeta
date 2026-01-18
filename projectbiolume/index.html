@@ -41,8 +41,24 @@
         </div>
       </div>
 
+      <!-- Boot overlay (first tap to enable audio) -->
+      <section id="overlayBoot" class="overlay show" aria-hidden="false">
+        <div class="panel">
+          <h1>Project Biolume</h1>
+          <p class="sub">Tap once to enable audio</p>
+
+          <div class="menu-actions">
+            <button id="btnBoot" class="btn primary">Play game</button>
+          </div>
+
+          <div class="hint">
+            iOS needs a first tap before music can start properly.
+          </div>
+        </div>
+      </section>
+
       <!-- Menu overlay -->
-      <section id="overlayMenu" class="overlay show" aria-hidden="false">
+      <section id="overlayMenu" class="overlay" aria-hidden="true">
         <div class="panel">
           <h1>Project Biolume</h1>
           <p class="sub">
