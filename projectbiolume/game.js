@@ -17,6 +17,9 @@
   let ARTISTS = [];
   const artistPfpCache = new Map();    // pfpUrl -> Image|null
   const decorCache = new Map();        // decorUrl -> Image|null
+  let lastShootSfxAt = 0;
+  const IOS_SHOOT_SFX_COOLDOWN_MS = 120; // try 120 first (8.3 plays/sec)
+
 
   function pickWeighted(list) {
     const total = list.reduce((s, a) => s + (a.weight || 1), 0);
@@ -256,7 +259,7 @@
   const sfxShoot = makeAudio(
     ASSETS.sfxShoot,
     false,
-    isIOS() ? 0.03 : 0.12
+    isIOS() ? 0.015 : 0.12
   );
   const sfxEnemyHit = makeAudio(ASSETS.sfxEnemyHit, false, 0.55);
   const sfxPlayerHit = makeAudio(ASSETS.sfxPlayerHit, false, 0.6);
@@ -297,7 +300,15 @@
   }
 
   function playSfx(aud) {
-    if (audioState.sfxMuted) return;
+    if (!aud || audioState.sfxMuted) return;
+
+    // iOS: rapid-fire SFX stacks "loud" even at low volume — throttle shoot only
+    if (isIOS() && aud === sfxShoot) {
+      const now = performance.now();
+      if (now - lastShootSfxAt < IOS_SHOOT_SFX_COOLDOWN_MS) return;
+      lastShootSfxAt = now;
+    }
+
     try {
       aud.currentTime = 0;
       aud.play();
