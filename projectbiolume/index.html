@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Project Biolume</title>
+  <meta name="description" content="A secret underwater shooter from Jelly's Space." />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="./game.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="dot"></span>
+        <span class="title">PROJECT BIOLUME</span>
+      </div>
+
+      <div class="toggles">
+        <button id="btnMuteMusic" class="btn small" aria-pressed="false" title="Toggle music">Music</button>
+        <button id="btnMuteSfx" class="btn small" aria-pressed="false" title="Toggle SFX">SFX</button>
+        <button id="btnPause" class="btn small" aria-pressed="false" title="Pause">Pause</button>
+        <a class="btn small ghost" href="/" title="Back to Jelly's Space">Close</a>
+      </div>
+    </header>
+
+    <main class="stage">
+      <canvas id="game" width="960" height="540" aria-label="Project Biolume game canvas"></canvas>
+
+      <!-- HUD overlay -->
+      <div class="hud">
+        <div class="hud-left">
+          <div class="hud-row"><span class="label">SCORE</span><span id="hudScore" class="value">0</span></div>
+          <div class="hud-row"><span class="label">WAVE</span><span id="hudWave" class="value">1</span></div>
+          <div class="hud-row"><span class="label">HEAT</span><span id="hudHeat" class="value">0%</span></div>
+        </div>
+
+        <div class="hud-right">
+          <div class="hud-row"><span class="label">LIVES</span><span id="hudLives" class="value">♥♥♥</span></div>
+          <div class="hud-row"><span class="label">POWER</span><span id="hudPower" class="value">—</span></div>
+        </div>
+      </div>
+
+      <!-- Menu overlay -->
+      <section id="overlayMenu" class="overlay show" aria-hidden="false">
+        <div class="panel">
+          <h1>Project Biolume</h1>
+          <p class="sub">
+            Swim up/down. Tap/click to sting. Don’t let the decors reach you.
+          </p>
+
+          <div class="controls">
+            <div class="chip">↑ / ↓</div>
+            <div class="chip">Swipe</div>
+            <div class="chip">Tap/Click to shoot</div>
+          </div>
+
+          <div class="menu-actions">
+            <button id="btnPlay" class="btn primary">Play</button>
+            <button id="btnHow" class="btn">How to play</button>
+          </div>
+
+          <div class="hint">
+            Tip: powerups spawn randomly. Shield saves lives. Railgun goes brrrr.
+          </div>
+
+          <div class="hiscores">
+            <h2>Local High Scores</h2>
+            <ol id="scoreList"></ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- How-to overlay -->
+      <section id="overlayHow" class="overlay" aria-hidden="true">
+        <div class="panel">
+          <h2>How to play</h2>
+          <ul class="bullets">
+            <li>Move the jellyfish up/down to dodge enemies.</li>
+            <li>Tap/click to fire lightning bolts.</li>
+            <li>If an enemy touches you, you lose a life.</li>
+            <li>Powerups: Shield, Railgun (auto-fire), Multishot, +1 Life.</li>
+            <li>Difficulty ramps up over time. Survive as long as you can.</li>
+          </ul>
+          <div class="menu-actions">
+            <button id="btnBackFromHow" class="btn primary">Back</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Game Over overlay -->
+      <section id="overlayOver" class="overlay" aria-hidden="true">
+        <div class="panel">
+          <h2>Game Over</h2>
+          <p class="sub">Score: <span id="finalScore">0</span></p>
+
+          <div class="name-row">
+            <label for="playerName">Name</label>
+            <input id="playerName" maxlength="16" placeholder="Jelly" autocomplete="nickname" />
+          </div>
+
+          <div class="menu-actions">
+            <button id="btnSubmitScore" class="btn primary">Save score</button>
+            <button id="btnRetry" class="btn">Retry</button>
+            <button id="btnMenu" class="btn ghost">Main menu</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mobile helper -->
+      <div class="mobile-hint" id="mobileHint">
+        Drag to move • Tap to shoot
+      </div>
+    </main>
+
+    <footer class="footer">
+      <span>Built for Jelly’s Space</span>
+      <span class="sep">•</span>
+      <span id="buildInfo">v1</span>
+    </footer>
+  </div>
+
+  <script src="./game.js"></script>
+</body>
+</html>
