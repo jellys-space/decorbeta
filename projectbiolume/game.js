@@ -13,6 +13,7 @@
   let musicGain = null;
   let currentMusicNode = null;
   let currentMusicUrl = null;
+  const audioBufferCache = new Map(); // url -> AudioBuffer
   let powerupImgs = {};
   let ARTISTS = [];
   const artistPfpCache = new Map();    // pfpUrl -> Image|null
@@ -97,6 +98,14 @@
     return await audioCtx.decodeAudioData(arr);
   }
 
+  async function getAudioBuffer(url) {
+    if (audioBufferCache.has(url)) return audioBufferCache.get(url);
+    const buf = await loadAudioBuffer(url);
+    audioBufferCache.set(url, buf);
+    return buf;
+  }
+
+
   async function playSeamlessMusic(url, volume = 0.5) {
     if (audioState.musicMuted) return;
 
@@ -111,7 +120,7 @@
 
     stopSeamlessMusic();
 
-    const buffer = await loadAudioBuffer(url);
+    const buffer = await getAudioBuffer(url);
     const src = audioCtx.createBufferSource();
     src.buffer = buffer;
     src.loop = true;
@@ -324,6 +333,24 @@
   const sfxPower = makeAudio(ASSETS.sfxPower, false, 0.55);
   const sfxGameOver = makeAudio(ASSETS.sfxGameOver, false, 0.7);
 
+  async function primeSfxIOS() {
+    // iOS Safari: some sounds won't play until they've been played once after a gesture.
+    const sfxList = [sfxEnemyHit, sfxPlayerHit, sfxPower, sfxGameOver];
+
+    for (const a of sfxList) {
+      try {
+        a.muted = true;
+        a.currentTime = 0;
+        await a.play();   // will usually succeed only inside a click
+        a.pause();
+        a.currentTime = 0;
+        a.muted = false;
+      } catch {
+        // ignore – some iOS versions still throw, but this often improves reliability
+        try { a.muted = false; } catch {}
+      }
+    }
+  }
 
   function stopMusic() {
     // stop WebAudio music (seamless loop)
@@ -882,8 +909,14 @@ canvas.addEventListener("pointercancel", () => {
     await ensureAudioCtx();
     try { if (audioCtx.state === "suspended") await audioCtx.resume(); } catch {}
 
+    try { await getAudioBuffer(ASSETS.musicGame); } catch {}
+
     if (isIOS()) {
       try { await loadShootBuffer(); } catch {}
+    }
+
+    if (isIOS()) {
+      await primeSfxIOS();
     }
 
     resetGame();
@@ -897,8 +930,14 @@ canvas.addEventListener("pointercancel", () => {
     await ensureAudioCtx();
     try { if (audioCtx.state === "suspended") await audioCtx.resume(); } catch {}
 
+    try { await getAudioBuffer(ASSETS.musicGame); } catch {}
+
     if (isIOS()) {
       try { await loadShootBuffer(); } catch {}
+    }
+
+    if (isIOS()) {
+      await primeSfxIOS();
     }
 
     resetGame();
