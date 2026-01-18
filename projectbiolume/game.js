@@ -353,6 +353,7 @@
 
       playShootWebAudio(0.10);
       return;
+    }
 
     // normal path (all other SFX, and fallback)
     try {
