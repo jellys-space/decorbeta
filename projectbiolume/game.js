@@ -22,6 +22,7 @@
   const IOS_SHOOT_SFX_COOLDOWN_MS = 220; // try 120 first (8.3 plays/sec)
   let shootBuf = null;
   let sfxBus = null;
+  const sfxBufferCache = new Map(); // url -> AudioBuffer
 
   async function ensureSfxBus() {
     await ensureAudioCtx();
@@ -115,6 +116,30 @@
     const buf = await loadAudioBuffer(url);
     audioBufferCache.set(url, buf);
     return buf;
+  }
+
+  async function getSfxBuffer(url) {
+    await ensureSfxBus();
+    if (sfxBufferCache.has(url)) return sfxBufferCache.get(url);
+    const buf = await loadAudioBuffer(url);
+    sfxBufferCache.set(url, buf);
+    return buf;
+  }
+
+  function playSfxBuffer(url, vol = 1) {
+    if (audioState.sfxMuted || !audioCtx || !sfxBus) return;
+    const buf = sfxBufferCache.get(url);
+    if (!buf) return; // not loaded yet
+
+    const src = audioCtx.createBufferSource();
+    src.buffer = buf;
+
+    const g = audioCtx.createGain();
+    g.gain.value = vol;
+
+    src.connect(g);
+    g.connect(sfxBus);
+    src.start();
   }
 
   function iosKickstartAudio() {
@@ -416,16 +441,24 @@
   function playSfx(aud) {
     if (!aud || audioState.sfxMuted) return;
 
-    // Use WebAudio for shoot everywhere (consistent)
+    // iOS: route non-shoot SFX through WebAudio so overlapping works reliably
+    if (isIOS()) {
+      if (aud === sfxEnemyHit) { playSfxBuffer(ASSETS.sfxEnemyHit, 0.55); return; }
+      if (aud === sfxPlayerHit) { playSfxBuffer(ASSETS.sfxPlayerHit, 0.60); return; }
+      if (aud === sfxPower)     { playSfxBuffer(ASSETS.sfxPower, 0.55); return; }
+      if (aud === sfxGameOver)  { playSfxBuffer(ASSETS.sfxGameOver, 0.70); return; }
+    }
+
+    // Shoot: WebAudio everywhere (consistent)
     if (aud === sfxShoot) {
       const now = performance.now();
-      const cd = isIOS() ? IOS_SHOOT_SFX_COOLDOWN_MS : 60; // desktop can handle faster
+      const cd = isIOS() ? IOS_SHOOT_SFX_COOLDOWN_MS : 60;
       if (now - lastShootSfxAt < cd) return;
       lastShootSfxAt = now;
 
       if (!shootBuf) {
         loadShootBuffer()
-          .then(() => playShootWebAudio(0.18))
+          .then(() => playShootWebAudio(isIOS() ? 0.28 : 0.18))
           .catch(() => {});
         return;
       }
@@ -433,13 +466,13 @@
       playShootWebAudio(isIOS() ? 0.28 : 0.18);
       return;
     }
-  
-  // ✅ THIS PART WAS MISSING (other sounds)
-  try {
-    aud.currentTime = 0;
-    aud.play();
-  } catch {}
-} // ✅ THIS BRACE WAS MISSING (closes playSfx)
+
+    // Non-iOS fallback: HTMLAudio
+    try {
+      aud.currentTime = 0;
+      aud.play();
+    } catch {}
+  }
 
   function setMusicMuted(muted) {
     audioState.musicMuted = muted;
@@ -944,6 +977,18 @@ canvas.addEventListener("pointercancel", () => {
 
     // Kick iOS output awake (silent tick)
     iosKickstartAudio(); // or unlockIOSAudioNow()
+
+    try {
+      await Promise.all([
+        getAudioBuffer(ASSETS.musicMenu),
+        getAudioBuffer(ASSETS.musicGame),
+        getSfxBuffer(ASSETS.sfxEnemyHit),
+        getSfxBuffer(ASSETS.sfxPlayerHit),
+        getSfxBuffer(ASSETS.sfxPower),
+        getSfxBuffer(ASSETS.sfxGameOver),
+        loadShootBuffer(),
+      ]);
+    } catch {}
 
     // Go to menu -> this starts menu music
     setMode("menu");
