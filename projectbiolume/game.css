@@ -211,3 +211,7 @@ body.is-mobile #game{
   aspect-ratio: 11 / 16;
   width: min(100%, 520px);
 }
+
+#overlayBoot {
+  z-index: 9999;
+}
