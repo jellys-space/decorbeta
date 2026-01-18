@@ -28,7 +28,7 @@
     await ensureAudioCtx();
     if (!sfxBus) {
       sfxBus = audioCtx.createGain();
-      sfxBus.gain.value = 0.25; // master SFX level (tweak)
+      sfxBus.gain.value = 0.40; // master SFX level (tweak)
       sfxBus.connect(audioCtx.destination);
     }
   }
@@ -1508,4 +1508,5 @@ canvas.addEventListener("pointercancel", () => {
 
   init();
 })();
+
 
