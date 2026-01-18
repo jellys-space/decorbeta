@@ -18,8 +18,37 @@
   const artistPfpCache = new Map();    // pfpUrl -> Image|null
   const decorCache = new Map();        // decorUrl -> Image|null
   let lastShootSfxAt = 0;
-  const IOS_SHOOT_SFX_COOLDOWN_MS = 120; // try 120 first (8.3 plays/sec)
+  const IOS_SHOOT_SFX_COOLDOWN_MS = 220; // try 120 first (8.3 plays/sec)
+  let shootBuf = null;
+  let sfxBus = null;
 
+  async function ensureSfxBus() {
+    await ensureAudioCtx();
+    if (!sfxBus) {
+      sfxBus = audioCtx.createGain();
+      sfxBus.gain.value = 0.25; // master SFX level (tweak)
+      sfxBus.connect(audioCtx.destination);
+    }
+  }
+
+  async function loadShootBuffer() {
+    await ensureSfxBus();
+    if (!shootBuf) shootBuf = await loadAudioBuffer(ASSETS.sfxShoot);
+  }
+
+  function playShootWebAudio(vol = 0.2) {
+    if (audioState.sfxMuted || !shootBuf) return;
+
+    const src = audioCtx.createBufferSource();
+    src.buffer = shootBuf;
+
+    const g = audioCtx.createGain();
+    g.gain.value = vol; // per-shot volume
+
+    src.connect(g);
+    g.connect(sfxBus);
+    src.start();
+  }
 
   function pickWeighted(list) {
     const total = list.reduce((s, a) => s + (a.weight || 1), 0);
@@ -195,7 +224,15 @@
   const chance = (p) => Math.random() < p;
   
   function isIOS() {
-    return /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const ua = navigator.userAgent || "";
+
+    // iPhone / iPod always identifiable via UA
+    if (/iPhone|iPod/.test(ua)) return true;
+
+    // iPadOS 13+ lies and says "Mac", but has touch points
+    if (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1) return true;
+
+    return false;
   }
 
   function isLikelyMobile() {
@@ -302,13 +339,22 @@
   function playSfx(aud) {
     if (!aud || audioState.sfxMuted) return;
 
-    // iOS: rapid-fire SFX stacks "loud" even at low volume — throttle shoot only
+    // iOS: use WebAudio for shoot (volume is reliable)
     if (isIOS() && aud === sfxShoot) {
       const now = performance.now();
       if (now - lastShootSfxAt < IOS_SHOOT_SFX_COOLDOWN_MS) return;
       lastShootSfxAt = now;
-    }
 
+      // if buffer isn't loaded yet, try to load it and skip playing this shot
+      if (!shootBuf) {
+        loadShootBuffer().catch(() => {});
+        return;
+      }
+
+      playShootWebAudio(0.10);
+      return;
+
+    // normal path (all other SFX, and fallback)
     try {
       aud.currentTime = 0;
       aud.play();
@@ -810,6 +856,13 @@ canvas.addEventListener("pointercancel", () => {
   // ----------------------------
   btnPlay.addEventListener("click", async () => {
     // user gesture unlocks audio
+    await ensureAudioCtx();
+    try { if (audioCtx.state === "suspended") await audioCtx.resume(); } catch {}
+
+    if (isIOS()) {
+      try { await loadShootBuffer(); } catch {}
+    }
+
     playMusic("game");
     resetGame();
     setMode("play");
@@ -819,6 +872,13 @@ canvas.addEventListener("pointercancel", () => {
   btnBackFromHow.addEventListener("click", () => setMode("menu"));
 
   btnRetry.addEventListener("click", async () => {
+    await ensureAudioCtx();
+    try { if (audioCtx.state === "suspended") await audioCtx.resume(); } catch {}
+
+    if (isIOS()) {
+      try { await loadShootBuffer(); } catch {}
+    }
+
     playMusic("game");
     resetGame();
     setMode("play");
