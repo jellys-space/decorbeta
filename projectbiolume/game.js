@@ -102,14 +102,14 @@
     life: `${CDN_BASE}/sprites/extra_life.png`,
     },
 
-    // Audio (ogg as you mentioned)
-    musicMenu: `${CDN_BASE}/music/menu.ogg`,
-    musicGame: `${CDN_BASE}/music/ingame.ogg`,
-    sfxShoot: `${CDN_BASE}/sound/shoot.ogg`,
-    sfxEnemyHit: `${CDN_BASE}/sound/enemy_hit.ogg`,
-    sfxPlayerHit: `${CDN_BASE}/sound/player_hit.ogg`,
-    sfxPower: `${CDN_BASE}/sound/powerup.ogg`,
-    sfxGameOver: `${CDN_BASE}/sound/game_over.ogg`,
+    // Audio (mp3 as you mentioned)
+    musicMenu: `${CDN_BASE}/music/menu.mp3`,
+    musicGame: `${CDN_BASE}/music/ingame.mp3`,
+    sfxShoot: `${CDN_BASE}/sound/shoot.mp3`,
+    sfxEnemyHit: `${CDN_BASE}/sound/enemy_hit.mp3`,
+    sfxPlayerHit: `${CDN_BASE}/sound/player_hit.mp3`,
+    sfxPower: `${CDN_BASE}/sound/powerup.mp3`,
+    sfxGameOver: `${CDN_BASE}/sound/game_over.mp3`,
   };
 
   // IMPORTANT: enemies will become your decor URLs later.
