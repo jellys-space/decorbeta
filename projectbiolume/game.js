@@ -105,6 +105,25 @@
     return buf;
   }
 
+  function iosKickstartAudio() {
+    if (!isIOS() || !audioCtx) return;
+
+    // Play a near-zero-length silent buffer to wake iOS audio output immediately
+    const buf = audioCtx.createBuffer(1, 1, audioCtx.sampleRate);
+    const src = audioCtx.createBufferSource();
+    src.buffer = buf;
+
+    const g = audioCtx.createGain();
+    g.gain.value = 0;
+
+    src.connect(g);
+    g.connect(audioCtx.destination);
+
+    try {
+      src.start(audioCtx.currentTime);
+      src.stop(audioCtx.currentTime + 0.01);
+    } catch {}
+  }
 
   async function playSeamlessMusic(url, volume = 0.5) {
     if (audioState.musicMuted) return;
@@ -401,7 +420,7 @@
         return;
       }
 
-      playShootWebAudio(0.18);
+      playShootWebAudio(isIOS() ? 0.28 : 0.18);
       return;
     }
   
@@ -909,6 +928,8 @@ canvas.addEventListener("pointercancel", () => {
     await ensureAudioCtx();
     try { if (audioCtx.state === "suspended") await audioCtx.resume(); } catch {}
 
+    iosKickstartAudio(); // ✅ add this line
+
     try { await getAudioBuffer(ASSETS.musicGame); } catch {}
 
     if (isIOS()) {
@@ -929,6 +950,8 @@ canvas.addEventListener("pointercancel", () => {
   btnRetry.addEventListener("click", async () => {
     await ensureAudioCtx();
     try { if (audioCtx.state === "suspended") await audioCtx.resume(); } catch {}
+
+    iosKickstartAudio(); // ✅ add this line
 
     try { await getAudioBuffer(ASSETS.musicGame); } catch {}
 
