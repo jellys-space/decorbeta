@@ -37,6 +37,18 @@
     if (!shootBuf) shootBuf = await loadAudioBuffer(ASSETS.sfxShoot);
   }
 
+  function unmuteMusicAfterIOSWarmup(delayMs = 250) {
+    if (!isIOS() || !musicGain || !audioCtx) return;
+
+    // Make sure we're muted *now*
+    musicGain.gain.cancelScheduledValues(audioCtx.currentTime);
+    musicGain.gain.setValueAtTime(0, audioCtx.currentTime);
+
+    // Then hard-unmute (no fade) shortly after
+    const t = audioCtx.currentTime + delayMs / 1000;
+    musicGain.gain.setValueAtTime(0.45, t); // menu volume
+  }
+  
   function findLoopPoints(buffer, threshold = 1e-4, padSeconds = 0.02) {
     const ch = buffer.getChannelData(0);
     const sr = buffer.sampleRate;
@@ -927,24 +939,17 @@ canvas.addEventListener("pointercancel", () => {
   // BUTTONS
   // ----------------------------
   btnBoot.addEventListener("click", async () => {
-    // first user gesture: unlock audio fully
     await ensureAudioCtx();
     try { if (audioCtx.state === "suspended") await audioCtx.resume(); } catch {}
 
-    iosKickstartAudio();
+    // Kick iOS output awake (silent tick)
+    iosKickstartAudio(); // or unlockIOSAudioNow()
 
-    // preload BOTH music tracks so iOS doesn't “miss the intro”
-    try { await getAudioBuffer(ASSETS.musicMenu); } catch {}
-    try { await getAudioBuffer(ASSETS.musicGame); } catch {}
-
-    // preload shoot + prime SFX for iOS
-    try { await loadShootBuffer(); } catch {}
-    if (isIOS()) {
-      try { await primeSfxIOS(); } catch {}
-    }
-
-    // go to real menu (starts menu music)
+    // Go to menu -> this starts menu music
     setMode("menu");
+
+    // iOS-only: keep muted briefly, then instant unmute
+    unmuteMusicAfterIOSWarmup(250);
   });
   
   btnPlay.addEventListener("click", async () => {
