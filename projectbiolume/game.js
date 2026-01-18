@@ -245,7 +245,9 @@
   const overlayMenu = document.getElementById("overlayMenu");
   const overlayHow = document.getElementById("overlayHow");
   const overlayOver = document.getElementById("overlayOver");
+  const overlayBoot = document.getElementById("overlayBoot");
 
+  const btnBoot = document.getElementById("btnBoot");
   const btnPlay = document.getElementById("btnPlay");
   const btnHow = document.getElementById("btnHow");
   const btnBackFromHow = document.getElementById("btnBackFromHow");
@@ -387,20 +389,16 @@
   async function playMusic(which) {
     if (audioState.musicMuted) return;
 
-    // Use seamless WebAudio for GAME music (the short loop)
-    if (which === "game") {
-      await playSeamlessMusic(ASSETS.musicGame, 0.5);
-      return;
-    }
+    // If the same track is already playing via WebAudio, do nothing
+    const url = (which === "game") ? ASSETS.musicGame : ASSETS.musicMenu;
+    if (currentMusicUrl === url && currentMusicNode) return;
 
-    // Keep menu music on HTMLAudio (fine if it has a tiny seam)
-    const a = musicMenu;
-    if (audioState.currentMusic === a) return;
-
+    // Always stop anything currently playing before switching
     stopMusic();
-    audioState.currentMusic = a;
 
-    try { await a.play(); } catch {}
+    // Use seamless WebAudio loop for BOTH menu and game
+    const vol = (which === "game") ? 0.5 : 0.45;
+    await playSeamlessMusic(url, vol);
   }
 
   function playSfx(aud) {
@@ -600,10 +598,12 @@
   // UI HELPERS
   // ----------------------------
   function showOverlay(which) {
+    overlayBoot.classList.toggle("show", which === "boot");
     overlayMenu.classList.toggle("show", which === "menu");
     overlayHow.classList.toggle("show", which === "how");
     overlayOver.classList.toggle("show", which === "over");
 
+    overlayBoot.setAttribute("aria-hidden", String(which !== "boot"));
     overlayMenu.setAttribute("aria-hidden", String(which !== "menu"));
     overlayHow.setAttribute("aria-hidden", String(which !== "how"));
     overlayOver.setAttribute("aria-hidden", String(which !== "over"));
@@ -615,7 +615,10 @@
     btnPause.setAttribute("aria-pressed", "false");
     btnPause.textContent = "Pause";
 
-    if (mode === "menu") {
+    if (mode === "boot") {
+      showOverlay("boot");
+      stopMusic(); // ensure silence until the first tap
+    } else if (mode === "menu") {
       showOverlay("menu");
       playMusic("menu");
     } else if (mode === "how") {
@@ -923,6 +926,27 @@ canvas.addEventListener("pointercancel", () => {
   // ----------------------------
   // BUTTONS
   // ----------------------------
+  btnBoot.addEventListener("click", async () => {
+    // first user gesture: unlock audio fully
+    await ensureAudioCtx();
+    try { if (audioCtx.state === "suspended") await audioCtx.resume(); } catch {}
+
+    iosKickstartAudio();
+
+    // preload BOTH music tracks so iOS doesn't “miss the intro”
+    try { await getAudioBuffer(ASSETS.musicMenu); } catch {}
+    try { await getAudioBuffer(ASSETS.musicGame); } catch {}
+
+    // preload shoot + prime SFX for iOS
+    try { await loadShootBuffer(); } catch {}
+    if (isIOS()) {
+      try { await primeSfxIOS(); } catch {}
+    }
+
+    // go to real menu (starts menu music)
+    setMode("menu");
+  });
+  
   btnPlay.addEventListener("click", async () => {
     // user gesture unlocks audio
     await ensureAudioCtx();
@@ -976,6 +1000,7 @@ canvas.addEventListener("pointercancel", () => {
   btnSubmitScore.addEventListener("click", () => {
     addScore(playerName.value || "Jelly", state.score, state.wave);
     renderScores();
+    stopMusic();
     setMode("menu");
   });
 
@@ -1422,16 +1447,13 @@ canvas.addEventListener("pointercancel", () => {
     document.body.classList.toggle("is-mobile", IS_MOBILE);
 
     renderScores();
-    setMode("menu");
+    setMode("boot");
 
     // Start loop
     requestAnimationFrame((t) => {
       lastT = t;
       tick(t);
     });
-
-    // Try to play menu music (may be blocked until user gesture)
-    playMusic("menu");
   }
 
   init();
