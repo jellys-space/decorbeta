@@ -256,7 +256,7 @@
   const sfxShoot = makeAudio(
     ASSETS.sfxShoot,
     false,
-    isIOS() ? 0.06 : 0.12
+    isIOS() ? 0.03 : 0.12
   );
   const sfxEnemyHit = makeAudio(ASSETS.sfxEnemyHit, false, 0.55);
   const sfxPlayerHit = makeAudio(ASSETS.sfxPlayerHit, false, 0.6);
@@ -799,7 +799,7 @@ canvas.addEventListener("pointercancel", () => {
   // ----------------------------
   btnPlay.addEventListener("click", async () => {
     // user gesture unlocks audio
-    await playMusic("game");
+    playMusic("game");
     resetGame();
     setMode("play");
   });
@@ -808,7 +808,7 @@ canvas.addEventListener("pointercancel", () => {
   btnBackFromHow.addEventListener("click", () => setMode("menu"));
 
   btnRetry.addEventListener("click", async () => {
-    await playMusic("game");
+    playMusic("game");
     resetGame();
     setMode("play");
   });
