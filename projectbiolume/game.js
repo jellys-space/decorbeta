@@ -249,7 +249,7 @@
     minSpawnEvery: 420,
     enemySpeedMin: 120,    // px/s
     enemySpeedMax: 430,
-    rampSeconds: 90,       // reaches near-max around this time
+    rampSeconds: 180,      // 100% heat around ~wave 10 (20s waves)
     powerupEvery: 18000,    // avg ms between powerup spawns
   };
 
@@ -316,13 +316,50 @@
   const chance = (p) => Math.random() < p;
 
     function maxEnemiesForWave(wave) {
-    // Gentle early game, ramps hard later
+    // Gentler early ramp; still reaches chaos later
     if (wave <= 3) return 6;
-    if (wave <= 5) return 8;
-    if (wave <= 7) return 10;
-    if (wave <= 9) return 12;
-    if (wave <= 12) return 15;
-    return 18; // late-game chaos
+    if (wave <= 5) return 7;
+    if (wave <= 7) return 9;
+    if (wave <= 9) return 11;
+    if (wave <= 12) return 14;
+    return 18;
+  }
+
+  function maxMultiHpEnemiesForWave(wave) {
+  // Max number of enemies with HP > 1 allowed on screen at once.
+  if (wave < 4) return 0;   // waves 1-3: none
+  if (wave === 4) return 1; // first multi-HP appears
+  if (wave === 5) return 2;
+  if (wave <= 7) return 3;
+  if (wave <= 9) return 4;  // ✅ hard cap before wave 10
+  if (wave <= 12) return 5; // wave 10+ can start being spicy
+  return 6;
+}
+
+  function hpTierForWave(wave) {
+    // Wave 1-3: 1hp only
+    // Wave 4-7: tier 2 (1-2hp)
+    // Wave 8-11: tier 3 (1-3hp)
+    // Wave 12-15: tier 4 ...
+    if (wave < 4) return 1;
+    return 2 + Math.floor((wave - 4) / 4);
+  }
+
+  function blockProgress01(wave) {
+    // 4-wave blocks: 4-7, 8-11, 12-15...
+    if (wave < 4) return 0;
+    const start = 4 + Math.floor((wave - 4) / 4) * 4;
+    return clamp((wave - start) / 3, 0, 1); // 0..1 across the block
+  }
+
+  function maxTopTierOnScreen(wave, tier) {
+    // How many "new tier" enemies can be alive at once.
+    // Keeps the first couple waves of a tier from becoming a wall.
+    const t = blockProgress01(wave);
+    const base = 1 + Math.floor(t * 1.6); // 1 -> 2 -> 3 across the block
+    // make early tiers a bit less strict
+    const extra = (tier <= 3) ? 0 : 0;
+    return Math.min(3, base + extra);
   }
   
   function isIOS() {
@@ -756,7 +793,8 @@
     const yCss = dividerY - btnRect.height - padding;
 
     // Keep it comfortably inside the canvas area (not hugging the rounded corner)
-    const xCss = rect.left + rect.width * 0.72;
+    const paddingX = 12;
+    const xCss = rect.right - btnRect.width - paddingX;
 
     btnStun.style.left = `${xCss}px`;
     btnStun.style.top = `${yCss}px`;
@@ -843,7 +881,28 @@
 
     const r = rand(20, 30) * ENEMY_SCALE;
 
-    const y = rand(SAFE_TOP_UI_BAR + r + 6, h - SAFE_BOTTOM_PAD - r - 6);
+    const minY = SAFE_TOP_UI_BAR + r + 6;
+    const maxY = h - SAFE_BOTTOM_PAD - r - 6;
+
+    // Spawn near the player's current Y most of the time.
+    // Occasionally spawn a "flanker" away from the player (keeps it spicy).
+    const playerY = state.player.y;
+
+    // How tight the spawn band is (smaller = easier to manage)
+    const band = clamp(160 - state.wave * 6, 90, 150); // wave 1: ~154px, wave 10: ~100px
+
+    let y;
+    const flankerChance = clamp(0.18 + (state.wave - 7) * 0.02, 0.18, 0.30); // rare at 7+, slightly more later
+
+    if (state.wave >= 7 && chance(flankerChance)) {
+      // flanker: prefer the opposite side of the player's position
+      const side = (playerY < (minY + maxY) / 2) ? "bottom" : "top";
+      if (side === "top") y = rand(minY, minY + 110);
+      else y = rand(maxY - 110, maxY);
+    } else {
+      // main spawn: near player Y
+      y = clamp(playerY + rand(-band, band), minY, maxY);
+  }
     const x = w + r + 10;
 
     // pick artist + decor
@@ -858,17 +917,72 @@
       decorImg = null;
     }
 
+    // Tiered HP distribution:
+    // - Waves 4-7: mostly 1hp, increasing 2hp
+    // - Waves 8-11: introduce rare 3hp, ramps up; still keep 2hp
+    // - Waves 12-15: introduce rare 4hp, ramps up; etc.
+    const tier = hpTierForWave(state.wave);
+    const prog = blockProgress01(state.wave);
+
+    // Global cap for ANY multi-HP enemies (keeps screen manageable)
+    const multiCap = maxMultiHpEnemiesForWave(state.wave);
+    const multiOnScreen = state.enemies.reduce(
+      (n, ee) => n + ((ee.maxHp || ee.hp || 1) > 1 ? 1 : 0),
+      0
+    );
+
+    // Count how many top-tier enemies are currently alive (hp === tier)
+    const topTierOnScreen = state.enemies.reduce(
+      (n, ee) => n + ((ee.maxHp || ee.hp || 1) === tier ? 1 : 0),
+      0
+    );
+
+    // Probabilities inside the current block
+    // 2hp ramps up across waves 4-7, and continues to exist in later blocks.
+    let p2 = 0;
+    if (state.wave >= 4) {
+      p2 = clamp(0.12 + 0.28 * prog, 0.12, 0.40); // 12% -> 40% across the block
+    }
+
+    // Top-tier chance is LOW at the start of a new tier, increases across the block.
+    let pTop = 0;
+    if (tier >= 3) {
+      pTop = clamp(0.06 + 0.14 * prog, 0.06, 0.20); // 6% -> 20%
+    }
+    if (tier >= 4) {
+      // slightly more aggressive later tiers
+      pTop = clamp(0.07 + 0.16 * prog, 0.07, 0.23);
+    }
+
+    // Roll HP (default 1)
+    let hp = 1;
+
+    // Attempt top-tier first (3hp in waves 8-11, 4hp in 12-15, etc.)
+    if (
+      tier >= 3 &&
+      chance(pTop) &&
+      multiOnScreen < multiCap &&
+      topTierOnScreen < maxTopTierOnScreen(state.wave, tier)
+    ) {
+      hp = tier;
+    } else if (tier >= 2 && chance(p2) && multiOnScreen < multiCap) {
+      hp = 2;
+    }
+
     const e = {
       x, y, r,
       vx: -speed,
       vy: rand(-18, 18),
-      // waves 1-3 => 1 HP, wave 4 => 2 HP, wave 5 => 3 HP...
-      hp: Math.max(1, state.wave - 2),
-      maxHp: Math.max(1, state.wave - 2),
+
+      hp: hp,
+      maxHp: hp,
+
 
       // enemy scaling timers
       shieldUntil: 0,
       nextShieldAt: 0,
+      shieldUsed: false,     // ✅ NEW: can only shield once
+      canPanicShield: chance(0.18), // ~18% of enemies are allowed to shield near player (rare “ugh” moment)
       nextShotAt: 0,
       stunUntil: 0,
 
@@ -1258,7 +1372,7 @@ canvas.addEventListener("pointercancel", () => {
     state.heat = clamp(seconds / DIFF.rampSeconds, 0, 1);
 
     // wave is a readable proxy of time survived
-    state.wave = Math.max(1, Math.floor(seconds / 18) + 1);
+    state.wave = Math.max(1, Math.floor(seconds / 20) + 1);
 
     // input -> player target velocity
     const h = canvas.height;
@@ -1369,15 +1483,25 @@ canvas.addEventListener("pointercancel", () => {
       if (e.y < SAFE_TOP_UI_BAR + e.r + 8) { e.y = SAFE_TOP_UI_BAR + e.r + 8; e.vy *= -1; }
       if (e.y > canvas.height - SAFE_BOTTOM_PAD - e.r - 8) { e.y = canvas.height - SAFE_BOTTOM_PAD - e.r - 8; e.vy *= -1; }
       // --- enemy timed shield (noticeable from wave 5+) ---
-      if (!stunned && state.wave >= 5) {
+      const playerLineX = state.player.x + state.player.r;
+      const closeToPlayer = (e.x - e.r) <= (playerLineX + 140); // tweak: 120–180
+
+      if (!stunned && state.wave >= 5 && !e.shieldUsed) {
         const shieldActive = now2 < (e.shieldUntil || 0);
 
         if (!shieldActive && now2 >= (e.nextShieldAt || 0)) {
           // wave5 ~22%, wave8+ much higher
-          const pShield = clamp(0.22 + (state.wave - 5) * 0.07, 0, 0.70);
+          let pShield = clamp(0.22 + (state.wave - 5) * 0.07, 0, 0.70);
+
+          // Near player: only a small subset of enemies can do it, and even then it's rare.
+          if (closeToPlayer) {
+            if (!e.canPanicShield) pShield = 0;   // most enemies simply cannot shield here
+            else pShield *= 0.18;                // even “allowed” ones do it rarely
+          }
 
           if (chance(pShield)) {
             e.shieldUntil = now2 + rand(1200, 2400);
+            e.shieldUsed = true; // ✅ NEW: lock it forever after first use
           }
 
           // check more often (so you actually see it)
@@ -1386,28 +1510,31 @@ canvas.addEventListener("pointercancel", () => {
       }
 
       // --- enemy shooting back (starts around wave 5+, ramps up) ---
-      if (!stunned && state.wave >= 5) {
+      if (!stunned && state.wave >= 3) {
         if (now2 >= (e.nextShotAt || 0)) {
 
           // bullet speed (faster later waves)
           const spd = 380 + (state.wave >= 10 ? 80 : 0);
 
           // chance to fire this cycle
-          const pShoot = clamp(0.12 + (state.wave - 5) * 0.05, 0, 0.55);
+          const pShoot = clamp(0.14 + (state.wave - 3) * 0.045, 0, 0.55);
 
-          if (chance(pShoot)) {
+          // Soft cap to prevent bullet floods
+          const MAX_ENEMY_BULLETS = clamp(6 + state.wave, 8, 16);
+
+          if (chance(pShoot) && state.enemyBullets.length < MAX_ENEMY_BULLETS) {
             state.enemyBullets.push({
-              x: e.x - e.r - 2, // spawn just left of enemy
+              x: e.x - e.r - 2,
               y: e.y,
-              vx: -spd,        // 🔥 ALWAYS LEFT
-              vy: 0,           // 🔥 NO vertical movement
+              vx: -spd,
+              vy: 0,
               r: 7,
               ttl: 6500,
             });
           }
 
           // fire rate (shorter than 5s)
-          e.nextShotAt = now2 + rand(1800, 2800);
+          e.nextShotAt = now2 + rand(2400, 3600);
         }
       }
 
