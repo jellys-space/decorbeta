@@ -185,7 +185,7 @@ html,body{ height:100%; margin:0; background: radial-gradient(1200px 700px at 30
 body.is-mobile .stage{
   flex-direction: column;
   justify-content: flex-start; /* was inherited center; this fixes the HUD getting pushed down */
-  padding-top: 34px;
+  padding-top: 56px;
   padding-bottom: calc(14px + env(safe-area-inset-bottom));
 }
 
