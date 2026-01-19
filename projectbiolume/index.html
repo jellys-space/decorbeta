@@ -26,6 +26,9 @@
 
     <main class="stage">
       <canvas id="game" width="960" height="540" aria-label="Project Biolume game canvas"></canvas>
+    <!-- Stun gun: appears only when you have a charge -->
+      <button id="btnStun" class="btn small primary hud-action" aria-pressed="false"
+              title="Use Stun Gun" style="display:none">Stun</button>
 
       <!-- HUD overlay -->
       <div class="hud">
@@ -36,7 +39,7 @@
         </div>
 
         <div class="hud-right">
-          <div class="hud-row"><span class="label">LIVES</span><span id="hudLives" class="value">♥♥♥</span></div>
+          <div class="hud-row"><span class="label">LIVES</span><span id="hudLives" class="value">♥♥♥♥♥</span></div>
           <div class="hud-row"><span class="label">POWER</span><span id="hudPower" class="value">—</span></div>
         </div>
       </div>
