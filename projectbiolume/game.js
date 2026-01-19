@@ -224,8 +224,8 @@
     },
 
     // Audio (mp3 as you mentioned)
-    musicMenu: `${CDN_BASE}/music/menu.mp3`,
-    musicGame: `${CDN_BASE}/music/ingame.mp3`,
+    musicMenu: `${CDN_BASE}/music/mainmenu.mp3`,
+    musicGame: `${CDN_BASE}/music/maintheme.mp3`,
     sfxShoot: `${CDN_BASE}/sound/shoot.mp3`,
     sfxEnemyHit: `${CDN_BASE}/sound/enemy_hit.mp3`,
     sfxPlayerHit: `${CDN_BASE}/sound/player_hit.mp3`,
