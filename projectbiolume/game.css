@@ -218,6 +218,45 @@ body.is-mobile #game{
   width: min(100%, 520px);
 }
 
+/* Mobile: keep topbar buttons on ONE line (no wrap) */
+body.is-mobile .topbar{
+  padding: 10px 10px;          /* slightly tighter */
+}
+
+body.is-mobile .brand{
+  gap: 8px;
+  min-width: 0;                /* allow shrinking */
+}
+
+body.is-mobile .brand .title{
+  font-size: 10px;             /* shrink logo text */
+  letter-spacing: .14em;
+  white-space: nowrap;
+}
+
+body.is-mobile .toggles{
+  flex-wrap: nowrap;           /* IMPORTANT: prevents Close dropping to new line */
+  gap: 6px;
+}
+
+body.is-mobile .toggles .btn{
+  padding: 7px 9px;            /* tighter buttons so all fit */
+  font-size: 11px;
+  border-radius: 11px;
+  white-space: nowrap;
+}
+
+/* If it STILL wraps on tiny iPhones, let the brand title truncate instead of wrapping */
+body.is-mobile .brand .title{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+
+@media (max-width: 360px){
+  body.is-mobile .brand .title{ display:none; }
+}
+
 #overlayBoot {
   z-index: 9999;
 }
