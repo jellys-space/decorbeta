@@ -218,6 +218,9 @@
     railgun: `${CDN_BASE}/sprites/railgun.png`,
     multishot: `${CDN_BASE}/sprites/multishot.png`,
     life: `${CDN_BASE}/sprites/extra_life.png`,
+    pusher: `${CDN_BASE}/sprites/pusher.png`,
+    stungun: `${CDN_BASE}/sprites/stungun.png`,
+    multiplier: `${CDN_BASE}/sprites/multiplier.png`,
     },
 
     // Audio (mp3 as you mentioned)
@@ -235,7 +238,7 @@
   const ENEMY_DECOR_URLS = []; // later: fill with real decor URLs from your data
 
   // Gameplay tuning
-  const BASE_LIVES = 3;
+  const BASE_LIVES = 5;
   const PLAYER_X = 90;              // left-side anchor
   const SAFE_TOP_UI_BAR = 72;       // player can't enter (prevents HUD clipping)
   const SAFE_BOTTOM_PAD = 24;
@@ -295,6 +298,7 @@
   const btnMuteMusic = document.getElementById("btnMuteMusic");
   const btnMuteSfx = document.getElementById("btnMuteSfx");
   const btnPause = document.getElementById("btnPause");
+  const btnStun = document.getElementById("btnStun");
 
   const scoreList = document.getElementById("scoreList");
   const finalScore = document.getElementById("finalScore");
@@ -310,6 +314,16 @@
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const rand = (a, b) => a + Math.random() * (b - a);
   const chance = (p) => Math.random() < p;
+
+    function maxEnemiesForWave(wave) {
+    // Gentle early game, ramps hard later
+    if (wave <= 3) return 6;
+    if (wave <= 5) return 8;
+    if (wave <= 7) return 10;
+    if (wave <= 9) return 12;
+    if (wave <= 12) return 15;
+    return 18; // late-game chaos
+  }
   
   function isIOS() {
     const ua = navigator.userAgent || "";
@@ -338,6 +352,7 @@
     if (canvas.width !== w || canvas.height !== h) {
       canvas.width = w;
       canvas.height = h;
+    positionStunButton();
     }
   }
 
@@ -572,6 +587,7 @@
     railgunUntil: 0,
     multishotUntil: 0,
     shieldUntil: 0,
+    toast: null, // { text, start, until }
 
     // entities
     player: { x: PLAYER_X, y: 270, r: 18, vy: 0 },
@@ -579,6 +595,13 @@
     enemies: [],
     particles: [],
     powerups: [],
+    // difficulty/powerup extras
+    scoreMultUntil: 0,
+    stunCharges: 0,
+
+    // enemy projectiles
+    enemyBullets: [],
+
 
     // spawners
     nextEnemyAt: 0,
@@ -678,18 +701,99 @@
   }
 
   function updateHud() {
+    const now = performance.now();
     hudScore.textContent = state.score.toLocaleString();
     hudWave.textContent = String(state.wave);
     hudHeat.textContent = `${Math.round(state.heat * 100)}%`;
     hudLives.textContent = "♥".repeat(state.lives) + "·".repeat(Math.max(0, BASE_LIVES - state.lives));
 
-    let p = "—";
-    const now = performance.now();
-    if (now < state.shieldUntil) p = "Shield";
-    if (now < state.multishotUntil) p = (p === "—") ? "Multishot" : `${p} + Multishot`;
-    if (now < state.railgunUntil) p = (p === "—") ? "Railgun" : `${p} + Railgun`;
-    hudPower.textContent = p;
+    let p = [];
+    if (now < state.shieldUntil) p.push("Shield");
+    if (now < state.multishotUntil) p.push("Multishot");
+    if (now < state.railgunUntil) p.push("Railgun");
+    if (now < state.scoreMultUntil) p.push("2x Score");
+    hudPower.textContent = p.length ? p.join(" + ") : "—";
+    refreshStunButton();
+    positionStunButton();
   }
+
+  function positionStunButton() {
+    if (!btnStun) return;
+    if (btnStun.style.display === "none") return; // nothing to position
+
+    const rect = canvas.getBoundingClientRect();
+    const btnRect = btnStun.getBoundingClientRect();
+
+    btnStun.style.position = "fixed";
+    btnStun.style.zIndex = 50;
+
+    if (IS_MOBILE) {
+      // --- MOBILE: place outside the game grid, centered in the blue area below the top HUD ---
+      // We want it between the topbar and the canvas (the "gap" above the grid).
+      // The gap height is basically rect.top (canvas top) minus topbar bottom.
+      const topbar = document.querySelector(".topbar");
+      const topbarRect = topbar ? topbar.getBoundingClientRect() : { bottom: 0 };
+
+      const gapTop = topbarRect.bottom;
+      const gapBottom = rect.top;
+
+      // Center inside that gap, with a safety clamp if the gap is tiny
+      let y = gapTop + (gapBottom - gapTop) / 2 - btnRect.height / 2;
+      y = clamp(y, gapTop + 6, gapBottom - btnRect.height - 6);
+
+      const x = rect.left + rect.width / 2 - btnRect.width / 2;
+
+      btnStun.style.left = `${x}px`;
+      btnStun.style.top = `${y}px`;
+      return;
+    }
+
+    // --- DESKTOP: inside divider band above the line ---
+    const scaleY = rect.height / canvas.height;
+    const dividerY = rect.top + SAFE_TOP_UI_BAR * scaleY;
+    const padding = 6; // space above divider line
+
+    const yCss = dividerY - btnRect.height - padding;
+
+    // Keep it comfortably inside the canvas area (not hugging the rounded corner)
+    const xCss = rect.left + rect.width * 0.72;
+
+    btnStun.style.left = `${xCss}px`;
+    btnStun.style.top = `${yCss}px`;
+  }
+
+  function refreshStunButton() {
+    if (!btnStun) return;
+    const show = state.mode === "play" && state.stunCharges > 0;
+    btnStun.style.display = show ? "inline-flex" : "none";
+    btnStun.textContent = `Stun (${state.stunCharges})`;
+  }
+
+  function useStunGun() {
+    if (state.mode !== "play") return;
+    if (state.stunCharges <= 0) return;
+
+    const now = performance.now();
+    state.stunCharges -= 1;
+
+    // freeze ONLY enemies currently on screen; new spawns won't be frozen
+    for (const e of state.enemies) {
+      e.stunUntil = Math.max(e.stunUntil || 0, now + 2200);
+    }
+
+    burst(state.player.x + 30, state.player.y, "rgba(114,247,210,.85)");
+    refreshStunButton();
+  }
+
+  function showToast(text, durationMs = 1400) {
+    const now = performance.now();
+    state.toast = {
+      text,
+      start: now,
+      until: now + durationMs,
+    };
+  }
+
 
   // ----------------------------
   // GAME RESET
@@ -706,6 +810,9 @@
     state.railgunUntil = 0;
     state.multishotUntil = 0;
     state.shieldUntil = 0;
+    state.scoreMultUntil = 0;
+    state.stunCharges = 0;
+    state.enemyBullets.length = 0;
 
     state.player.x = PLAYER_X;
     state.player.y = 270;
@@ -755,7 +862,16 @@
       x, y, r,
       vx: -speed,
       vy: rand(-18, 18),
-      hp: 1,
+      // waves 1-3 => 1 HP, wave 4 => 2 HP, wave 5 => 3 HP...
+      hp: Math.max(1, state.wave - 2),
+      maxHp: Math.max(1, state.wave - 2),
+
+      // enemy scaling timers
+      shieldUntil: 0,
+      nextShieldAt: 0,
+      nextShotAt: 0,
+      stunUntil: 0,
+
       kind: "artistDecor",
       artistName: artist?.name || "Decor",
       pfpImg: artist?.pfpImg || null,
@@ -773,9 +889,18 @@
     const w = canvas.width;
     const h = canvas.height;
 
-    const types = ["shield", "railgun", "multishot", "life"];
-    // life a bit rarer
-    const t = chance(0.18) ? "life" : types[Math.floor(rand(0, 3))];
+    const types = ["shield", "railgun", "multishot", "pusher", "stungun", "multiplier", "life"];
+
+    // weight “life” rarer, others normal
+    let t = "shield";
+    const roll = Math.random();
+    if (roll < 0.14) t = "life";
+    else {
+      // pick from the non-life list
+      const pool = ["shield", "railgun", "multishot", "pusher", "stungun", "multiplier"];
+      t = pool[Math.floor(Math.random() * pool.length)];
+    }
+
 
     const p = {
       type: t,
@@ -849,14 +974,53 @@
   function applyPowerup(type) {
     const now = performance.now();
     playSfx(sfxPower);
+    const pretty = {
+      life: "Extra Life",
+      shield: "Shield",
+      railgun: "Railgun",
+      multishot: "Multishot",
+      pusher: "Pusher",
+      stungun: "Stun Gun",
+      multiplier: "2x Score",
+    };
+
 
     if (type === "life") {
       state.lives = clamp(state.lives + 1, 0, BASE_LIVES);
+      showToast(`Powerup: ${pretty[type]}`);
       return;
     }
-    if (type === "shield") state.shieldUntil = now + POWER.shield;
-    if (type === "railgun") state.railgunUntil = now + POWER.railgun;
-    if (type === "multishot") state.multishotUntil = now + POWER.multishot;
+    if (type === "shield") { state.shieldUntil = now + POWER.shield; showToast(`Powerup: ${pretty[type]}`); return; }
+    if (type === "railgun") { state.railgunUntil = now + POWER.railgun; showToast(`Powerup: ${pretty[type]}`); return; }
+    if (type === "multishot") { state.multishotUntil = now + POWER.multishot; showToast(`Powerup: ${pretty[type]}`); return; }
+    if (type === "pusher") {
+      const w = canvas.width;
+      const pushDist = w * 0.42;
+
+      for (const e of state.enemies) {
+        // anything past the middle-left gets pushed right
+        if (e.x > w * 0.45) {
+          e.x = Math.min(w + e.r + 40, e.x + pushDist);
+          burst(e.x, e.y, "rgba(122,166,255,.55)");
+        }
+      }
+      showToast(`Powerup: ${pretty[type]}`);
+      return;
+    }
+
+    if (type === "stungun") {
+      state.stunCharges = clamp(state.stunCharges + 1, 0, 3);
+      refreshStunButton();
+      showToast(`Powerup: Stun Gun - (Press E or tap button to use)`, 2200);
+      return;
+    }
+
+    if (type === "multiplier") {
+      state.scoreMultUntil = now + 9000;
+      showToast(`Powerup: ${pretty[type]}`);
+      return;
+    }
+
   }
 
   // particles
@@ -901,6 +1065,10 @@
   window.addEventListener("keydown", (e) => {
     if (e.key === "ArrowUp") state.up = true;
     if (e.key === "ArrowDown") state.down = true;
+    if (e.key.toLowerCase() === "w") state.up = true;
+    if (e.key.toLowerCase() === "s") state.down = true;
+
+    if (e.key.toLowerCase() === "e") useStunGun();
 
     if (e.key === " " || e.key === "Enter") {
       // optional: keyboard shooting
@@ -913,6 +1081,8 @@
   window.addEventListener("keyup", (e) => {
     if (e.key === "ArrowUp") state.up = false;
     if (e.key === "ArrowDown") state.down = false;
+    if (e.key.toLowerCase() === "w") state.up = false;
+    if (e.key.toLowerCase() === "s") state.down = false;
 
     if (e.key === " " || e.key === "Enter") state.shooting = false;
   });
@@ -1060,6 +1230,7 @@ canvas.addEventListener("pointercancel", () => {
   btnMuteSfx.addEventListener("click", () => setSfxMuted(!audioState.sfxMuted));
 
   btnPause.addEventListener("click", () => togglePause());
+  if (btnStun) btnStun.addEventListener("click", () => useStunGun());
 
   function togglePause() {
     if (state.mode !== "play") return;
@@ -1119,17 +1290,30 @@ canvas.addEventListener("pointercancel", () => {
 
     // spawn enemies
     const now = performance.now();
+    // slow ramp early; allow faster spawns after wave 10+
+    const waveRamp = clamp((state.wave - 1) / 9, 0, 1); // reaches 1 at wave 10
+    const effectiveMinSpawn = DIFF.minSpawnEvery + (1 - waveRamp) * 260; // adds ~260ms early on
+
     const spawnEvery = clamp(
-      DIFF.startSpawnEvery - state.heat * (DIFF.startSpawnEvery - DIFF.minSpawnEvery),
-      DIFF.minSpawnEvery,
+      DIFF.startSpawnEvery - state.heat * (DIFF.startSpawnEvery - effectiveMinSpawn),
+      effectiveMinSpawn,
       DIFF.startSpawnEvery
     );
 
+
+    const maxEnemies = maxEnemiesForWave(state.wave);
+
     if (now >= state.nextEnemyAt) {
-      spawnEnemy();
-      // occasionally spawn extra enemy at high heat
-      if (state.heat > 0.6 && chance(0.08)) spawnEnemy();
-      state.nextEnemyAt = now + spawnEvery * rand(0.75, 1.2);
+      if (state.enemies.length < maxEnemies) {
+        spawnEnemy();
+
+        // extra spawns only much later (prevents wave 5 pileups)
+        if (state.wave >= 10 && state.heat > 0.7 && chance(0.10) && state.enemies.length < maxEnemies) {
+          spawnEnemy();
+        }
+      }
+
+      state.nextEnemyAt = now + spawnEvery * rand(0.80, 1.25);
     }
 
     // spawn powerups (random-ish)
@@ -1149,15 +1333,83 @@ canvas.addEventListener("pointercancel", () => {
       }
     }
 
+    // update enemy bullets
+    for (let i = state.enemyBullets.length - 1; i >= 0; i--) {
+      const b = state.enemyBullets[i];
+      b.x += b.vx * dt;
+      b.y += b.vy * dt;
+      b.ttl -= dtMs;
+
+      const hit = circleHit(b, { x: state.player.x, y: state.player.y, r: state.player.r + 6 });
+      if (hit) {
+        state.enemyBullets.splice(i, 1);
+        hitPlayer();
+        continue;
+      }
+
+      if (b.ttl <= 0 || b.x < -80 || b.x > canvas.width + 80 || b.y < -80 || b.y > canvas.height + 80) {
+        state.enemyBullets.splice(i, 1);
+      }
+    }
+
     // update enemies
     for (let i = state.enemies.length - 1; i >= 0; i--) {
       const e = state.enemies[i];
       e.x += e.vx * dt;
       e.y += e.vy * dt;
+      const now2 = performance.now();
+      const stunned = now2 < (e.stunUntil || 0);
+
+      // if stunned, don't move forward (but still bounce in Y)
+      if (stunned) {
+        e.x -= e.vx * dt; // cancel x move this frame
+      }
 
       // bounce softly in bounds
       if (e.y < SAFE_TOP_UI_BAR + e.r + 8) { e.y = SAFE_TOP_UI_BAR + e.r + 8; e.vy *= -1; }
       if (e.y > canvas.height - SAFE_BOTTOM_PAD - e.r - 8) { e.y = canvas.height - SAFE_BOTTOM_PAD - e.r - 8; e.vy *= -1; }
+      // --- enemy timed shield (noticeable from wave 5+) ---
+      if (!stunned && state.wave >= 5) {
+        const shieldActive = now2 < (e.shieldUntil || 0);
+
+        if (!shieldActive && now2 >= (e.nextShieldAt || 0)) {
+          // wave5 ~22%, wave8+ much higher
+          const pShield = clamp(0.22 + (state.wave - 5) * 0.07, 0, 0.70);
+
+          if (chance(pShield)) {
+            e.shieldUntil = now2 + rand(1200, 2400);
+          }
+
+          // check more often (so you actually see it)
+          e.nextShieldAt = now2 + rand(1800, 3400);
+        }
+      }
+
+      // --- enemy shooting back (starts around wave 5+, ramps up) ---
+      if (!stunned && state.wave >= 5) {
+        if (now2 >= (e.nextShotAt || 0)) {
+
+          // bullet speed (faster later waves)
+          const spd = 380 + (state.wave >= 10 ? 80 : 0);
+
+          // chance to fire this cycle
+          const pShoot = clamp(0.12 + (state.wave - 5) * 0.05, 0, 0.55);
+
+          if (chance(pShoot)) {
+            state.enemyBullets.push({
+              x: e.x - e.r - 2, // spawn just left of enemy
+              y: e.y,
+              vx: -spd,        // 🔥 ALWAYS LEFT
+              vy: 0,           // 🔥 NO vertical movement
+              r: 7,
+              ttl: 6500,
+            });
+          }
+
+          // fire rate (shorter than 5s)
+          e.nextShotAt = now2 + rand(1800, 2800);
+        }
+      }
 
       // if reaches player line -> hit
       if (e.x - e.r <= state.player.x + state.player.r) {
@@ -1166,18 +1418,33 @@ canvas.addEventListener("pointercancel", () => {
         continue;
       }
 
-      // bullet collisions
+      // bullet collisions (multi-hit enemy HP)
       for (let j = state.bullets.length - 1; j >= 0; j--) {
         const b = state.bullets[j];
-        if (circleHit(e, b)) {
-          state.bullets.splice(j, 1);
-          state.enemies.splice(i, 1);
+        if (!circleHit(e, b)) continue;
 
-          state.score += Math.floor(10 + 10 * state.heat); // scales with heat
-          burst(e.x, e.y, "rgba(122,166,255,.85)");
+        state.bullets.splice(j, 1);
+
+        // shielded enemies ignore damage
+        if (now2 < (e.shieldUntil || 0)) {
+          burst(e.x, e.y, "rgba(114,247,210,.55)");
           playSfx(sfxEnemyHit);
           break;
         }
+
+        e.hp -= 1;
+        burst(e.x, e.y, "rgba(122,166,255,.85)");
+        playSfx(sfxEnemyHit);
+
+        if (e.hp <= 0) {
+          state.enemies.splice(i, 1);
+
+          const basePts = Math.floor(10 + 10 * state.heat);
+          const mult = (performance.now() < state.scoreMultUntil) ? 2 : 1;
+          state.score += basePts * mult;
+        }
+
+        break;
       }
     }
 
@@ -1255,6 +1522,49 @@ canvas.addEventListener("pointercancel", () => {
     ctx.moveTo(0, SAFE_TOP_UI_BAR);
     ctx.lineTo(w, SAFE_TOP_UI_BAR);
     ctx.stroke();
+    // powerup toast (above the divider line)
+    if (state.toast) {
+      const nowT = performance.now();
+      if (nowT >= state.toast.until) {
+        state.toast = null;
+      } else {
+        const t01 = clamp((nowT - state.toast.start) / (state.toast.until - state.toast.start), 0, 1);
+
+        // slide up a bit + fade at the end
+        const rise = 10 * t01;
+        const fade = t01 > 0.75 ? (1 - (t01 - 0.75) / 0.25) : 1;
+
+        const lines = String(state.toast.text).split("\n");
+
+        // Position: centered, just above the divider line in that safe band
+        const x = w * 0.5;
+        const y = (SAFE_TOP_UI_BAR * 0.65) - rise;
+
+        ctx.save();
+        ctx.globalAlpha = 0.95 * fade;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        // subtle shadow/backplate vibe
+        ctx.fillStyle = "rgba(0,0,0,.35)";
+        ctx.font = `900 22px ui-sans-serif, system-ui`;
+
+        // draw text lines
+        for (let i = 0; i < lines.length; i++) {
+          const yy = y + i * 18;
+
+          // outline-ish shadow
+          ctx.fillText(lines[i], x + 1, yy + 1);
+
+          ctx.fillStyle = "#e9f0ff";
+          ctx.fillText(lines[i], x, yy);
+          ctx.fillStyle = "rgba(0,0,0,.35)";
+        }
+
+        ctx.restore();
+      }
+    }
+
 
     // powerups
     for (const p of state.powerups) {
@@ -1295,6 +1605,14 @@ canvas.addEventListener("pointercancel", () => {
 
       // subtle outer glow
       drawGlowCircle(e.x, e.y, e.r * 2.1, "rgba(114,247,210,.10)", "rgba(0,0,0,0)");
+      // enemy shield visual (when active)
+      if (performance.now() < (e.shieldUntil || 0)) {
+        ctx.strokeStyle = "rgba(114,247,210,.55)";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(e.x, e.y, e.r + 10, 0, Math.PI * 2);
+        ctx.stroke();
+      }
 
       // --- PFP layer (behind) ---
       if (e.pfpImg) {
@@ -1322,6 +1640,25 @@ canvas.addEventListener("pointercancel", () => {
         ctx.fill();
       }
 
+      // enemy HP bar (only show if > 1 max HP)
+      if (e.maxHp && e.maxHp > 1) {
+        const bw = e.r * 1.8;
+        const bh = 4;
+        const x0 = e.x - bw / 2;
+        const y0 = e.y - e.r - 12;
+        const frac = clamp(e.hp / e.maxHp, 0, 1);
+
+        let col = "rgba(125,255,122,.9)";
+        if (frac <= 0.25) col = "rgba(255,106,136,.92)";
+        else if (frac <= 0.5) col = "rgba(255,170,84,.92)";
+        else if (frac <= 0.75) col = "rgba(255,238,110,.92)";
+
+        ctx.fillStyle = "rgba(0,0,0,.35)";
+        ctx.fillRect(x0, y0, bw, bh);
+        ctx.fillStyle = col;
+        ctx.fillRect(x0, y0, bw * frac, bh);
+      }
+      
       // --- DECOR layer (on top) ---
       if (e.decorImg) {
         // draw decor slightly larger so it feels like "armor"
@@ -1380,6 +1717,15 @@ canvas.addEventListener("pointercancel", () => {
 
     ctx.globalCompositeOperation = "source-over";
     ctx.restore();
+    }
+
+    // enemy bullets (simple glowing orbs)
+    for (const b of state.enemyBullets) {
+      drawGlowCircle(b.x, b.y, 14, "rgba(255,106,136,.55)", "rgba(255,106,136,.08)");
+      ctx.fillStyle = "rgba(233,240,255,.85)";
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+      ctx.fill();
     }
 
     // player
