@@ -185,27 +185,8 @@ html,body{ height:100%; margin:0; background: radial-gradient(1200px 700px at 30
 body.is-mobile .stage{
   flex-direction: column;
   justify-content: flex-start; /* was inherited center; this fixes the HUD getting pushed down */
+  padding-top: 18px;
   padding-bottom: calc(14px + env(safe-area-inset-bottom));
-}
-
-body.is-mobile .hud{
-  width: min(100%, 1400px);
-  padding: 0;
-  gap: 10px;
-  flex-direction: column;  /* stack left + right panels */
-}
-
-body.is-mobile .hud-left,
-body.is-mobile .hud-right{
-  width: 100%;
-  flex-direction: row;
-  flex-wrap: wrap;         /* allow wrapping */
-  justify-content: space-between;
-}
-
-body.is-mobile .hud-row{
-  flex: 1 1 auto;
-  min-width: 120px;
 }
 
 body.is-mobile .hud{
@@ -223,17 +204,6 @@ body.is-mobile .topbar{
   padding: 10px 10px;          /* slightly tighter */
 }
 
-body.is-mobile .brand{
-  gap: 8px;
-  min-width: 0;                /* allow shrinking */
-}
-
-body.is-mobile .brand .title{
-  font-size: 10px;             /* shrink logo text */
-  letter-spacing: .14em;
-  white-space: nowrap;
-}
-
 body.is-mobile .toggles{
   flex-wrap: nowrap;           /* IMPORTANT: prevents Close dropping to new line */
   gap: 6px;
@@ -246,17 +216,76 @@ body.is-mobile .toggles .btn{
   white-space: nowrap;
 }
 
-/* If it STILL wraps on tiny iPhones, let the brand title truncate instead of wrapping */
-body.is-mobile .brand .title{
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 120px;
-}
-
-@media (max-width: 360px){
-  body.is-mobile .brand .title{ display:none; }
-}
 
 #overlayBoot {
   z-index: 9999;
+}
+
+body.is-mobile .mobile-hint{
+  display: none !important;
+}
+
+/* Mobile: make HUD a single compact row */
+body.is-mobile .hud{
+  flex-direction: row;
+  gap: 8px;
+}
+
+body.is-mobile .hud-left,
+body.is-mobile .hud-right{
+  width: auto;
+  flex: 1 1 auto;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+}
+
+/* tighten rows */
+body.is-mobile .hud-row{
+  min-width: 0;
+  gap: 8px;
+}
+
+body.is-mobile .label{ font-size: 10px; }
+body.is-mobile .value{ font-size: 13px; }
+
+/* Mobile: POWER not needed */
+body.is-mobile .hud-right .hud-row:nth-child(2){
+  display: none;
+}
+
+body.is-mobile .footer{
+  display: none;
+}
+
+/* Mobile brand layout: dot above title */
+body.is-mobile .brand{
+  display: flex;
+  flex-direction: column;   /* STACK dot + text */
+  align-items: flex-start;  /* left aligned */
+  gap: 4px;
+  min-width: 0;
+}
+
+body.is-mobile .brand .dot{
+  margin-top: 2px;
+}
+
+body.is-mobile .brand .title{
+  font-size: 10px;
+  letter-spacing: .14em;
+  line-height: 1.1;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+
+@media (max-width: 360px){
+  body.is-mobile .brand .title{
+    display: none;
+  }
 }
