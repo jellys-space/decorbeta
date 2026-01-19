@@ -185,12 +185,8 @@ html,body{ height:100%; margin:0; background: radial-gradient(1200px 700px at 30
 body.is-mobile .stage{
   flex-direction: column;
   justify-content: flex-start; /* was inherited center; this fixes the HUD getting pushed down */
-  padding-top: 18px;
+  padding-top: 34px;
   padding-bottom: calc(14px + env(safe-area-inset-bottom));
-}
-
-body.is-mobile .hud{
-  margin-bottom: env(safe-area-inset-bottom);
 }
 
 /* Mobile: slightly shorter playfield so HUD doesn't sit under Safari bars */
@@ -288,4 +284,9 @@ body.is-mobile .brand .title{
   body.is-mobile .brand .title{
     display: none;
   }
+}
+
+/* Mobile: center the dot above the title (without centering the title itself) */
+body.is-mobile .brand .dot{
+  align-self: center;
 }
