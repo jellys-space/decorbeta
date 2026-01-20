@@ -49,8 +49,20 @@ const pageSearchBar = document.querySelector('.search-bar');
   // Trigger on exact "boo!" (case-insensitive), ignoring extra spaces
   pageSearchBar.addEventListener('input', () => {
     const val = (pageSearchBar.value || '').trim().toLowerCase();
-    if (val === 'boo!') showSpooky();
-  });
+
+    if (val === 'boo!') {
+        showSpooky();
+        return;
+    }
+
+    if (val === 'play biolume') {
+        // Works on BOTH:
+        // - local file:// testing
+        // - real hosted site (and GitHub Pages subpaths)
+        window.location.href = new URL('projectbiolume/index.html', window.location.href).toString();
+        return;
+    }
+    });
 
   // Optional: allow click to dismiss immediately
   overlay.addEventListener('click', () => {
