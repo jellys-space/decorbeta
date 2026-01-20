@@ -7,9 +7,17 @@
   <meta name="description" content="A secret underwater shooter from Jelly's Space." />
   <link rel="icon" href="/favicon.ico" />
   <style>
-    /* Critical: prevent first-paint flash before game.css loads */
-    #game, .hud, #btnStun, .mobile-hint { visibility: hidden; opacity: 0; }
+    /* Critical: prevent first-paint flash before game.css loads
+      Only hide while the stage has .hide-game */
+    .stage.hide-game #game,
+    .stage.hide-game .hud,
+    .stage.hide-game #btnStun,
+    .stage.hide-game .mobile-hint {
+      visibility: hidden;
+      opacity: 0;
+    }
   </style>
+
   <link rel="stylesheet" href="./game.css" />
 </head>
 <body>
