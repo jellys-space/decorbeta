@@ -286,6 +286,7 @@
   const overlayHow = document.getElementById("overlayHow");
   const overlayOver = document.getElementById("overlayOver");
   const overlayBoot = document.getElementById("overlayBoot");
+  const overlayLoading = document.getElementById("overlayLoading");
 
   const btnBoot = document.getElementById("btnBoot");
   const btnPlay = document.getElementById("btnPlay");
@@ -627,7 +628,7 @@
     toast: null, // { text, start, until }
 
     // entities
-    player: { x: PLAYER_X, y: 270, r: 18, vy: 0 },
+    player: { x: PLAYER_X, y: 270, r: 20, vy: 0 }, // slightly bigger
     bullets: [],
     enemies: [],
     particles: [],
@@ -704,11 +705,13 @@
   // ----------------------------
   function showOverlay(which) {
     overlayBoot.classList.toggle("show", which === "boot");
+    overlayLoading.classList.toggle("show", which === "loading");
     overlayMenu.classList.toggle("show", which === "menu");
     overlayHow.classList.toggle("show", which === "how");
     overlayOver.classList.toggle("show", which === "over");
 
     overlayBoot.setAttribute("aria-hidden", String(which !== "boot"));
+    overlayLoading.setAttribute("aria-hidden", String(which !== "loading"));
     overlayMenu.setAttribute("aria-hidden", String(which !== "menu"));
     overlayHow.setAttribute("aria-hidden", String(which !== "how"));
     overlayOver.setAttribute("aria-hidden", String(which !== "over"));
@@ -716,6 +719,8 @@
 
   function setMode(mode) {
     state.mode = mode;
+    const stageEl = document.querySelector(".stage");
+    if (stageEl) stageEl.classList.toggle("hide-game", mode === "boot" || mode === "loading");
     state.paused = false;
     btnPause.setAttribute("aria-pressed", "false");
     btnPause.textContent = "Pause";
@@ -723,7 +728,10 @@
     if (mode === "boot") {
       showOverlay("boot");
       stopMusic(); // ensure silence until the first tap
-    } else if (mode === "menu") {
+    } else if (mode === "loading") {
+      showOverlay("loading");
+      stopMusic(); // keep silent during fake loading
+    } else if (mode === "menu") {  
       showOverlay("menu");
       playMusic("menu");
     } else if (mode === "how") {
@@ -816,7 +824,7 @@
 
     // freeze ONLY enemies currently on screen; new spawns won't be frozen
     for (const e of state.enemies) {
-      e.stunUntil = Math.max(e.stunUntil || 0, now + 2200);
+      e.stunUntil = Math.max(e.stunUntil || 0, now + 3200);
     }
 
     burst(state.player.x + 30, state.player.y, "rgba(114,247,210,.85)");
@@ -855,6 +863,7 @@
     state.player.x = PLAYER_X;
     state.player.y = 270;
     state.player.vy = 0;
+    state.player.r = 20;
 
     state.bullets.length = 0;
     state.enemies.length = 0;
@@ -1276,11 +1285,16 @@ canvas.addEventListener("pointercancel", () => {
       ]);
     } catch {}
 
-    // Go to menu -> this starts menu music
-    setMode("menu");
+    // Fake loading screen (gives assets time to finish rendering)
+    setMode("loading");
 
-    // iOS-only: keep muted briefly, then instant unmute
-    unmuteMusicAfterIOSWarmup(250);
+    setTimeout(() => {
+      // Go to menu -> this starts menu music
+      setMode("menu");
+
+      // iOS-only: keep muted briefly, then instant unmute
+      unmuteMusicAfterIOSWarmup(250);
+    }, 3000);
   });
   
   btnPlay.addEventListener("click", async () => {
@@ -1500,7 +1514,7 @@ canvas.addEventListener("pointercancel", () => {
           }
 
           if (chance(pShield)) {
-            e.shieldUntil = now2 + rand(1200, 2400);
+            e.shieldUntil = now2 + rand(700, 1200);
             e.shieldUsed = true; // ✅ NEW: lock it forever after first use
           }
 
@@ -1548,7 +1562,8 @@ canvas.addEventListener("pointercancel", () => {
       // bullet collisions (multi-hit enemy HP)
       for (let j = state.bullets.length - 1; j >= 0; j--) {
         const b = state.bullets[j];
-        if (!circleHit(e, b)) continue;
+        // Slightly larger enemy hitbox (easier to land shots)
+        if (!circleHit({ x: e.x, y: e.y, r: e.r + 3 }, b)) continue;
 
         state.bullets.splice(j, 1);
 
@@ -1860,34 +1875,59 @@ canvas.addEventListener("pointercancel", () => {
     const invuln = now < state.invulnUntil;
     const shield = now < state.shieldUntil;
 
-    // shield bubble
+    // shield bubble (scaled to player radius)
+    const pr = state.player.r;
+
     if (shield) {
-      drawGlowCircle(state.player.x, state.player.y, 44, "rgba(114,247,210,.18)", "rgba(114,247,210,.02)");
+      drawGlowCircle(
+        state.player.x,
+        state.player.y,
+        pr * 2.4,
+        "rgba(114,247,210,.18)",
+        "rgba(114,247,210,.02)"
+      );
+
       ctx.strokeStyle = "rgba(114,247,210,.55)";
       ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.arc(state.player.x, state.player.y, 34, 0, Math.PI * 2);
+      ctx.arc(state.player.x, state.player.y, pr * 1.9, 0, Math.PI * 2);
       ctx.stroke();
     }
 
-    // player body (simple jellyfish silhouette)
+    // player body (simple jellyfish silhouette) - scaled to player radius
     ctx.globalAlpha = invuln ? 0.5 : 1;
-    drawGlowCircle(state.player.x, state.player.y, 36, "rgba(122,166,255,.14)", "rgba(0,0,0,0)");
+
+    drawGlowCircle(
+      state.player.x,
+      state.player.y,
+      pr * 2.0,
+      "rgba(122,166,255,.14)",
+      "rgba(0,0,0,0)"
+    );
 
     ctx.fillStyle = "rgba(233,240,255,.92)";
     ctx.beginPath();
-    ctx.arc(state.player.x, state.player.y - 6, 16, Math.PI, 0);
-    ctx.quadraticCurveTo(state.player.x + 16, state.player.y + 18, state.player.x, state.player.y + 14);
-    ctx.quadraticCurveTo(state.player.x - 16, state.player.y + 18, state.player.x - 16, state.player.y - 6);
+    ctx.arc(state.player.x, state.player.y - 6, pr * 0.9, Math.PI, 0);
+    ctx.quadraticCurveTo(state.player.x + pr * 0.9, state.player.y + pr * 1.0, state.player.x, state.player.y + pr * 0.8);
+    ctx.quadraticCurveTo(state.player.x - pr * 0.9, state.player.y + pr * 1.0, state.player.x - pr * 0.9, state.player.y - 6);
     ctx.fill();
 
-    // tentacles
+    // tentacles (scaled to player radius)
     ctx.strokeStyle = "rgba(233,240,255,.75)";
     ctx.lineWidth = 2;
-    for (let i = -10; i <= 10; i += 5) {
+
+    const tentacleSpan = pr * 0.7;   // narrower spread
+    const tentacleStep = pr * 0.45;  // fewer tentacles
+
+    for (let off = -tentacleSpan; off <= tentacleSpan; off += tentacleStep) {
       ctx.beginPath();
-      ctx.moveTo(state.player.x + i, state.player.y + 12);
-      ctx.quadraticCurveTo(state.player.x + i + 8, state.player.y + 22, state.player.x + i, state.player.y + 32 + Math.sin(t * 2 + i) * 4);
+      ctx.moveTo(state.player.x + off, state.player.y + pr * 0.55);
+      ctx.quadraticCurveTo(
+        state.player.x + off + pr * 0.5,
+        state.player.y + pr * 1.2,
+        state.player.x + off,
+        state.player.y + pr * 2.0 + Math.sin(t * 2 + off) * (pr * 0.25)
+      );
       ctx.stroke();
     }
 
