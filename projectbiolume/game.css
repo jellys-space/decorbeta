@@ -60,6 +60,21 @@ html,body{ height:100%; margin:0; background: radial-gradient(1200px 700px at 30
   gap: 10px;
 }
 
+/* Hide the game visuals while boot/loading to prevent "black grid snap-in" */
+.stage.hide-game #game,
+.stage.hide-game .hud,
+.stage.hide-game #btnStun,
+.stage.hide-game .mobile-hint{
+  opacity: 0;
+  visibility: hidden;
+}
+
+.stage #game,
+.stage .hud,
+.stage #btnStun,
+.stage .mobile-hint{
+  transition: opacity .2s ease;
+}
 
 #game{
   width:min(100%, 1400px);
@@ -140,6 +155,30 @@ html,body{ height:100%; margin:0; background: radial-gradient(1200px 700px at 30
 #scoreList{ margin:0; padding-left:18px; color:var(--text); }
 #scoreList li{ margin:6px 0; color: rgba(233,240,255,.92); }
 #scoreList small{ color: var(--muted); }
+
+/* Fake loading dots */
+.loader{
+  display:flex;
+  gap:10px;
+  margin-top:14px;
+  align-items:center;
+  justify-content:flex-start;
+}
+.loader span{
+  width:10px;
+  height:10px;
+  border-radius:999px;
+  background: rgba(114,247,210,.9);
+  box-shadow: 0 0 14px rgba(114,247,210,.45);
+  animation: bob 0.9s infinite ease-in-out;
+}
+.loader span:nth-child(2){ animation-delay: .12s; }
+.loader span:nth-child(3){ animation-delay: .24s; }
+
+@keyframes bob{
+  0%,100%{ transform: translateY(0); opacity:.55; }
+  50%{ transform: translateY(-6px); opacity:1; }
+}
 
 .name-row{
   display:flex; flex-direction:column; gap:6px;
