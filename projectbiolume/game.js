@@ -283,15 +283,17 @@
   const hudPower = document.getElementById("hudPower");
 
   const overlayMenu = document.getElementById("overlayMenu");
-  const overlayHow = document.getElementById("overlayHow");
   const overlayOver = document.getElementById("overlayOver");
   const overlayBoot = document.getElementById("overlayBoot");
   const overlayLoading = document.getElementById("overlayLoading");
 
   const btnBoot = document.getElementById("btnBoot");
-  const btnPlay = document.getElementById("btnPlay");
-  const btnHow = document.getElementById("btnHow");
-  const btnBackFromHow = document.getElementById("btnBackFromHow");
+  const btnModeEndless = document.getElementById("btnModeEndless");
+  const btnResetScores = document.getElementById("btnResetScores");
+
+  const menuRoot = overlayMenu?.querySelector("[data-menu-root]");
+  const menuPages = overlayMenu?.querySelector("[data-menu-pages]");
+
   const btnRetry = document.getElementById("btnRetry");
   const btnMenu = document.getElementById("btnMenu");
   const btnSubmitScore = document.getElementById("btnSubmitScore");
@@ -707,14 +709,26 @@
     overlayBoot.classList.toggle("show", which === "boot");
     overlayLoading.classList.toggle("show", which === "loading");
     overlayMenu.classList.toggle("show", which === "menu");
-    overlayHow.classList.toggle("show", which === "how");
     overlayOver.classList.toggle("show", which === "over");
 
     overlayBoot.setAttribute("aria-hidden", String(which !== "boot"));
     overlayLoading.setAttribute("aria-hidden", String(which !== "loading"));
     overlayMenu.setAttribute("aria-hidden", String(which !== "menu"));
-    overlayHow.setAttribute("aria-hidden", String(which !== "how"));
     overlayOver.setAttribute("aria-hidden", String(which !== "over"));
+  }
+
+  function setMenuPage(page) {
+    if (!overlayMenu) return;
+    const pages = overlayMenu.querySelectorAll(".menu-page");
+    pages.forEach(p => p.classList.toggle("is-active", p.getAttribute("data-page") === page));
+
+    // Keep aria-hidden sensible (nice for iOS VoiceOver)
+    pages.forEach(p => p.setAttribute("aria-hidden", String(p.getAttribute("data-page") !== page)));
+
+    // Refresh scores when entering leaderboard page
+    if (page === "leaderboard") {
+      renderScores();
+    }
   }
 
   function setMode(mode) {
@@ -733,9 +747,8 @@
       stopMusic(); // keep silent during fake loading
     } else if (mode === "menu") {  
       showOverlay("menu");
+      setMenuPage("main");
       playMusic("menu");
-    } else if (mode === "how") {
-      showOverlay("how");
     } else if (mode === "play") {
       showOverlay(null);
       playMusic("game");
@@ -1297,29 +1310,41 @@ canvas.addEventListener("pointercancel", () => {
     }, 3000);
   });
   
-  btnPlay.addEventListener("click", async () => {
-    // user gesture unlocks audio
-    await ensureAudioCtx();
-    try { if (audioCtx.state === "suspended") await audioCtx.resume(); } catch {}
+  // Menu navigation (single overlay, multiple pages)
+  if (overlayMenu) {
+    overlayMenu.addEventListener("click", (e) => {
+      const t = e.target;
+      if (!(t instanceof Element)) return;
 
-    iosKickstartAudio(); // ✅ add this line
+      const nav = t.getAttribute("data-nav");
+      if (nav) setMenuPage(nav);
+    });
+  }
 
-    try { await getAudioBuffer(ASSETS.musicGame); } catch {}
+  // Start game from Choose Mode -> Endless
+  if (btnModeEndless) {
+    btnModeEndless.addEventListener("click", async () => {
+      // user gesture unlocks audio
+      await ensureAudioCtx();
+      try { if (audioCtx.state === "suspended") await audioCtx.resume(); } catch {}
 
-    if (isIOS()) {
-      try { await loadShootBuffer(); } catch {}
-    }
+      iosKickstartAudio();
 
-    if (isIOS()) {
-      await primeSfxIOS();
-    }
+      try { await getAudioBuffer(ASSETS.musicGame); } catch {}
 
-    resetGame();
-    setMode("play");
-  });
+      if (isIOS()) {
+        try { await loadShootBuffer(); } catch {}
+        await primeSfxIOS();
+      }
 
-  btnHow.addEventListener("click", () => setMode("how"));
-  btnBackFromHow.addEventListener("click", () => setMode("menu"));
+      resetGame();
+      setMode("play");
+    });
+  }
+
+  // Reset Scores is UI-only for now (no logic yet)
+  // We intentionally do NOT add behavior here.
+
 
   btnRetry.addEventListener("click", async () => {
     await ensureAudioCtx();
