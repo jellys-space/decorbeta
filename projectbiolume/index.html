@@ -84,49 +84,141 @@
         </div>
       </section>
 
-      <!-- Menu overlay -->
+      <!-- Menu overlay (Arcade capsule) -->
       <section id="overlayMenu" class="overlay" aria-hidden="true">
-        <div class="panel">
-          <h1>Project Biolume</h1>
-          <p class="sub">
-            Defend your space from the evil Decor artists! Muahaha.
-          </p>
+        <div class="panel menu-capsule" data-menu-root>
+          <!-- ambient glows -->
+          <div class="menu-ambient" aria-hidden="true"></div>
 
-          <div class="controls">
-            <div class="chip">↑ / ↓ or W / S</div>
-            <div class="chip">Swipe up or down</div>
-            <div class="chip">Click or Space to shoot</div>
+          <!-- Header -->
+          <div class="menu-header">
+            <div class="menu-title">Project Biolume</div>
           </div>
 
-          <div class="menu-actions">
-            <button id="btnPlay" class="btn primary">Play</button>
-            <button id="btnHow" class="btn">How to play</button>
-          </div>
+          <!-- Pages (single overlay, multiple pages) -->
+          <div class="menu-pages" data-menu-pages>
 
-          <div class="hint">
-            Tip: powerups spawn randomly. Shield saves lives. Railgun goes brrrr.
-          </div>
+            <!-- MAIN -->
+            <section class="menu-page is-active" data-page="main" aria-label="Main menu">
+              <div class="menu-list">
+                <button class="menu-item" data-nav="modes">Choose Mode</button>
+                <button class="menu-item" data-nav="how">How to Play</button>
+                <button class="menu-item" data-nav="leaderboard">Leaderboard</button>
+                <button class="menu-item" data-nav="credits">Credits</button>
+              </div>
 
-          <div class="hiscores">
-            <h2>Local High Scores</h2>
-            <ol id="scoreList"></ol>
-          </div>
-        </div>
-      </section>
+              <div class="menu-footer">
+                <div class="menu-note">Tip: survive, discover, flex the leaderboard.</div>
+              </div>
+            </section>
 
-      <!-- How-to overlay -->
-      <section id="overlayHow" class="overlay" aria-hidden="true">
-        <div class="panel">
-          <h2>How to play</h2>
-          <ul class="bullets">
-            <li>Move the jellyfish up/down to dodge enemies.</li>
-            <li>Use Up/Down, swipe up/down or use W/S to move. Click or Space to shoot.</li>
-            <li>If an enemy hits you or the wall, you lose a life.</li>
-            <li>Powerups: Shield, Railgun, Multishot, +1 Life, pusher, stun-gun, 2x Multiplier.</li>
-            <li>Difficulty ramps up over time. Survive as long as you can.</li>
-          </ul>
-          <div class="menu-actions">
-            <button id="btnBackFromHow" class="btn primary">Back</button>
+            <!-- CHOOSE MODE -->
+            <section class="menu-page" data-page="modes" aria-label="Choose mode">
+              <div class="menu-page-title">Choose Mode</div>
+
+              <div class="menu-list">
+                <button class="menu-item is-locked" disabled aria-disabled="true">
+                  Arcade <span class="menu-sub">Coming Soon</span>
+                </button>
+
+                <button id="btnModeEndless" class="menu-item is-primary">
+                  Endless <span class="menu-sub">Play now</span>
+                </button>
+
+                <button class="menu-item is-locked" disabled aria-disabled="true">
+                  Chaos Time Trial <span class="menu-sub">Coming Soon</span>
+                </button>
+              </div>
+
+              <div class="menu-actions-row">
+                <button class="btn ghost" data-nav="main">Back</button>
+              </div>
+            </section>
+
+            <!-- HOW TO PLAY -->
+            <section class="menu-page" data-page="how" aria-label="How to play">
+              <div class="menu-page-title">How to Play</div>
+
+              <div class="how-grid">
+                <div class="how-card">
+                  <div class="how-head">Desktop</div>
+                  <ul class="how-list">
+                    <li><strong>↑ / ↓</strong> or <strong>W / S</strong> — Move</li>
+                    <li><strong>Space</strong> or <strong>Left Click</strong> — Shoot</li>
+                    <li><strong>E</strong> — Use Stun Gun</li>
+                  </ul>
+                </div>
+
+                <div class="how-card">
+                  <div class="how-head">Mobile</div>
+                  <ul class="how-list">
+                    <li><strong>Swipe up/down</strong> — Move</li>
+                    <li><strong>Tap / hold</strong> — Auto-fire</li>
+                    <li><strong>Stun button</strong> — Use Stun Gun</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="how-rule">
+                Move your jellyfish up and down, dodge enemies and their projectiles, and survive as long as you can.
+                Pick things up and experiment — the ocean rewards curiosity.
+              </div>
+
+              <div class="menu-actions-row">
+                <button class="btn ghost" data-nav="main">Back</button>
+              </div>
+            </section>
+
+            <!-- LEADERBOARD -->
+            <section class="menu-page" data-page="leaderboard" aria-label="Leaderboard">
+              <div class="menu-page-title">Leaderboard</div>
+
+              <div class="tabs">
+                <button class="tab is-active" data-lb-mode="endless" aria-pressed="true">Endless</button>
+                <button class="tab is-locked" disabled aria-disabled="true">Arcade</button>
+                <button class="tab is-locked" disabled aria-disabled="true">Chaos</button>
+              </div>
+
+              <div class="leaderboard">
+                <ol id="scoreList" class="score-list"></ol>
+              </div>
+
+              <div class="menu-actions-row split">
+                <button id="btnResetScores" class="btn danger" type="button">Reset Scores</button>
+                <button class="btn ghost" data-nav="main">Back</button>
+              </div>
+
+              <div class="menu-note small">
+                (Reset button is UI-only for now. Logic later.)
+              </div>
+            </section>
+
+            <!-- CREDITS -->
+            <section class="menu-page" data-page="credits" aria-label="Credits">
+              <div class="menu-page-title">Credits</div>
+
+              <div class="credits">
+                <div class="credits-block">
+                  <div class="credits-head">Game Design &amp; Code</div>
+                  <div class="credits-line">Jelly</div>
+                </div>
+
+                <div class="credits-block">
+                  <div class="credits-head">Artists (Enemies)</div>
+                  <div class="credits-line">Your artists here (we’ll list them properly once you confirm names)</div>
+                </div>
+
+                <div class="credits-block">
+                  <div class="credits-head">Music</div>
+                  <div class="credits-line">Royalty-free tracks (full attribution goes here)</div>
+                </div>
+              </div>
+
+              <div class="menu-actions-row">
+                <button class="btn ghost" data-nav="main">Back</button>
+              </div>
+            </section>
+
           </div>
         </div>
       </section>
