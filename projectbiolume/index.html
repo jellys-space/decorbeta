@@ -6,6 +6,10 @@
   <title>Project Biolume</title>
   <meta name="description" content="A secret underwater shooter from Jelly's Space." />
   <link rel="icon" href="/favicon.ico" />
+  <style>
+    /* Critical: prevent first-paint flash before game.css loads */
+    #game, .hud, #btnStun, .mobile-hint { visibility: hidden; opacity: 0; }
+  </style>
   <link rel="stylesheet" href="./game.css" />
 </head>
 <body>
@@ -24,7 +28,7 @@
       </div>
     </header>
 
-    <main class="stage">
+    <main class="stage hide-game">
       <canvas id="game" width="960" height="540" aria-label="Project Biolume game canvas"></canvas>
     <!-- Stun gun: appears only when you have a charge -->
       <button id="btnStun" class="btn small primary hud-action" aria-pressed="false"
