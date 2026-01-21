@@ -426,6 +426,11 @@ body.is-mobile .brand .dot{
   padding-bottom: 10px;
 }
 
+/* Credits should NOT be a scroll container (prevents glow clipping + saves vertical space) */
+.menu-page.is-active[data-page="credits"]{
+  overflow: visible;
+}
+
 .menu-page-title{
   font-size: 18px;
   font-weight: 900;
@@ -517,7 +522,7 @@ body.is-mobile .brand .dot{
   display:flex;
   justify-content:center;
   gap: 10px;
-  padding: 0 6px;
+  padding: 0 18px;
   flex-wrap:wrap;
 }
 
@@ -639,6 +644,19 @@ body.is-mobile .brand .dot{
   line-height: 1.4;
 }
 
+/* Credits page: slightly tighter spacing so everything fits without scrolling */
+.menu-page[data-page="credits"]{
+  gap: 10px; /* was 14 from the base .menu-page */
+}
+
+.menu-page[data-page="credits"] .credits{
+  gap: 10px; /* was 12 */
+}
+
+.menu-page[data-page="credits"] .credits-block{
+  padding: 10px 12px; /* was 12px 12px */
+}
+
 /* Mobile: stack How-to cards */
 body.is-mobile .how-grid{
   grid-template-columns: 1fr;
@@ -676,4 +694,111 @@ body.is-mobile .panel.menu-capsule{
 .menu-page[data-page="main"] .menu-footer{
   margin-top: 0;
   padding-top: 6px;
+}
+
+.credits-line a{
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.credits-line a:hover{
+  text-decoration: underline;
+}
+
+/* Credits: put back button in the capsule header area (top-left) */
+.menu-capsule{
+  position: relative; /* ensures absolute children anchor correctly */
+}
+
+/* Credits page ONLY: back button lives in the header space (top-left) */
+.menu-page[data-page="credits"]{
+  position: relative; /* anchor the absolute button */
+}
+
+.menu-page[data-page="credits"] .menu-page-title-row{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  /* Pull everything up */
+  margin-bottom: 6px;
+
+  /* Less top padding = more room for the credits stack */
+  padding: 8px 18px 0;
+
+  /* Allow glow to escape */
+  overflow: visible;
+}
+
+.menu-page[data-page="credits"] .menu-page-title-row .menu-page-title{
+  margin: 0; /* prevent extra spacing fighting the layout */
+}
+
+/* The inline back button (inherits your btn styles too) */
+.menu-page[data-page="credits"] .credits-back-inline{
+  flex: 0 0 auto;
+  padding: 8px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------
+   Make ALL "Back" buttons more visible
+   Targets any button that navigates back to main
+   -------------------------------------------- */
+
+.menu-actions-row .btn.ghost[data-nav="main"],
+.menu-page .btn.ghost.small[data-nav="main"],
+.menu-page[data-page="credits"] .credits-back-inline{
+  background:
+    radial-gradient(180px 60px at 30% 20%, rgba(114,247,210,.18), rgba(0,0,0,0) 60%),
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,0)),
+    rgba(10,16,30,.72) !important;
+
+  border-color: rgba(114,247,210,.45) !important;
+
+  box-shadow:
+    0 14px 30px rgba(0,0,0,.45),
+    0 0 22px rgba(114,247,210,.16),
+    inset 0 0 0 1px rgba(114,247,210,.16) !important;
+
+  color: rgba(233,240,255,.98) !important;
+  font-weight: 900;
+  letter-spacing: .02em;
+}
+
+/* Hover/press feedback so it feels “arcade-button” */
+.menu-actions-row .btn.ghost[data-nav="main"]:hover,
+.menu-page .btn.ghost.small[data-nav="main"]:hover,
+.menu-page[data-page="credits"] .credits-back-inline:hover{
+  filter: brightness(1.12);
+  border-color: rgba(114,247,210,.62) !important;
+}
+
+.menu-actions-row .btn.ghost[data-nav="main"]:active,
+.menu-page .btn.ghost.small[data-nav="main"]:active,
+.menu-page[data-page="credits"] .credits-back-inline:active{
+  transform: translateY(1px) scale(.995);
+}
+
+/* Optional: subtle “notice me” pulse (safe + classy) */
+@media (prefers-reduced-motion: no-preference){
+  .menu-actions-row .btn.ghost[data-nav="main"],
+  .menu-page[data-page="credits"] .credits-back-inline{
+    animation: backPulse 2.8s ease-in-out infinite;
+  }
+  @keyframes backPulse{
+    0%,100%{ box-shadow:
+      0 14px 30px rgba(0,0,0,.45),
+      0 0 18px rgba(114,247,210,.10),
+      inset 0 0 0 1px rgba(114,247,210,.16);
+    }
+    50%{ box-shadow:
+      0 14px 30px rgba(0,0,0,.45),
+      0 0 26px rgba(114,247,210,.22),
+      inset 0 0 0 1px rgba(114,247,210,.22);
+    }
+  }
 }
