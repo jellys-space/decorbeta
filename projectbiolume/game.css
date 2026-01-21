@@ -802,3 +802,49 @@ body.is-mobile .panel.menu-capsule{
     }
   }
 }
+
+/* ==============================
+   MOBILE: shrink Credits content so it fits
+   (Credits page only)
+   ============================== */
+body.is-mobile .menu-page[data-page="credits"]{
+  gap: 10px;                /* tighter vertical rhythm */
+}
+
+/* title row + back button spacing tighter */
+body.is-mobile .menu-page[data-page="credits"] .menu-page-title-row{
+  padding: 4px 12px 0;      /* smaller top/side padding */
+  margin-bottom: 4px;       /* less space before first card */
+}
+
+/* make “Credits” label slightly smaller */
+body.is-mobile .menu-page[data-page="credits"] .menu-page-title{
+  font-size: 16px;
+}
+
+/* cards: tighter spacing + padding */
+body.is-mobile .menu-page[data-page="credits"] .credits{
+  gap: 10px;
+}
+
+body.is-mobile .menu-page[data-page="credits"] .credits-block{
+  padding: 10px 12px;
+}
+
+/* headings + lines: shrink typography a bit */
+body.is-mobile .menu-page[data-page="credits"] .credits-head{
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+body.is-mobile .menu-page[data-page="credits"] .credits-line{
+  font-size: 13px;
+  line-height: 1.25;
+}
+
+/* ==============================
+   MOBILE: pull Credits content up slightly (middle ground)
+   ============================== */
+body.is-mobile .menu-page[data-page="credits"]{
+  margin-top: -10px; /* 👈 pulls everything up just enough */
+}
