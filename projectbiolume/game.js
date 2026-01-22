@@ -1199,6 +1199,14 @@
   // INPUT
   // ----------------------------
   window.addEventListener("keydown", (e) => {
+    // ✅ Stop browser scrolling / page movement while actually playing
+    if (state.mode === "play") {
+      const k = e.key;
+      if (k === "ArrowUp" || k === "ArrowDown" || k === " " || k === "Spacebar") {
+        e.preventDefault();
+      }
+    }
+
     if (e.key === "ArrowUp") state.up = true;
     if (e.key === "ArrowDown") state.down = true;
     if (e.key.toLowerCase() === "w") state.up = true;
@@ -1207,7 +1215,6 @@
     if (e.key.toLowerCase() === "e") useStunGun();
 
     if (e.key === " " || e.key === "Enter") {
-      // optional: keyboard shooting
       if (state.mode === "play") state.shooting = true;
     }
 
@@ -1215,6 +1222,13 @@
   });
 
   window.addEventListener("keyup", (e) => {
+    if (state.mode === "play") {
+      const k = e.key;
+      if (k === "ArrowUp" || k === "ArrowDown" || k === " " || k === "Spacebar") {
+        e.preventDefault();
+      }
+    }
+
     if (e.key === "ArrowUp") state.up = false;
     if (e.key === "ArrowDown") state.down = false;
     if (e.key.toLowerCase() === "w") state.up = false;
