@@ -221,6 +221,7 @@
     pusher: `${CDN_BASE}/sprites/pusher.png`,
     stungun: `${CDN_BASE}/sprites/stungun.png`,
     multiplier: `${CDN_BASE}/sprites/multiplier.png`,
+    capture: `${CDN_BASE}/sprites/capture_net.png`,
     },
 
     // Audio (mp3 as you mentioned)
@@ -302,6 +303,7 @@
   const btnMuteSfx = document.getElementById("btnMuteSfx");
   const btnPause = document.getElementById("btnPause");
   const btnStun = document.getElementById("btnStun");
+  const btnCapture = document.getElementById("btnCapture");
 
   const scoreList = document.getElementById("scoreList");
   const finalScore = document.getElementById("finalScore");
@@ -392,7 +394,7 @@
     if (canvas.width !== w || canvas.height !== h) {
       canvas.width = w;
       canvas.height = h;
-    positionStunButton();
+    positionHudActionButtons();
     }
   }
 
@@ -639,9 +641,13 @@
     scoreMultUntil: 0,
     stunCharges: 0,
 
-    // enemy projectiles
-    enemyBullets: [],
+    // Capture Net (stored/active)
+    captureCharges: 0,
+    ally: null,            // { ...enemyLike, isAlly:true, allyUntil:number }
+    captureFx: null,       // { until:number, phase:number } for electric line
 
+    // enemy + ally projectiles
+    enemyBullets: [],      // bullets can be {team:"enemy"|"ally"}
 
     // spawners
     nextEnemyAt: 0,
@@ -772,7 +778,8 @@
     if (now < state.scoreMultUntil) p.push("2x Score");
     hudPower.textContent = p.length ? p.join(" + ") : "—";
     refreshStunButton();
-    positionStunButton();
+    refreshCaptureButton();
+    positionHudActionButtons();
   }
 
   function positionStunButton() {
@@ -786,16 +793,13 @@
     btnStun.style.zIndex = 50;
 
     if (IS_MOBILE) {
-      // --- MOBILE: place outside the game grid, centered in the blue area below the top HUD ---
-      // We want it between the topbar and the canvas (the "gap" above the grid).
-      // The gap height is basically rect.top (canvas top) minus topbar bottom.
+      // MOBILE: centered in the gap between topbar and canvas
       const topbar = document.querySelector(".topbar");
       const topbarRect = topbar ? topbar.getBoundingClientRect() : { bottom: 0 };
 
       const gapTop = topbarRect.bottom;
       const gapBottom = rect.top;
 
-      // Center inside that gap, with a safety clamp if the gap is tiny
       let y = gapTop + (gapBottom - gapTop) / 2 - btnRect.height / 2;
       y = clamp(y, gapTop + 6, gapBottom - btnRect.height - 6);
 
@@ -806,14 +810,13 @@
       return;
     }
 
-    // --- DESKTOP: inside divider band above the line ---
+    // DESKTOP: in the band above the divider line, right side
     const scaleY = rect.height / canvas.height;
     const dividerY = rect.top + SAFE_TOP_UI_BAR * scaleY;
-    const padding = 6; // space above divider line
+    const padding = 6;
 
     const yCss = dividerY - btnRect.height - padding;
 
-    // Keep it comfortably inside the canvas area (not hugging the rounded corner)
     const paddingX = 12;
     const xCss = rect.right - btnRect.width - paddingX;
 
@@ -821,11 +824,92 @@
     btnStun.style.top = `${yCss}px`;
   }
 
+  function positionCaptureButton() {
+    if (!btnCapture) return;
+    if (btnCapture.style.display === "none") return;
+
+    const rect = canvas.getBoundingClientRect();
+    const btnRect = btnCapture.getBoundingClientRect();
+
+    btnCapture.style.position = "fixed";
+    btnCapture.style.zIndex = 50;
+
+    if (IS_MOBILE) {
+      // MOBILE: slightly left of center (stun stays center)
+      const topbar = document.querySelector(".topbar");
+      const topbarRect = topbar ? topbar.getBoundingClientRect() : { bottom: 0 };
+
+      const gapTop = topbarRect.bottom;
+      const gapBottom = rect.top;
+
+      let y = gapTop + (gapBottom - gapTop) / 2 - btnRect.height / 2;
+      y = clamp(y, gapTop + 6, gapBottom - btnRect.height - 6);
+
+      const x = rect.left + rect.width / 2 - btnRect.width / 2 - 82;
+
+      btnCapture.style.left = `${x}px`;
+      btnCapture.style.top = `${y}px`;
+      return;
+    }
+
+    // DESKTOP: in the band above the divider line, left side
+    const scaleY = rect.height / canvas.height;
+    const dividerY = rect.top + SAFE_TOP_UI_BAR * scaleY;
+    const padding = 6;
+
+    const yCss = dividerY - btnRect.height - padding;
+
+    const paddingX = 12;
+    const xCss = rect.left + paddingX;
+
+    btnCapture.style.left = `${xCss}px`;
+    btnCapture.style.top = `${yCss}px`;
+  }
+
+  function positionHudActionButtons() {
+    positionStunButton();
+    positionCaptureButton();
+  }
+
   function refreshStunButton() {
     if (!btnStun) return;
     const show = state.mode === "play" && state.stunCharges > 0;
     btnStun.style.display = show ? "inline-flex" : "none";
     btnStun.textContent = `Stun (${state.stunCharges})`;
+  }
+
+  function refreshCaptureButton() {
+    if (!btnCapture) return;
+    const show = state.mode === "play" && state.captureCharges > 0;
+    btnCapture.style.display = show ? "inline-flex" : "none";
+    btnCapture.textContent = `Capture (${state.captureCharges})`;
+  }
+
+  function useCaptureNet() {
+    if (state.mode !== "play") return;
+    if (state.captureCharges <= 0) return;
+
+    // Only allow 1 ally at a time (recommended)
+    if (state.ally) {
+      showToast("You already have a captured ally!", 1200);
+      return;
+    }
+
+    // Spend the charge now (so it has tension)
+    state.captureCharges -= 1;
+    refreshCaptureButton();
+
+    // Fire a special "capture shot" using your existing bullet system
+    const now = performance.now();
+    state.bullets.push({
+      x: state.player.x + 24,
+      y: state.player.y,
+      vx: FIRE.bulletSpeed * 1.15,
+      vy: 0,
+      r: 10,
+      ttl: ((canvas.width - (state.player.x + 24)) / (FIRE.bulletSpeed * 1.15)) * 1000 + 250,
+      isCapture: true,   // IMPORTANT flag
+    });
   }
 
   function useStunGun() {
@@ -871,6 +955,11 @@
     state.shieldUntil = 0;
     state.scoreMultUntil = 0;
     state.stunCharges = 0;
+
+    state.captureCharges = 0;
+    state.ally = null;
+    state.captureFx = null;
+
     state.enemyBullets.length = 0;
 
     state.player.x = PLAYER_X;
@@ -1025,7 +1114,7 @@
     const w = canvas.width;
     const h = canvas.height;
 
-    const types = ["shield", "railgun", "multishot", "pusher", "stungun", "multiplier", "life"];
+      const types = ["shield", "railgun", "multishot", "pusher", "stungun", "capture", "multiplier", "life"];
 
     // weight “life” rarer, others normal
     let t = "shield";
@@ -1033,7 +1122,7 @@
     if (roll < 0.14) t = "life";
     else {
       // pick from the non-life list
-      const pool = ["shield", "railgun", "multishot", "pusher", "stungun", "multiplier"];
+      const pool = ["shield", "railgun", "multishot", "pusher", "stungun", "capture", "multiplier"];
       t = pool[Math.floor(Math.random() * pool.length)];
     }
 
@@ -1118,6 +1207,7 @@
       pusher: "Pusher",
       stungun: "Stun Gun",
       multiplier: "2x Score",
+      capture: "Capture Net",
     };
 
 
@@ -1148,6 +1238,13 @@
       state.stunCharges = clamp(state.stunCharges + 1, 0, 3);
       refreshStunButton();
       showToast(`Powerup: Stun Gun - (Press E or tap button to use)`, 2200);
+      return;
+    }
+
+    if (type === "capture") {
+      state.captureCharges = clamp(state.captureCharges + 1, 0, 1); // 1 stored charge feels best
+      refreshCaptureButton();
+      showToast(`Powerup: Capture Net - (Press Q or tap button to use)`, 2200);
       return;
     }
 
@@ -1213,6 +1310,7 @@
     if (e.key.toLowerCase() === "s") state.down = true;
 
     if (e.key.toLowerCase() === "e") useStunGun();
+    if (e.key.toLowerCase() === "q") useCaptureNet();
 
     if (e.key === " " || e.key === "Enter") {
       if (state.mode === "play") state.shooting = true;
@@ -1398,6 +1496,7 @@ canvas.addEventListener("pointercancel", () => {
 
   btnPause.addEventListener("click", () => togglePause());
   if (btnStun) btnStun.addEventListener("click", () => useStunGun());
+  if (btnCapture) btnCapture.addEventListener("click", () => useCaptureNet());
 
   function togglePause() {
     if (state.mode !== "play") return;
@@ -1507,15 +1606,139 @@ canvas.addEventListener("pointercancel", () => {
       b.y += b.vy * dt;
       b.ttl -= dtMs;
 
-      const hit = circleHit(b, { x: state.player.x, y: state.player.y, r: state.player.r + 6 });
-      if (hit) {
-        state.enemyBullets.splice(i, 1);
-        hitPlayer();
-        continue;
-      }
+      // Enemy bullets hit player
+      if ((b.team || "enemy") === "enemy") {
+        const hitP = circleHit(b, { x: state.player.x, y: state.player.y, r: state.player.r + 6 });
+        if (hitP) {
+          state.enemyBullets.splice(i, 1);
+          hitPlayer();
+          continue;
+        }
 
-      if (b.ttl <= 0 || b.x < -80 || b.x > canvas.width + 80 || b.y < -80 || b.y > canvas.height + 80) {
-        state.enemyBullets.splice(i, 1);
+        // Enemy bullets can hit the ally (and kill it), unless ally shield is up
+        if (state.ally) {
+          const a = state.ally;
+          const hitA = circleHit(b, { x: a.x, y: a.y, r: a.r + 6 });
+          if (hitA) {
+            state.enemyBullets.splice(i, 1);
+
+            // shield absorbs once (same as enemies)
+            if (performance.now() < (a.shieldUntil || 0)) {
+              burst(a.x, a.y, "rgba(114,247,210,.65)");
+            } else {
+              burst(a.x, a.y, "rgba(114,247,210,.9)");
+              state.ally = null;
+            }
+            continue;
+          }
+        }
+      } else {
+        // Ally bullets hit enemies
+        for (let ei = state.enemies.length - 1; ei >= 0; ei--) {
+          const e = state.enemies[ei];
+          const hitE = circleHit(b, { x: e.x, y: e.y, r: e.r + 3 });
+          if (!hitE) continue;
+
+          state.enemyBullets.splice(i, 1);
+
+          // shielded enemies ignore damage
+          const nowB = performance.now();
+          if (nowB < (e.shieldUntil || 0)) {
+            burst(e.x, e.y, "rgba(114,247,210,.55)");
+            break;
+          }
+
+          e.hp -= (b.dmg || 1);
+          burst(e.x, e.y, "rgba(114,247,210,.75)");
+
+          if (e.hp <= 0) {
+            state.enemies.splice(ei, 1);
+
+            const basePts = Math.floor(10 + 10 * state.heat);
+            const mult = (performance.now() < state.scoreMultUntil) ? 2 : 1;
+            state.score += basePts * mult;
+          }
+          break;
+        }
+      }
+    }
+
+    // ----------------------------
+    // ALLY (captured enemy)
+    // ----------------------------
+    if (state.ally) {
+      const a = state.ally;
+      const nowA = performance.now();
+
+      // Expire by timer
+      if (nowA >= a.allyUntil) {
+        burst(a.x, a.y, "rgba(114,247,210,.85)");
+        state.ally = null;
+      } else {
+        // Desired anchor: slightly LEFT of player (as requested), but clamped in bounds
+        const anchorX = clamp(state.player.x - (state.player.r + a.r + 12), a.r + 8, canvas.width - a.r - 8);
+        const anchorY = clamp(state.player.y - 6, SAFE_TOP_UI_BAR + a.r + 8, canvas.height - SAFE_BOTTOM_PAD - a.r - 8);
+
+        // Joining dash (fast snap-in from right side)
+        if (nowA < (a.joiningUntil || 0)) {
+          const JOIN_MS = 1600;
+          const t01 = 1 - clamp((a.joiningUntil - nowA) / JOIN_MS, 0, 1);
+
+          // MUCH gentler pull-in (slow drift, then slightly firmer near the end)
+          const pull = 0.018 + 0.045 * t01; // tops out ~0.063
+          a.x += (anchorX - a.x) * pull;
+          a.y += (anchorY - a.y) * pull;
+
+          // Keep the electric line alive while it's traveling in
+          state.captureFx = { until: nowA + 60, phase: (state.captureFx?.phase ?? 0) + 0.35 };
+        } else {
+          // Smooth follow (not "glued" exactly)
+          a.x += (anchorX - a.x) * clamp(dt * 7.5, 0, 1);
+          a.y += (anchorY - a.y) * clamp(dt * 7.5, 0, 1);
+        }
+
+        // Ally shield: exactly ONCE, occasionally
+        if (a.allyShieldCharge > 0 && nowA >= (a.nextAllyShieldAt || 0)) {
+          if (chance(0.12)) { // ~12% chance at each check
+            a.shieldUntil = nowA + 950;
+            a.allyShieldCharge = 0;
+          }
+          a.nextAllyShieldAt = nowA + rand(1800, 2800);
+        }
+
+        // Ally shooting: same bullet shape as enemies, but team="ally" and different color in render
+        if (nowA >= (a.nextAllyShotAt || 0)) {
+          // Find nearest enemy (simple and effective)
+          let best = null;
+          let bestD2 = Infinity;
+          for (const e of state.enemies) {
+            const dx = e.x - a.x;
+            const dy = e.y - a.y;
+            const d2 = dx * dx + dy * dy;
+            if (d2 < bestD2) { bestD2 = d2; best = e; }
+          }
+
+          if (best) {
+            const dx = best.x - a.x;
+            const dy = best.y - a.y;
+            const len = Math.max(1, Math.hypot(dx, dy));
+
+            const spd = 520; // faster than enemy bullets
+            state.enemyBullets.push({
+              team: "ally",
+              x: a.x + a.r + 2,
+              y: a.y,
+              vx: (dx / len) * spd,
+              vy: (dy / len) * spd,
+              r: 7,
+              ttl: 2400,
+              dmg: 1,
+            });
+          }
+
+          // Fire rate: noticeably faster than enemies (player-ish vibe)
+          a.nextAllyShotAt = nowA + rand(320, 520);
+        }
       }
     }
 
@@ -1601,9 +1824,50 @@ canvas.addEventListener("pointercancel", () => {
       // bullet collisions (multi-hit enemy HP)
       for (let j = state.bullets.length - 1; j >= 0; j--) {
         const b = state.bullets[j];
-        // Slightly larger enemy hitbox (easier to land shots)
+
         if (!circleHit({ x: e.x, y: e.y, r: e.r + 3 }, b)) continue;
 
+        // --- CAPTURE SHOT (doesn't do damage) ---
+        if (b.isCapture) {
+          state.bullets.splice(j, 1);
+
+          // Can't capture shielded enemies (keeps it fair + readable)
+          if (now2 < (e.shieldUntil || 0)) {
+            burst(e.x, e.y, "rgba(114,247,210,.55)");
+            playSfx(sfxEnemyHit);
+            showToast("Capture blocked by shield!", 900);
+            break;
+          }
+
+          // Convert this enemy into your ally
+          const ally = {
+            ...e,
+            isAlly: true,
+
+            // Follow / timing
+            allyUntil: now2 + 30000,     // 30s as requested
+            joiningUntil: now2 + 1600,   // slower pull-in (1.6s feels nice)
+
+            // Ally combat tuning
+            nextAllyShotAt: 0,
+
+            // Ally shield: exactly ONCE per lifetime
+            allyShieldCharge: 1,
+          };
+
+          // Remove from enemies + set as active ally
+          state.enemies.splice(i, 1);
+          state.ally = ally;
+
+          // Electric tether FX (like your screenshot)
+          state.captureFx = { until: now2 + 500, phase: Math.random() * 1000 };
+
+          burst(ally.x, ally.y, "rgba(114,247,210,.85)");
+          showToast("Captured ally!", 900);
+          break;
+        }
+
+        // --- NORMAL DAMAGE ---
         state.bullets.splice(j, 1);
 
         // shielded enemies ignore damage
@@ -1854,8 +2118,107 @@ canvas.addEventListener("pointercancel", () => {
       }
     }
 
+    // Ally render (captured enemy)
+    if (state.ally) {
+      const a = state.ally;
+
+      // Ally glow ring so it's clearly yours
+      drawGlowCircle(a.x, a.y, a.r * 2.2, "rgba(114,247,210,.16)", "rgba(0,0,0,0)");
+
+      // Ally shield visual (if active)
+      if (performance.now() < (a.shieldUntil || 0)) {
+        ctx.strokeStyle = "rgba(114,247,210,.65)";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(a.x, a.y, a.r + 10, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      // Draw ally the same way you draw enemies (PFP + decor)
+      if (a.pfpImg) {
+        const size = a.r * 2.0;
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+        ctx.clip();
+        ctx.drawImage(a.pfpImg, a.x - size / 2, a.y - size / 2, size, size);
+        ctx.restore();
+
+        ctx.strokeStyle = "rgba(114,247,210,.35)";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      if (a.decorImg) {
+        const box = a.r * 2.0 * (a.decorScale || 1.0);
+        const ox = (a.decorOffset?.[0] || 0);
+        const oy = (a.decorOffset?.[1] || 0);
+        ctx.drawImage(a.decorImg, a.x - box / 2 + ox, a.y - box / 2 + oy, box, box);
+      }
+    }
+
+    // Electric capture tether (briefly, while ally "joins" / right-to-left travel)
+    if (state.ally && state.captureFx && performance.now() < state.captureFx.until) {
+      const a = state.ally;
+
+      // anchor at player area (slightly forward)
+      const x1 = state.player.x + state.player.r + 12;
+      const y1 = state.player.y;
+
+      const x2 = a.x;
+      const y2 = a.y;
+
+      const segs = 14;
+      const dx = (x2 - x1) / segs;
+      const dy = (y2 - y1) / segs;
+
+      ctx.save();
+      ctx.globalAlpha = 0.9;
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "rgba(233,240,255,.85)";
+      ctx.shadowColor = "rgba(114,247,210,.8)";
+      ctx.shadowBlur = 14;
+
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+
+      const phase = state.captureFx.phase || 0;
+      for (let i = 1; i < segs; i++) {
+        // deterministic "jitter" using sin — gives that jagged electric feel
+        const j = Math.sin(phase * 6 + i * 2.2) * 10 + Math.sin(phase * 9 + i * 3.1) * 6;
+        const px = x1 + dx * i;
+        const py = y1 + dy * i + j * (1 - i / segs);
+        ctx.lineTo(px, py);
+      }
+
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+      ctx.restore();
+    }
+
     // bullets (sprite-based lightning with subtle glow)
     for (const b of state.bullets) {
+    // --- CAPTURE SHOT (big green orb) ---
+    if (b.isCapture) {
+      // outer glow
+      drawGlowCircle(
+        b.x,
+        b.y,
+        34,
+        "rgba(114,247,210,.55)",
+        "rgba(114,247,210,.10)"
+      );
+
+      // core orb
+      ctx.fillStyle = "rgba(114,247,210,.95)";
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, 14, 0, Math.PI * 2);
+      ctx.fill();
+
+      continue; // IMPORTANT: don't render as normal bullet
+    }
     if (!bulletImg) continue;
 
     ctx.save();
@@ -1900,9 +2263,16 @@ canvas.addEventListener("pointercancel", () => {
     ctx.restore();
     }
 
-    // enemy bullets (simple glowing orbs)
+    // enemy + ally bullets (same shape, different color)
     for (const b of state.enemyBullets) {
-      drawGlowCircle(b.x, b.y, 14, "rgba(255,106,136,.55)", "rgba(255,106,136,.08)");
+      const team = b.team || "enemy";
+
+      if (team === "ally") {
+        drawGlowCircle(b.x, b.y, 14, "rgba(114,247,210,.55)", "rgba(114,247,210,.08)");
+      } else {
+        drawGlowCircle(b.x, b.y, 14, "rgba(255,106,136,.55)", "rgba(255,106,136,.08)");
+      }
+
       ctx.fillStyle = "rgba(233,240,255,.85)";
       ctx.beginPath();
       ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
