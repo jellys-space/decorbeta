@@ -269,6 +269,60 @@
         </div>
       </section>
 
+      <!-- Debug overlay (type: admin) -->
+      <section id="overlayDebug" class="overlay" aria-hidden="true">
+        <div class="panel debug-panel">
+          <div class="debug-head">
+            <div>
+              <h2 style="margin:0 0 4px;">DEBUG CONSOLE</h2>
+              <p class="sub" style="margin:0;">Anti-cheat disabled while debug is enabled.</p>
+            </div>
+            <button id="btnDebugClose" class="btn small">Close</button>
+          </div>
+
+          <div class="debug-grid">
+            <div class="debug-card">
+              <div class="debug-title">Give Powerups</div>
+              <div class="debug-actions">
+                <button class="btn small primary" data-debug-power="shield">Shield</button>
+                <button class="btn small primary" data-debug-power="railgun">Railgun</button>
+                <button class="btn small primary" data-debug-power="multishot">Multishot</button>
+                <button class="btn small primary" data-debug-power="pusher">Pusher</button>
+                <button class="btn small primary" data-debug-power="stungun">Stun</button>
+                <button class="btn small primary" data-debug-power="capture">Capture</button>
+                <button class="btn small primary" data-debug-power="multiplier">2x</button>
+                <button class="btn small primary" data-debug-power="life">+Life</button>
+              </div>
+            </div>
+
+            <div class="debug-card">
+              <div class="debug-title">Progress Overrides</div>
+
+              <label class="debug-row">
+                <span>Lock overrides</span>
+                <input id="dbgLock" type="checkbox" />
+              </label>
+
+              <div class="debug-row">
+                <span>Wave</span>
+                <input id="dbgWave" type="number" min="1" max="999" step="1" value="1" />
+                <button id="btnDbgApplyWave" class="btn small">Apply</button>
+              </div>
+
+              <div class="debug-row">
+                <span>Heat %</span>
+                <input id="dbgHeat" type="number" min="0" max="100" step="1" value="0" />
+                <button id="btnDbgApplyHeat" class="btn small">Apply</button>
+              </div>
+
+              <div class="debug-note">
+                Tip: If Lock is OFF, wave/heat will keep updating normally.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
       <!-- Game Over overlay -->
       <section id="overlayOver" class="overlay" aria-hidden="true">
         <div class="panel">
