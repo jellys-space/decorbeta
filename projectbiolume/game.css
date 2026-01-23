@@ -864,3 +864,90 @@ body.is-mobile .menu-page[data-page="credits"] .credits-line{
 body.is-mobile .menu-page[data-page="credits"]{
   margin-top: -10px; /* 👈 pulls everything up just enough */
 }
+
+/* --------------------------------------------
+   DEBUG OVERLAY
+   -------------------------------------------- */
+
+.debug-panel{
+  width: min(760px, 94vw);
+}
+
+.debug-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.debug-grid{
+  display:grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 12px;
+}
+
+.debug-card{
+  border-radius: 18px;
+  border: 1px solid rgba(180, 210, 255, .12);
+  background: rgba(10,16,30,.40);
+  padding: 12px 12px;
+  box-shadow: inset 0 0 0 1px rgba(114,247,210,.06);
+}
+
+.debug-title{
+  font-weight: 900;
+  letter-spacing: .08em;
+  color: rgba(233,240,255,.92);
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+.debug-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap: 8px;
+}
+
+.debug-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 8px;
+  margin: 10px 0;
+  color: rgba(156,176,214,.95);
+  font-weight: 800;
+  letter-spacing: .04em;
+  font-size: 12px;
+}
+
+.debug-row input[type="number"]{
+  width: 90px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(27,42,75,.85);
+  background: rgba(10,16,30,.5);
+  color: var(--text);
+  outline: none;
+}
+
+.debug-row input[type="number"]:focus{
+  border-color: rgba(114,247,210,.55);
+}
+
+.debug-row input[type="checkbox"]{
+  transform: scale(1.2);
+  accent-color: var(--accent);
+}
+
+.debug-note{
+  margin-top: 10px;
+  color: rgba(156,176,214,.88);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+/* Mobile: stack debug panels */
+body.is-mobile .debug-grid{
+  grid-template-columns: 1fr;
+}
