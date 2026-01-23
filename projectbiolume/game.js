@@ -287,6 +287,13 @@
   const overlayOver = document.getElementById("overlayOver");
   const overlayBoot = document.getElementById("overlayBoot");
   const overlayLoading = document.getElementById("overlayLoading");
+  const overlayDebug = document.getElementById("overlayDebug");
+  const btnDebugClose = document.getElementById("btnDebugClose");
+  const dbgLock = document.getElementById("dbgLock");
+  const dbgWave = document.getElementById("dbgWave");
+  const dbgHeat = document.getElementById("dbgHeat");
+  const btnDbgApplyWave = document.getElementById("btnDbgApplyWave");
+  const btnDbgApplyHeat = document.getElementById("btnDbgApplyHeat");
 
   const btnBoot = document.getElementById("btnBoot");
   const btnModeEndless = document.getElementById("btnModeEndless");
@@ -659,6 +666,14 @@
     shooting: false,
     pointerDown: false,
     pointerY: null,
+
+    // anticheat/debug
+    debugMode: false,
+    debugLock: false,
+    debugWave: 1,
+    debugHeat: 0, // 0..1
+    lastScore: 0,
+    cheatFlag: false,
   };
 
   // ----------------------------
@@ -937,6 +952,187 @@
     };
   }
 
+  // ----------------------------
+  // DEBUG + ANTICHEAT
+  // ----------------------------
+
+  function showDebugOverlay(show) {
+    if (!overlayDebug) return;
+    overlayDebug.classList.toggle("show", !!show);
+    overlayDebug.setAttribute("aria-hidden", String(!show));
+  }
+
+  function setDebugMode(on) {
+    state.debugMode = !!on;
+    // when debug opens, default lock checkbox to current state
+    if (dbgLock) dbgLock.checked = !!state.debugLock;
+
+    if (dbgWave) dbgWave.value = String(state.debugWave || state.wave || 1);
+    if (dbgHeat) dbgHeat.value = String(Math.round((state.debugHeat ?? state.heat ?? 0) * 100));
+
+    showDebugOverlay(on);
+  }
+
+  function punishCheater(reason = "tamper") {
+    if (state.cheatFlag) return; // prevent double-trigger spam
+    state.cheatFlag = true;
+
+    console.warn("[AntiCheat] TRIPPED:", reason);
+
+    // nuke run
+    state.score = 0;
+    state.lives = 0;
+
+    // optional: clear entities so it looks like the ocean imploded
+    state.bullets.length = 0;
+    state.enemies.length = 0;
+    state.enemyBullets.length = 0;
+    state.powerups.length = 0;
+
+    // force game over screen
+    gameOver();
+
+    // rickroll after a short moment so they SEE the shame 😈
+    setTimeout(() => {
+      try { window.location.assign("https://www.youtube.com/watch?v=dQw4w9WgXcQ"); } catch {}
+    }, 900);
+
+    return;
+  }
+
+  function runAntiCheat(dtMs) {
+    if (state.debugMode) return;       // debug mode disables anticheat
+    if (state.mode !== "play") return; // only care during gameplay
+    if (state.paused) return;
+
+    // 1) hard caps
+    if (state.lives > BASE_LIVES) return punishCheater("lives > cap");
+    if (state.lives < 0) return punishCheater("lives < 0");
+    if (state.powerups.length > 5) return punishCheater("too many powerups");
+
+    // 2) score sanity (spike detector)
+    const delta = state.score - (state.lastScore || 0);
+    // if someone adds a ton of score in one frame, bye
+    if (delta > 800) return punishCheater("score spike");
+    if (state.score < 0) return punishCheater("score < 0");
+
+    // 3) wave/heat should follow time (unless debug)
+    const seconds = state.time / 1000;
+    const expectedWave = Math.max(1, Math.floor(seconds / 20) + 1);
+    const expectedHeat = clamp(seconds / DIFF.rampSeconds, 0, 1);
+
+    // allow tiny drift (timing / float)
+    if (Math.abs(state.wave - expectedWave) > 2) return punishCheater("wave desync");
+    if (Math.abs(state.heat - expectedHeat) > 0.15) return punishCheater("heat desync");
+
+    state.lastScore = state.score;
+  }
+
+  // Type-to-open admin (typing "admin" anywhere)
+  let adminBuffer = "";
+  let adminLastAt = 0;
+
+  function handleAdminType(e) {
+    const now = performance.now();
+
+    // ignore when typing in an input (name field etc.)
+    const el = document.activeElement;
+    if (el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA")) return;
+
+    // ignore non-printable keys
+    if (!e.key || e.key.length !== 1) return;
+
+    // reset buffer if they pause too long between letters
+    if (now - adminLastAt > 1200) adminBuffer = "";
+    adminLastAt = now;
+
+    adminBuffer += e.key.toLowerCase();
+    if (adminBuffer.length > 10) adminBuffer = adminBuffer.slice(-10);
+
+    if (adminBuffer.endsWith("admin")) {
+      adminBuffer = "";
+      // toggle debug mode
+      setDebugMode(!state.debugMode);
+    }
+  }
+
+  window.addEventListener("keydown", handleAdminType);
+
+  // Debug UI events
+  if (btnDebugClose) {
+    btnDebugClose.addEventListener("click", () => setDebugMode(false));
+  }
+
+  if (dbgLock) {
+    dbgLock.addEventListener("change", () => {
+      state.debugLock = !!dbgLock.checked;
+    });
+  }
+
+  if (btnDbgApplyWave && dbgWave) {
+    btnDbgApplyWave.addEventListener("click", () => {
+      const v = clamp(parseInt(dbgWave.value || "1", 10) || 1, 1, 999);
+
+      // ✅ ALWAYS commit wave changes via time so it persists even after closing debug
+      state.time = (v - 1) * 20000;
+
+      // Recompute immediately (prevents any visible snap-back)
+      const seconds = state.time / 1000;
+      state.heat = clamp(seconds / DIFF.rampSeconds, 0, 1);
+      state.wave = Math.max(1, Math.floor(seconds / 20) + 1);
+
+      // Keep debug fields synced so UI matches the real state
+      state.debugWave = state.wave;
+      state.debugHeat = state.heat;
+
+      // Make spawners feel correct after a jump
+      const now = performance.now();
+      state.nextEnemyAt = now + 250;
+      state.nextPowerAt = now + rand(DIFF.powerupEvery * 0.25, DIFF.powerupEvery * 0.6);
+
+      updateHud();
+    });
+  }
+
+  if (btnDbgApplyHeat && dbgHeat) {
+    btnDbgApplyHeat.addEventListener("click", () => {
+      const pct = clamp(parseInt(dbgHeat.value || "0", 10) || 0, 0, 100);
+      const h01 = clamp(pct / 100, 0, 1);
+
+      // Jump time to match heat %, then continue naturally
+      state.time = h01 * DIFF.rampSeconds * 1000;
+
+      // Recompute immediately
+      const seconds = state.time / 1000;
+      state.heat = clamp(seconds / DIFF.rampSeconds, 0, 1);
+      state.wave = Math.max(1, Math.floor(seconds / 20) + 1);
+
+      // Keep debug fields synced
+      state.debugHeat = state.heat;
+      state.debugWave = state.wave;
+
+      // Reset spawners after jump
+      const now = performance.now();
+      state.nextEnemyAt = now + 250;
+      state.nextPowerAt = now + rand(DIFF.powerupEvery * 0.25, DIFF.powerupEvery * 0.6);
+
+      updateHud();
+    });
+  }
+
+  // Give powerups via debug buttons
+  if (overlayDebug) {
+    overlayDebug.addEventListener("click", (e) => {
+      const t = e.target;
+      if (!(t instanceof Element)) return;
+      const p = t.getAttribute("data-debug-power");
+      if (!p) return;
+
+      // allow giving powerups any time (menu/play), but easiest is in play
+      applyPowerup(p);
+      updateHud();
+    });
+  }
 
   // ----------------------------
   // GAME RESET
@@ -949,6 +1145,9 @@
     state.heat = 0;
     state.invulnUntil = 0;
     state.lastShotAt = 0;
+    // anticheat reset
+    state.cheatFlag = false;
+    state.lastScore = 0;
 
     state.railgunUntil = 0;
     state.multishotUntil = 0;
@@ -1519,12 +1718,33 @@ canvas.addEventListener("pointercancel", () => {
     const dt = dtMs / 1000;
     state.time += dtMs;
 
-    // heat ramps 0..1
-    const seconds = state.time / 1000;
-    state.heat = clamp(seconds / DIFF.rampSeconds, 0, 1);
+    // heat/wave progression
+    let seconds = state.time / 1000;
 
-    // wave is a readable proxy of time survived
-    state.wave = Math.max(1, Math.floor(seconds / 20) + 1);
+    if (state.debugMode && state.debugLock) {
+      // Debug lock: force manual overrides AND keep time consistent
+      const forcedWave = clamp(parseInt(state.debugWave || 1, 10) || 1, 1, 999);
+      const forcedHeat = clamp(
+        Number.isFinite(state.debugHeat) ? state.debugHeat : 0,
+        0,
+        1
+      );
+
+      state.wave = forcedWave;
+      state.heat = forcedHeat;
+
+      // Keep underlying time aligned with forced wave so nothing snaps back
+      state.time = (state.wave - 1) * 20000;
+      seconds = state.time / 1000;
+    } else {
+      // Normal: derived from time (this is what makes wave continue to 51, 52, etc.)
+      state.heat = clamp(seconds / DIFF.rampSeconds, 0, 1);
+      state.wave = Math.max(1, Math.floor(seconds / 20) + 1);
+
+      // keep debug fields in sync so the UI matches what you're seeing
+      state.debugWave = state.wave;
+      state.debugHeat = state.heat;
+    }
 
     // input -> player target velocity
     const h = canvas.height;
@@ -1924,6 +2144,7 @@ canvas.addEventListener("pointercancel", () => {
       if (p.ttl <= 0) state.particles.splice(i, 1);
     }
 
+    runAntiCheat(dtMs);
     updateHud();
   }
 
