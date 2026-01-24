@@ -1333,7 +1333,12 @@
     const w = canvas.width;
     const h = canvas.height;
 
-    const base = DIFF.enemySpeedMin + (DIFF.enemySpeedMax - DIFF.enemySpeedMin) * state.heat;
+    const useHeat =
+      (IS_MOBILE && state.gameMode === "survival")
+        ? Math.min(state.heat, 0.5)
+        : state.heat;
+
+    const base = DIFF.enemySpeedMin + (DIFF.enemySpeedMax - DIFF.enemySpeedMin) * useHeat;
     const speed = base * rand(0.85, 1.15);
 
     const ENEMY_SCALE = 1.5; // global enemy size multiplier (tweak 1.15–1.35)
@@ -1983,6 +1988,12 @@ canvas.addEventListener("pointercancel", () => {
       state.heat = clamp(seconds / DIFF.rampSeconds, 0, 1);
       state.wave = Math.max(1, Math.floor(seconds / 20) + 1);
 
+      // Mobile Survival: cap difficulty at 50% heat (keeps anti-cheat + HUD intact)
+      const diffHeat =
+        (IS_MOBILE && state.gameMode === "survival")
+          ? Math.min(state.heat, 0.5)
+          : state.heat;
+
       // keep debug fields in sync so the UI matches what you're seeing
       state.debugWave = state.wave;
       state.debugHeat = state.heat;
@@ -2031,7 +2042,7 @@ canvas.addEventListener("pointercancel", () => {
     const effectiveMinSpawn = DIFF.minSpawnEvery + (1 - waveRamp) * 260; // adds ~260ms early on
 
     const spawnEvery = clamp(
-      DIFF.startSpawnEvery - state.heat * (DIFF.startSpawnEvery - effectiveMinSpawn),
+      DIFF.startSpawnEvery - diffHeat * (DIFF.startSpawnEvery - effectiveMinSpawn),
       effectiveMinSpawn,
       DIFF.startSpawnEvery
     );
@@ -2124,7 +2135,7 @@ canvas.addEventListener("pointercancel", () => {
           if (e.hp <= 0) {
             state.enemies.splice(ei, 1);
 
-            const basePts = Math.floor(10 + 10 * state.heat);
+            const basePts = Math.floor(10 + 10 * diffHeat);
 
             const modeNow = GAME_MODES[state.gameMode || "endless"] || GAME_MODES.endless;
             const baseMult = modeNow.scoreMultBase || 1;
@@ -2365,7 +2376,7 @@ canvas.addEventListener("pointercancel", () => {
         if (e.hp <= 0) {
           state.enemies.splice(i, 1);
 
-          const basePts = Math.floor(10 + 10 * state.heat);
+          const basePts = Math.floor(10 + 10 * diffHeat);
 
           const modeNow = GAME_MODES[state.gameMode || "endless"] || GAME_MODES.endless;
           const baseMult = modeNow.scoreMultBase || 1;
