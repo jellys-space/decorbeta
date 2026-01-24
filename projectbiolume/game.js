@@ -1967,6 +1967,8 @@ canvas.addEventListener("pointercancel", () => {
 
     // heat/wave progression
     let seconds = state.time / 1000;
+    // Difficulty heat (may be capped on mobile survival)
+    let diffHeat = state.heat;
 
     if (state.debugMode && state.debugLock) {
       // Debug lock: force manual overrides AND keep time consistent
@@ -1979,6 +1981,10 @@ canvas.addEventListener("pointercancel", () => {
 
       state.wave = forcedWave;
       state.heat = forcedHeat;
+      diffHeat =
+        (IS_MOBILE && state.gameMode === "survival")
+          ? Math.min(state.heat, 0.5)
+          : state.heat;
 
       // Keep underlying time aligned with forced wave so nothing snaps back
       state.time = (state.wave - 1) * 20000;
@@ -1989,7 +1995,7 @@ canvas.addEventListener("pointercancel", () => {
       state.wave = Math.max(1, Math.floor(seconds / 20) + 1);
 
       // Mobile Survival: cap difficulty at 50% heat (keeps anti-cheat + HUD intact)
-      const diffHeat =
+      diffHeat =
         (IS_MOBILE && state.gameMode === "survival")
           ? Math.min(state.heat, 0.5)
           : state.heat;
