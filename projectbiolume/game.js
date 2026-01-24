@@ -227,6 +227,7 @@
     // Audio (mp3 as you mentioned)
     musicMenu: `${CDN_BASE}/music/mainmenu.mp3`,
     musicGame: `${CDN_BASE}/music/maintheme.mp3`,
+    musicHardcore: `${CDN_BASE}/music/hardcore.mp3`,
     sfxShoot: `${CDN_BASE}/sound/shoot.mp3`,
     sfxEnemyHit: `${CDN_BASE}/sound/enemy_hit.mp3`,
     sfxPlayerHit: `${CDN_BASE}/sound/player_hit.mp3`,
@@ -538,15 +539,27 @@
   async function playMusic(which) {
     if (audioState.musicMuted) return;
 
-    // If the same track is already playing via WebAudio, do nothing
-    const url = (which === "game") ? ASSETS.musicGame : ASSETS.musicMenu;
+    let url;
+    let vol;
+
+    if (which === "menu") {
+      url = ASSETS.musicMenu;
+      vol = 0.45;
+    } else {
+      // GAME music depends on mode
+      if (state.gameMode === "survival") {
+        url = ASSETS.musicHardcore;
+        vol = 0.55; // slightly punchier for hardcore
+      } else {
+        url = ASSETS.musicGame;
+        vol = 0.5;
+      }
+    }
+
+    // If already playing this exact track, do nothing
     if (currentMusicUrl === url && currentMusicNode) return;
 
-    // Always stop anything currently playing before switching
     stopMusic();
-
-    // Use seamless WebAudio loop for BOTH menu and game
-    const vol = (which === "game") ? 0.5 : 0.45;
     await playSeamlessMusic(url, vol);
   }
 
@@ -1794,6 +1807,7 @@ canvas.addEventListener("pointercancel", () => {
       await Promise.all([
         getAudioBuffer(ASSETS.musicMenu),
         getAudioBuffer(ASSETS.musicGame),
+        getAudioBuffer(ASSETS.musicHardcore),
         getSfxBuffer(ASSETS.sfxEnemyHit),
         getSfxBuffer(ASSETS.sfxPlayerHit),
         getSfxBuffer(ASSETS.sfxPower),
