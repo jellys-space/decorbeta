@@ -258,7 +258,7 @@
 
     survival: {
       label: "Hardcore Survival",
-      startWave: 15,
+      startWave: IS_MOBILE ? 12 : 15,
       startHeat: 1.0, // informational; actual heat derives from time
       maxLives: 1,
       moveMult: 1.45,     // "slightly faster"
@@ -275,9 +275,12 @@
 
   function modeToStartTimeMs(modeKey) {
     const m = GAME_MODES[modeKey] || GAME_MODES.endless;
-    // Your game derives wave from time: wave = floor(seconds/20)+1
-    // So wave N corresponds to time = (N-1) * 20000ms
-    return Math.max(0, (m.startWave - 1) * 20000);
+
+    // Mobile survival starts a bit earlier to be fair on tall screens
+    const startWave =
+      (IS_MOBILE && modeKey === "survival") ? 12 : (m.startWave || 1);
+
+    return Math.max(0, (startWave - 1) * 20000);
   }
     const PLAYER_X = 90;              // left-side anchor
     const SAFE_TOP_UI_BAR = 72;       // player can't enter (prevents HUD clipping)
@@ -1995,7 +1998,7 @@ canvas.addEventListener("pointercancel", () => {
 
     // Mobile survival needs extra help due to tall canvas
     const mobileSurvivalBoost =
-      IS_MOBILE && state.gameMode === "survival" ? 1.25 : 1;
+      IS_MOBILE && state.gameMode === "survival" ? 1.50 : 1;
 
     const baseSpeed = IS_MOBILE ? 600 : 620;
     const speed = baseSpeed * (mode.moveMult || 1) * mobileSurvivalBoost;
@@ -2009,7 +2012,7 @@ canvas.addEventListener("pointercancel", () => {
       const dy = state.pointerY - state.player.y;
       const baseDrag = IS_MOBILE ? 800 : 720;
       const maxDragSpeed = baseDrag * (mode.moveMult || 1) * mobileSurvivalBoost;
-      targetVy = clamp(dy * 10, -maxDragSpeed, maxDragSpeed);
+      targetVy = clamp(dy * 13, -maxDragSpeed, maxDragSpeed);
     }
 
     // jelly inertia (smooth)
@@ -2260,11 +2263,17 @@ canvas.addEventListener("pointercancel", () => {
       if (!stunned && state.wave >= 3) {
         if (now2 >= (e.nextShotAt || 0)) {
 
-          // bullet speed (faster later waves)
-          const spd = 380 + (state.wave >= 10 ? 80 : 0);
+          // Mobile Survival mercy: slightly fewer bullets + slightly slower bullets
+          const mobileSurvivalMercy = (IS_MOBILE && state.gameMode === "survival") ? 0.72 : 1;
+
+          const spd = (380 + (state.wave >= 10 ? 80 : 0)) * mobileSurvivalMercy;
 
           // chance to fire this cycle
-          const pShoot = clamp(0.14 + (state.wave - 3) * 0.045, 0, 0.55);
+          const pShoot = clamp(
+            (0.14 + (state.wave - 3) * 0.045) * mobileSurvivalMercy,
+            0,
+            0.55
+          );
 
           // Soft cap to prevent bullet floods
           const MAX_ENEMY_BULLETS = clamp(6 + state.wave, 8, 16);
