@@ -1992,8 +1992,13 @@ canvas.addEventListener("pointercancel", () => {
 
     let targetVy = 0;
     const mode = GAME_MODES[state.gameMode || "endless"] || GAME_MODES.endless;
+
+    // Mobile survival needs extra help due to tall canvas
+    const mobileSurvivalBoost =
+      IS_MOBILE && state.gameMode === "survival" ? 1.25 : 1;
+
     const baseSpeed = IS_MOBILE ? 600 : 620;
-    const speed = baseSpeed * (mode.moveMult || 1);
+    const speed = baseSpeed * (mode.moveMult || 1) * mobileSurvivalBoost;
 
     if (state.up) targetVy -= speed;
     if (state.down) targetVy += speed;
@@ -2003,7 +2008,7 @@ canvas.addEventListener("pointercancel", () => {
       // smooth follow
       const dy = state.pointerY - state.player.y;
       const baseDrag = IS_MOBILE ? 800 : 720;
-      const maxDragSpeed = baseDrag * (mode.moveMult || 1);
+      const maxDragSpeed = baseDrag * (mode.moveMult || 1) * mobileSurvivalBoost;
       targetVy = clamp(dy * 10, -maxDragSpeed, maxDragSpeed);
     }
 
