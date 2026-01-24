@@ -133,8 +133,8 @@
                   Chaos Time Trial <span class="menu-sub">Coming Soon</span>
                 </button>
 
-                <button class="menu-item is-locked" disabled aria-disabled="true">
-                  Hardcore Survival <span class="menu-sub">Coming Soon</span>
+                <button id="btnModeSurvival" class="menu-item">
+                  Hardcore Survival <span class="menu-sub">1 life • Wave 15 • Double damage</span>
                 </button>
               </div>
 
@@ -184,6 +184,7 @@
 
               <div class="tabs">
                 <button class="tab is-active" data-lb-mode="endless" aria-pressed="true">Endless</button>
+                <button class="tab" data-lb-mode="survival" aria-pressed="false">Survival</button>
                 <button class="tab is-locked" disabled aria-disabled="true">Arcade</button>
                 <button class="tab is-locked" disabled aria-disabled="true">Chaos</button>
               </div>
@@ -198,7 +199,22 @@
               </div>
 
               <div class="menu-note small">
-                (Reset button is UI-only for now. Logic later.)
+                Reset deletes scores for all modes on this device.
+              </div>
+
+              <!-- Reset confirmation modal -->
+              <div id="lbResetConfirm" class="confirm-layer" hidden aria-hidden="true">
+                <div class="confirm-panel" role="dialog" aria-modal="true" aria-label="Reset scores confirmation">
+                  <div class="confirm-title">Reset all scores?</div>
+                  <div class="confirm-text">
+                    Warning — once you reset your scores, they are gone forever on this device. Proceed?
+                  </div>
+
+                  <div class="confirm-actions">
+                    <button id="btnResetYes" class="btn danger" type="button">Yes, reset</button>
+                    <button id="btnResetNo" class="btn ghost" type="button">No</button>
+                  </div>
+                </div>
               </div>
             </section>
 
