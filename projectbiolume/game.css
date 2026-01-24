@@ -598,6 +598,106 @@ body.is-mobile .brand .dot{
     rgba(10,16,30,.55);
 }
 
+/* ===== Reset confirmation modal ===== */
+.confirm-layer{
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 50;
+}
+/* ✅ Make the HTML "hidden" attribute actually hide the modal */
+.confirm-layer[hidden]{
+  display: none !important;
+}
+
+
+.confirm-panel{
+  width: min(420px, 92vw);
+  border-radius: 22px;
+  border: 1px solid rgba(180, 210, 255, .14);
+  background: rgba(10,16,30,.88);
+  box-shadow: 0 18px 55px rgba(0,0,0,.55);
+  padding: 16px 16px 14px;
+}
+
+.confirm-title{
+  font-weight: 900;
+  font-size: 18px;
+  color: rgba(233,240,255,.96);
+  margin-bottom: 6px;
+}
+
+.confirm-text{
+  color: rgba(156,176,214,.95);
+  line-height: 1.35;
+  margin-bottom: 14px;
+}
+
+.confirm-actions{
+  display:flex;
+  gap: 10px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+/* ----------------------------
+   Leaderboard reset confirm modal
+   ---------------------------- */
+.confirm-layer{
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(6px);
+  z-index: 20;
+}
+
+.confirm-panel{
+  width: min(420px, 92vw);
+  border-radius: 22px;
+  padding: 16px 16px 14px;
+
+  background:
+    radial-gradient(700px 420px at 20% 10%, rgba(114,247,210,.12), rgba(0,0,0,0) 55%),
+    radial-gradient(700px 420px at 80% 30%, rgba(122,166,255,.10), rgba(0,0,0,0) 60%),
+    rgba(9, 14, 26, .96);
+
+  border: 1px solid rgba(180, 210, 255, .16);
+  box-shadow:
+    0 18px 60px rgba(0,0,0,.55),
+    inset 0 0 0 1px rgba(114,247,210,.08);
+}
+
+.confirm-title{
+  font-weight: 900;
+  font-size: 16px;
+  color: rgba(233,240,255,.95);
+  margin-bottom: 8px;
+}
+
+.confirm-text{
+  color: rgba(156,176,214,.95);
+  font-size: 13px;
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+.confirm-actions{
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
 .how-grid{
   display:grid;
   grid-template-columns: 1fr 1fr;
