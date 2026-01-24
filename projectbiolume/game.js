@@ -240,9 +240,48 @@
 
   // Gameplay tuning
   const BASE_LIVES = 5;
-  const PLAYER_X = 90;              // left-side anchor
-  const SAFE_TOP_UI_BAR = 72;       // player can't enter (prevents HUD clipping)
-  const SAFE_BOTTOM_PAD = 24;
+  // ----------------------------
+  // GAME MODES (config-based)
+  // ----------------------------
+  const GAME_MODES = {
+    endless: {
+      label: "Endless",
+      startWave: 1,
+      startHeat: 0,
+      maxLives: BASE_LIVES,
+      moveMult: 1.0,
+      damageMult: 1,
+      scoreMultBase: 1,
+      allowLifePowerup: true,
+      leaderboardShowsWave: true,
+    },
+
+    survival: {
+      label: "Hardcore Survival",
+      startWave: 15,
+      startHeat: 1.0, // informational; actual heat derives from time
+      maxLives: 1,
+      moveMult: 1.45,     // "slightly faster"
+      damageMult: 2,      // double damage
+      scoreMultBase: 2,
+      allowLifePowerup: false,
+      leaderboardShowsWave: false, // score only
+    },
+  };
+
+  const COUNTDOWN_MS = 1400;      // total countdown duration (ms)
+  const COUNTDOWN_STEPS = 3;      // always display 3..2..1
+  const START_FLASH_MS = 280;     // how long "START!" flashes
+
+  function modeToStartTimeMs(modeKey) {
+    const m = GAME_MODES[modeKey] || GAME_MODES.endless;
+    // Your game derives wave from time: wave = floor(seconds/20)+1
+    // So wave N corresponds to time = (N-1) * 20000ms
+    return Math.max(0, (m.startWave - 1) * 20000);
+  }
+    const PLAYER_X = 90;              // left-side anchor
+    const SAFE_TOP_UI_BAR = 72;       // player can't enter (prevents HUD clipping)
+    const SAFE_BOTTOM_PAD = 24;
 
   // Difficulty scaling
   const DIFF = {
@@ -297,7 +336,13 @@
 
   const btnBoot = document.getElementById("btnBoot");
   const btnModeEndless = document.getElementById("btnModeEndless");
+  const btnModeSurvival = document.getElementById("btnModeSurvival");
   const btnResetScores = document.getElementById("btnResetScores");
+  // Leaderboard tabs + reset confirm modal
+  const lbTabs = overlayMenu?.querySelectorAll(".tab[data-lb-mode]");
+  const lbResetConfirm = document.getElementById("lbResetConfirm");
+  const btnResetYes = document.getElementById("btnResetYes");
+  const btnResetNo = document.getElementById("btnResetNo");
 
   const menuRoot = overlayMenu?.querySelector("[data-menu-root]");
   const menuPages = overlayMenu?.querySelector("[data-menu-pages]");
@@ -624,11 +669,26 @@
   // GAME STATE
   // ----------------------------
   const state = {
-    mode: "menu",     // menu | how | play | over
+    mode: "menu",     // boot | loading | menu | play | over
+    gameMode: "endless",     // endless | survival (future: arcade | timetrial)
+    leaderboardMode: "endless",
+
+    uiLockUntil: 0,
+
     paused: false,
+
+    // Countdown ("3..2..1..START")
+    countdownUntil: 0,   // performance.now() timestamp
+    countdownFrom: 0,    // performance.now() timestamp
+    startFlashUntil: 0,   // performance.now() timestamp (brief START! after countdown)
+
     time: 0,
     score: 0,
+
+    // Per-mode life cap
+    maxLives: BASE_LIVES,
     lives: BASE_LIVES,
+
     wave: 1,
     heat: 0,          // 0..1
     invulnUntil: 0,
@@ -695,26 +755,63 @@
     } catch {}
   }
 
-  function renderScores() {
-    const scores = loadScores();
+  function renderScores(modeKey = state.leaderboardMode || "endless") {
+    const mode = GAME_MODES[modeKey] || GAME_MODES.endless;
+
+    const all = loadScores().map(s => ({
+      ...s,
+      mode: s.mode || "endless", // migrate old entries
+    }));
+
+    const scores = all.filter(s => s.mode === modeKey);
+
     scoreList.innerHTML = "";
     if (scores.length === 0) {
       scoreList.innerHTML = `<li><small>No scores yet. Be the first.</small></li>`;
       return;
     }
-    for (const s of scores) {
+
+    // Sort (highest score first)
+    scores.sort((a, b) => b.score - a.score);
+
+    for (const s of scores.slice(0, MAX_SCORES)) {
       const li = document.createElement("li");
-      li.innerHTML = `<strong>${escapeHtml(s.name)}</strong> — ${s.score.toLocaleString()} <small>(wave ${s.wave})</small>`;
+
+      if (mode.leaderboardShowsWave) {
+        li.innerHTML = `<strong>${escapeHtml(s.name)}</strong> — ${s.score.toLocaleString()} <small>(wave ${s.wave})</small>`;
+      } else {
+        li.innerHTML = `<strong>${escapeHtml(s.name)}</strong> — ${s.score.toLocaleString()}`;
+      }
+
       scoreList.appendChild(li);
     }
   }
 
-  function addScore(name, score, wave) {
-    const scores = loadScores();
-    const entry = { name: (name || "Jelly").slice(0, 16), score, wave, ts: Date.now() };
-    scores.push(entry);
-    scores.sort((a, b) => b.score - a.score);
-    saveScores(scores);
+  function addScore(name, score, wave, modeKey = state.gameMode || "endless") {
+    const all = loadScores().map(s => ({
+      ...s,
+      mode: s.mode || "endless",
+    }));
+
+    const entry = {
+      name: (name || "Jelly").slice(0, 16),
+      score,
+      wave,
+      mode: modeKey,
+      ts: Date.now(),
+    };
+
+    all.push(entry);
+
+    // Enforce MAX_SCORES per mode
+    const next = [];
+    for (const mk of Object.keys(GAME_MODES)) {
+      const bucket = all.filter(s => (s.mode || "endless") === mk);
+      bucket.sort((a, b) => b.score - a.score);
+      next.push(...bucket.slice(0, MAX_SCORES));
+    }
+
+    saveScores(next);
   }
 
   function escapeHtml(s) {
@@ -738,17 +835,47 @@
     overlayOver.setAttribute("aria-hidden", String(which !== "over"));
   }
 
+  function setLeaderboardTab(modeKey = "endless") {
+    // store current tab mode (works whether you have per-mode scores or not)
+    if (state) state.leaderboardMode = modeKey;
+
+    // Update tab UI
+    if (lbTabs && lbTabs.length) {
+      lbTabs.forEach(btn => {
+        const mk = btn.getAttribute("data-lb-mode");
+        const active = mk === modeKey;
+        btn.classList.toggle("is-active", active);
+        btn.setAttribute("aria-pressed", String(active));
+      });
+    }
+
+    // Render scores (supports both renderScores() and renderScores(modeKey))
+    try {
+      renderScores(modeKey);
+    } catch {
+      renderScores();
+    }
+  }
+
+  function showResetConfirm(show) {
+    if (!lbResetConfirm) return;
+    lbResetConfirm.hidden = !show;
+    lbResetConfirm.setAttribute("aria-hidden", String(!show));
+  }
+  
   function setMenuPage(page) {
     if (!overlayMenu) return;
+
     const pages = overlayMenu.querySelectorAll(".menu-page");
     pages.forEach(p => p.classList.toggle("is-active", p.getAttribute("data-page") === page));
 
     // Keep aria-hidden sensible (nice for iOS VoiceOver)
     pages.forEach(p => p.setAttribute("aria-hidden", String(p.getAttribute("data-page") !== page)));
 
-    // Refresh scores when entering leaderboard page
+    // When entering leaderboard: ALWAYS default to Endless, and NEVER show the reset modal
     if (page === "leaderboard") {
-      renderScores();
+      setLeaderboardTab("endless");
+      showResetConfirm(false);
     }
   }
 
@@ -784,7 +911,7 @@
     hudScore.textContent = state.score.toLocaleString();
     hudWave.textContent = String(state.wave);
     hudHeat.textContent = `${Math.round(state.heat * 100)}%`;
-    hudLives.textContent = "♥".repeat(state.lives) + "·".repeat(Math.max(0, BASE_LIVES - state.lives));
+    hudLives.textContent = "♥".repeat(state.lives) + "·".repeat(Math.max(0, state.maxLives - state.lives));
 
     let p = [];
     if (now < state.shieldUntil) p.push("Shield");
@@ -1006,14 +1133,22 @@
     if (state.paused) return;
 
     // 1) hard caps
-    if (state.lives > BASE_LIVES) return punishCheater("lives > cap");
+    if (state.lives > state.maxLives) return punishCheater("lives > cap");
     if (state.lives < 0) return punishCheater("lives < 0");
     if (state.powerups.length > 5) return punishCheater("too many powerups");
 
     // 2) score sanity (spike detector)
     const delta = state.score - (state.lastScore || 0);
-    // if someone adds a ton of score in one frame, bye
-    if (delta > 800) return punishCheater("score spike");
+
+    // Score spike detector must respect mode + powerup multipliers
+    const modeNow = GAME_MODES[state.gameMode || "endless"] || GAME_MODES.endless;
+    const baseMult = modeNow.scoreMultBase || 1;
+    const powerupMult = (performance.now() < state.scoreMultUntil) ? 2 : 1;
+
+    // original cap (800) scaled up for legit multipliers, with a little slack
+    const spikeCap = 800 * baseMult * powerupMult + 120;
+
+    if (delta > spikeCap) return punishCheater("score spike");
     if (state.score < 0) return punishCheater("score < 0");
 
     // 3) wave/heat should follow time (unless debug)
@@ -1137,14 +1272,27 @@
   // ----------------------------
   // GAME RESET
   // ----------------------------
-  function resetGame() {
-    state.time = 0;
+  function resetGame(modeKey = state.gameMode || "endless") {
+    const m = GAME_MODES[modeKey] || GAME_MODES.endless;
+
+    // Core reset
     state.score = 0;
-    state.lives = BASE_LIVES;
-    state.wave = 1;
-    state.heat = 0;
+
+    // Apply per-mode caps
+    state.maxLives = m.maxLives;
+    state.lives = m.maxLives;
+
+    // Set starting progression via TIME (anti-cheat safe)
+    state.time = modeToStartTimeMs(modeKey);
+
+    // Derive wave/heat immediately from time (so HUD is correct before start)
+    const seconds = state.time / 1000;
+    state.heat = clamp(seconds / DIFF.rampSeconds, 0, 1);
+    state.wave = Math.max(1, Math.floor(seconds / 20) + 1);
+
     state.invulnUntil = 0;
     state.lastShotAt = 0;
+
     // anticheat reset
     state.cheatFlag = false;
     state.lastScore = 0;
@@ -1171,9 +1319,7 @@
     state.particles.length = 0;
     state.powerups.length = 0;
 
-    const now = performance.now();
-    state.nextEnemyAt = now + 600;
-    state.nextPowerAt = now + rand(DIFF.powerupEvery * 0.6, DIFF.powerupEvery * 1.4);
+    // Spawners: we set them in startRun() so countdown doesn't cause instant spawns
     updateHud();
   }
 
@@ -1313,18 +1459,20 @@
     const w = canvas.width;
     const h = canvas.height;
 
-      const types = ["shield", "railgun", "multishot", "pusher", "stungun", "capture", "multiplier", "life"];
+    // Determine allowed powerups for the current game mode
+    const mode = GAME_MODES[state.gameMode || "endless"] || GAME_MODES.endless;
 
-    // weight “life” rarer, others normal
     let t = "shield";
     const roll = Math.random();
-    if (roll < 0.14) t = "life";
-    else {
-      // pick from the non-life list
+
+    // 14% chance for life ONLY if the mode allows it
+    if (roll < 0.14 && mode.allowLifePowerup) {
+      t = "life";
+    } else {
+      // Normal pool (no "life" here)
       const pool = ["shield", "railgun", "multishot", "pusher", "stungun", "capture", "multiplier"];
       t = pool[Math.floor(Math.random() * pool.length)];
     }
-
 
     const p = {
       type: t,
@@ -1336,6 +1484,7 @@
       a: 0,
       floatPhase: Math.random() * Math.PI * 2
     };
+
     state.powerups.push(p);
   }
 
@@ -1411,7 +1560,12 @@
 
 
     if (type === "life") {
-      state.lives = clamp(state.lives + 1, 0, BASE_LIVES);
+      const mode = GAME_MODES[state.gameMode || "endless"] || GAME_MODES.endless;
+      if (!mode.allowLifePowerup) {
+        showToast("No extra lives in Survival.", 1200);
+        return;
+      }
+      state.lives = clamp(state.lives + 1, 0, state.maxLives);
       showToast(`Powerup: ${pretty[type]}`);
       return;
     }
@@ -1587,6 +1741,37 @@ canvas.addEventListener("pointercancel", () => {
   canvas.addEventListener("touchstart", (e) => e.preventDefault(), { passive: false });
   canvas.addEventListener("touchmove", (e) => e.preventDefault(), { passive: false });
 
+  async function startRun(modeKey) {
+    state.gameMode = modeKey || "endless";
+
+    // user gesture unlocks audio
+    await ensureAudioCtx();
+    try { if (audioCtx.state === "suspended") await audioCtx.resume(); } catch {}
+    iosKickstartAudio();
+
+    try { await getAudioBuffer(ASSETS.musicGame); } catch {}
+
+    if (isIOS()) {
+      try { await loadShootBuffer(); } catch {}
+      await primeSfxIOS();
+    }
+
+    // Reset for the selected mode
+    resetGame(state.gameMode);
+
+    // Start play mode (but hold gameplay behind a countdown)
+    const now = performance.now();
+    state.countdownFrom = now;
+    state.countdownUntil = now + COUNTDOWN_MS;
+    state.startFlashUntil = 0;
+
+    // Delay spawns until countdown ends
+    state.nextEnemyAt = now + COUNTDOWN_MS + 600;
+    state.nextPowerAt = now + COUNTDOWN_MS + rand(DIFF.powerupEvery * 0.6, DIFF.powerupEvery * 1.4);
+
+    setMode("play");
+  }
+  
   // ----------------------------
   // BUTTONS
   // ----------------------------
@@ -1623,39 +1808,90 @@ canvas.addEventListener("pointercancel", () => {
   
   // Menu navigation (single overlay, multiple pages)
   if (overlayMenu) {
-    overlayMenu.addEventListener("click", (e) => {
-      const t = e.target;
-      if (!(t instanceof Element)) return;
+    overlayMenu.addEventListener("pointerdown", (e) => {
+      const raw = e.target;
+      if (!(raw instanceof Element)) return;
 
-      const nav = t.getAttribute("data-nav");
-      if (nav) setMenuPage(nav);
-    });
-  }
+      const btn = raw.closest("button");
+      if (!btn) return;
 
-  // Start game from Choose Mode -> Endless
-  if (btnModeEndless) {
-    btnModeEndless.addEventListener("click", async () => {
-      // user gesture unlocks audio
-      await ensureAudioCtx();
-      try { if (audioCtx.state === "suspended") await audioCtx.resume(); } catch {}
+      // If we just swapped pages, ignore stray presses (prevents mobile "click-through")
+      const now = performance.now();
+      if (now < (state.uiLockUntil || 0)) return;
 
-      iosKickstartAudio();
+      // Page navigation
+      const nav = btn.getAttribute("data-nav");
+      if (nav) {
+        e.preventDefault();
+        e.stopPropagation();
 
-      try { await getAudioBuffer(ASSETS.musicGame); } catch {}
+        // Lock briefly to prevent "click-through" onto new page elements
+        state.uiLockUntil = now + 250;
 
-      if (isIOS()) {
-        try { await loadShootBuffer(); } catch {}
-        await primeSfxIOS();
+        setMenuPage(nav);
+        return;
       }
 
-      resetGame();
-      setMode("play");
+      // Leaderboard tabs
+      const lbMode = btn.getAttribute("data-lb-mode");
+      if (lbMode) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        state.uiLockUntil = now + 150;
+        setLeaderboardTab(lbMode);
+        return;
+      }
+    });
+  }
+  // Start game from Choose Mode -> Endless
+  if (btnModeEndless) {
+    btnModeEndless.addEventListener("click", () => startRun("endless"));
+  }
+
+  if (btnModeSurvival) {
+    btnModeSurvival.addEventListener("click", () => startRun("survival"));
+  }
+
+  // Reset Scores (with confirmation)
+  if (btnResetScores) {
+    btnResetScores.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const now = performance.now();
+      if (now < (state.uiLockUntil || 0)) return;
+
+      showResetConfirm(true);
     });
   }
 
-  // Reset Scores is UI-only for now (no logic yet)
-  // We intentionally do NOT add behavior here.
+  if (btnResetNo) {
+    btnResetNo.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      showResetConfirm(false);
 
+      // tiny lock so the "No" click doesn't hit something behind it
+      state.uiLockUntil = performance.now() + 150;
+    });
+  }
+
+  if (btnResetYes) {
+    btnResetYes.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      // Wipe ALL scores for ALL modes
+      saveScores([]);
+      showResetConfirm(false);
+
+      // Force leaderboard back to Endless and refresh UI
+      setLeaderboardTab("endless");
+
+      state.uiLockUntil = performance.now() + 150;
+    });
+  }
 
   btnRetry.addEventListener("click", async () => {
     await ensureAudioCtx();
@@ -1673,8 +1909,7 @@ canvas.addEventListener("pointercancel", () => {
       await primeSfxIOS();
     }
 
-    resetGame();
-    setMode("play");
+    startRun(state.gameMode || "endless");
   });
 
   btnMenu.addEventListener("click", () => {
@@ -1684,8 +1919,12 @@ canvas.addEventListener("pointercancel", () => {
   });
 
   btnSubmitScore.addEventListener("click", () => {
-    addScore(playerName.value || "Jelly", state.score, state.wave);
-    renderScores();
+    addScore(playerName.value || "Jelly", state.score, state.wave, state.gameMode || "endless");
+
+    // Jump the leaderboard tab to the mode you just played
+    state.leaderboardMode = state.gameMode || "endless";
+
+    renderScores(state.leaderboardMode);
     stopMusic();
     setMode("menu");
   });
@@ -1752,7 +1991,9 @@ canvas.addEventListener("pointercancel", () => {
     const maxY = h - SAFE_BOTTOM_PAD - state.player.r - 6;
 
     let targetVy = 0;
-    const speed = IS_MOBILE ? 600 : 620;
+    const mode = GAME_MODES[state.gameMode || "endless"] || GAME_MODES.endless;
+    const baseSpeed = IS_MOBILE ? 600 : 620;
+    const speed = baseSpeed * (mode.moveMult || 1);
 
     if (state.up) targetVy -= speed;
     if (state.down) targetVy += speed;
@@ -1761,7 +2002,8 @@ canvas.addEventListener("pointercancel", () => {
     if (state.pointerDown && typeof state.pointerY === "number") {
       // smooth follow
       const dy = state.pointerY - state.player.y;
-      const maxDragSpeed = IS_MOBILE ? 800 : 720;
+      const baseDrag = IS_MOBILE ? 800 : 720;
+      const maxDragSpeed = baseDrag * (mode.moveMult || 1);
       targetVy = clamp(dy * 10, -maxDragSpeed, maxDragSpeed);
     }
 
@@ -1875,8 +2117,12 @@ canvas.addEventListener("pointercancel", () => {
             state.enemies.splice(ei, 1);
 
             const basePts = Math.floor(10 + 10 * state.heat);
-            const mult = (performance.now() < state.scoreMultUntil) ? 2 : 1;
-            state.score += basePts * mult;
+
+            const modeNow = GAME_MODES[state.gameMode || "endless"] || GAME_MODES.endless;
+            const baseMult = modeNow.scoreMultBase || 1;
+            const powerupMult = (performance.now() < state.scoreMultUntil) ? 2 : 1;
+
+            state.score += basePts * baseMult * powerupMult;
           }
           break;
         }
@@ -2097,7 +2343,8 @@ canvas.addEventListener("pointercancel", () => {
           break;
         }
 
-        e.hp -= 1;
+        const mode = GAME_MODES[state.gameMode || "endless"] || GAME_MODES.endless;
+        e.hp -= (mode.damageMult || 1);
         burst(e.x, e.y, "rgba(122,166,255,.85)");
         playSfx(sfxEnemyHit);
 
@@ -2105,8 +2352,12 @@ canvas.addEventListener("pointercancel", () => {
           state.enemies.splice(i, 1);
 
           const basePts = Math.floor(10 + 10 * state.heat);
-          const mult = (performance.now() < state.scoreMultUntil) ? 2 : 1;
-          state.score += basePts * mult;
+
+          const modeNow = GAME_MODES[state.gameMode || "endless"] || GAME_MODES.endless;
+          const baseMult = modeNow.scoreMultBase || 1;
+          const powerupMult = (performance.now() < state.scoreMultUntil) ? 2 : 1;
+
+          state.score += basePts * baseMult * powerupMult;
         }
 
         break;
@@ -2573,6 +2824,55 @@ canvas.addEventListener("pointercancel", () => {
     }
     ctx.globalAlpha = 1;
 
+    // Countdown overlay text (3..2..1..START)
+    if (state.mode === "play") {
+      const nowC = performance.now();
+
+      // 3..2..1 during countdown
+      if (state.countdownUntil && nowC < state.countdownUntil) {
+        const remainingMs = state.countdownUntil - nowC;
+        const stepMs = COUNTDOWN_MS / COUNTDOWN_STEPS;
+
+        // 0..(steps-1)
+        const stepIndex = Math.floor((COUNTDOWN_MS - remainingMs) / stepMs);
+        const n = clamp(COUNTDOWN_STEPS - stepIndex, 1, COUNTDOWN_STEPS);
+
+        const frac = clamp((remainingMs % stepMs) / stepMs, 0, 1);
+        const alpha = 0.55 + 0.45 * frac;
+
+        ctx.save();
+        ctx.fillStyle = "rgba(0,0,0,.35)";
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        ctx.globalAlpha = alpha;
+        ctx.font = `900 86px ui-sans-serif, system-ui`;
+        ctx.fillStyle = "#e9f0ff";
+        ctx.fillText(String(n), w / 2, h / 2);
+
+        ctx.globalAlpha = 0.95;
+        ctx.font = `900 18px ui-sans-serif, system-ui`;
+        ctx.fillStyle = "rgba(156,176,214,.95)";
+        ctx.fillText("GET READY", w / 2, h / 2 + 70);
+
+        ctx.restore();
+      }
+
+      // START! flash after countdown
+      if (state.startFlashUntil && nowC < state.startFlashUntil) {
+        ctx.save();
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.globalAlpha = 0.95;
+        ctx.font = `900 64px ui-sans-serif, system-ui`;
+        ctx.fillStyle = "#e9f0ff";
+        ctx.fillText("START!", w / 2, h / 2);
+        ctx.restore();
+      }
+    }
+    
     // pause overlay text
     if (state.mode === "play" && state.paused) {
       ctx.fillStyle = "rgba(0,0,0,.45)";
@@ -2605,11 +2905,25 @@ canvas.addEventListener("pointercancel", () => {
     lastT = t;
 
     if (state.mode === "play" && !state.paused) {
-      update(dt);
+      // During countdown, don't advance game simulation (keeps anti-cheat happy too)
+      const now = performance.now();
+
+      if (state.countdownUntil && now < state.countdownUntil) {
+        resizeCanvasToDisplaySize();
+        updateHud();
+      } else {
+        // If countdown just finished, start a short START! flash
+        if (state.countdownUntil && now >= state.countdownUntil) {
+          state.startFlashUntil = now + START_FLASH_MS;
+          state.countdownUntil = 0;
+          state.countdownFrom = 0;
+        }
+        update(dt);
+      }
     } else {
-      // still resize + render
       resizeCanvasToDisplaySize();
     }
+
     render();
 
     requestAnimationFrame(tick);
