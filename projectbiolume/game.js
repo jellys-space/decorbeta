@@ -684,6 +684,9 @@
   // ----------------------------
   // GAME STATE
   // ----------------------------
+  const PLAYER_MAX_HP = 3;
+  const SHIELD_MAX_HP = 5;
+  
   const state = {
     mode: "menu",     // boot | loading | menu | play | over
     gameMode: "endless",     // endless | survival (future: arcade | timetrial)
@@ -704,6 +707,8 @@
     // Per-mode life cap
     maxLives: BASE_LIVES,
     lives: BASE_LIVES,
+    playerHp: PLAYER_MAX_HP,
+    shieldHp: 0,
 
     wave: 1,
     heat: 0,          // 0..1
@@ -711,7 +716,6 @@
     lastShotAt: 0,
     railgunUntil: 0,
     multishotUntil: 0,
-    shieldUntil: 0,
     toast: null, // { text, start, until }
 
     // entities
@@ -930,7 +934,7 @@
     hudLives.textContent = "♥".repeat(state.lives) + "·".repeat(Math.max(0, state.maxLives - state.lives));
 
     let p = [];
-    if (now < state.shieldUntil) p.push("Shield");
+    if (state.shieldHp > 0) p.push("Shield");
     if (now < state.multishotUntil) p.push("Multishot");
     if (now < state.railgunUntil) p.push("Railgun");
     if (now < state.scoreMultUntil) p.push("2x Score");
@@ -1297,6 +1301,8 @@
     // Apply per-mode caps
     state.maxLives = m.maxLives;
     state.lives = m.maxLives;
+    state.playerHp = PLAYER_MAX_HP;
+    state.shieldHp = 0;
 
     // Set starting progression via TIME (anti-cheat safe)
     state.time = modeToStartTimeMs(modeKey);
@@ -1315,7 +1321,6 @@
 
     state.railgunUntil = 0;
     state.multishotUntil = 0;
-    state.shieldUntil = 0;
     state.scoreMultUntil = 0;
     state.stunCharges = 0;
 
@@ -1546,22 +1551,29 @@
     const now = performance.now();
     if (now < state.invulnUntil) return;
 
-    // shield absorbs
-    if (now < state.shieldUntil) {
-      state.shieldUntil = 0;
-      state.invulnUntil = now + 450;
+    // --- SHIELD TAKES DAMAGE FIRST ---
+    if (state.shieldHp > 0) {
+      state.shieldHp -= 1;
+      state.invulnUntil = now + 350;
       playSfx(sfxPlayerHit);
-      burst(state.player.x + 10, state.player.y, "rgba(114,247,210,.8)");
+      burst(state.player.x + 10, state.player.y, "rgba(114,247,210,40)");
       return;
     }
 
-    state.lives -= 1;
-    state.invulnUntil = now + 1000;
+    // --- PLAYER HP ---
+    state.playerHp -= 1;
+    state.invulnUntil = now + 700;
     playSfx(sfxPlayerHit);
-    burst(state.player.x + 10, state.player.y, "rgba(255,106,136,.85)");
+    burst(state.player.x + 10, state.player.y, "rgba(255,106,136,85)");
 
-    if (state.lives <= 0) {
-      gameOver();
+    // --- LIFE LOST ---
+    if (state.playerHp <= 0) {
+      state.lives -= 1;
+      state.playerHp = PLAYER_MAX_HP;
+
+      if (state.lives <= 0) {
+        gameOver();
+      }
     }
   }
 
@@ -1590,7 +1602,11 @@
       showToast(`Powerup: ${pretty[type]}`);
       return;
     }
-    if (type === "shield") { state.shieldUntil = now + POWER.shield; showToast(`Powerup: ${pretty[type]}`); return; }
+    if (type === "shield") {
+      state.shieldHp = SHIELD_MAX_HP; // reset or give full shield
+      showToast(`Powerup: ${pretty[type]}`);
+      return;
+    }
     if (type === "railgun") { state.railgunUntil = now + POWER.railgun; showToast(`Powerup: ${pretty[type]}`); return; }
     if (type === "multishot") { state.multishotUntil = now + POWER.multishot; showToast(`Powerup: ${pretty[type]}`); return; }
     if (type === "pusher") {
@@ -2799,7 +2815,7 @@ canvas.addEventListener("pointercancel", () => {
     // player
     const now = performance.now();
     const invuln = now < state.invulnUntil;
-    const shield = now < state.shieldUntil;
+    const shield = state.shieldHp > 0;
 
     // shield bubble (scaled to player radius)
     const pr = state.player.r;
