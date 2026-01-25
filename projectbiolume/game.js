@@ -950,6 +950,7 @@
       showOverlay("over");
       stopMusic();
     }
+    updateHud();
   }
 
   function updateHud() {
@@ -964,10 +965,11 @@
       hudLives.textContent = "♥".repeat(state.lives) + "·".repeat(Math.max(0, state.maxLives - state.lives));
     }
 
-    // Time Trial HUD (only visible in Chaos)
+    // Time Trial HUD (only visible while actively playing Chaos)
     if (hudTimeRow) {
-      const show = state.gameMode === "chaos";
+      const show = (state.mode === "play" && state.gameMode === "chaos");
       hudTimeRow.hidden = !show;
+
       if (show && hudTime) {
         const ms = Math.max(0, Math.floor(state.timeLeftMs || 0));
         const totalSec = Math.ceil(ms / 1000);
