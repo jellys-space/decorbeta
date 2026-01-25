@@ -52,6 +52,9 @@
           <div class="hud-row"><span class="label">SCORE</span><span id="hudScore" class="value">0</span></div>
           <div class="hud-row"><span class="label">WAVE</span><span id="hudWave" class="value">1</span></div>
           <div class="hud-row"><span class="label">HEAT</span><span id="hudHeat" class="value">0%</span></div>
+          <div class="hud-row" id="hudTimeRow" hidden>
+            <span class="label">TIME</span><span id="hudTime" class="value">2:00</span>
+          </div>
         </div>
 
         <div class="hud-right">
@@ -129,8 +132,8 @@
                   Endless <span class="menu-sub">Play now</span>
                 </button>
 
-                <button class="menu-item is-locked" disabled aria-disabled="true">
-                  Chaos Time Trial <span class="menu-sub">Coming Soon</span>
+                <button id="btnModeChaos" class="menu-item">
+                  Chaos Time Trial <span class="menu-sub">2 minutes • Start wave 5</span>
                 </button>
 
                 <button id="btnModeSurvival" class="menu-item">
@@ -186,7 +189,7 @@
                 <button class="tab is-active" data-lb-mode="endless" aria-pressed="true">Endless</button>
                 <button class="tab" data-lb-mode="survival" aria-pressed="false">Survival</button>
                 <button class="tab is-locked" disabled aria-disabled="true">Arcade</button>
-                <button class="tab is-locked" disabled aria-disabled="true">Chaos</button>
+                <button class="tab" data-lb-mode="chaos" aria-pressed="false">Chaos</button>
               </div>
 
               <div class="leaderboard">
@@ -308,6 +311,7 @@
                 <button class="btn small primary" data-debug-power="capture">Capture</button>
                 <button class="btn small primary" data-debug-power="multiplier">2x</button>
                 <button class="btn small primary" data-debug-power="life">+Life</button>
+                <button class="btn small primary" data-debug-power="time">+Time</button>
               </div>
             </div>
 
