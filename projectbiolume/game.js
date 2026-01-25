@@ -222,12 +222,14 @@
     stungun: `${CDN_BASE}/sprites/stungun.png`,
     multiplier: `${CDN_BASE}/sprites/multiplier.png`,
     capture: `${CDN_BASE}/sprites/capture_net.png`,
+    time: `${CDN_BASE}/sprites/time_plus.png`,
     },
 
     // Audio (mp3 as you mentioned)
     musicMenu: `${CDN_BASE}/music/mainmenu.mp3`,
     musicGame: `${CDN_BASE}/music/maintheme.mp3`,
     musicHardcore: `${CDN_BASE}/music/hardcore.mp3`,
+    musicTimeTrial: `${CDN_BASE}/music/timetrial.mp3`,
     sfxShoot: `${CDN_BASE}/sound/shoot.mp3`,
     sfxEnemyHit: `${CDN_BASE}/sound/enemy_hit.mp3`,
     sfxPlayerHit: `${CDN_BASE}/sound/player_hit.mp3`,
@@ -267,6 +269,23 @@
       scoreMultBase: 2,
       allowLifePowerup: false,
       leaderboardShowsWave: false, // score only
+    },
+
+    chaos: {
+      label: "Chaos Time Trial",
+      startWave: 5,
+      startHeat: 0.55,
+      maxLives: 0,             // no lives system
+      moveMult: 1.05,
+      damageMult: 1,
+      scoreMultBase: 1.35,
+      allowLifePowerup: false,
+      leaderboardShowsWave: false, // name + score only (like Survival)
+
+      timeLimitMs: 120000,          // 2:00
+      hitTimePenaltyMs: 10000,      // -10s per hit
+      timePowerupBonusMs: 15000,    // +15s per time powerup
+      timePowerupMaxMs: 180000,     // cap to prevent infinite runs
     },
   };
 
@@ -323,6 +342,8 @@
   const hudScore = document.getElementById("hudScore");
   const hudWave = document.getElementById("hudWave");
   const hudHeat = document.getElementById("hudHeat");
+  const hudTimeRow = document.getElementById("hudTimeRow");
+  const hudTime = document.getElementById("hudTime");
   const hudLives = document.getElementById("hudLives");
   const hudPower = document.getElementById("hudPower");
 
@@ -341,6 +362,7 @@
   const btnBoot = document.getElementById("btnBoot");
   const btnModeEndless = document.getElementById("btnModeEndless");
   const btnModeSurvival = document.getElementById("btnModeSurvival");
+  const btnModeChaos = document.getElementById("btnModeChaos");
   const btnResetScores = document.getElementById("btnResetScores");
   // Leaderboard tabs + reset confirm modal
   const lbTabs = overlayMenu?.querySelectorAll(".tab[data-lb-mode]");
@@ -546,10 +568,12 @@
       url = ASSETS.musicMenu;
       vol = 0.45;
     } else {
-      // GAME music depends on mode
       if (state.gameMode === "survival") {
         url = ASSETS.musicHardcore;
-        vol = 0.55; // slightly punchier for hardcore
+        vol = 0.55;
+      } else if (state.gameMode === "chaos") {
+        url = ASSETS.musicTimeTrial;
+        vol = 0.6;
       } else {
         url = ASSETS.musicGame;
         vol = 0.5;
@@ -703,6 +727,8 @@
 
     time: 0,
     score: 0,
+    timeLeftMs: 0,
+    timeMaxMs: 0,
 
     // Per-mode life cap
     maxLives: BASE_LIVES,
@@ -931,7 +957,25 @@
     hudScore.textContent = state.score.toLocaleString();
     hudWave.textContent = String(state.wave);
     hudHeat.textContent = `${Math.round(state.heat * 100)}%`;
-    hudLives.textContent = "♥".repeat(state.lives) + "·".repeat(Math.max(0, state.maxLives - state.lives));
+    // Lives display (Chaos Time Trial has no lives system)
+    if (state.gameMode === "chaos") {
+      hudLives.textContent = "--";
+    } else {
+      hudLives.textContent = "♥".repeat(state.lives) + "·".repeat(Math.max(0, state.maxLives - state.lives));
+    }
+
+    // Time Trial HUD (only visible in Chaos)
+    if (hudTimeRow) {
+      const show = state.gameMode === "chaos";
+      hudTimeRow.hidden = !show;
+      if (show && hudTime) {
+        const ms = Math.max(0, Math.floor(state.timeLeftMs || 0));
+        const totalSec = Math.ceil(ms / 1000);
+        const m = Math.floor(totalSec / 60);
+        const s = String(totalSec % 60).padStart(2, "0");
+        hudTime.textContent = `${m}:${s}`;
+      }
+    }
 
     let p = [];
     if (state.shieldHp > 0) p.push("Shield");
@@ -1307,6 +1351,15 @@
     // Set starting progression via TIME (anti-cheat safe)
     state.time = modeToStartTimeMs(modeKey);
 
+    // Chaos Time Trial timer
+    if (modeKey === "chaos") {
+      state.timeLeftMs = m.timeLimitMs;
+      state.timeMaxMs = m.timePowerupMaxMs;
+    } else {
+      state.timeLeftMs = 0;
+      state.timeMaxMs = 0;
+    }
+
     // Derive wave/heat immediately from time (so HUD is correct before start)
     const seconds = state.time / 1000;
     state.heat = clamp(seconds / DIFF.rampSeconds, 0, 1);
@@ -1489,15 +1542,37 @@
     const mode = GAME_MODES[state.gameMode || "endless"] || GAME_MODES.endless;
 
     let t = "shield";
-    const roll = Math.random();
 
-    // 14% chance for life ONLY if the mode allows it
-    if (roll < 0.14 && mode.allowLifePowerup) {
-      t = "life";
+    // Chaos Time Trial: add a Time+ powerup that spawns a bit more often than others
+    if (state.gameMode === "chaos") {
+      // Weighted pool (roughly: Time ~22%, others share the rest)
+      const pool = [
+        ["time", 22],
+        ["shield", 13],
+        ["railgun", 12],
+        ["multishot", 12],
+        ["pusher", 10],
+        ["stungun", 10],
+        ["capture", 11],
+        ["multiplier", 10],
+      ];
+
+      const total = pool.reduce((a, b) => a + b[1], 0);
+      let r = Math.random() * total;
+      for (const [type, weight] of pool) {
+        r -= weight;
+        if (r <= 0) { t = type; break; }
+      }
     } else {
-      // Normal pool (no "life" here)
-      const pool = ["shield", "railgun", "multishot", "pusher", "stungun", "capture", "multiplier"];
-      t = pool[Math.floor(Math.random() * pool.length)];
+      const roll = Math.random();
+
+      // 14% chance for life ONLY if the mode allows it
+      if (roll < 0.14 && mode.allowLifePowerup) {
+        t = "life";
+      } else {
+        const pool = ["shield", "railgun", "multishot", "pusher", "stungun", "capture", "multiplier"];
+        t = pool[Math.floor(Math.random() * pool.length)];
+      }
     }
 
     const p = {
@@ -1551,7 +1626,42 @@
     const now = performance.now();
     if (now < state.invulnUntil) return;
 
-    // --- SHIELD TAKES DAMAGE FIRST ---
+    // ==============================
+    // CHAOS TIME TRIAL LOGIC
+    // ==============================
+    if (state.gameMode === "chaos") {
+      // Shield absorbs first
+      if (state.shieldHp > 0) {
+        state.shieldHp -= 1;
+        state.invulnUntil = now + 350;
+        playSfx(sfxPlayerHit);
+        burst(state.player.x + 10, state.player.y, "rgba(114,247,210,40)");
+        return;
+      }
+
+      // No HP / lives — lose time instead
+      const m = GAME_MODES.chaos;
+      state.timeLeftMs = Math.max(
+        0,
+        (state.timeLeftMs || 0) - (m.hitTimePenaltyMs || 10000)
+      );
+
+      state.invulnUntil = now + 700;
+      playSfx(sfxPlayerHit);
+      burst(state.player.x + 10, state.player.y, "rgba(255,106,136,85)");
+
+      if (state.timeLeftMs <= 0) {
+        state.timeLeftMs = 0;
+        gameOver();
+      }
+      return;
+    }
+
+    // ==============================
+    // NORMAL MODES (Endless / Survival)
+    // ==============================
+
+    // Shield first
     if (state.shieldHp > 0) {
       state.shieldHp -= 1;
       state.invulnUntil = now + 350;
@@ -1560,13 +1670,12 @@
       return;
     }
 
-    // --- PLAYER HP ---
+    // HP damage
     state.playerHp -= 1;
     state.invulnUntil = now + 700;
     playSfx(sfxPlayerHit);
     burst(state.player.x + 10, state.player.y, "rgba(255,106,136,85)");
 
-    // --- LIFE LOST ---
     if (state.playerHp <= 0) {
       state.lives -= 1;
       state.playerHp = PLAYER_MAX_HP;
@@ -1589,9 +1698,19 @@
       stungun: "Stun Gun",
       multiplier: "2x Score",
       capture: "Capture Net",
+      time: "+Time",
     };
-
-
+    
+    if (type === "time") {
+      if (state.gameMode !== "chaos") return; // ignore outside Chaos
+      const m = GAME_MODES.chaos;
+      const add = m.timePowerupBonusMs || 15000;
+      const cap = m.timePowerupMaxMs || 180000;
+      state.timeLeftMs = clamp((state.timeLeftMs || 0) + add, 0, cap);
+      showToast(`Powerup: ${pretty[type]}`);
+      return;
+    }
+    
     if (type === "life") {
       const mode = GAME_MODES[state.gameMode || "endless"] || GAME_MODES.endless;
       if (!mode.allowLifePowerup) {
@@ -1827,6 +1946,7 @@ canvas.addEventListener("pointercancel", () => {
         getAudioBuffer(ASSETS.musicMenu),
         getAudioBuffer(ASSETS.musicGame),
         getAudioBuffer(ASSETS.musicHardcore),
+        getAudioBuffer(ASSETS.musicTimeTrial),
         getSfxBuffer(ASSETS.sfxEnemyHit),
         getSfxBuffer(ASSETS.sfxPlayerHit),
         getSfxBuffer(ASSETS.sfxPower),
@@ -1888,6 +2008,10 @@ canvas.addEventListener("pointercancel", () => {
   // Start game from Choose Mode -> Endless
   if (btnModeEndless) {
     btnModeEndless.addEventListener("click", () => startRun("endless"));
+  }
+
+  if (btnModeChaos) {
+    btnModeChaos.addEventListener("click", () => startRun("chaos"));
   }
 
   if (btnModeSurvival) {
@@ -1997,6 +2121,16 @@ canvas.addEventListener("pointercancel", () => {
 
     const dt = dtMs / 1000;
     state.time += dtMs;
+
+    // Chaos Time Trial countdown (no game over until this hits 0)
+    if (state.gameMode === "chaos") {
+      state.timeLeftMs = Math.max(0, (state.timeLeftMs || 0) - dtMs);
+      if (state.timeLeftMs <= 0) {
+        state.timeLeftMs = 0;
+        gameOver();
+        return;
+      }
+    }
 
     // heat/wave progression
     let seconds = state.time / 1000;
@@ -2180,7 +2314,7 @@ canvas.addEventListener("pointercancel", () => {
             const baseMult = modeNow.scoreMultBase || 1;
             const powerupMult = (performance.now() < state.scoreMultUntil) ? 2 : 1;
 
-            state.score += basePts * baseMult * powerupMult;
+            state.score += Math.round(basePts * baseMult * powerupMult);
           }
           break;
         }
@@ -2421,7 +2555,7 @@ canvas.addEventListener("pointercancel", () => {
           const baseMult = modeNow.scoreMultBase || 1;
           const powerupMult = (performance.now() < state.scoreMultUntil) ? 2 : 1;
 
-          state.score += basePts * baseMult * powerupMult;
+          state.score += Math.round(basePts * baseMult * powerupMult);
         }
 
         break;
