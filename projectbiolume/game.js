@@ -919,7 +919,7 @@
       playMusic("menu");
     } else if (mode === "play") {
       showOverlay(null);
-      playMusic("game");
+      stopMusic();
     } else if (mode === "over") {
       showOverlay("over");
       stopMusic();
@@ -1786,7 +1786,10 @@ canvas.addEventListener("pointercancel", () => {
     try { if (audioCtx.state === "suspended") await audioCtx.resume(); } catch {}
     iosKickstartAudio();
 
-    try { await getAudioBuffer(ASSETS.musicGame); } catch {}
+    try {
+      await getAudioBuffer(ASSETS.musicGame);
+      await getAudioBuffer(ASSETS.musicHardcore);
+    } catch {}
 
     if (isIOS()) {
       try { await loadShootBuffer(); } catch {}
@@ -2978,6 +2981,7 @@ canvas.addEventListener("pointercancel", () => {
           state.startFlashUntil = now + START_FLASH_MS;
           state.countdownUntil = 0;
           state.countdownFrom = 0;
+          playMusic("game");
         }
         update(dt);
       }
