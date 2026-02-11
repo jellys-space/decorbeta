@@ -1058,3 +1058,10 @@ body.is-mobile .menu-page[data-page="credits"]{
 body.is-mobile .debug-grid{
   grid-template-columns: 1fr;
 }
+
+
+/* === Skip Credits button (during Arcade credits) === */
+#btnSkipCredits{
+  /* JS toggles this during credits */
+  display:none;
+}
