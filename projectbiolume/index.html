@@ -32,6 +32,7 @@
         <button id="btnMuteMusic" class="btn small" aria-pressed="false" title="Toggle music">Music</button>
         <button id="btnMuteSfx" class="btn small" aria-pressed="false" title="Toggle SFX">SFX</button>
         <button id="btnPause" class="btn small" aria-pressed="false" title="Pause">Pause</button>
+        <button id="btnSkipCredits" class="btn small ghost" type="button" title="Skip credits" style="display:none">Skip</button>
         <a class="btn small ghost" href="/" title="Back to Jelly's Space">Close</a>
       </div>
     </header>
@@ -49,9 +50,9 @@
       <!-- HUD overlay -->
       <div class="hud">
         <div class="hud-left">
-          <div class="hud-row"><span class="label">SCORE</span><span id="hudScore" class="value">0</span></div>
-          <div class="hud-row"><span class="label">WAVE</span><span id="hudWave" class="value">1</span></div>
-          <div class="hud-row"><span class="label">HEAT</span><span id="hudHeat" class="value">0%</span></div>
+          <div class="hud-row"><span id="hudScoreLabel" class="label">SCORE</span><span id="hudScore" class="value">0</span></div>
+          <div class="hud-row"><span id="hudWaveLabel" class="label">WAVE</span><span id="hudWave" class="value">1</span></div>
+          <div class="hud-row" id="hudHeatRow"><span id="hudHeatLabel" class="label">HEAT</span><span id="hudHeat" class="value">0%</span></div>
           <div class="hud-row" id="hudTimeRow" hidden>
             <span class="label">TIME</span><span id="hudTime" class="value">2:00</span>
           </div>
@@ -124,25 +125,40 @@
               <div class="menu-page-title">Choose Mode</div>
 
               <div class="menu-list">
-                <button class="menu-item is-locked" disabled aria-disabled="true">
-                  Arcade <span class="menu-sub">Coming Soon</span>
+                <button id="btnModeArcade" class="menu-item is-primary">
+                  Arcade <span class="menu-sub">Campaign Mode</span>
                 </button>
 
-                <button id="btnModeEndless" class="menu-item is-primary">
-                  Endless <span class="menu-sub">Play now</span>
+                <button id="btnModeEndless" class="menu-item">
+                  Endless <span class="menu-sub">Endless waves, score high!</span>
                 </button>
 
                 <button id="btnModeChaos" class="menu-item">
-                  Chaos Time Trial <span class="menu-sub">2 minutes • Start wave 5</span>
+                  Chaos Time Trial <span class="menu-sub">Lives don't matter!</span>
                 </button>
 
                 <button id="btnModeSurvival" class="menu-item">
-                  Hardcore Survival <span class="menu-sub">1 life • Wave 15 • Double damage</span>
+                  Hardcore Survival <span class="menu-sub">For the bravest among brave</span>
                 </button>
               </div>
 
               <div class="menu-actions-row">
                 <button class="btn ghost" data-nav="main">Back</button>
+              </div>
+            </section>
+
+            <!-- ARCADE MENU -->
+            <section class="menu-page" data-page="arcade" aria-label="Arcade">
+              <div class="menu-page-title">Arcade</div>
+
+              <p id="arcadeDesc" class="menu-note"> </p>
+
+              <div class="menu-list" id="arcadeActions">
+                <!-- Buttons are injected by JS based on save state -->
+              </div>
+
+              <div class="menu-actions-row">
+                <button class="btn ghost" data-nav="modes">Back</button>
               </div>
             </section>
 
@@ -188,7 +204,6 @@
               <div class="tabs">
                 <button class="tab is-active" data-lb-mode="endless" aria-pressed="true">Endless</button>
                 <button class="tab" data-lb-mode="survival" aria-pressed="false">Survival</button>
-                <button class="tab is-locked" disabled aria-disabled="true">Arcade</button>
                 <button class="tab" data-lb-mode="chaos" aria-pressed="false">Chaos</button>
               </div>
 
@@ -333,6 +348,12 @@
                 <span>Heat %</span>
                 <input id="dbgHeat" type="number" min="0" max="100" step="1" value="0" />
                 <button id="btnDbgApplyHeat" class="btn small">Apply</button>
+              </div>
+
+              <div class="debug-row">
+                <span>Arcade Level</span>
+                <input id="dbgArcadeLevel" type="number" min="1" max="50" step="1" value="1" />
+                <button id="btnDbgApplyArcadeLevel" class="btn small">Go</button>
               </div>
 
               <div class="debug-note">
