@@ -520,6 +520,67 @@
   const rand = (a, b) => a + Math.random() * (b - a);
   const chance = (p) => Math.random() < p;
 
+  // ----------------------------
+  // PLAYER FX (cute jelly anim state)
+  // ----------------------------
+  function makePlayerFx() {
+    return {
+      hurtUntil: 0,        // short flinch / stressed eyes
+      lifeLostUntil: 0,    // bigger "X eyes"
+      happyUntil: 0,       // powerup celebration
+      blinkNextAt: 0,
+      blinkUntil: 0,
+      hearts: [],          // [{ born:number, xOff:number, yOff:number, drift:number }]
+    };
+  }
+
+  function ensurePlayerFx() {
+    if (!state.playerFx) state.playerFx = makePlayerFx();
+    return state.playerFx;
+  }
+
+  function triggerPlayerHurt(strong = false) {
+    const now = performance.now();
+    const fx = ensurePlayerFx();
+    fx.hurtUntil = Math.max(fx.hurtUntil || 0, now + (strong ? 520 : 360));
+    // A blink at impact looks cute and readable
+    fx.blinkUntil = Math.max(fx.blinkUntil || 0, now + 120);
+    fx.blinkNextAt = now + 900 + Math.random() * 1400;
+  }
+
+  function triggerPlayerLifeLost() {
+    const now = performance.now();
+    const fx = ensurePlayerFx();
+    fx.lifeLostUntil = Math.max(fx.lifeLostUntil || 0, now + 720);
+    fx.hurtUntil = Math.max(fx.hurtUntil || 0, now + 520);
+    fx.blinkUntil = Math.max(fx.blinkUntil || 0, now + 160);
+    fx.blinkNextAt = now + 1200 + Math.random() * 1600;
+  }
+
+  function triggerPlayerHappy() {
+    const now = performance.now();
+    const fx = ensurePlayerFx();
+    fx.happyUntil = Math.max(fx.happyUntil || 0, now + 900);
+
+    // spawn a couple hearts near top-right of the dome (no pop-in: they grow + float + fade)
+    fx.hearts.push({
+      born: now,
+      xOff: 0.48 + Math.random() * 0.10,
+      yOff: -1.05 - Math.random() * 0.10,
+      drift: (Math.random() < 0.5 ? -1 : 1) * (0.10 + Math.random() * 0.08),
+    });
+    fx.hearts.push({
+      born: now + 110,
+      xOff: 0.40 + Math.random() * 0.10,
+      yOff: -0.98 - Math.random() * 0.10,
+      drift: (Math.random() < 0.5 ? -1 : 1) * (0.10 + Math.random() * 0.08),
+    });
+
+    // trim
+    if (fx.hearts.length > 12) fx.hearts = fx.hearts.slice(-12);
+  }
+
+
     function maxEnemiesForWave(wave) {
     // Gentler early ramp; still reaches chaos later
     if (wave <= 3) return 6;
@@ -649,6 +710,342 @@
     now: 0,
     noiseT: 0,
   };
+  // ----------------------------
+  // PLAYER RENDER (procedural cute jelly)
+  // ----------------------------
+  function drawCuteHeart(ctx, x, y, r, a) {
+    ctx.save();
+    ctx.globalAlpha *= a;
+    ctx.translate(x, y);
+    ctx.rotate(-0.2);
+    ctx.beginPath();
+    const s = r;
+    // simple heart path
+    ctx.moveTo(0, s * 0.35);
+    ctx.bezierCurveTo(s * 0.8, -s * 0.2, s * 0.9, s * 0.8, 0, s * 1.1);
+    ctx.bezierCurveTo(-s * 0.9, s * 0.8, -s * 0.8, -s * 0.2, 0, s * 0.35);
+    ctx.closePath();
+    ctx.fill();
+    // crisp outline + tiny highlight
+    ctx.lineWidth = Math.max(1, r * 0.16);
+    ctx.strokeStyle = "rgba(255,255,255,0.85)";
+    ctx.stroke();
+    ctx.globalAlpha *= 0.55;
+    ctx.fillStyle = "rgba(255,255,255,0.9)";
+    ctx.beginPath();
+    ctx.arc(r * 0.18, r * 0.18, Math.max(1, r * 0.12), 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawPlayerCute(ctx, now, t, invuln) {
+    const p = state.player;
+    const pr = p.r;
+
+    const fx = ensurePlayerFx();
+
+    // auto blink
+    if (!fx.blinkNextAt) fx.blinkNextAt = now + 1200 + Math.random() * 1600;
+    if (now >= fx.blinkNextAt) {
+      fx.blinkUntil = now + 140;
+      fx.blinkNextAt = now + 1900 + Math.random() * 2400;
+    }
+
+    const isBlink = now < (fx.blinkUntil || 0);
+    const isHurt = now < (fx.hurtUntil || 0);
+    const isLifeLost = now < (fx.lifeLostUntil || 0);
+    const isHappy = now < (fx.happyUntil || 0);
+
+    // readable motion:
+    // - happy bounce
+    // - hurt wobble
+    const bounce = isHappy ? (Math.sin(t * 18) * (pr * 0.10)) : 0;
+    const wobble = (isHurt || isLifeLost) ? (Math.sin(t * 30) * (pr * 0.05)) : 0;
+
+    // tentacles FIRST so body covers any overlaps
+    ctx.save();
+    const invFlash = invuln ? (0.88 + 0.12 * Math.sin(t * 18)) : 1;
+    ctx.globalAlpha *= invFlash;
+
+    const tentN = 6;
+    const baseY = p.y + pr * 0.74 + bounce * 0.18;
+    const endY = p.y + pr * 2.12 + bounce * 0.55;
+    const span = pr * 0.66;
+    const amp = pr * 0.18;
+
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.lineWidth = Math.max(1.4, pr * 0.095);
+    ctx.strokeStyle = "rgba(160, 220, 255, .78)";
+
+    for (let i = 0; i < tentN; i++) {
+      const u = (i / (tentN - 1)) * 2 - 1; // -1..1
+      const x0 = p.x + u * span + wobble * 0.15;
+      const phase = t * 2.6 + i * 0.9;
+
+      // 2-control bezier, with a gentle S curve
+      const c1x = x0 + Math.sin(phase) * amp * 0.55;
+      const c1y = baseY + pr * 0.55;
+      const c2x = x0 + Math.sin(phase + 1.3) * amp;
+      const c2y = (baseY + endY) * 0.52;
+
+      const x1 = x0 + Math.sin(phase + 2.1) * amp * 0.8;
+      const y1 = endY + Math.sin(phase + 0.4) * pr * 0.10;
+
+      ctx.beginPath();
+      ctx.moveTo(x0, baseY);
+      ctx.bezierCurveTo(c1x, c1y, c2x, c2y, x1, y1);
+      ctx.stroke();
+    }
+
+    // body glow
+    drawGlowCircle(p.x, p.y + bounce * 0.15, pr * 2.05, "rgba(122,166,255,.18)", "rgba(0,0,0,0)");
+
+    // dome gradient (blue like your emoji set)
+    const gradBody = ctx.createRadialGradient(
+      p.x - pr * 0.25,
+      p.y - pr * 0.85 + bounce,
+      pr * 0.18,
+      p.x,
+      p.y + bounce,
+      pr * 1.9
+    );
+    gradBody.addColorStop(0, "rgba(200,250,255,.98)");
+    gradBody.addColorStop(0.45, "rgba(118,208,255,.94)");
+    gradBody.addColorStop(1, "rgba(58,132,255,.88)");
+
+    // main body shape
+    ctx.fillStyle = gradBody;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y - 6 + bounce, pr * 0.96, Math.PI, 0);
+    ctx.quadraticCurveTo(p.x + pr * 0.96, p.y + pr * 1.06 + bounce, p.x, p.y + pr * 0.84 + bounce);
+    ctx.quadraticCurveTo(p.x - pr * 0.96, p.y + pr * 1.06 + bounce, p.x - pr * 0.96, p.y - 6 + bounce);
+    ctx.fill();
+
+    // top highlight bubble
+    ctx.globalAlpha *= 0.92;
+    ctx.fillStyle = "rgba(255,255,255,.58)";
+    ctx.beginPath();
+    ctx.ellipse(p.x - pr * 0.12, p.y - pr * 0.95 + bounce, pr * 0.30, pr * 0.20, -0.2, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha /= 0.92;
+
+    // rim sheen
+    ctx.strokeStyle = "rgba(255,255,255,.26)";
+    ctx.lineWidth = Math.max(1.2, pr * 0.06);
+    ctx.beginPath();
+    ctx.arc(p.x, p.y - pr * 0.22 + bounce, pr * 0.92, Math.PI, 0);
+    ctx.stroke();
+
+    // --- pink bow (clear + cute, top-left) ---
+    ctx.save();
+    const bx = p.x - pr * 0.40 + wobble * 0.2;
+    const by = p.y - pr * 0.98 + bounce * 0.55;
+    const bs = pr * 0.42;
+
+    ctx.translate(bx, by);
+    ctx.rotate(-0.28);
+
+    // shadow
+    ctx.globalAlpha = 0.22;
+    ctx.fillStyle = "rgba(0,0,0,1)";
+    ctx.beginPath();
+    ctx.ellipse(0, bs * 0.22, bs * 0.95, bs * 0.55, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // bow fill
+    ctx.globalAlpha = 1;
+    const gradBow = ctx.createLinearGradient(-bs, -bs * 0.2, bs, bs * 0.4);
+    gradBow.addColorStop(0, "rgba(255,160,210,.98)");
+    gradBow.addColorStop(1, "rgba(255,90,170,.98)");
+    ctx.fillStyle = gradBow;
+
+    // left loop
+    ctx.beginPath();
+    ctx.ellipse(-bs * 0.55, 0, bs * 0.55, bs * 0.36, 0, 0, Math.PI * 2);
+    ctx.fill();
+    // right loop
+    ctx.beginPath();
+    ctx.ellipse(bs * 0.55, 0, bs * 0.55, bs * 0.36, 0, 0, Math.PI * 2);
+    ctx.fill();
+    // center knot
+    ctx.fillStyle = "rgba(255,120,190,.98)";
+    ctx.beginPath();
+    ctx.ellipse(0, 0, bs * 0.23, bs * 0.19, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // outline for readability
+    ctx.strokeStyle = "rgba(255, 220, 240, .9)";
+    ctx.lineWidth = Math.max(1.2, pr * 0.055);
+    ctx.beginPath();
+    ctx.ellipse(-bs * 0.55, 0, bs * 0.55, bs * 0.36, 0, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.ellipse(bs * 0.55, 0, bs * 0.55, bs * 0.36, 0, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.ellipse(0, 0, bs * 0.23, bs * 0.19, 0, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.restore();
+
+    // --- face ---
+    const faceY = p.y + pr * 0.12 + bounce * 0.15;
+    const eyeY = faceY - pr * 0.18;
+    const eyeX = pr * 0.28;
+
+    // cheeks
+    ctx.globalAlpha *= 0.9;
+    ctx.fillStyle = "rgba(255,120,170,.25)";
+    ctx.beginPath();
+    ctx.ellipse(p.x - pr * 0.44, faceY + pr * 0.05, pr * 0.18, pr * 0.12, 0, 0, Math.PI * 2);
+    ctx.ellipse(p.x + pr * 0.44, faceY + pr * 0.05, pr * 0.18, pr * 0.12, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha /= 0.9;
+
+    ctx.strokeStyle = "rgba(16, 28, 55, .85)";
+    ctx.fillStyle = "rgba(16, 28, 55, .85)";
+    ctx.lineWidth = Math.max(1.6, pr * 0.08);
+    ctx.lineCap = "round";
+
+    if (isLifeLost) {
+      // X eyes
+      const s = pr * 0.16;
+      const lx = p.x - eyeX;
+      const rx = p.x + eyeX;
+
+      ctx.beginPath();
+      ctx.moveTo(lx - s, eyeY - s);
+      ctx.lineTo(lx + s, eyeY + s);
+      ctx.moveTo(lx + s, eyeY - s);
+      ctx.lineTo(lx - s, eyeY + s);
+
+      ctx.moveTo(rx - s, eyeY - s);
+      ctx.lineTo(rx + s, eyeY + s);
+      ctx.moveTo(rx + s, eyeY - s);
+      ctx.lineTo(rx - s, eyeY + s);
+      ctx.stroke();
+
+      // mouth: shocked "o"
+      ctx.beginPath();
+      ctx.ellipse(p.x, faceY + pr * 0.22, pr * 0.11, pr * 0.13, 0, 0, Math.PI * 2);
+      ctx.stroke();
+    } else if (isHurt) {
+      // stressed eyes: sideways "> <" (cleaner than jaggy squiggles)
+      const s = pr * 0.15;
+      const lx = p.x - eyeX;
+      const rx = p.x + eyeX;
+
+      ctx.beginPath();
+      ctx.moveTo(lx - s, eyeY - s * 0.5);
+      ctx.lineTo(lx + s * 0.55, eyeY);
+      ctx.lineTo(lx - s, eyeY + s * 0.5);
+
+      ctx.moveTo(rx + s, eyeY - s * 0.5);
+      ctx.lineTo(rx - s * 0.55, eyeY);
+      ctx.lineTo(rx + s, eyeY + s * 0.5);
+      ctx.stroke();
+
+      // mouth: small wavy frown
+      ctx.beginPath();
+      ctx.moveTo(p.x - pr * 0.16, faceY + pr * 0.28);
+      ctx.quadraticCurveTo(p.x, faceY + pr * 0.20, p.x + pr * 0.16, faceY + pr * 0.28);
+      ctx.stroke();
+    } else if (isBlink) {
+      // blink: curved lines
+      ctx.beginPath();
+      ctx.moveTo(p.x - eyeX - pr * 0.10, eyeY);
+      ctx.quadraticCurveTo(p.x - eyeX, eyeY + pr * 0.06, p.x - eyeX + pr * 0.10, eyeY);
+      ctx.moveTo(p.x + eyeX - pr * 0.10, eyeY);
+      ctx.quadraticCurveTo(p.x + eyeX, eyeY + pr * 0.06, p.x + eyeX + pr * 0.10, eyeY);
+      ctx.stroke();
+
+      // smile
+      ctx.beginPath();
+      ctx.moveTo(p.x - pr * 0.18, faceY + pr * 0.24);
+      ctx.quadraticCurveTo(p.x, faceY + pr * 0.34, p.x + pr * 0.18, faceY + pr * 0.24);
+      ctx.stroke();
+    } else if (isHappy) {
+      // sparkly happy eyes: big circles w/ highlights
+      const r = pr * 0.14;
+      ctx.fillStyle = "rgba(16, 28, 55, .9)";
+      ctx.beginPath();
+      ctx.arc(p.x - eyeX, eyeY, r, 0, Math.PI * 2);
+      ctx.arc(p.x + eyeX, eyeY, r, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = "rgba(255,255,255,.9)";
+      ctx.beginPath();
+      ctx.arc(p.x - eyeX - r * 0.25, eyeY - r * 0.25, r * 0.35, 0, Math.PI * 2);
+      ctx.arc(p.x + eyeX - r * 0.25, eyeY - r * 0.25, r * 0.35, 0, Math.PI * 2);
+      ctx.fill();
+
+      // bigger smile
+      ctx.strokeStyle = "rgba(16, 28, 55, .85)";
+      ctx.beginPath();
+      ctx.moveTo(p.x - pr * 0.20, faceY + pr * 0.22);
+      ctx.quadraticCurveTo(p.x, faceY + pr * 0.40, p.x + pr * 0.20, faceY + pr * 0.22);
+      ctx.stroke();
+    } else {
+      // normal cute face
+      const r = pr * 0.09;
+      ctx.fillStyle = "rgba(16, 28, 55, .88)";
+      ctx.beginPath();
+      ctx.arc(p.x - eyeX, eyeY, r, 0, Math.PI * 2);
+      ctx.arc(p.x + eyeX, eyeY, r, 0, Math.PI * 2);
+      ctx.fill();
+
+      // smile
+      ctx.strokeStyle = "rgba(16, 28, 55, .82)";
+      ctx.beginPath();
+      ctx.moveTo(p.x - pr * 0.16, faceY + pr * 0.24);
+      ctx.quadraticCurveTo(p.x, faceY + pr * 0.34, p.x + pr * 0.16, faceY + pr * 0.24);
+      ctx.stroke();
+    }
+
+    // powerup hearts (float + grow + fade)
+    if (fx.hearts && fx.hearts.length) {
+      ctx.save();
+      ctx.shadowColor = "rgba(255,120,170,0.85)";
+      ctx.shadowBlur = Math.max(6, pr * 0.55);
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+      ctx.fillStyle = "rgba(255,120,170,1)";
+      for (let i = fx.hearts.length - 1; i >= 0; i--) {
+        const H = fx.hearts[i];
+        const age = (now - H.born) / 700; // 0..1
+        if (age >= 1.1) { fx.hearts.splice(i, 1); continue; }
+
+        const a = clamp(1 - age, 0, 1);
+        const grow = clamp(age / 0.25, 0, 1);
+        const hx = p.x + pr * (H.xOff + Math.sin(t * 7 + i) * 0.02 + H.drift * age);
+        const hy = p.y + pr * (H.yOff - age * 0.55) + bounce * 0.4;
+
+        drawCuteHeart(ctx, hx, hy, pr * 0.34 * grow, a * 0.95);
+      }
+      ctx.restore();
+    }
+
+    // damage feedback: soft red tint (keeps facial expression visible)
+    if (invuln && isHurt) {
+      const pulse = 0.18 + 0.10 * Math.sin(t * 26);
+      ctx.save();
+      ctx.globalCompositeOperation = "lighter";
+      ctx.globalAlpha *= pulse;
+      drawGlowCircle(p.x, p.y + bounce * 0.10, pr * 1.65,
+        "rgba(255,80,110,0.55)", "rgba(255,80,110,0)");
+      ctx.globalAlpha *= 0.85;
+      ctx.fillStyle = "rgba(255,90,120,0.28)";
+      ctx.beginPath();
+      ctx.arc(p.x, p.y + bounce * 0.08, pr * 1.05, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    ctx.restore();
+  }
+
+
 
   function addShake(px) {
     FX.shake = Math.min(28, FX.shake + px);
@@ -975,6 +1372,8 @@
     playerHp: PLAYER_MAX_HP,
     shieldHp: 0,
 
+
+    playerFx: makePlayerFx(),
     wave: 1,
     heat: 0,          // 0..1
 
@@ -1943,6 +2342,7 @@ if (state.lives < 0) return punishCheater("lives < 0");
     state.playerHp = PLAYER_MAX_HP;
     state.shieldHp = 0;
 
+    state.playerFx = makePlayerFx();
     // Set starting progression via TIME (anti-cheat safe)
     state.time = modeToStartTimeMs(modeKey);
 
@@ -3430,6 +3830,7 @@ if (arrived) {
       if (state.shieldHp > 0) {
         state.shieldHp -= 1;
         state.invulnUntil = now + 350;
+      triggerPlayerHurt(false);
         playSfx(sfxPlayerHit);
         burst(state.player.x + 10, state.player.y, "rgba(114,247,210,40)");
         return;
@@ -3443,6 +3844,7 @@ if (arrived) {
       );
 
       state.invulnUntil = now + 700;
+    triggerPlayerHurt(true);
       playSfx(sfxPlayerHit);
       burst(state.player.x + 10, state.player.y, "rgba(255,106,136,85)");
 
@@ -3476,6 +3878,8 @@ if (arrived) {
       state.lives -= 1;
       state.playerHp = PLAYER_MAX_HP;
 
+
+      triggerPlayerLifeLost();
       if (state.lives <= 0) {
         gameOver();
       }
@@ -3485,6 +3889,7 @@ if (arrived) {
   function applyPowerup(type) {
     const now = performance.now();
     playSfx(sfxPower);
+    triggerPlayerHappy();
     const pretty = {
       life: "Extra Life",
       shield: "Shield",
@@ -4468,7 +4873,7 @@ canvas.addEventListener("pointercancel", () => {
 
           if (chance(pShoot) && state.enemyBullets.length < MAX_ENEMY_BULLETS) {
             state.enemyBullets.push({
-              x: e.x - e.r - 2,
+              x: e.x - e.r - 6,
               y: e.y,
               vx: -spd,
               vy: 0,
@@ -4878,7 +5283,7 @@ canvas.addEventListener("pointercancel", () => {
       const bw = b.r * 2.6;
       const bh = 8;
       const x0 = b.x - bw / 2;
-      const y0 = b.y - b.r - 22;
+      const y0 = b.y - b.r - 62;
       const frac = clamp(b.hp / b.maxHp, 0, 1);
       ctx.fillStyle = "rgba(0,0,0,.45)";
       ctx.fillRect(x0, y0, bw, bh);
@@ -5071,43 +5476,9 @@ canvas.addEventListener("pointercancel", () => {
       ctx.stroke();
     }
 
-    // player body (simple jellyfish silhouette) - scaled to player radius
+    // player body (procedural cute jelly)
     ctx.globalAlpha = invuln ? 0.5 : 1;
-
-    drawGlowCircle(
-      state.player.x,
-      state.player.y,
-      pr * 2.0,
-      "rgba(122,166,255,.14)",
-      "rgba(0,0,0,0)"
-    );
-
-    ctx.fillStyle = "rgba(233,240,255,.92)";
-    ctx.beginPath();
-    ctx.arc(state.player.x, state.player.y - 6, pr * 0.9, Math.PI, 0);
-    ctx.quadraticCurveTo(state.player.x + pr * 0.9, state.player.y + pr * 1.0, state.player.x, state.player.y + pr * 0.8);
-    ctx.quadraticCurveTo(state.player.x - pr * 0.9, state.player.y + pr * 1.0, state.player.x - pr * 0.9, state.player.y - 6);
-    ctx.fill();
-
-    // tentacles (scaled to player radius)
-    ctx.strokeStyle = "rgba(233,240,255,.75)";
-    ctx.lineWidth = 2;
-
-    const tentacleSpan = pr * 0.7;   // narrower spread
-    const tentacleStep = pr * 0.45;  // fewer tentacles
-
-    for (let off = -tentacleSpan; off <= tentacleSpan; off += tentacleStep) {
-      ctx.beginPath();
-      ctx.moveTo(state.player.x + off, state.player.y + pr * 0.55);
-      ctx.quadraticCurveTo(
-        state.player.x + off + pr * 0.5,
-        state.player.y + pr * 1.2,
-        state.player.x + off,
-        state.player.y + pr * 2.0 + Math.sin(t * 2 + off) * (pr * 0.25)
-      );
-      ctx.stroke();
-    }
-
+    drawPlayerCute(ctx, now, t, invuln);
     ctx.globalAlpha = 1;
 
     // particles
@@ -5338,12 +5709,9 @@ canvas.addEventListener("pointercancel", () => {
   // ----------------------------
   async function init() {
     // optional sprite loads (won't break if missing)
-    [playerImg, bulletImg] = await Promise.all([
-      loadImage(ASSETS.playerSprite),
-      loadImage(ASSETS.bulletSprite),
-    ]);
-
-    // load powerup sprites
+    playerImg = null; // procedural player (no sprite fetch)
+    bulletImg = await loadImage(ASSETS.bulletSprite);
+// load powerup sprites
     for (const [type, url] of Object.entries(ASSETS.powerupSprites)) {
         powerupImgs[type] = await loadImage(url);
     }
