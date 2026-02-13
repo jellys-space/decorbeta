@@ -39,6 +39,14 @@
 
     <main class="stage hide-game">
       <canvas id="game" width="960" height="540" aria-label="Project Biolume game canvas"></canvas>
+
+      <!-- Center pause actions (shown only while paused) -->
+      <div id="pauseCenter" class="pause-center" hidden>
+        <div class="pause-card">
+          <div class="pause-title">Paused</div>
+          <button id="btnPauseToMenu" class="btn primary">Main Menu</button>
+        </div>
+      </div>
     <!-- Stun gun: appears only when you have a charge -->
       <button id="btnStun" class="btn small primary hud-action" aria-pressed="false"
               title="Use Stun Gun" style="display:none">Stun</button>
