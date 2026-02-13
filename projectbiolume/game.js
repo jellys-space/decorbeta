@@ -433,7 +433,7 @@
       case 20: return 300;
       case 30: return 400;
       case 40: return 500;
-      case 50: return 1;
+      case 50: return 600;
       default: return 900;
     }
   }
@@ -504,6 +504,10 @@
   const btnSkipCredits = document.getElementById("btnSkipCredits");
   const btnStun = document.getElementById("btnStun");
   const btnCapture = document.getElementById("btnCapture");
+
+  // Pause center UI (button in the middle of the canvas)
+  const pauseCenter = document.getElementById("pauseCenter");
+  const btnPauseToMenu = document.getElementById("btnPauseToMenu");
 
   const scoreList = document.getElementById("scoreList");
   const finalScore = document.getElementById("finalScore");
@@ -1430,6 +1434,21 @@
   };
 
   // ----------------------------
+  // UI LOCK (mobile click-through protection)
+  // ----------------------------
+  const UI_LOCK_MS = 450;
+  const uiLocked = () => performance.now() < (state.uiLockUntil || 0);
+  const lockUI = (ms = UI_LOCK_MS) => { state.uiLockUntil = performance.now() + ms; };
+
+  // Capture-phase click guard: iOS sometimes fires a delayed click after a page swap.
+  document.addEventListener("click", (e) => {
+    if (!uiLocked()) return;
+    e.preventDefault();
+    e.stopPropagation();
+    if (typeof e.stopImmediatePropagation === "function") e.stopImmediatePropagation();
+  }, true);
+
+  // ----------------------------
   // HIGH SCORES
   // ----------------------------
   function loadScores() {
@@ -1817,6 +1836,7 @@
     const stageEl = document.querySelector(".stage");
     if (stageEl) stageEl.classList.toggle("hide-game", mode === "boot" || mode === "loading");
     state.paused = false;
+    if (pauseCenter) pauseCenter.hidden = true;
     btnPause.setAttribute("aria-pressed", "false");
     btnPause.textContent = "Pause";
 
@@ -4014,9 +4034,18 @@ if (arrived) {
         showMenu: true,
       });
     } else {
+      // Non-Arcade: ensure the shared Over overlay is reset (Arcade can change its title/buttons)
       finalScore.textContent = state.score.toLocaleString();
       try { playerName.value = playerName.value || "Jelly"; } catch {}
-      showOverlay("over");
+
+      showOverOverlay({
+        title: "Game Over",
+        subHtml: "",
+        showSaveScore: true,
+        showRetry: true,
+        retryText: "Retry",
+        showMenu: true,
+      });
     }
 
     stopMusic();
@@ -4248,7 +4277,7 @@ canvas.addEventListener("pointercancel", () => {
 
       // If we just swapped pages, ignore stray presses (prevents mobile "click-through")
       const now = performance.now();
-      if (now < (state.uiLockUntil || 0)) return;
+      if (uiLocked()) return;
 
       // Page navigation
       const nav = btn.getAttribute("data-nav");
@@ -4257,7 +4286,7 @@ canvas.addEventListener("pointercancel", () => {
         e.stopPropagation();
 
         // Lock briefly to prevent "click-through" onto new page elements
-        state.uiLockUntil = now + 250;
+        lockUI(450);
 
         setMenuPage(nav);
         return;
@@ -4269,30 +4298,32 @@ canvas.addEventListener("pointercancel", () => {
         e.preventDefault();
         e.stopPropagation();
 
-        state.uiLockUntil = now + 150;
+        lockUI(450);
         setLeaderboardTab(lbMode);
         return;
       }
     });
   }
   // Start game from Choose Mode -> Endless
-  if (btnModeArcade) {
-    btnModeArcade.addEventListener("click", () => {
-      setMenuPage("arcade");
-    });
-  }
+  // Use pointerdown so the action triggers immediately on iOS,
+  // and lock UI so the delayed click doesn't hit the next screen.
+  const bindMenuTap = (el, fn) => {
+    if (!el) return;
+    const handler = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (uiLocked()) return;
+      lockUI(600);
+      fn();
+    };
+    el.addEventListener("pointerdown", handler, { passive: false });
+    el.addEventListener("click", handler); // fallback + also blocks ghost click
+  };
 
-  if (btnModeEndless) {
-    btnModeEndless.addEventListener("click", () => startRun("endless"));
-  }
-
-  if (btnModeChaos) {
-    btnModeChaos.addEventListener("click", () => startRun("chaos"));
-  }
-
-  if (btnModeSurvival) {
-    btnModeSurvival.addEventListener("click", () => startRun("survival"));
-  }
+  bindMenuTap(btnModeArcade, () => setMenuPage("arcade"));
+  bindMenuTap(btnModeEndless, () => startRun("endless"));
+  bindMenuTap(btnModeChaos, () => startRun("chaos"));
+  bindMenuTap(btnModeSurvival, () => startRun("survival"));
 
   // Reset Scores (with confirmation)
   if (btnResetScores) {
@@ -4388,6 +4419,23 @@ canvas.addEventListener("pointercancel", () => {
   btnMuteSfx.addEventListener("click", () => setSfxMuted(!audioState.sfxMuted));
 
   btnPause.addEventListener("click", () => togglePause());
+
+  if (btnPauseToMenu) {
+    // Center button shown when paused
+    btnPauseToMenu.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (!state.paused) return;
+      lockUI(400);
+      state.paused = false;
+      if (pauseCenter) pauseCenter.hidden = true;
+      btnPause.setAttribute("aria-pressed", "false");
+      btnPause.textContent = "Pause";
+      stopMusic();
+      setMode("menu");
+      renderScores();
+    });
+  }
   if (btnSkipCredits) {
     btnSkipCredits.addEventListener("click", () => {
       if (state.credits) finishArcadeCredits();
@@ -4401,6 +4449,7 @@ canvas.addEventListener("pointercancel", () => {
     state.paused = !state.paused;
     btnPause.setAttribute("aria-pressed", String(state.paused));
     btnPause.textContent = state.paused ? "Resume" : "Pause";
+    if (pauseCenter) pauseCenter.hidden = !state.paused;
     if (state.paused) {
       // keep music playing; feels nicer
     }
