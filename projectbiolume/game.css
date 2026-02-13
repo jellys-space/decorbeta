@@ -1065,3 +1065,36 @@ body.is-mobile .debug-grid{
   /* JS toggles this during credits */
   display:none;
 }
+
+/* ----------------------------
+   Center pause menu button
+   ---------------------------- */
+#pauseCenter.pause-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 40;
+  pointer-events: none;
+}
+
+.pause-card{
+  pointer-events: auto;
+  padding: 18px 22px;
+  border-radius: 20px;
+  border: 1px solid rgba(60,88,130,.55);
+  background: rgba(10,16,30,.55);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 60px rgba(0,0,0,.45);
+  text-align: center;
+  min-width: 220px;
+}
+
+.pause-title{
+  font-weight: 900;
+  letter-spacing: .02em;
+  color: rgba(233,240,255,.98);
+  margin-bottom: 10px;
+  font-size: 16px;
+}
