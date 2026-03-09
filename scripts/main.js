@@ -213,28 +213,21 @@ const marketing = [
     `${urls.CDN}/decors/Huxleys%20Myst.png`,
     `${urls.CDN}/decors/axoblue.png`,
     `${urls.CDN}/decors/baron.png`,
-    `${urls.CDN}/decors/gemstonepink.png`,
     `${urls.CDN}/decors/giratina.png`,
     `${urls.CDN}/decors/geometric.png`,
     `${urls.CDN}/decors/jellys.png`,
     `${urls.CDN}/decors/layla_skill.png`,
-    `${urls.CDN}/decors/leavesmagenta.png`,
-    `${urls.CDN}/decors/nyancat.png`,
     `${urls.CDN}/decors/pinkknife.png`,
     `${urls.CDN}/decors/protoss.png`,
     `${urls.CDN}/decors/purple-glow.png`,
     `${urls.CDN}/decors/radbolts.png`,
     `${urls.CDN}/decors/retrocar.png`,
-    `${urls.CDN}/decors/ribbonpink.png`,
     `${urls.CDN}/decors/roly%20poly.png`,
     `${urls.CDN}/decors/kirara-skill.png`,
-    `${urls.CDN}/decors/leavesautumn.png`,
     `${urls.CDN}/decors/shuriken.png`,
     `${urls.CDN}/decors/daggers.png`,
     `${urls.CDN}/decors/dark%20fountain.png`,
-    `${urls.CDN}/decors/pink%20pumpkin%20by%20nuki.png`,
     `${urls.CDN}/decors/teefs%20by%20cal.png`,
-    `${urls.CDN}/decors/mlem.png`,
     `${urls.CDN}/decors/miles%20morales%20decor.png`,
     `${urls.CDN}/decors/rick%20astley.png`,
     `${urls.CDN}/decors/queen%20bee.png`,
@@ -352,25 +345,6 @@ const artists = [
                 "link": null
             }
         ]
-    },
-    {
-        id: "1143994313034960967",
-        name: "Nuki",
-        assets: {
-            avatar: {
-                asset: "nuki",
-                animated: false
-            },
-            banner: {
-                asset: "nuki",
-                animated: false
-            }
-        },
-        sumarry: `Hi !! ♡ I'm Nuki, i go by she/they !!\ni'm a person with half a braincell\nxavvi a valorant player`,
-        colors: {
-            primary: "#893f79"
-        },
-        commissions: []
     },
     {
         id: "1187559332703899708",
@@ -910,11 +884,6 @@ const artists = [
     {
         id: "1349840616103612428",
         name: "ICAN_AU",
-        listed: false
-    },
-    {
-        id: "1298495520423149609",
-        name: "Hailey",
         listed: false
     },
     {
@@ -2680,20 +2649,6 @@ const categories = [
         ],
         "decorations": [
             {
-                "name": "Pink Pumpkin",
-                "artist": findUser('1143994313034960967'),
-                "asset": "pink pumpkin by nuki.png",
-                "summary": "Part of the Halloween Preset pack. Add some festive flair to your profile this Halloween!",
-                "tags": [
-                    "pink",
-					"bat",
-					"cute",
-					"kawaii",
-					"spooky",
-                    "nuki"
-                ]
-            },
-            {
                 "name": "Pumpkin",
                 "artist": findUser('811114235966521364'),
                 "asset": "pumpkin by cal.png",
@@ -3668,78 +3623,6 @@ const categories = [
 					"purple",
 					"cute",
 					"kawaii"
-				]
-            },
-        ]
-    },
-    {
-        "name": "A Frog's Life",
-        "banner": "a-frog-banner.png",
-        "artist_info": null,
-        "artists": [
-            findUser('1143994313034960967')
-        ],
-        "decorations": [
-            {
-                "name": "Gardening",
-                "asset": "gardening.png",
-                "summary": "Part of the A Frog's Life Preset pack.",
-				"tags": [
-					"green",
-					"cute",
-					"animal"
-				]
-            },
-            {
-                "name": "Lillypad",
-                "asset": "lillypad.png",
-                "summary": "Part of the A Frog's Life Preset pack.",
-				"tags": [
-					"green",
-					"cute",
-					"animal"
-				]
-            },
-            {
-                "name": "Mlem",
-                "asset": "mlem.png",
-                "summary": "Part of the A Frog's Life Preset pack.",
-				"tags": [
-					"green",
-					"cute",
-					"animal"
-				]
-            },
-            {
-                "name": "Raindrop",
-                "asset": "raindrop.png",
-                "summary": "Part of the A Frog's Life Preset pack.",
-				"tags": [
-					"green",
-					"cute",
-					"animal"
-				]
-            },
-            {
-                "name": "Rainy Day",
-                "asset": "rainy day.png",
-                "summary": "Part of the A Frog's Life Preset pack.",
-				"tags": [
-					"yellow",
-					"orange",
-					"cute",
-					"animal",
-					"umbrella"
-				]
-            },
-            {
-                "name": "Smiles",
-                "asset": "smiles.png",
-                "summary": "Part of the A Frog's Life Preset pack.",
-				"tags": [
-					"green",
-					"cute",
-					"animal"
 				]
             },
         ]
@@ -6018,121 +5901,6 @@ const categories = [
                 "tags": [
                     "animated",
                 ]
-            },
-        ]
-    },
-    {
-        "name": "Poop Monsters",
-        "banner": "poop-banner.png",
-        "artist_info": null,
-        "artists": [
-            findUser('1298495520423149609')
-        ],
-        "decorations": [
-            {
-                "name": "Brown Poop Monster",
-                "asset": "Brown Poop Monster.png",
-                "summary": "Part of the Poop Monsters Preset pack."
-            },
-            {
-                "name": "Blue Poop Monster",
-                "asset": "Blue Poop Monster.png",
-                "summary": "Part of the Poop Monsters Preset pack."
-            },
-            {
-                "name": "Green Poop Monster",
-                "asset": "Green Poop Monster.png",
-                "summary": "Part of the Poop Monsters Preset pack."
-            },
-            {
-                "name": "Orange Poop Monster",
-                "asset": "Orange Poop Monster.png",
-                "summary": "Part of the Poop Monsters Preset pack."
-            },
-            {
-                "name": "Pink Poop Monster",
-                "asset": "Pink Poop Monster.png",
-                "summary": "Part of the Poop Monsters Preset pack."
-            },
-            {
-                "name": "Purple Poop Monster",
-                "asset": "Purple Poop Monster.png",
-                "summary": "Part of the Poop Monsters Preset pack."
-            },
-            {
-                "name": "Red Poop Monster",
-                "asset": "Red Poop Monster.png",
-                "summary": "Part of the Poop Monsters Preset pack."
-            },
-            {
-                "name": "Yellow Poop Monster",
-                "asset": "Yellow Poop Monster.png",
-                "summary": "Part of the Poop Monsters Preset pack."
-            },
-            {
-                "name": "Rainbow Poop Monster",
-                "asset": "Rainbow Poop Monster.png",
-                "summary": "Part of the Poop Monsters Preset pack."
-            },
-            {
-                "name": "Brat Poop Monster",
-                "asset": "Brat Poop Monster.png",
-                "summary": "Part of the Poop Monsters Preset pack."
-            },
-            {
-                "name": "Bisexual Poop Monster",
-                "asset": "Bisexual Poop Monster.png",
-                "summary": "Part of the Poop Monsters Preset pack."
-            },
-            {
-                "name": "Genderfluid Poop Monster",
-                "asset": "Genderfluid Poop Monster.png",
-                "summary": "Part of the Poop Monsters Preset pack."
-            },
-            {
-                "name": "Lesbian Poop Monster",
-                "asset": "Lesbian Poop Monster.png",
-                "summary": "Part of the Poop Monsters Preset pack."
-            },
-            {
-                "name": "Non-Binary Poop Monster",
-                "asset": "Non-Binary Poop Monster.png",
-                "summary": "Part of the Poop Monsters Preset pack."
-            },
-            {
-                "name": "Pansexual Poop Monster",
-                "asset": "Pansexual Poop Monster.png",
-                "summary": "Part of the Poop Monsters Preset pack."
-            },
-            {
-                "name": "Transgender Poop Monster",
-                "asset": "Transgender Poop Monster.png",
-                "summary": "Part of the Poop Monsters Preset pack."
-            },
-            {
-                "name": "British Poop Monster",
-                "asset": "British Poop Monster.png",
-                "summary": "Part of the Poop Monsters Preset pack."
-            },
-            {
-                "name": "United Poops of America",
-                "asset": "United Poops of America.png",
-                "summary": "Part of the Poop Monsters Preset pack."
-            },
-            {
-                "name": "France Poop Monster",
-                "asset": "France Poop Monster.png",
-                "summary": "Part of the Poop Monsters Preset pack."
-            },
-            {
-                "name": "Sweden Poop Monster",
-                "asset": "Sweden Poop Monster.png",
-                "summary": "Part of the Poop Monsters Preset pack."
-            },
-            {
-                "name": "Poland Poop Monster",
-                "asset": "Poland Poop Monster.png",
-                "summary": "Part of the Poop Monsters Preset pack."
             },
         ]
     },
@@ -9567,33 +9335,6 @@ const categories = [
         ],
         "decorations": [
             {
-                "name": "Bunnie",
-                "artist": findUser('1143994313034960967'),
-                "asset": "bunnie by pixie.png",
-                "summary": "Part of the Easter Preset pack.",
-                "tags": [
-                    "nuki",
-                ]
-            },
-            {
-                "name": "Choco Bunny",
-                "artist": findUser('1143994313034960967'),
-                "asset": "choco bunny by pixie.png",
-                "summary": "Part of the Easter Preset pack.",
-                "tags": [
-                    "nuki",
-                ]
-            },
-            {
-                "name": "Egg Basket",
-                "artist": findUser('1143994313034960967'),
-                "asset": "egg basket by pixie.png",
-                "summary": "Part of the Easter Preset pack.",
-                "tags": [
-                    "nuki",
-                ]
-            },
-            {
                 "name": "Community Eggs",
                 "artist": findUser('452679089929846784'),
                 "asset": "fixed community eggs by zin.png",
@@ -9912,87 +9653,6 @@ const categories = [
                 "asset": "Sauda.png",
                 "summary": "Part of the Bloons Tower Defense 6 Preset pack."
             },
-        ]
-    },
-    {
-        "name": "BAKERS",
-        "banner": "nuki-bakery-banner.png",
-        "artist_info": null,
-        "artists": [
-            findUser('1143994313034960967')
-        ],
-        "decorations": [
-            {
-                "name": "Pink Boba",
-                "asset": "pinkboba.png",
-                "summary": "Part of the Baker's Dozen Preset pack."
-            },
-            {
-                "name": "Cherry On Top",
-                "asset": "cherryontop.png",
-                "summary": "Part of the Baker's Dozen Preset pack."
-            },
-            {
-                "name": "Chocolate Roll",
-                "asset": "choco_roll.png",
-                "summary": "Part of the Baker's Dozen Preset pack."
-            },
-            {
-                "name": "Strawberry Roll",
-                "asset": "strawberry_roll.png",
-                "summary": "Part of the Baker's Dozen Preset pack."
-            },
-            {
-                "name": "Cookie",
-                "asset": "cookie.png",
-                "summary": "Part of the Baker's Dozen Preset pack.",
-                "tags": [
-                    "animated",
-                ]
-            },
-            {
-                "name": "Croissant",
-                "asset": "croissant.png",
-                "summary": "Part of the Baker's Dozen Preset pack."
-            },
-            {
-                "name": "Crumb",
-                "asset": "crumb.png",
-                "summary": "Part of the Baker's Dozen Preset pack."
-            },
-            {
-                "name": "Pink Cupcake Circle",
-                "asset": "pinkcupcake.png",
-                "summary": "Part of the Baker's Dozen Preset pack."
-            },
-            {
-                "name": "Cupcake Tray",
-                "asset": "cupcaketray.png",
-                "summary": "Part of the Baker's Dozen Preset pack."
-            },
-            {
-                "name": "Mixing Bowl",
-                "asset": "mixingbowl.png",
-                "summary": "Part of the Baker's Dozen Preset pack."
-            },
-            {
-                "name": "Pie Slice",
-                "asset": "pieslice.png",
-                "summary": "Part of the Baker's Dozen Preset pack.",
-                "tags": [
-                    "animated",
-                ]
-            },
-            {
-                "name": "Strawberries",
-                "asset": "strawberries.png",
-                "summary": "Part of the Baker's Dozen Preset pack."
-            },
-            {
-                "name": "Sundae Bowl",
-                "asset": "sundaebowl.png",
-                "summary": "Part of the Baker's Dozen Preset pack."
-            }
         ]
     },
     {
@@ -11468,468 +11128,6 @@ const categories = [
         ]
     },
     {
-        "force_break": true,
-        "name": "BUTTERFLY",
-        "banner": "nuki-crystal-banner.png",
-        "artist_info": null,
-        "artists": [
-            findUser('1143994313034960967')
-        ],
-        "force_pagebreak": true,
-        "decorations": [
-            {
-                "name": "Dandelion Autumn",
-                "asset": "dandelionautumn.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Dandelion Blue",
-                "asset": "dandelionblue.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Dandelion Cherry",
-                "asset": "dandelioncherry.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Dandelion Cyan",
-                "asset": "dandelioncyan.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Dandelion Green",
-                "asset": "dandeliongreen.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Dandelion Mystical",
-                "asset": "dandelionmystical.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Dandelion Pink",
-                "asset": "dandelionpink.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Dandelion Purple",
-                "asset": "dandelionpurple.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Dandelion Yellow",
-                "asset": "dandelionyellow.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Dust Azure",
-                "asset": "dustazure.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Dust Cyan",
-                "asset": "dustcyan.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Dust Forest",
-                "asset": "dustforest.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Dust Green",
-                "asset": "dustgreen.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Dust Magical",
-                "asset": "dustmagical.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Dust Pink",
-                "asset": "dustpink.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Dust Purple",
-                "asset": "dustpurple.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Dust Red",
-                "asset": "dustred.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Dust Yellow",
-                "asset": "dustyellow.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Gemstone Autumn",
-                "asset": "gemstoneautumn.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Gemstone Blue",
-                "asset": "gemstoneblue.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Gemstone Green",
-                "asset": "gemstonegreen.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Gemstone Pastel",
-                "asset": "gemstonepastel.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Gemstone Pink",
-                "asset": "gemstonepink.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Gemstone Red",
-                "asset": "gemstonered.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Gemstone Spring",
-                "asset": "gemstonespring.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Gemstone Summer",
-                "asset": "gemstonesummer.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Gemstone Yellow",
-                "asset": "gemstoneyellow.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Holly Autumn",
-                "asset": "hollyautumn.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Holly Blue",
-                "asset": "hollyblue.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Holly Brown",
-                "asset": "hollybrown.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Holly Cherry",
-                "asset": "hollycherry.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Holly Forest",
-                "asset": "hollyforest.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Holly Green",
-                "asset": "hollygreen.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Holly Mint",
-                "asset": "hollymint.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Holly Purple",
-                "asset": "hollypurple.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Holly Red",
-                "asset": "hollyred.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Lantern Autumn",
-                "asset": "lanternautumn.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Lantern Blue",
-                "asset": "lanternblue.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Lantern Cherry",
-                "asset": "lanterncherry.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Lantern Crystal",
-                "asset": "lanterncrystal.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Lantern Green",
-                "asset": "lanterngreen.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Lantern Pink",
-                "asset": "lanternpink.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Lantern Purple",
-                "asset": "lanternpurple.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Lantern Red",
-                "asset": "lanternred.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Lantern Yellow",
-                "asset": "lanternyellow.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "No Lantern Autumn",
-                "asset": "nolanternautumn.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "No Lantern Blue",
-                "asset": "nolanternblue.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "No Lantern Cherry",
-                "asset": "nolanterncherry.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "No Lantern Crystal",
-                "asset": "nolanterncrystal.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "No Lantern Green",
-                "asset": "nolanterngreen.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "No Lantern Pink",
-                "asset": "nolanternpink.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "No Lantern Purple",
-                "asset": "nolanternpurple.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "No Lantern Red",
-                "asset": "nolanternred.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "No Lantern Yellow",
-                "asset": "nolanternyellow.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Quartz Blue",
-                "asset": "quartzblue.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Quartz Cyan",
-                "asset": "quartzcyan.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Quartz Green",
-                "asset": "quartzgreen.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Quartz Orange",
-                "asset": "quartzorange.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Quartz Purple",
-                "asset": "quartzpurple.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Quartz Red",
-                "asset": "quartzred.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Quartz Rose",
-                "asset": "quartzrose.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Quartz Yellow",
-                "asset": "quartzyellow.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Quartz Rainbow",
-                "asset": "quartzrainbow.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Ribbon Blue",
-                "asset": "ribbonblue.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Ribbon Cyan",
-                "asset": "ribboncyan.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Ribbon Forest",
-                "asset": "ribbonforest.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Ribbon Mint",
-                "asset": "ribbonmint.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Ribbon Pink",
-                "asset": "ribbonpink.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Ribbon Purple",
-                "asset": "ribbonpurple.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Ribbon Red",
-                "asset": "ribbonred.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Ribbon Rose",
-                "asset": "ribbonrose.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Ribbon Yellow",
-                "asset": "ribbonyellow.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Sakura Autumn",
-                "asset": "sakuraautumn.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Sakura Dawn",
-                "asset": "sakuradawn.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Sakura Cyan",
-                "asset": "sakuracyan.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Sakura Emerald",
-                "asset": "sakuraemerald.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Sakura Mint",
-                "asset": "sakuramint.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Sakura Moonlight",
-                "asset": "sakuramoonlight.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Sakura Twilight",
-                "asset": "sakuratwilight.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Sakura Pink",
-                "asset": "sakurapink.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Sakura Yellow",
-                "asset": "sakurayellow.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Leaves Autumn",
-                "asset": "leavesautumn.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Leaves Blue",
-                "asset": "leavesblue.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Leaves Green",
-                "asset": "leavesgreen.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Leaves Magenta",
-                "asset": "leavesmagenta.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Leaves Mint",
-                "asset": "leavesmint.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Leaves Pink",
-                "asset": "leavespink.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Leaves Red",
-                "asset": "leavesred.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Leaves Winter",
-                "asset": "leaveswinter.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            },
-            {
-                "name": "Leaves Yellow",
-                "asset": "leavesyellow.png",
-                "summary": "Part of the Tales of Crystal Wonderland Preset pack.",
-            }
-        ]
-    },
-    {
         "name": "CORAL REEF",
         "banner": "coralbannernew.png",
         "artist_info": null,
@@ -12375,39 +11573,6 @@ const categories = [
         ]
     },
     {
-        "name": "Pancake Day",
-        "banner": "nuki-pancake-banner.png",
-        "artist_info": null,
-        "artists": [
-            findUser('1143994313034960967')
-        ],
-        "decorations": [
-            {
-                "name": "Fork",
-                "asset": "fork.png",
-                "summary": "Part of the Pancake Day Preset pack.",
-            },
-            {
-                "name": "Munching",
-                "asset": "munching.png",
-                "summary": "Part of the Pancake Day Preset pack.",
-                "tags": [
-                    "animated",
-                ]
-            },
-            {
-                "name": "Syrup",
-                "asset": "syrup.png",
-                "summary": "Part of the Pancake Day Preset pack.",
-            },
-            {
-                "name": "Syrup 2",
-                "asset": "syrup2.png",
-                "summary": "Part of the Pancake Day Preset pack.",
-            }
-        ]
-    },
-    {
         "name": "Oxygen",
         "banner": "newoxygen-banner.png",
         "artist_info": null,
@@ -12446,46 +11611,6 @@ const categories = [
                 "tags": [
                     "animated",
                 ]
-            }
-        ]
-    },
-    {
-        "name": "Sanrio",
-        "banner": "nuki-sanrio-banner.png",
-        "artist_info": null,
-        "artists": [
-            findUser('1143994313034960967')
-        ],
-        "decorations": [
-            {
-                "name": "Choco",
-                "asset": "choco.png",
-                "summary": "Part of the Sanrio Preset pack.",
-            },
-            {
-                "name": "Cinnamoroll",
-                "asset": "cinnamoroll.png",
-                "summary": "Part of the Sanrio Preset pack.",
-            },
-            {
-                "name": "Hello Kitty",
-                "asset": "kitty.png",
-                "summary": "Part of the Sanrio Preset pack.",
-            },
-            {
-                "name": "Kuromi",
-                "asset": "kuromi.png",
-                "summary": "Part of the Sanrio Preset pack.",
-            },
-            {
-                "name": "Melody",
-                "asset": "melody.png",
-                "summary": "Part of the Sanrio Preset pack.",
-            },
-            {
-                "name": "Purin",
-                "asset": "purin.png",
-                "summary": "Part of the Sanrio Preset pack.",
             }
         ]
     },
@@ -12711,46 +11836,6 @@ const categories = [
                 "tags": [
                     "animated",
                 ]
-            }
-        ]
-    },
-    {
-        "name": "Sonic Love",
-        "banner": "nuki-sonic-banner.png",
-        "artist_info": null,
-        "artists": [
-            findUser('1143994313034960967')
-        ],
-        "decorations": [
-            {
-                "name": "Holding Baby",
-                "asset": "holdingbaby.png",
-                "summary": "Part of the Wavy & Sonic's Love Story Preset pack.",
-            },
-            {
-                "name": "Greetings",
-                "asset": "greetings.png",
-                "summary": "Part of the Wavy & Sonic's Love Story Preset pack.",
-            },
-            {
-                "name": "Sonic Pal",
-                "asset": "sonicpal.png",
-                "summary": "Part of the Wavy & Sonic's Love Story Preset pack.",
-            },
-            {
-                "name": "Marry Me",
-                "asset": "marryme.png",
-                "summary": "Part of the Wavy & Sonic's Love Story Preset pack.",
-            },
-            {
-                "name": "Big Day",
-                "asset": "bigday.png",
-                "summary": "Part of the Wavy & Sonic's Love Story Preset pack.",
-            },
-            {
-                "name": "Streamer",
-                "asset": "streamer.png",
-                "summary": "Part of the Wavy & Sonic's Love Story Preset pack.",
             }
         ]
     },
@@ -13507,25 +12592,6 @@ const categories = [
                 ]
             },
             {
-                "name": "Jellies",
-                "artist": findUser("1143994313034960967"),
-                "asset": "jellies.png",
-                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in.",
-                "tags": [
-                    "nuki",
-                ]
-            },
-            {
-                "name": "Nyan Cat",
-                "artist": findUser("1143994313034960967"),
-                "asset": "nyancat.png",
-                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in.",
-                "tags": [
-                    "animated",
-                    "nuki"
-                ]
-            },
-            {
                 "name": "Energy Ring",
                 "artist": findUser("1031549301001814059"),
                 "asset": "energyring.png",
@@ -13533,24 +12599,6 @@ const categories = [
                 "tags": [
                     "animated",
                     "shadow"
-                ]
-            },
-            {
-                "name": "Biblically Accurate Angel",
-                "artist": findUser("1143994313034960967"),
-                "asset": "angel no sparkle.png",
-                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in.",
-                "tags": [
-                    "nuki",
-                ]
-            },
-            {
-                "name": "Biblically Accurate Angel with Sparkles",
-                "artist": findUser("1143994313034960967"),
-                "asset": "angel sparkle.png",
-                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in.",
-                "tags": [
-                    "nuki",
                 ]
             },
             {
@@ -13678,42 +12726,6 @@ const categories = [
                 "tags": [
                     "animated",
                     "seele"
-                ]
-            },
-            {
-                "name": "Pink Flowers",
-                "artist": findUser("1143994313034960967"),
-                "asset": "pink flowers by nuki.png",
-                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in.",
-                "tags": [
-                    "nuki",
-                ]
-            },
-            {
-                "name": "Light Pink Flowers",
-                "artist": findUser("1143994313034960967"),
-                "asset": "light pink flowers by nuki.png",
-                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in.",
-                "tags": [
-                    "nuki",
-                ]
-            },
-            {
-                "name": "Dog Ears",
-                "artist": findUser("1143994313034960967"),
-                "asset": "dog ears by nuki.png",
-                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in.",
-                "tags": [
-                    "nuki",
-                ]
-            },
-            {
-                "name": "Dog Ears With Bow",
-                "artist": findUser("1143994313034960967"),
-                "asset": "dog ears with bow by nuki.png",
-                "summary": "This decoration is uncategorized because it is a standalone decoration with no other category it could be placed in.",
-                "tags": [
-                    "nuki",
                 ]
             },
             {
